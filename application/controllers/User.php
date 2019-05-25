@@ -5,10 +5,24 @@ class User extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('user_model');
+		$this->load->helper('url');
 		$this->load->helper('url_helper');
+       	$this->load->library('session');
 	}
 
+	/**
+	 * pour créer une session $this-session->set_userdata(name, array)
+	 * pour vérifier on fait $this->session->has_userdata(name)
+	 * pour récupérer $this->session->userdata(name)
+	 * pour supprimer la session on fait $this->session->unset_userdata(name)
+	 *
+	 */
+
 	public function index() {
+		//ici vérifier si il y a une session
+		if ($this->session->has_userdata('user_session')) {
+			redirect('compte');
+		}		
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
@@ -21,12 +35,21 @@ class User extends CI_Controller {
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('user/inscription', $data); 
 		} else {
-			$this->user_model->create_user();
-			header('Location: compte');
+			if ($this->user_model->create_user()) {
+				$this->user_model->set_session_user();
+				redirect('compte');
+			} else {
+				$data['error'] = 'Email ou mot de passe incorrect';
+				$this->load->view('user/inscription', $data); 
+			}
 		}
 	}
 
-	public function connexion(){
+	public function connexion() {
+		//ici vérifier si il y a une session
+		if ($this->session->has_userdata('user_session')) {
+			redirect('compte');
+		}	
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
@@ -39,19 +62,37 @@ class User extends CI_Controller {
 			$this->load->view('user/connexion', $data); 
 		} else {
 			if ($this->user_model->connect()) {
-				header('Location: compte');
+				$this->user_model->set_session_user();
+				redirect('compte');
 			} else {
 				$data['error'] = 'Email ou mot de passe incorrect';
 				$this->load->view('user/connexion', $data); 
 			}
 		}
-
-		$data['connexion'] = $this->user_model->get_user();
 	}
 
-	public function compte(){
-		$data['compte'] = $this->user_model->get_user();
+	public function compte() {
+		if (!$this->session->has_userdata('user_session')) {
+			redirect('connexion');
+		}	
+		$data['title'] = 'Compte';
+
+		$data['user'] = $this->session->userdata('user_session');
 		$this->load->view('user/compte', $data); 
+	}
+
+	public function home(){
+		$data['title'] = 'Home';
+
+		$data['home'] = $this->user_model->get_user();
+		$this->load->view('user/home', $data); 
+	}
+
+	public function deco(){
+		if ($this->session->has_userdata('user_session')) {
+			$this->session->unset_userdata('user_session');
+		}
+		redirect('home');
 	}
  
 }

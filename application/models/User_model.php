@@ -4,6 +4,7 @@ class User_model extends CI_Model {
 
 	public function __construct() {
 		$this->load->database();
+       	$this->load->library('session');
 	}
 
 	public function get_user() {
@@ -22,17 +23,34 @@ class User_model extends CI_Model {
 		return $this->db->insert('user', $data);
 	}
 
+	public function get_user_by_email($email) {
+		$sql = "SELECT * FROM user WHERE email = ?";
+		$query = $this->db->query($sql, $email);
+
+		return $query->row_array();
+	}
+
+	public function set_session_user() {
+		$this->load->helper('url');
+
+		$email = $this->input->post('email');
+
+		$result = $this->get_user_by_email($email);
+
+		if (isset($result)) {
+			$this->session->set_userdata('user_session', $result);
+		}
+	}
+
 	public function connect() {
 		$this->load->helper('url');
+
 		$data = [
 			'email' => $this->input->post('email'),
 			'password' => $this->input->post('password')
 		];
 
-		$sql = "SELECT * FROM user WHERE email = ?";
-		$query = $this->db->query($sql, [$data['email']]);
-
-		$result = $query->row_array();
+		$result = $this->get_user_by_email($data['email']);
 		if (isset($result)) {
 			return password_verify($data['password'], $result['password']);
 		}
