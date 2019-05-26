@@ -1,0 +1,58 @@
+d'un titre,
+d'une description,
+de plusieurs éléments comprenant : un label, une aide, une possibilité de réponse sous formes :
+un champ texte,
+une zone de texte,
+une liste déroulante,
+des cases à cochers,
+bouton radio,
+une date
+
+
+table form
+
+id AI PRIMARY
+titre
+description
+date -> auto généré à la création
+cle -> 	unique (md5 par ex)
+
+table question
+
+id AI PRIMARY
+type (text, zone, liste, etc.)
+label
+form_id
+
+table réponse
+id
+form_id
+question_id
+reponse
+
+
+
+[x] toto (0)
+[x] tata (1)
+[] titi (2)
+
+$reponseCheckbox = array(
+	1,
+	1,
+	0
+);
+
+$reponseImplode = implode(', ', $reponseCheckbox);
+// "1, 1, 0"
+
+explode(', ' $reponseImplode);
+// [
+	1,
+	1,
+	0
+]
+
+
+
+
+

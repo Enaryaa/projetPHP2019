@@ -20,7 +20,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Fonctionnalité <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,14 +36,23 @@
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" method="post" action="<?php echo site_url('inscription'); ?>">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Inscription</button>
+    <form class="form-inline my-2 my-lg-0" method="get" action="<?php echo site_url('inscription'); ?>">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Inscription</button>
     </form>
-    <form class="form-inline my-2 my-lg-0" method="post" action="<?php echo site_url('connexion'); ?>">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Connexion</button>
+    <form class="form-inline my-2 my-lg-0" method="get" action="<?php echo site_url('connexion'); ?>">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Connexion</button>
     </form>
   </div>
 </nav>
+
+<div class="jumbotron">
+  <?php if (isset($delete)) { ?><div class="alert alert-success" role="alert"><p><?php echo $delete;?></p></div><?php } ?>
+  <h1 class="display-4">Créer des formulaires en fonction de vos besoins</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

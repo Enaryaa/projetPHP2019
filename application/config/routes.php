@@ -56,6 +56,7 @@ $route['connexion'] = 'user/connexion';
 $route['compte'] = 'user/compte';
 $route['home'] = 'user/home';
 $route['deco'] = 'user/deco';
+$route['delete'] = 'user/delete';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

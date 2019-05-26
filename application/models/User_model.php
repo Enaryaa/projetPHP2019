@@ -23,11 +23,26 @@ class User_model extends CI_Model {
 		return $this->db->insert('user', $data);
 	}
 
+	public function update_password(){
+		$this->load->helper('url');
+		$user = $this->session->userdata('user_session');
+		$password = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
+		$sql = "UPDATE user SET password = ? WHERE email = ?";
+
+		return $this->db->query($sql, array($password, $user['email']));
+	}
+
 	public function get_user_by_email($email) {
 		$sql = "SELECT * FROM user WHERE email = ?";
 		$query = $this->db->query($sql, $email);
 
 		return $query->row_array();
+	}
+
+	public function delete_user(){
+		$user = $this->session->userdata('user_session');
+		$sql = "DELETE from user WHERE email = ?";
+		return $this->db->query($sql, $user['email']);
 	}
 
 	public function set_session_user() {

@@ -10,9 +10,9 @@
 
 </head>
 <body class="container">
-
-	<?php echo validation_errors(); ?>
-	<?php if (isset($error)) { ?><p><?php echo $error;?></p><?php } ?>
+	
+ <?php echo validation_errors('<div class="alert alert-danger" role="alert">','</div>'); ?>
+  <?php if (isset($error)) { ?><div class="alert alert-danger" role="alert"><p><?php echo $error;?></p></div><?php } ?>
 
 	<?php echo form_open('inscription'); ?>
 		<div class="form-group">
