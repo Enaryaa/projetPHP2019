@@ -87,11 +87,15 @@ class User extends CI_Controller {
 		$data['user'] = $this->session->userdata('user_session');
 
 		if ($this->form_validation->run() === FALSE) {
-			$this->load->view('user/compte', $data); 
+			$this->load->view('header', $data);
+			$this->load->view('user/compte', $data);
+			$this->load->view('footer', $data); 
 		} else {
 			$this->user_model->update_password();
 			$data['succes'] = 'mot de passe modifié';
+			$this->load->view('header', $data);
 			$this->load->view('user/compte', $data);
+			$this->load->view('footer', $data); 
 		}
 		
 	}

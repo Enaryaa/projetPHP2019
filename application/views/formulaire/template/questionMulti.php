@@ -15,7 +15,7 @@
 	<label class="form-check-label mb-3" for="defaultCheck1">Question obligatoire</label>
 </div>
 <div class="form-group" id="containerChoix">
-	<button type="button" id="ajoutRep<?php echo $cpt; ?>" class="btn btn-primary">Ajouter une réponse</button>
+	<button type="button" id="ajoutRep<?php echo $cpt; ?>" class="btn btn-primary mb-3">Ajouter une réponse</button>
 </div>
 <hr class="mb-4"></hr>
 <script type="text/javascript">

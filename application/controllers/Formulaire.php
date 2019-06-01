@@ -18,7 +18,9 @@ class Formulaire extends CI_Controller {
 		$data['title'] = 'Formulaire';
 		//start a cpt for a new form
 		$this->session->set_userdata('cpt_question', 0);
+		$this->load->view('header', $data);
 		$this->load->view('formulaire/formulaire', $data);
+		$this->load->view('footer', $data);
 	}
 
 	public function questionRep(){
