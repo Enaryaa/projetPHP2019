@@ -9,25 +9,31 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
-<body class="container">
-
- <?php echo validation_errors('<div class="alert alert-danger" role="alert">','</div>'); ?>
-  <?php if (isset($error)) { ?><div class="alert alert-danger" role="alert"><p><?php echo $error;?></p></div><?php } ?>
-
-	<?php echo form_open('connexion'); ?>
-		<div class="form-group">
-			<label for="inputEmail">Adresse Mail</label>
-			<input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Email">
-			<small id="emailHelp" class="form-text text-muted"></small>
+<body >
+<div class="jumbotron">
+<h1 class="display-4">Connexion</h1>
+<p class="lead">Content de vous revoir !</p>
+</div>
+<?php echo validation_errors('<div class="alert alert-danger" role="alert">','</div>'); ?>
+<?php if (isset($error)) { ?><div class="alert alert-danger" role="alert"><p><?php echo $error;?></p></div><?php } ?>
+	<div class="row">
+		<div class="col-4"></div>
+		<div class="col-4">
+		<?php echo form_open('connexion'); ?>
+			<div class="form-group">
+				<label for="inputEmail">Adresse Mail</label>
+				<input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Email">
+				<small id="emailHelp" class="form-text text-muted"></small>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword">Mot de Passe</label>
+				<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Mot de passe">
+			</div>
+			<button type="submit" name="envoi" method="post" class="btn btn-primary">Connexion</button>
+		</form>
 		</div>
-		<div class="form-group">
-			<label for="inputPassword">Mot de Passe</label>
-			<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Mot de passe">
-		</div>
-		<button type="submit" name="envoi" method="post" class="btn btn-primary">Connexion</button>
-
-	</form>
-
+		<div class="col-4"></div>
+	</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-myq8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

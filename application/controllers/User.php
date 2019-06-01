@@ -112,7 +112,14 @@ class User extends CI_Controller {
 			$this->session->unset_userdata('delete');
 		}		
 		$data['title'] = 'Home';
-		$this->load->view('user/home', $data); 
+
+		if ($this->session->has_userdata('user_session')) {
+			$data['user'] = $this->session->userdata('user_session');
+		}	
+
+		$this->load->view('header', $data);
+		$this->load->view('user/home', $data);
+		$this->load->view('footer', $data);
 	}
 
 	public function deco(){
