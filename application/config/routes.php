@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'user/home';
 $route['inscription'] = 'user';
+$route['formulaire'] = 'formulaire';
 //end user route//
 $route['connexion'] = 'user/connexion';
 $route['compte'] = 'user/compte';
