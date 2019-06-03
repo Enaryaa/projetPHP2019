@@ -29,7 +29,7 @@
 				<label for="inputPassword">Mot de Passe</label>
 				<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Mot de passe">
 			</div>
-			<button type="submit" name="envoi" method="post" class="btn btn-primary">Connexion</button>
+			<button type="submit" name="envoi" method="post" class="btn btn-warning">Connexion</button>
 		</form>
 		</div>
 		<div class="col-4"></div>

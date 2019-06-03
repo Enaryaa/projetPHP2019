@@ -14,8 +14,8 @@
 
 		</div>
 		<div class="col-3" >
-			<button type="button" id="addQuestionRep" class="btn btn-primary mb-3">Ajouter une Question/Reponse</button>
-			<button type="button" id="addQuestionMulti" class="btn btn-primary">Ajouter une question à choix</button>
+			<button type="button" id="addQuestionRep" class="btn btn-warning mb-3">Ajouter une Question/Reponse</button>
+			<button type="button" id="addQuestionMulti" class="btn btn-warning">Ajouter une question à choix</button>
 		</div>
 	</div>
 </div>
@@ -27,7 +27,6 @@
   	}
   	$(document).ready(function() {
   		$('#addQuestionRep').on("click", function() {
-  			console.log("ajout d'une question réponse");
   			$.ajax('formulaire/questionrep')
   			.done(function(result) {
   				$('#form').append(result);

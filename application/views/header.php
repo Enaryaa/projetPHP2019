@@ -19,7 +19,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/home">Game of Forms</a>
+  <a class="navbar-brand" href="<?php echo site_url('home'); ?>">Game of Forms</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -32,7 +32,7 @@
           Formulaire
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/formulaire">Créer un formulaire</a>
+          <a class="dropdown-item" href="<?php echo site_url('formulaire'); ?>">Créer un formulaire</a>
           <a class="dropdown-item" href="#">Gérer les formulaires</a>
         </div>
         
@@ -43,7 +43,7 @@
     <div class="dropdown">
       <button class="btn btn-outline-warning my-2 my-sm-0 dropdown-toggle" type="button" id="menuUser" data-toggle="dropdown" aria-hasgroup="true" aria-expanded="false"><?php echo $user['pseudo']; ?></button>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menuUser">
-          <a class="dropdown-item" href="/compte">Compte</a>
+          <a class="dropdown-item" href="<?php echo site_url('compte'); ?>">Compte</a>
 
           <a class="dropdown-item" href="<?php echo site_url('deco'); ?>">Déconnexion</a>
         </div>

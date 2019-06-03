@@ -21,7 +21,7 @@
       <label for="inputPassword2">Confirmer votre mot de passe</label>
       <input type="password" name="passwordConf" class="form-control" id="inputPassword2" placeholder="Mot de passe">
     </div>
-    <button type="submit" name="submit"  method="post" class="btn btn-primary mb-3">Enregistrer les modifications</button>
+    <button type="submit" name="submit"  method="post" class="btn btn-warning mb-3">Enregistrer les modifications</button>
   </form>
   <form class="form-inline my-2 my-lg-0" method="get" action="<?php echo site_url('delete'); ?>">
       <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Supprimer compte</button>
