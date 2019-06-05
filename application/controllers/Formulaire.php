@@ -5,7 +5,9 @@ class Formulaire extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
        	$this->load->library('session');
+		$this->load->model('formulaire_model');
 		$this->load->helper('url');
+		$this->load->helper('url_helper');
 		
 	}
 
@@ -13,15 +15,36 @@ class Formulaire extends CI_Controller {
 		if (!$this->session->has_userdata('user_session')) {
 			redirect('connexion');
 		}
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
 		$data['user'] = $this->session->userdata('user_session');
 
 		$data['title'] = 'Formulaire';
 		//start a cpt for a new form
+		$this->form_validation->set_rules('titre', 'Titre', 'required');
+		$this->form_validation->set_rules('description', 'Description', 'required');
+
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('header', $data);
+			$this->load->view('formulaire/formulaire', $data);
+			$this->load->view('footer', $data);
+		}else {
+			if ($this->formulaire_model->create_form()) {
+				redirect('compte');
+			} else {
+				$data['error'] = 'Formulaire incorrect';
+				$this->load->view('header', $data);
+				$this->load->view('formulaire/formulaire', $data);
+				$this->load->view('footer', $data);
+		}
+
 		$this->session->set_userdata('cpt_question', 0);
 		$this->load->view('header', $data);
 		$this->load->view('formulaire/formulaire', $data);
 		$this->load->view('footer', $data);
 	}
+}
 
 	public function questionRep(){
 		$data['cpt'] = $this->getCptQuestion();
@@ -44,5 +67,9 @@ class Formulaire extends CI_Controller {
 
 	private function incrementeCptQuestion($current) {
 		$this->session->set_userdata('cpt_question', $current + 1);
+	}
+
+	private function decrementCptQuestion($current){
+		$this->session->set_userdata('cpt_question', $current - 1);
 	}
 }
