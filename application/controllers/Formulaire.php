@@ -30,7 +30,8 @@ class Formulaire extends CI_Controller {
 			$this->load->view('formulaire/formulaire', $data);
 			$this->load->view('footer', $data);
 		}else {
-			if ($this->formulaire_model->create_form()) {
+			if ($this->formulaire_model->create_form() && 
+				$this->formulaire_model->add_question()) {
 				redirect('compte');
 			} else {
 				$data['error'] = 'Formulaire incorrect';
@@ -53,8 +54,16 @@ class Formulaire extends CI_Controller {
 	}
 
 	public function questionMulti(){
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
 		$data['cpt'] = $this->getCptQuestion();
 		$this->incrementeCptQuestion($data['cpt']);
+
+		$this->form_validation->set_rules('text_quest', 'Question', 'required');
+		$this->form_validation->set_rules('test_aide', 'Aide', 'required');
+
 		$this->load->view('formulaire/template/questionMulti', $data);
 	}
 

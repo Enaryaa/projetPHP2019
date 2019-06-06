@@ -3,18 +3,19 @@
     <label for="exampleFormControlTextarea1">Question </label>
     <textarea name="question[<?php echo $cpt; ?>][label]"class="form-control" id="question" rows="3"></textarea>
   </div>
-
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="btnradio" autocomplete="off" checked> Bouton radio
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="btncheck" autocomplete="off"> Case à cocher
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="liste" autocomplete="off"> Liste déroulante
-  </label>
-</div>
+<div class="form-group" >
+    <label for="exampleFormControlTextarea1">Aide </label>
+    <textarea name="aide"class="form-control" id="question" rows="1"></textarea>
+  </div>
+<form>
+    <div class="col-auto my-1">
+      <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Type de réponse</label>
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="choixrep">
+        <option value="1">Bouton radio</option>
+        <option value="2">Case à cocher</option>
+        <option value="3">Liste</option>
+      </select>
+    </div>
 
 <div class="form-check">
 	<input  name= "question[<?php echo $cpt; ?>][requis]" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
@@ -24,6 +25,7 @@
 	<button type="button" id="ajoutRep<?php echo $cpt; ?>" class="btn btn-warning mb-3 mr-3">Ajouter une réponse</button>
   <button type="button" onclick="Suppr()" id="supprRep" class="btn btn-outline-danger mb-3">Supprimer la question</button>
 </div>
+</form>
 <hr class="mb-4"></hr>
 </div>
 <script type="text/javascript">
