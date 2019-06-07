@@ -1,16 +1,24 @@
 
+<title><?php echo $title; ?></title>
+
 <div class="container mt-3">
 	<div class="row">
 		<div class="col-9">
-			<form id="form">
-				<label for="inputEmail">Titre</label>
-				<input type="text" name="titre" class="form-control">
+        <?php echo form_open('formulaire'); ?>
+
+			<div id="form">
+				<label for="inputText">Titre</label>
+				<input type="text" name="titre" class="form-control" placeholder="Titre">
 				<div class="form-group">
 					<label for="description">Description</label>
 					<textarea name="description" class="form-control" id="description" rows="2"></textarea>
 					<hr class="mb-4"></hr>
 				</div>
-			</form>
+      </div>
+
+      <button type="submit" name="submit"  method="post" class="btn btn-warning">Sauvegarder</button>
+      </form>
+      
 
 		</div>
 		<div class="col-3" >
@@ -27,6 +35,7 @@
   		var parent = element.parentNode;
 		$(parent).append('<input name="question[' + cpt + '][choix_rep][]" class="form-control mb-3" type="text">');
   	}
+
   	$(document).ready(function() {
   		$('#addQuestionRep').on("click", function() {
   			$.ajax('formulaire/questionrep')
