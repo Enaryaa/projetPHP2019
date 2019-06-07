@@ -33,7 +33,7 @@
   	function addRep(element, cpt) {
 
   		var parent = element.parentNode;
-		$(parent).append('<input name="question[' + cpt + '][choix_rep][]" class="form-control mb-3" type="text">');
+		$(parent).append('<input name="question[' + cpt + '][text_reponse][]" class="form-control mb-3" type="text">');
   	}
 
   	$(document).ready(function() {

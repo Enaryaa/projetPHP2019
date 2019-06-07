@@ -33,6 +33,9 @@ class Formulaire_model extends CI_Model {
 
 	public function add_question(){
 		$this->load->helper('url');
+
+	
+
 		$data = [
 			'type_rep' => $this->input->post('choixrep'),
 			'text_aide' => $this->input->post('aide'),

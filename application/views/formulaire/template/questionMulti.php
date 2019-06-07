@@ -1,17 +1,17 @@
 <div id="qChoix">
 <div class="form-group" >
     <label for="exampleFormControlTextarea1">Question </label>
-    <textarea name="question[<?php echo $cpt; ?>][label]"class="form-control" id="question" rows="3"></textarea>
+    <input  name= "question[<?php echo $cpt; ?>][text_quest]" value="" id="question" size="80">
   </div>
 <div class="form-group" >
     <label for="exampleFormControlTextarea1">Aide </label>
-    <textarea name="aide"class="form-control" id="question" rows="1"></textarea>
+    <input  name= "aide[<?php echo $cpt; ?>][text_aide]" value="" id="question" size="80">
   </div>
 <form>
     <div class="col-auto my-1">
       <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Type de réponse</label>
-      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="choixrep">
-        <option value="1">Bouton radio</option>
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="choixrep[<?php echo $cpt; ?>][type_rep]">
+        <option value="1">1</option>
         <option value="2">Case à cocher</option>
         <option value="3">Liste</option>
       </select>

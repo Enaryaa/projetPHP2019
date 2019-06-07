@@ -2,7 +2,7 @@
 <input type="hidden" name="question[<?php echo $cpt; ?>][type_rep]" value="text">
 <div class="form-group">
 	<label for="exampleFormControlTextarea1">Question</label>
-	<textarea name="question[<?php echo $cpt; ?>][label]" class="form-control" id="question" rows="1"></textarea>
+	<textarea name="question[<?php echo $cpt; ?>][text_quest]" class="form-control" id="question" rows="1"></textarea>
 </div>
 <div class="form-group" >
     <label for="exampleFormControlTextarea1">Aide </label>

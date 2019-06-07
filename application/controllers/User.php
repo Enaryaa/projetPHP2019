@@ -54,6 +54,7 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 
 		$data['title'] = 'Connexion';
+		
 
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required');
