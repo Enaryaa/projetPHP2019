@@ -21,14 +21,16 @@
 </div>
 
   	<script type="text/javascript">
+
   	function addRep(element, cpt) {
+
   		var parent = element.parentNode;
 		$(parent).append('<input name="question[' + cpt + '][choix_rep][]" class="form-control mb-3" type="text">');
   	}
   	$(document).ready(function() {
   		$('#addQuestionRep').on("click", function() {
   			$.ajax('formulaire/questionrep')
-  			.done(function(result) {
+  		  .done(function(result) {
   				$('#form').append(result);
   			});
   		});
@@ -43,5 +45,6 @@
   			
   		})
   	});
+  
   </script>
  

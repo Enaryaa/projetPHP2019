@@ -20,7 +20,9 @@
 	<label class="form-check-label mb-3" for="defaultCheck1">Question obligatoire</label>
 </div>
 <div class="form-group" id="containerChoix">
-	<button type="button" id="ajoutRep<?php echo $cpt; ?>" class="btn btn-warning mb-3">Ajouter une réponse</button>
+	<button type="button" id="ajoutRep<?php echo $cpt; ?>" class="btn btn-warning mb-3 mr-3">Ajouter une réponse</button>
+  <button type="button" id="supprQuestion<?php echo $cpt; ?>" class="btn btn-outline-danger mb-3">Supprimer une réponse</button>
+
 </div>
 <hr class="mb-4"></hr>
 <script type="text/javascript">
@@ -31,5 +33,6 @@ var element = document.getElementById(id);
 element.addEventListener('click', function() {
   addRep(element);
 });
+
 
 </script>
