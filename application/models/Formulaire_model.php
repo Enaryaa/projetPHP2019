@@ -7,6 +7,10 @@ class Formulaire_model extends CI_Model {
        	$this->load->library('session');
 	}
 
+	public function show_form(){
+
+	}
+
 	public function create_form(){
 		$this->load->helper('url');
 		$this->load->helper('date');
