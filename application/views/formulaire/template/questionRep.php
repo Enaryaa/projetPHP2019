@@ -2,11 +2,11 @@
 <input type="hidden" name="question[<?php echo $cpt; ?>][type_rep]" value="text">
 <div class="form-group">
 	<label for="exampleFormControlTextarea1">Question</label>
-	<textarea name="question[<?php echo $cpt; ?>][text_quest]" class="form-control" id="question" rows="1"></textarea>
+	<input name="question[<?php echo $cpt; ?>][text_quest]" class="form-control" id="question" rows="1"></input>
 </div>
 <div class="form-group" >
     <label for="exampleFormControlTextarea1">Aide </label>
-    <textarea name="aide"class="form-control" id="aide" rows="1"></textarea>
+    <input name="question[<?php echo $cpt; ?>][text_aide]" class="form-control" id="aide" rows="1"></input>
   </div>
 <div class="form-check">
 	<input name="question[<?php echo $cpt; ?>][requis]" class="form-check-input" type="checkbox" value="" id="defaultCheck1">

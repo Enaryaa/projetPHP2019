@@ -4,5 +4,10 @@
   <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
   <hr class="my-4">
   <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-warning btn-lg" href="#" role="button">Learn more</a>
+  <div class="form-inline">
+  	<?php echo form_open('user/home', array('method'=>'get')); ?>
+  <label class="sr-only" for="key">Clé formulaire</label>
+  <input type="text" class="form-control mb-2 mr-sm-2" id="key" placeholder="Clé du formulaire">
+  <button type="submit" class="btn btn-warning mb-2">Envoyer</button>
+</div>
 </div>

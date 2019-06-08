@@ -21,6 +21,7 @@ class Formulaire extends CI_Controller {
 		$data['user'] = $this->session->userdata('user_session');
 
 		$data['title'] = 'Formulaire';
+		$this->session->set_userdata('cpt_question', 0);
 		//start a cpt for a new form
 		$this->form_validation->set_rules('titre', 'Titre', 'required');
 		$this->form_validation->set_rules('description', 'Description', 'required');
@@ -30,20 +31,14 @@ class Formulaire extends CI_Controller {
 			$this->load->view('formulaire/formulaire', $data);
 			$this->load->view('footer', $data);
 		}else {
-			if ($this->formulaire_model->create_form() && 
-				$this->formulaire_model->add_question()) {
-				redirect('compte');
+			if ($this->formulaire_model->create_form()) {
+				redirect('formulaire');
 			} else {
 				$data['error'] = 'Formulaire incorrect';
 				$this->load->view('header', $data);
 				$this->load->view('formulaire/formulaire', $data);
 				$this->load->view('footer', $data);
 		}
-
-		$this->session->set_userdata('cpt_question', 0);
-		$this->load->view('header', $data);
-		$this->load->view('formulaire/formulaire', $data);
-		$this->load->view('footer', $data);
 	}
 }
 

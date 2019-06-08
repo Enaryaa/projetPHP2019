@@ -1,7 +1,6 @@
-
-<title><?php echo $title; ?></title>
-
 <div class="container mt-3">
+  <?php echo validation_errors('<div class="alert alert-danger" role="alert">','</div>'); ?>
+  <?php if (isset($error)) { ?><div class="alert alert-danger" role="alert"><p><?php echo $error;?></p></div><?php } ?>
 	<div class="row">
 		<div class="col-9">
         <?php echo form_open('formulaire'); ?>
@@ -28,32 +27,27 @@
 	</div>
 </div>
 
-  	<script type="text/javascript">
+<script type="text/javascript">
 
-  	function addRep(element, cpt) {
+function addRep(element, cpt) {
+	var parent = element.parentNode;
+  $(parent).append('<input name="question[' + cpt + '][text_reponse][]" class="form-control mb-3" type="text">');
+}
 
-  		var parent = element.parentNode;
-		$(parent).append('<input name="question[' + cpt + '][text_reponse][]" class="form-control mb-3" type="text">');
-  	}
+$(document).ready(function() {
+	$('#addQuestionRep').on("click", function() {
+		$.ajax('formulaire/questionrep')
+	  .done(function(result) {
+			$('#form').append(result);
+		});
+	});
+	$('#addQuestionMulti').on("click", function(){
+		$.ajax('formulaire/questionchoix')
+		.done(function(result){
+			$('#form').append(result);
+		});
+	});
+});
 
-  	$(document).ready(function() {
-  		$('#addQuestionRep').on("click", function() {
-  			$.ajax('formulaire/questionrep')
-  		  .done(function(result) {
-  				$('#form').append(result);
-  			});
-  		});
-  		$('#addQuestionMulti').on("click", function(){
-  			$.ajax('formulaire/questionchoix')
-  			.done(function(result){
-  				$('#form').append(result);
-  			});
-  		});
-
-  		$('#ajoutRep').on("click", function(){
-  			
-  		})
-  	});
-  
-  </script>
+</script>
  

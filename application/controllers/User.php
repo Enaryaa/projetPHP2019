@@ -33,14 +33,19 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('pseudo', 'Pseudo', 'required|is_unique[user.pseudo]');
 
 		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('header',$data);
 			$this->load->view('user/inscription', $data); 
+			$this->load->view('footer',$data);
+
 		} else {
 			if ($this->user_model->create_user()) {
 				$this->user_model->set_session_user();
 				redirect('compte');
 			} else {
 				$data['error'] = 'Email ou mot de passe incorrect';
+				$this->load->view('header',$data);
 				$this->load->view('user/inscription', $data); 
+				$this->load->view('footer',$data);
 			}
 		}
 	}
@@ -60,14 +65,18 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('header',$data);
 			$this->load->view('user/connexion', $data); 
+			$this->load->view('footer',$data);
 		} else {
 			if ($this->user_model->connect()) {
 				$this->user_model->set_session_user();
 				redirect('compte');
 			} else {
 				$data['error'] = 'Email ou mot de passe incorrect';
+				$this->load->view('header',$data);
 				$this->load->view('user/connexion', $data); 
+				$this->load->view('footer',$data); 
 			}
 		}
 	}
@@ -117,6 +126,9 @@ class User extends CI_Controller {
 			$this->session->unset_userdata('delete');
 		}		
 		$data['title'] = 'Home';
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
 
 		if ($this->session->has_userdata('user_session')) {
 			$data['user'] = $this->session->userdata('user_session');
