@@ -76,4 +76,8 @@ class Formulaire extends CI_Controller {
 	private function decrementCptQuestion($current){
 		$this->session->set_userdata('cpt_question', $current - 1);
 	}
+
+	public function reponse(){
+		$this->load->view('formulaire/reponse', $data);
+	}
 }
