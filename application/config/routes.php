@@ -58,9 +58,9 @@ $route['home'] = 'user/home';
 $route['deco'] = 'user/deco';
 $route['delete'] = 'user/delete';
 
-$route['formulaire'] = 'formulaire/';
-$route['formulaire/questionrep'] = 'formulaire/questionRep';
-$route['formulaire/questionchoix'] = 'formulaire/questionMulti';
+$route['formulaire'] = 'formulaire/formulaire';
+$route['formulaire/questionrep'] = 'formulaire/template/questionRep';
+$route['formulaire/questionchoix'] = 'formulaire/template/questionMulti';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
