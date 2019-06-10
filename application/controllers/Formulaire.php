@@ -78,6 +78,10 @@ class Formulaire extends CI_Controller {
 	}
 
 	public function reponse(){
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$data['title'] = 'Reponse';
+		$data['user'] = $this->session->userdata('user_session');
 		$this->load->view('header', $data);
 		$this->load->view('formulaire/reponse', $data);
 		$this->load->view('footer', $data);
