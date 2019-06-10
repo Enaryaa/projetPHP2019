@@ -78,6 +78,8 @@ class Formulaire extends CI_Controller {
 	}
 
 	public function reponse(){
+		$this->load->view('header', $data);
 		$this->load->view('formulaire/reponse', $data);
+		$this->load->view('footer', $data);
 	}
 }
