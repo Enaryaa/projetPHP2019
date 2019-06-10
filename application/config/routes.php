@@ -64,5 +64,8 @@ $route['formulaire/questionchoix'] = 'formulaire/questionMulti';
 $route['formulaire/gerer'] = 'formulaire/gerer';
 $route['formulaire/active'] = 'formulaire/modifier_active';
 
+$route['recherche'] = 'formulaire/recherche';
+$route['reponse'] = 'formulaire/reponse';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

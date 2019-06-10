@@ -34,6 +34,8 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo site_url('formulaire'); ?>">Créer un formulaire</a>
           <a class="dropdown-item" href="<?php echo site_url('formulaire/gerer'); ?>">Gérer les formulaires</a>
+          <a class="dropdown-item" href="<?php echo site_url('recherche'); ?>">Répondre à un formulaire</a>
+
         </div>
         
       </li>

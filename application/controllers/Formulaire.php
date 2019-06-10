@@ -93,4 +93,24 @@ class Formulaire extends CI_Controller {
 	private function decrementCptQuestion($current){
 		$this->session->set_userdata('cpt_question', $current - 1);
 	}
+
+	public function recherche(){
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$data['title'] = 'Recherche';
+		$data['user'] = $this->session->userdata('user_session');
+		$this->load->view('header', $data);
+		$this->load->view('formulaire/recherche', $data);
+		$this->load->view('footer', $data);
+	}
+
+	public function reponse(){
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$data['title'] = 'Reponse';
+		$data['user'] = $this->session->userdata('user_session');
+		$this->load->view('header', $data);
+		$this->load->view('formulaire/reponse', $data);
+		$this->load->view('footer', $data);
+	}
 }
