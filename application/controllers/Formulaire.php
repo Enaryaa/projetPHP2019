@@ -77,6 +77,14 @@ class Formulaire extends CI_Controller {
 		$this->session->set_userdata('cpt_question', $current - 1);
 	}
 
+	public function recherche(){
+		$data['title'] = 'Recherche';
+		$data['user'] = $this->session->userdata('user_session');
+		$this->load->view('header', $data);
+		$this->load->view('formulaire/recherche', $data);
+		$this->load->view('footer', $data);
+	}
+
 	public function reponse(){
 		$this->load->helper('form');
 		$this->load->library('form_validation');
