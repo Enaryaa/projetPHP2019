@@ -38,9 +38,26 @@ class Formulaire extends CI_Controller {
 				$this->load->view('header', $data);
 				$this->load->view('formulaire/formulaire', $data);
 				$this->load->view('footer', $data);
+			}
 		}
 	}
-}
+
+	public function modifier_active(){
+		$this->formulaire_model->modifier_active();
+		redirect('formulaire/gerer');
+	}
+
+	public function gerer(){
+		if (!$this->session->has_userdata('user_session')) {
+			redirect('connexion');
+		}
+		$data['user'] = $this->session->userdata('user_session');
+		$data['title'] = 'Gerer';
+		$data['formulaires'] = $this->formulaire_model->get_forms_by_user($data['user']['user_id']);
+		$this->load->view('header', $data);
+		$this->load->view('formulaire/gerer', $data);
+		$this->load->view('footer', $data);
+	}
 
 	public function questionRep(){
 		$data['cpt'] = $this->getCptQuestion();

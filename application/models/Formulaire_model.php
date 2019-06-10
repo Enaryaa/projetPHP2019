@@ -7,10 +7,6 @@ class Formulaire_model extends CI_Model {
        	$this->load->library('session');
 	}
 
-	public function show_form(){
-
-	}
-
 	public function create_form(){
 		$this->load->helper('url');
 		$this->load->helper('date');
@@ -21,22 +17,47 @@ class Formulaire_model extends CI_Model {
 			'description' => $this->input->post('description'),
 			'date' => $now,
 			'user_id' => $user['user_id'],
-			'form_key' => $this->random_key(20)
+			'form_key' => $this->random_key(20),
+			'active' => 1
 		];
 		$result = $this->db->insert('formulaire', $data);
 		if ($result) {
-			$form = $this->get_form($data);
+			$form = $this->get_form($data['form_key']);
 			return $this->add_question($form); 
 		} else {
 			return false;
 		}
 	}
 
-	public function get_form($data) {
+	public function modifier_active(){
+		$key = $this->input->get('cle');
+		$form = $this->get_form($key);
+		if (empty($form)) {
+			return;
+		}
+		if (intval($form['active'])) {
+			$form['active'] = 0;
+		}
+		else {
+			$form['active'] = 1;
+		}
+		
+		$sql = "UPDATE formulaire SET active = ? WHERE form_key = ?";
+		return $this->db->query($sql, array($form['active'], $form['form_key']));
+	}
+
+	public function get_form($key) {
 		$sql = "SELECT * FROM formulaire WHERE form_key = ?";
-		$query = $this->db->query($sql, $data['form_key']);
+		$query = $this->db->query($sql, $key);
 
 		return $query->row_array();
+	}
+
+	public function get_forms_by_user($user_id) {
+		$sql = "SELECT * FROM formulaire WHERE user_id = ?";
+		$query = $this->db->query($sql, $user_id);
+
+		return $query->result_array();
 	}
 
 	public function random_key($length=20){
@@ -66,6 +87,10 @@ class Formulaire_model extends CI_Model {
 		$this->load->helper('url');
 
 		$data = $this->input->post('question');
+		if (empty($data)) {
+			return true;
+		}
+		//pour créer un formulaire vide
 
 		$responses = [];
 
@@ -81,6 +106,7 @@ class Formulaire_model extends CI_Model {
 				$responses[$key] = $question['text_reponse'];
 				unset($data[$key]['text_reponse']);
 			}
+
 		}
 
 		$result = $this->db->insert_batch('question',$data);
