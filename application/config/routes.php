@@ -58,7 +58,7 @@ $route['home'] = 'user/home';
 $route['deco'] = 'user/deco';
 $route['delete'] = 'user/delete';
 
-$route['formulaire'] = 'formulaire';
+$route['formulaire'] = 'formulaire/';
 $route['formulaire/questionrep'] = 'formulaire/questionRep';
 $route['formulaire/questionchoix'] = 'formulaire/questionMulti';
 
