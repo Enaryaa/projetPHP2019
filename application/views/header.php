@@ -35,6 +35,9 @@
           <a class="dropdown-item" href="<?php echo site_url('formulaire'); ?>">Créer un formulaire</a>
           <a class="dropdown-item" href="#">Gérer les formulaires</a>
         </div>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Formulaire
+        </a>
         
       </li>
 
