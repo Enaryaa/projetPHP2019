@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://dwarves.iut-fbleau.fr/~lecharti/PROJETPHP/application/views/formulaire';
+$config['base_url'] = 'http://dwarves.iut-fbleau.fr/~lecharti/PROJETPHP/';
 ///~besnarda/PROJETPHP/
 //http://formulaire/
 
