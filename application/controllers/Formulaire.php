@@ -78,6 +78,8 @@ class Formulaire extends CI_Controller {
 	}
 
 	public function recherche(){
+		$this->load->helper('form');
+		$this->load->library('form_validation');
 		$data['title'] = 'Recherche';
 		$data['user'] = $this->session->userdata('user_session');
 		$this->load->view('header', $data);
