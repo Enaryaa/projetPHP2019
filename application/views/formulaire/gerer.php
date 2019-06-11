@@ -27,10 +27,10 @@
       <td>' . $form['form_key'] . '</td>
       <td>' . $form['date'] . '</td>
       <td>
-      <form action="/formulaire/active" method="GET">
+      <form action="active" method="GET">
       <input type="hidden" name="cle" value="'. $form['form_key'] .'" />';
      if (intval($form['active'])){
-     echo	'<button type="submit, start)" class="btn btn-outline-danger">Périmer</button>';
+     echo	'<button type="submit" class="btn btn-outline-danger">Périmer</button>';
      }
      else {
      echo	'<button type="submit" class="btn btn-success">Activer</button>';
