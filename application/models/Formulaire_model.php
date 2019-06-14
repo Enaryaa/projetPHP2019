@@ -29,6 +29,7 @@ class Formulaire_model extends CI_Model {
 		}
 	}
 
+
 	public function modifier_active(){
 		$key = $this->input->get('cle');
 		$form = $this->get_form($key);
@@ -53,6 +54,60 @@ class Formulaire_model extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function get_total_form($key){
+		$form = "SELECT * FROM formulaire WHERE form_key = ?";
+		foreach ($variable as $key => $value) {
+			# code...
+		}
+		/*$questionsTab = $this->get_question_by_form_id($form['form_id']);
+		foreach ($questionsTab as $clef => $question) {
+			$question = $questionsTab[$clef];
+			$reponsesTab = $this->get_reponse_by_question_id($question['id_quest']);
+			foreach ($reponsesTab as $clef => $reponse) {
+		}*/
+	}
+
+	public function get_quest($form){
+		$question = "SELECT quest_id,text_quest,type_rep,text_aide FROM question WHERE form_id = ? ";
+		$reponsesTab = [2];
+	
+		foreach ($reponsesTab as $key => $value) {
+			$reponsesTab[$key] = $this->get_rep($question,$form);
+		}
+		$query = $this->db->query($question,$form);
+		$result = $query->row_array();
+		echo var_dump($result);
+		/*$quest = $question->num_rows;
+		foreach ($questionsTab as $key => $value) {
+			$questionsTab[$key] = $this->get_rep($question,$form);
+			echo var_dump($questionsTab[$key]);
+		}
+		
+		$query = $this->db->query($question, $form);
+		return $query->row_array();*/
+		/*$form = "SELECT * FROM formulaire WHERE form_key = ?";
+		$questionsTab = $this->get_question_by_form_id($form['form_id']);
+		foreach ($questionsTab as $clef => $question) {
+			$question = $questionsTab[$clef];
+			$reponsesTab = $this->get_reponse_by_question_id($question['id_quest']);
+			foreach ($reponsesTab as $clef => $reponse) {
+		}*/
+	}
+
+	public function get_rep($quest,$form){
+		$reponse = "SELECT * FROM reponsePossible WHERE quest_id = ? and form_id = ? ";
+		$query = $this->db->query($reponse, array($quest, $form));
+		return $query->row_array();
+		/*$form = "SELECT * FROM formulaire WHERE form_key = ?";
+		$questionsTab = $this->get_question_by_form_id($form['form_id']);
+		foreach ($questionsTab as $clef => $question) {
+			$question = $questionsTab[$clef];
+			$reponsesTab = $this->get_reponse_by_question_id($question['id_quest']);
+			foreach ($reponsesTab as $clef => $reponse) {
+		}*/
+	}
+
+
 	public function get_forms_by_user($user_id) {
 		$sql = "SELECT * FROM formulaire WHERE user_id = ?";
 		$query = $this->db->query($sql, $user_id);
@@ -75,7 +130,7 @@ class Formulaire_model extends CI_Model {
 			foreach ($reponseGroup as $reponse) {
 				$repForInsert[] = [
 					'form_id' => $form['form_id'],
-					'id_quest' => $questions[$key]['quest_id'],
+					'quest_id' => $questions[$key]['quest_id'],
 					'text_reponse' => $reponse
 				];
 			}
@@ -123,6 +178,14 @@ class Formulaire_model extends CI_Model {
 
 	public function get_question_by_form_id($id) {
 		$sql = "SELECT * FROM question WHERE form_id = ?";
+		$query = $this->db->query($sql, $id);
+
+		return json_decode(json_encode($query->result()), true); 
+		//ici on a un StrObject, c'est un hack pour le changer en array
+	}
+
+	public function get_reponse_by_question_id($id) {
+		$sql = "SELECT * FROM reponsePossible WHERE quest_id = ?";
 		$query = $this->db->query($sql, $id);
 
 		return json_decode(json_encode($query->result()), true); 

@@ -97,8 +97,11 @@ class Formulaire extends CI_Controller {
 	public function recherche(){
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+
 		$data['title'] = 'Recherche';
 		$data['user'] = $this->session->userdata('user_session');
+
+		$this->formulaire_model->get_quest(38);
 		$this->load->view('header', $data);
 		$this->load->view('formulaire/recherche', $data);
 		$this->load->view('footer', $data);
@@ -107,8 +110,10 @@ class Formulaire extends CI_Controller {
 	public function reponse(){
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+
 		$data['title'] = 'Reponse';
 		$data['user'] = $this->session->userdata('user_session');
+
 		$this->load->view('header', $data);
 		$this->load->view('formulaire/reponse', $data);
 		$this->load->view('footer', $data);
