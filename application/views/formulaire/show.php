@@ -9,6 +9,14 @@ function showInputText($question) {
   	</div>';
 }
 
+function showDate($question) {
+	echo
+	'<div class="form-group">
+    	<label style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
+    	<input class="form-control" type="date" value="'.date("Y-m-d").'" name="rep['.$question['quest_id'].']" id="rep_'.$question['quest_id'].'">
+	</div>';
+}
+
 function showList($question, $reponses) {
 	echo '<div class="form-group">
 		    <label style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
@@ -47,6 +55,7 @@ function showCheckBox($question, $reponses) {
 	echo  '</div>';
 }
 
+
 function getReponsesByQuestionId($reponses, $question_id) {
 	$mRep = [];
 	foreach ($reponses as $key => $rep) {
@@ -78,6 +87,9 @@ function getReponsesByQuestionId($reponses, $question_id) {
 					break;
 				case 'list':
 					showList($question, getReponsesByQuestionId($form['reponse'], $question['quest_id']));
+					break;
+				case 'date':
+					showDate($question);
 					break;
 				default:
 					showInputText($question);

@@ -22,12 +22,13 @@
 		</div>
 		<div class="col-3" >
 			<button type="button" id="addQuestionRep" class="btn btn-warning mb-3">Ajouter une Question/Reponse</button>
-			<button type="button" id="addQuestionMulti" class="btn btn-warning">Ajouter une question à choix</button>
+			<button type="button" id="addQuestionMulti" class="btn btn-warning mb-3">Ajouter une Question à choix</button>
+			<button type="button" id="addQuestionDate" class="btn btn-warning">Ajouter une Question/Date</button>
 		</div>
 	</div>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript">	
 
 function addRep(element, cpt) {
 	var parent = element.parentNode;
@@ -43,6 +44,12 @@ $(document).ready(function() {
 	});
 	$('#addQuestionMulti').on("click", function(){
 		$.ajax('formulaire/questionchoix')
+		.done(function(result){
+			$('#form').append(result);
+		});
+	});
+	$('#addQuestionDate').on("click", function(){
+		$.ajax('formulaire/questiondate')
 		.done(function(result){
 			$('#form').append(result);
 		});

@@ -8,6 +8,7 @@ class Formulaire extends CI_Controller {
 		$this->load->model('formulaire_model');
 		$this->load->helper('url');
 		$this->load->helper('url_helper');
+		
 	}
 
 	public function index (){
@@ -65,17 +66,17 @@ class Formulaire extends CI_Controller {
 	}
 
 	public function questionMulti(){
-
-		$this->load->helper('form');
-		$this->load->library('form_validation');
-
 		$data['cpt'] = $this->getCptQuestion();
 		$this->incrementeCptQuestion($data['cpt']);
 
-		$this->form_validation->set_rules('text_quest', 'Question', 'required');
-		$this->form_validation->set_rules('test_aide', 'Aide', 'required');
-
 		$this->load->view('formulaire/template/questionMulti', $data);
+	}
+
+	public function questionDate() {
+		$data['cpt'] = $this->getCptQuestion();
+		$this->incrementeCptQuestion($data['cpt']);
+
+		$this->load->view('formulaire/template/questionDate', $data);
 	}
 
 	private function getCptQuestion() {
@@ -92,4 +93,6 @@ class Formulaire extends CI_Controller {
 	private function decrementCptQuestion($current){
 		$this->session->set_userdata('cpt_question', $current - 1);
 	}
+
+	
 }

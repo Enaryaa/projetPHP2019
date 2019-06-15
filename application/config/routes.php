@@ -61,6 +61,7 @@ $route['delete'] = 'user/delete';
 $route['formulaire'] = 'formulaire';
 $route['formulaire/questionrep'] = 'formulaire/questionRep';
 $route['formulaire/questionchoix'] = 'formulaire/questionMulti';
+$route['formulaire/questiondate'] = 'formulaire/questionDate';
 $route['formulaire/gerer'] = 'formulaire/gerer';
 $route['formulaire/active'] = 'formulaire/modifier_active';
 
