@@ -3,7 +3,7 @@
 function showInputText($question) {
 	echo 
 	'<div class="form-group">
-    	<label style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
+    	<label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     	<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>
     	<input type="text" class="form-control" name="rep['.$question['quest_id'].']" id="rep_'.$question['quest_id'].'">
   	</div>';
@@ -12,14 +12,14 @@ function showInputText($question) {
 function showDate($question) {
 	echo
 	'<div class="form-group">
-    	<label style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
+    	<label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     	<input class="form-control" type="date" value="'.date("Y-m-d").'" name="rep['.$question['quest_id'].']" id="rep_'.$question['quest_id'].'">
 	</div>';
 }
 
 function showList($question, $reponses) {
 	echo '<div class="form-group">
-		    <label style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
+		    <label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     		<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>
 		    <select class="form-control" id="rep_'.$question['quest_id'].'" name="rep['.$question['quest_id'].']['.$rep['id_rep'].']">';
 		    foreach ($reponses as $key => $rep) {
@@ -31,7 +31,7 @@ function showList($question, $reponses) {
 
 function showRadio($question, $reponses) {
 	echo '<div class="form-group">
-		    <label style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
+		    <label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     		<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>';
 		    foreach ($reponses as $key => $rep) {
 		    	echo '<div class="form-check">
@@ -44,7 +44,7 @@ function showRadio($question, $reponses) {
 
 function showCheckBox($question, $reponses) {
 	echo '<div class="form-group">
-		    <label style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
+		    <label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     		<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>';
 		    foreach ($reponses as $key => $rep) {
 		    	echo '<div class="form-check">
@@ -68,12 +68,18 @@ function getReponsesByQuestionId($reponses, $question_id) {
 
 ?>
 
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"><?php echo $form['titre']; ?></h1>
+    <p class="lead"><?php echo $form['description']; ?></p>
+  </div>
+</div>
+
 <div class="container">
-	<h1><?php echo $form['titre']; ?></h1>
-	<h3><?php echo $form['description']; ?></h3>
-	<hr>
+	
 	<?php echo form_open('formulaire/send'); ?>
 		<input type="hidden" name="form_id" value="<?php echo $form['form_id'] ?>">
+		<hr>
 		<?php foreach ($form['question'] as $key => $question) {
 			switch ($question['type_rep']) {
 				case 'text':
@@ -97,6 +103,6 @@ function getReponsesByQuestionId($reponses, $question_id) {
 			}
 		} ?>
 		<hr>
-		<button type="submit" class="btn btn-primary">Envoyer</button>
+		<button type="submit" class="btn btn-warning">Envoyer</button>
 	</form>
 </div>

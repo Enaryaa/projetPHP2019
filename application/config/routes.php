@@ -64,6 +64,7 @@ $route['formulaire/questionchoix'] = 'formulaire/questionMulti';
 $route['formulaire/questiondate'] = 'formulaire/questionDate';
 $route['formulaire/gerer'] = 'formulaire/gerer';
 $route['formulaire/active'] = 'formulaire/modifier_active';
+$route['formulaire/remove'] = 'formulaire/removeCptQuestion';
 
 $route['recherche'] = 'reponse/recherche';
 $route['formulaire/show'] = 'reponse/show';

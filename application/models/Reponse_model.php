@@ -53,6 +53,7 @@ class Reponse_model extends CI_Model {
 			return [];
 		}
 
+		$stats['form'] = $form;
 		$stats['nbParticipant'] = $this->getDistinctParticipantByForm($form['form_id']);
 		$stats['reponseCount'] = $this->getReponseMultiForStat($form['form_id']);
 

@@ -39,6 +39,10 @@ element.addEventListener('click', function() {
 function Suppr() {
   var x = document.getElementById("qChoix");
   x.remove(x.selectedIndex);
+  $.ajax('formulaire/remove')
+    .done(function(result) {
+      console.log(result);
+    });
 }
 
 

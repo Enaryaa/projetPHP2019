@@ -79,9 +79,17 @@ class Formulaire extends CI_Controller {
 		$this->load->view('formulaire/template/questionDate', $data);
 	}
 
-	private function getCptQuestion() {
+	public function getCptQuestion() {
 		if (!$this->session->has_userdata('cpt_question')) {
 			$this->session->set_userdata('cpt_question', 0);
+		}
+		return $this->session->userdata('cpt_question');
+	}
+
+	public function removeCptQuestion(){
+		if ($this->session->has_userdata('cpt_question')) {
+			$current = $this->session->userdata('cpt_question');
+			$this->decrementCptQuestion($current);
 		}
 		return $this->session->userdata('cpt_question');
 	}

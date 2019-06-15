@@ -21,6 +21,10 @@
 function SupprRep() {
   var x = document.getElementById("qRep");
   x.remove(x.selectedIndex);
+  $.ajax('formulaire/remove')
+	  .done(function(result) {
+			console.log(result);
+		});
 }
 
 
