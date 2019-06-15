@@ -38,7 +38,7 @@
      }
     echo '</form></td>
         <td>
-          <form action="<?php echo site_url(formulaire/stats); ?>" method="GET">
+          <form action="'.site_url('formulaire/stats').'" method="GET">
             <input type="hidden" name="cle" value="'. $form['form_key'] .'" />
             <button type="submit" class="btn btn-info">Voir</button>
           </form>
