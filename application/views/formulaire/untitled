@@ -1,0 +1,76 @@
+
+array(9) {
+  ["form_id"]=&gt;
+  string(2) "38"
+  ["user_id"]=&gt;
+  string(1) "1"
+  ["form_key"]=&gt;
+  string(6) "coucou"
+  ["titre"]=&gt;
+  string(9) "vrai test"
+  ["description"]=&gt;
+  string(21) "fait par anneso le 08"
+  ["date"]=&gt;
+  string(10) "2019-06-08"
+  ["active"]=&gt;
+  string(1) "1"
+  ["question"]=&gt;
+  array(2) {
+    [0]=&gt;
+    array(6) {
+      ["quest_id"]=&gt;
+      string(2) "15"
+      ["form_id"]=&gt;
+      string(2) "38"
+      ["type_rep"]=&gt;
+      string(4) "text"
+      ["text_aide"]=&gt;
+      string(21) "repondez pour de vrai"
+      ["text_quest"]=&gt;
+      string(18) "etes vous un plouc"
+      ["requis"]=&gt;
+      string(1) "1"
+    }
+    [1]=&gt;
+    array(6) {
+      ["quest_id"]=&gt;
+      string(2) "16"
+      ["form_id"]=&gt;
+      string(2) "38"
+      ["type_rep"]=&gt;
+      string(5) "radio"
+      ["text_aide"]=&gt;
+      string(16) "1 choix possible"
+      ["text_quest"]=&gt;
+      string(4) "sexe"
+      ["requis"]=&gt;
+      string(1) "1"
+    }
+  }
+  ["reponse"]=&gt;
+  array(2) {
+    [0]=&gt;
+    array(4) {
+      ["id_rep"]=&gt;
+      string(1) "8"
+      ["quest_id"]=&gt;
+      string(2) "16"
+      ["form_id"]=&gt;
+      string(2) "38"
+      ["text_reponse"]=&gt;
+      string(5) "homme"
+    }
+    [1]=&gt;
+    array(4) {
+      ["id_rep"]=&gt;
+      string(1) "9"
+      ["quest_id"]=&gt;
+      string(2) "16"
+      ["form_id"]=&gt;
+      string(2) "38"
+      ["text_reponse"]=&gt;
+      string(5) "femme"
+    }
+  }
+}
+	

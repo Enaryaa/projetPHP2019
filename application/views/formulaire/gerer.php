@@ -13,6 +13,7 @@
       <th scope="col">Clé</th>
       <th scope="col">Date</th>
       <th scope="col">#</th>
+      <th scope="col">Stats</th>
     </tr>
   </thead>
   <tbody>
@@ -36,6 +37,11 @@
      echo	'<button type="submit" class="btn btn-success">Activer</button>';
      }
     echo '</form></td>
+        <td>
+          <form action="/reponse/stats" method="GET">
+            <button type="submit" class="btn btn-info">Voir</button>
+          </form>
+        </td>
     	</tr>';
   	}
   	?>
