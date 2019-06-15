@@ -5,6 +5,7 @@ class Reponse_model extends CI_Model {
 	public function __construct() {
 		$this->load->database();
 		$this->load->model('participant_model');
+		$this->load->model('formulaire_model');
 		$this->load->helper('url');
 		$this->load->helper('url_helper');
 	}
@@ -45,7 +46,35 @@ class Reponse_model extends CI_Model {
 	}
 
 	public function getStats() {
+		$stats = [];
+		$key = $this->input->get('cle');
+		$form = $this->formulaire_model->get_total_form($key);
+		if (empty($form)) {
+			return [];
+		}
 
-		return [];
+		$stats['nbParticipant'] = $this->getDistinctParticipantByForm($form['form_id']);
+		$stats['reponseCount'] = $this->getReponseMultiForStat($form['form_id']);
+
+		return $stats;
+	}
+
+	private function getDistinctParticipantByForm($form_id) {
+		$sql = "SELECT COUNT(DISTINCT id_participant) as result FROM reponse_donnee WHERE id_form = ?";
+		$query = $this->db->query($sql, $form_id);
+		$result = $query->row_array();
+		return $result['result'];
+	}
+
+	private function getReponseMultiForStat($form_id) {
+		$sql = "SELECT DISTINCT id_quest, text_quest, COUNT(text_reponse) as count, text_reponse 
+				FROM reponse_donnee, question 
+				WHERE id_form = ? 
+				AND id_rep IS NOT NULL 
+				AND quest_id = id_quest 
+				GROUP BY text_reponse";
+		$query = $this->db->query($sql, $form_id);
+		return json_decode(json_encode($query->result()), true); 
+		//ici on a un StrObject, c'est un hack pour le changer en array
 	}
 }

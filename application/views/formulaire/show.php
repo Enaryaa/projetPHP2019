@@ -21,7 +21,7 @@ function showList($question, $reponses) {
 	echo '<div class="form-group">
 		    <label style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     		<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>
-		    <select class="form-control" id="rep_'.$question['quest_id'].'" name="rep['.$question['quest_id'].']">';
+		    <select class="form-control" id="rep_'.$question['quest_id'].'" name="rep['.$question['quest_id'].']['.$rep['id_rep'].']">';
 		    foreach ($reponses as $key => $rep) {
 		    	echo '<option>'.$rep['text_reponse'].'</option>';
 		    }
@@ -35,7 +35,7 @@ function showRadio($question, $reponses) {
     		<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>';
 		    foreach ($reponses as $key => $rep) {
 		    	echo '<div class="form-check">
-					  <input class="form-check-input" type="radio" name="rep['.$question['quest_id'].']" id="rep_'.$question['quest_id'].'_'.$rep['id_rep'].'" value="'.$rep['text_reponse'].'">
+					  <input class="form-check-input" type="radio" name="rep['.$question['quest_id'].']['.$rep['id_rep'].']" id="rep_'.$question['quest_id'].'_'.$rep['id_rep'].'" value="'.$rep['text_reponse'].'">
 					  <label class="form-check-label" for="rep_'.$question['quest_id'].'_'.$rep['id_rep'].'">'.$rep['text_reponse'].'</label>
 					</div>';
 		    }
