@@ -38,7 +38,7 @@
      }
     echo '</form></td>
         <td>
-          <form action="/reponse/stats" method="GET">
+          <form action="stats" method="GET">
             <input type="hidden" name="cle" value="'. $form['form_key'] .'" />
             <button type="submit" class="btn btn-info">Voir</button>
           </form>
