@@ -17,7 +17,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFLzntJC6EktCk="
 					},
-					"name": "Main",
+					"name": "PhpClassDiagram",
 					"defaultDiagram": true
 				}
 			]

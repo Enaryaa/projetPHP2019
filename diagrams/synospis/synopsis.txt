@@ -1,0 +1,46 @@
+Besnard Anne-Sophie et Lechartier Romain
+Ceci est le fichier texte contenant tous les synopsis créés pour décrire le projet.
+
+Synopsis 1: Création de compte
+	L'utilisateur arrive sur la page d'accueil du site et clique sur le bouton "inscription" du header. 
+	En cliquant, il arrive sur la page d'inscription du site.
+	Il rentre son adresse mail, choisit ensuite son pseudo et son mot de passe puis clique sur le bouton "sauvegarde".
+	Si le pseudo et l'adresse mail ne sont pas déjà pris, l'utilisateur est redirigé vers la page de gestion de son compte.
+
+Synopsis 2: Connexion de l'utilisateur
+	L'utilisateur arrive sur la page d'accueil et clique sur le bouton "connexion" du header. 
+	En cliquant, il arrive sur la page de connexion du site.
+	Il entre son adresse mail et son mot de passe puis clique sur le bouton "connexion".
+	S'il n'a pas fait d'erreur dans ses informations et qu'il avait bien créé un compte, il est redirigé vers la page de gestion de son compte.
+
+Synopsis 3: Création de formulaire
+	L'utilisateur connecté clique sur le bouton "Formulaire" du header puis sur le bouton "Créer un formulaire" qui s'affiche.
+	Il est redirigé sur la page de création de formulaire du site.
+	L'utilisateur connecté entre les questions et les réponses possibles de son formulaire puis clique sur le bouton "sauvegarder".
+	Il est redirigé vers la page de gestion des formulaires qu'il a créé.
+
+Synospis 4: Périmer un formulaire
+	L'utilisateur connecté clique sur le bouton "Formulaire" du header puis sur le bouton "Gérer les formulaires" qui s'affiche.
+	Il est redirigé vers la page de gestion des formulaires qu'il a créé.
+	Il clique sur le bouton "périmer" du formulaire choisi.
+	La page se recharge avec un bouton "Activer" à la place du bouton "périmer" précédent.
+
+Synopsis 5: Répondre à un formulaire
+	L'utilisateur clique sur le bouton "Formulaire" du header puis sur le bouton "Répondre à un formulaire" qui s'affiche.
+	Il est redirigé sur la page de recherche de formulaire du site.
+	Il rentre la clé du formulaire qu'il connaît et clique sur "Envoyer".
+	Si le formulaire existe, il arrive sur la page du site correspondant au formulaire choisi, sinon un message d'erreur s'affiche.
+	Il répond aux questions puis clique sur "Envoyer".
+	S'il n'a pas oublié de répondre à un/des champ(s) obligatoire(s), il est redirigé vers la page de remerciement du site.
+
+Synopsis 5bis: Répondre à un formulaire
+	L'utilisateur rentre la clé du formulaire qu'il connaît dans le champ texte de la page d'accueil et clique sur "Envoyer".
+	Si le formulaire existe, il arrive sur la page du site correspondant au formulaire choisi, sinon un message d'erreur s'affiche.
+	Il répond aux questions puis clique sur "Envoyer".
+	S'il n'a pas oublié de répondre à un/des champ(s) obligatoire(s), il est redirigé vers la page de remerciement du site.
+
+Synopsis 6: Consulter les statistiques d'un formulaire
+	L'utilisateur connecté clique sur le bouton "Formulaire" du header puis sur le bouton "Gérer les formulaires" qui s'affiche.
+	Il est redirigé vers la page de gestion des formulaires qu'il a créé.
+	Il clique sur le bouton "Voir" du formulaire choisi.
+	Il est redirigé vers la page des statistiques du formulaire.
