@@ -1,27 +1,39 @@
 <?php 
 
 function showInputText($question) {
+	$requis = '';
+	if (intval($question['requis'])) {
+		$requis = 'required';
+	}
 	echo 
 	'<div class="form-group">
     	<label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     	<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>
-    	<input type="text" class="form-control" name="rep['.$question['quest_id'].']" id="rep_'.$question['quest_id'].'">
+    	<input type="text" class="form-control" name="rep['.$question['quest_id'].']" id="rep_'.$question['quest_id'].'" '.$requis.' />
   	</div>';
 }
 
 function showDate($question) {
+	$requis = '';
+	if (intval($question['requis'])) {
+		$requis = 'required';
+	}
 	echo
 	'<div class="form-group">
     	<label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
-    	<input class="form-control" type="date" value="'.date("Y-m-d").'" name="rep['.$question['quest_id'].']" id="rep_'.$question['quest_id'].'">
+    	<input class="form-control" type="date" value="'.date("Y-m-d").'" name="rep['.$question['quest_id'].']" id="rep_'.$question['quest_id'].'" '.$requis.' />
 	</div>';
 }
 
 function showList($question, $reponses) {
+	$requis = '';
+	if (intval($question['requis'])) {
+		$requis = 'required';
+	}
 	echo '<div class="form-group">
 		    <label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     		<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>
-		    <select class="form-control" id="rep_'.$question['quest_id'].'" name="rep['.$question['quest_id'].']['.$rep['id_rep'].']">';
+		    <select class="form-control" id="rep_'.$question['quest_id'].'" name="rep['.$question['quest_id'].']" '.$requis.'>';
 		    foreach ($reponses as $key => $rep) {
 		    	echo '<option>'.$rep['text_reponse'].'</option>';
 		    }
@@ -30,14 +42,19 @@ function showList($question, $reponses) {
 }
 
 function showRadio($question, $reponses) {
+	$requis = '';
+	if (intval($question['requis'])) {
+		$requis = 'required';
+	}
 	echo '<div class="form-group">
 		    <label class="font-weight-bold" style="font-size: 1.21em!important;" for="rep_'.$question['quest_id'].'">'.$question['text_quest'].'</label>
     		<h6 class="font-italic" style="font-size: 0.87em!important;">'.$question['text_aide'].'</h6	>';
 		    foreach ($reponses as $key => $rep) {
 		    	echo '<div class="form-check">
-					  <input class="form-check-input" type="radio" name="rep['.$question['quest_id'].']['.$rep['id_rep'].']" id="rep_'.$question['quest_id'].'_'.$rep['id_rep'].'" value="'.$rep['text_reponse'].'">
+					  <input class="form-check-input" type="radio" name="rep['.$question['quest_id'].']['.$rep['id_rep'].']" id="rep_'.$question['quest_id'].'_'.$rep['id_rep'].'" value="'.$rep['text_reponse'].'" '.$requis.'>
 					  <label class="form-check-label" for="rep_'.$question['quest_id'].'_'.$rep['id_rep'].'">'.$rep['text_reponse'].'</label>
 					</div>';
+				$requis = '';
 		    }
 	echo  '</div>';
 }
