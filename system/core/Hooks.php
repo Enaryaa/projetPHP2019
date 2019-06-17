@@ -37,56 +37,55 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Hooks Class
- *
- * Provides a mechanism to extend the base system without hacking.
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/general/hooks.html
- */
+//
+//Hooks Class
+//
+//Provides a mechanism to extend the base system without hacking.
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Libraries
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/general/hooks.html
+
 class CI_Hooks {
+  //
+  //Determines whether hooks are enabled
+  //
+  //@var	bool
+  
+  public $enabled =  FALSE;
 
-	/**
-	 * Determines whether hooks are enabled
-	 *
-	 * @var	bool
-	 */
-	public $enabled = FALSE;
+  //
+  //List of all hooks set in config/hooks.php
+  //
+  //@var	array
+  
+  public $hooks = 	array();
 
-	/**
-	 * List of all hooks set in config/hooks.php
-	 *
-	 * @var	array
-	 */
-	public $hooks =	array();
+  //
+  //Array with class objects to use hooks methods
+  //
+  //@var array
+  
+  protected $_objects =  array();
 
-	/**
-	 * Array with class objects to use hooks methods
-	 *
-	 * @var array
-	 */
-	protected $_objects = array();
+  //
+  //In progress flag
+  //
+  //Determines whether hook is in progress, used to prevent infinte loops
+  //
+  //@var	bool
+  
+  protected $_in_progress =  FALSE;
 
-	/**
-	 * In progress flag
-	 *
-	 * Determines whether hook is in progress, used to prevent infinte loops
-	 *
-	 * @var	bool
-	 */
-	protected $_in_progress = FALSE;
-
-	/**
-	 * Class constructor
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
+  //
+  //Class constructor
+  //
+  //@return	void
+  
+  public function __construct()
+  {
 		$CFG =& load_class('Config', 'core');
 		log_message('info', 'Hooks Class Initialized');
 
@@ -116,22 +115,21 @@ class CI_Hooks {
 
 		$this->hooks =& $hook;
 		$this->enabled = TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Call Hook
-	 *
-	 * Calls a particular hook. Called by CodeIgniter.php.
-	 *
-	 * @uses	CI_Hooks::_run_hook()
-	 *
-	 * @param	string	$which	Hook name
-	 * @return	bool	TRUE on success or FALSE on failure
-	 */
-	public function call_hook($which = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Call Hook
+  //
+  //Calls a particular hook. Called by CodeIgniter.php.
+  //
+  //@uses	CI_Hooks::_run_hook()
+  //
+  //@param	string	$which	Hook name
+  //@return	bool	TRUE on success or FALSE on failure
+  
+  public function call_hook($which = ''): bool
+  {
 		if ( ! $this->enabled OR ! isset($this->hooks[$which]))
 		{
 			return FALSE;
@@ -150,20 +148,19 @@ class CI_Hooks {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Run Hook
-	 *
-	 * Runs a particular hook
-	 *
-	 * @param	array	$data	Hook details
-	 * @return	bool	TRUE on success or FALSE on failure
-	 */
-	protected function _run_hook($data)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Run Hook
+  //
+  //Runs a particular hook
+  //
+  //@param	array	$data	Hook details
+  //@return	bool	TRUE on success or FALSE on failure
+  
+  protected function _run_hook($data): bool
+  {
 		// Closures/lambda functions and array($object, 'method') callables
 		if (is_callable($data))
 		{
@@ -261,6 +258,7 @@ class CI_Hooks {
 
 		$this->_in_progress = FALSE;
 		return TRUE;
-	}
+  }
 
 }
+

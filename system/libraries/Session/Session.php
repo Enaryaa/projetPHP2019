@@ -37,38 +37,38 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Session Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Sessions
- * @author		Andrey Andreev
- * @link		https://codeigniter.com/user_guide/libraries/sessions.html
- */
+//
+//CodeIgniter Session Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Sessions
+//@author		Andrey Andreev
+//@link		https://codeigniter.com/user_guide/libraries/sessions.html
+
 class CI_Session {
+  //
+  //Userdata array
+  //
+  //Just a reference to $_SESSION, for BC purposes.
+  
+  public $userdata;
 
-	/**
-	 * Userdata array
-	 *
-	 * Just a reference to $_SESSION, for BC purposes.
-	 */
-	public $userdata;
+  protected $_driver =  'files';
 
-	protected $_driver = 'files';
-	protected $_config;
-	protected $_sid_regexp;
+  protected $_config;
 
-	// ------------------------------------------------------------------------
+  protected $_sid_regexp;
 
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params	Configuration parameters
-	 * @return	void
-	 */
-	public function __construct(array $params = array())
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	array	$params	Configuration parameters
+  //@return	void
+  
+  public function __construct(array $params = array())
+  {
 		// No sessions under CLI
 		if (is_cli())
 		{
@@ -174,22 +174,21 @@ class CI_Session {
 		$this->_ci_init_vars();
 
 		log_message('info', "Session: Class initialized using '".$this->_driver."' driver.");
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * CI Load Classes
-	 *
-	 * An internal method to load all possible dependency and extension
-	 * classes. It kind of emulates the CI_Driver library, but is
-	 * self-sufficient.
-	 *
-	 * @param	string	$driver	Driver name
-	 * @return	string	Driver class name
-	 */
-	protected function _ci_load_classes($driver)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //CI Load Classes
+  //
+  //An internal method to load all possible dependency and extension
+  //classes. It kind of emulates the CI_Driver library, but is
+  //self-sufficient.
+  //
+  //@param	string	$driver	Driver name
+  //@return	string	Driver class name
+  
+  protected function _ci_load_classes($driver): string
+  {
 		// PHP 5.4 compatibility
 		interface_exists('SessionHandlerInterface', FALSE) OR require_once(BASEPATH.'libraries/Session/SessionHandlerInterface.php');
 
@@ -246,20 +245,19 @@ class CI_Session {
 		}
 
 		return 'CI_'.$class;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Configuration
-	 *
-	 * Handle input parameters and configuration defaults
-	 *
-	 * @param	array	&$params	Input parameters
-	 * @return	void
-	 */
-	protected function _configure(&$params)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Configuration
+  //
+  //Handle input parameters and configuration defaults
+  //
+  //@param	array	&$params	Input parameters
+  //@return	void
+  
+  protected function _configure(& $params)
+  {
 		$expiration = config_item('sess_expiration');
 
 		if (isset($params['cookie_lifetime']))
@@ -317,27 +315,26 @@ class CI_Session {
 		ini_set('session.use_only_cookies', 1);
 
 		$this->_configure_sid_length();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Configure session ID length
-	 *
-	 * To make life easier, we used to force SHA-1 and 4 bits per
-	 * character on everyone. And of course, someone was unhappy.
-	 *
-	 * Then PHP 7.1 broke backwards-compatibility because ext/session
-	 * is such a mess that nobody wants to touch it with a pole stick,
-	 * and the one guy who does, nobody has the energy to argue with.
-	 *
-	 * So we were forced to make changes, and OF COURSE something was
-	 * going to break and now we have this pile of shit. -- Narf
-	 *
-	 * @return	void
-	 */
-	protected function _configure_sid_length()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Configure session ID length
+  //
+  //To make life easier, we used to force SHA-1 and 4 bits per
+  //character on everyone. And of course, someone was unhappy.
+  //
+  //Then PHP 7.1 broke backwards-compatibility because ext/session
+  //is such a mess that nobody wants to touch it with a pole stick,
+  //and the one guy who does, nobody has the energy to argue with.
+  //
+  //So we were forced to make changes, and OF COURSE something was
+  //going to break and now we have this pile of shit. -- Narf
+  //
+  //@return	void
+  
+  protected function _configure_sid_length()
+  {
 		if (PHP_VERSION_ID < 70100)
 		{
 			$hash_function = ini_get('session.hash_function');
@@ -391,20 +388,19 @@ class CI_Session {
 		}
 
 		$this->_sid_regexp .= '{'.$sid_length.'}';
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Handle temporary variables
-	 *
-	 * Clears old "flash" data, marks the new one for deletion and handles
-	 * "temp" data deletion.
-	 *
-	 * @return	void
-	 */
-	protected function _ci_init_vars()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Handle temporary variables
+  //
+  //Clears old "flash" data, marks the new one for deletion and handles
+  //"temp" data deletion.
+  //
+  //@return	void
+  
+  protected function _ci_init_vars()
+  {
 		if ( ! empty($_SESSION['__ci_vars']))
 		{
 			$current_time = time();
@@ -430,18 +426,17 @@ class CI_Session {
 		}
 
 		$this->userdata =& $_SESSION;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Mark as flash
-	 *
-	 * @param	mixed	$key	Session data key(s)
-	 * @return	bool
-	 */
-	public function mark_as_flash($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Mark as flash
+  //
+  //@param	mixed	$key	Session data key(s)
+  //@return	bool
+  
+  public function mark_as_flash($key): bool
+  {
 		if (is_array($key))
 		{
 			for ($i = 0, $c = count($key); $i < $c; $i++)
@@ -468,17 +463,16 @@ class CI_Session {
 
 		$_SESSION['__ci_vars'][$key] = 'new';
 		return TRUE;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Get flash keys
-	 *
-	 * @return	array
-	 */
-	public function get_flash_keys()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Get flash keys
+  //
+  //@return	array
+  
+  public function get_flash_keys(): array
+  {
 		if ( ! isset($_SESSION['__ci_vars']))
 		{
 			return array();
@@ -491,18 +485,17 @@ class CI_Session {
 		}
 
 		return $keys;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Unmark flash
-	 *
-	 * @param	mixed	$key	Session data key(s)
-	 * @return	void
-	 */
-	public function unmark_flash($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Unmark flash
+  //
+  //@param	mixed	$key	Session data key(s)
+  //@return	void
+  
+  public function unmark_flash($key)
+  {
 		if (empty($_SESSION['__ci_vars']))
 		{
 			return;
@@ -522,19 +515,18 @@ class CI_Session {
 		{
 			unset($_SESSION['__ci_vars']);
 		}
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Mark as temp
-	 *
-	 * @param	mixed	$key	Session data key(s)
-	 * @param	int	$ttl	Time-to-live in seconds
-	 * @return	bool
-	 */
-	public function mark_as_temp($key, $ttl = 300)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Mark as temp
+  //
+  //@param	mixed	$key	Session data key(s)
+  //@param	int	$ttl	Time-to-live in seconds
+  //@return	bool
+  
+  public function mark_as_temp($key, $ttl = 300): bool
+  {
 		$ttl += time();
 
 		if (is_array($key))
@@ -576,17 +568,16 @@ class CI_Session {
 
 		$_SESSION['__ci_vars'][$key] = $ttl;
 		return TRUE;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Get temp keys
-	 *
-	 * @return	array
-	 */
-	public function get_temp_keys()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Get temp keys
+  //
+  //@return	array
+  
+  public function get_temp_keys(): array
+  {
 		if ( ! isset($_SESSION['__ci_vars']))
 		{
 			return array();
@@ -599,18 +590,17 @@ class CI_Session {
 		}
 
 		return $keys;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Unmark temp
-	 *
-	 * @param	mixed	$key	Session data key(s)
-	 * @return	void
-	 */
-	public function unmark_temp($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Unmark temp
+  //
+  //@param	mixed	$key	Session data key(s)
+  //@return	void
+  
+  public function unmark_temp($key)
+  {
 		if (empty($_SESSION['__ci_vars']))
 		{
 			return;
@@ -630,18 +620,17 @@ class CI_Session {
 		{
 			unset($_SESSION['__ci_vars']);
 		}
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * __get()
-	 *
-	 * @param	string	$key	'session_id' or a session data key
-	 * @return	mixed
-	 */
-	public function __get($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //__get()
+  //
+  //@param	string	$key	'session_id' or a session data key
+  //@return	mixed
+  
+  public function __get($key): mixed
+  {
 		// Note: Keep this order the same, just in case somebody wants to
 		//       use 'session_id' as a session data key, for whatever reason
 		if (isset($_SESSION[$key]))
@@ -654,96 +643,90 @@ class CI_Session {
 		}
 
 		return NULL;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * __isset()
-	 *
-	 * @param	string	$key	'session_id' or a session data key
-	 * @return	bool
-	 */
-	public function __isset($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //__isset()
+  //
+  //@param	string	$key	'session_id' or a session data key
+  //@return	bool
+  
+  public function __isset($key): bool
+  {
 		if ($key === 'session_id')
 		{
 			return (session_status() === PHP_SESSION_ACTIVE);
 		}
 
 		return isset($_SESSION[$key]);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * __set()
-	 *
-	 * @param	string	$key	Session data key
-	 * @param	mixed	$value	Session data value
-	 * @return	void
-	 */
-	public function __set($key, $value)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //__set()
+  //
+  //@param	string	$key	Session data key
+  //@param	mixed	$value	Session data value
+  //@return	void
+  
+  public function __set($key, $value)
+  {
 		$_SESSION[$key] = $value;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Session destroy
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @return	void
-	 */
-	public function sess_destroy()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Session destroy
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@return	void
+  
+  public function sess_destroy()
+  {
 		session_destroy();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Session regenerate
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	bool	$destroy	Destroy old session data flag
-	 * @return	void
-	 */
-	public function sess_regenerate($destroy = FALSE)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Session regenerate
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	bool	$destroy	Destroy old session data flag
+  //@return	void
+  
+  public function sess_regenerate($destroy = FALSE)
+  {
 		$_SESSION['__ci_last_regenerate'] = time();
 		session_regenerate_id($destroy);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Get userdata reference
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @returns	array
-	 */
-	public function &get_userdata()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Get userdata reference
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@returns	array
+  
+  public function &get_userdata(): s
+  {
 		return $_SESSION;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Userdata (fetch)
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	string	$key	Session data key
-	 * @return	mixed	Session data value or NULL if not found
-	 */
-	public function userdata($key = NULL)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Userdata (fetch)
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	string	$key	Session data key
+  //@return	mixed	Session data value or NULL if not found
+  
+  public function userdata($key = NULL): mixed
+  {
 		if (isset($key))
 		{
 			return isset($_SESSION[$key]) ? $_SESSION[$key] : NULL;
@@ -769,21 +752,20 @@ class CI_Session {
 		}
 
 		return $userdata;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Set userdata
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	mixed	$data	Session data key or an associative array
-	 * @param	mixed	$value	Value to store
-	 * @return	void
-	 */
-	public function set_userdata($data, $value = NULL)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Set userdata
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	mixed	$data	Session data key or an associative array
+  //@param	mixed	$value	Value to store
+  //@return	void
+  
+  public function set_userdata($data, $value = NULL)
+  {
 		if (is_array($data))
 		{
 			foreach ($data as $key => &$value)
@@ -795,20 +777,19 @@ class CI_Session {
 		}
 
 		$_SESSION[$data] = $value;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Unset userdata
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	mixed	$key	Session data key(s)
-	 * @return	void
-	 */
-	public function unset_userdata($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Unset userdata
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	mixed	$key	Session data key(s)
+  //@return	void
+  
+  public function unset_userdata($key)
+  {
 		if (is_array($key))
 		{
 			foreach ($key as $k)
@@ -820,49 +801,46 @@ class CI_Session {
 		}
 
 		unset($_SESSION[$key]);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * All userdata (fetch)
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @return	array	$_SESSION, excluding flash data items
-	 */
-	public function all_userdata()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //All userdata (fetch)
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@return	array	$_SESSION, excluding flash data items
+  
+  public function all_userdata(): array
+  {
 		return $this->userdata();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Has userdata
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	string	$key	Session data key
-	 * @return	bool
-	 */
-	public function has_userdata($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Has userdata
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	string	$key	Session data key
+  //@return	bool
+  
+  public function has_userdata($key): bool
+  {
 		return isset($_SESSION[$key]);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Flashdata (fetch)
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	string	$key	Session data key
-	 * @return	mixed	Session data value or NULL if not found
-	 */
-	public function flashdata($key = NULL)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Flashdata (fetch)
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	string	$key	Session data key
+  //@return	mixed	Session data value or NULL if not found
+  
+  public function flashdata($key = NULL): mixed
+  {
 		if (isset($key))
 		{
 			return (isset($_SESSION['__ci_vars'], $_SESSION['__ci_vars'][$key], $_SESSION[$key]) && ! is_int($_SESSION['__ci_vars'][$key]))
@@ -881,52 +859,49 @@ class CI_Session {
 		}
 
 		return $flashdata;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Set flashdata
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	mixed	$data	Session data key or an associative array
-	 * @param	mixed	$value	Value to store
-	 * @return	void
-	 */
-	public function set_flashdata($data, $value = NULL)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Set flashdata
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	mixed	$data	Session data key or an associative array
+  //@param	mixed	$value	Value to store
+  //@return	void
+  
+  public function set_flashdata($data, $value = NULL)
+  {
 		$this->set_userdata($data, $value);
 		$this->mark_as_flash(is_array($data) ? array_keys($data) : $data);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Keep flashdata
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	mixed	$key	Session data key(s)
-	 * @return	void
-	 */
-	public function keep_flashdata($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Keep flashdata
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	mixed	$key	Session data key(s)
+  //@return	void
+  
+  public function keep_flashdata($key)
+  {
 		$this->mark_as_flash($key);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Temp data (fetch)
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	string	$key	Session data key
-	 * @return	mixed	Session data value or NULL if not found
-	 */
-	public function tempdata($key = NULL)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Temp data (fetch)
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	string	$key	Session data key
+  //@return	mixed	Session data value or NULL if not found
+  
+  public function tempdata($key = NULL): mixed
+  {
 		if (isset($key))
 		{
 			return (isset($_SESSION['__ci_vars'], $_SESSION['__ci_vars'][$key], $_SESSION[$key]) && is_int($_SESSION['__ci_vars'][$key]))
@@ -945,39 +920,38 @@ class CI_Session {
 		}
 
 		return $tempdata;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Set tempdata
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	mixed	$data	Session data key or an associative array of items
-	 * @param	mixed	$value	Value to store
-	 * @param	int	$ttl	Time-to-live in seconds
-	 * @return	void
-	 */
-	public function set_tempdata($data, $value = NULL, $ttl = 300)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Set tempdata
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param	mixed	$data	Session data key or an associative array of items
+  //@param	mixed	$value	Value to store
+  //@param	int	$ttl	Time-to-live in seconds
+  //@return	void
+  
+  public function set_tempdata($data, $value = NULL, $ttl = 300)
+  {
 		$this->set_userdata($data, $value);
 		$this->mark_as_temp(is_array($data) ? array_keys($data) : $data, $ttl);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Unset tempdata
-	 *
-	 * Legacy CI_Session compatibility method
-	 *
-	 * @param	mixed	$data	Session data key(s)
-	 * @return	void
-	 */
-	public function unset_tempdata($key)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Unset tempdata
+  //
+  //Legacy CI_Session compatibility method
+  //
+  //@param		$data	Session data key(s)
+  //@return	void
+  
+  public function unset_tempdata($key)
+  {
 		$this->unmark_temp($key);
-	}
+  }
 
 }
+

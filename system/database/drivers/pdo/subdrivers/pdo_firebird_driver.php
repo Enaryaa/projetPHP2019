@@ -37,49 +37,46 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PDO Firebird Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//PDO Firebird Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_pdo_firebird_driver extends CI_DB_pdo_driver {
+  //
+  //Sub-driver
+  //
+  //@var	string
+  
+  public $subdriver =  'firebird';
 
-	/**
-	 * Sub-driver
-	 *
-	 * @var	string
-	 */
-	public $subdriver = 'firebird';
+  // --------------------------------------------------------------------
+  //
+  //ORDER BY random keyword
+  //
+  //@var	array
+  
+  protected $_random_keyword =  array('RAND()', 'RAND()');
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ORDER BY random keyword
-	 *
-	 * @var	array
-	 */
-	protected $_random_keyword = array('RAND()', 'RAND()');
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Builds the DSN if not already set.
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Builds the DSN if not already set.
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		if (empty($this->dsn))
@@ -102,20 +99,19 @@ class CI_DB_pdo_firebird_driver extends CI_DB_pdo_driver {
 		{
 			$this->dsn .= ';charset='.$this->char_set;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show table query
-	 *
-	 * Generates a platform-specific query string so that the table names can be fetched
-	 *
-	 * @param	bool	$prefix_limit
-	 * @return	string
-	 */
-	protected function _list_tables($prefix_limit = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show table query
+  //
+  //Generates a platform-specific query string so that the table names can be fetched
+  //
+  //@param	bool	$prefix_limit
+  //@return	string
+  
+  protected function _list_tables($prefix_limit = FALSE): string
+  {
 		$sql = 'SELECT "RDB$RELATION_NAME" FROM "RDB$RELATIONS" WHERE "RDB$RELATION_NAME" NOT LIKE \'RDB$%\' AND "RDB$RELATION_NAME" NOT LIKE \'MON$%\'';
 
 		if ($prefix_limit === TRUE && $this->dbprefix !== '')
@@ -125,33 +121,31 @@ class CI_DB_pdo_firebird_driver extends CI_DB_pdo_driver {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show column query
-	 *
-	 * Generates a platform-specific query string so that the column names can be fetched
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _list_columns($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show column query
+  //
+  //Generates a platform-specific query string so that the column names can be fetched
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _list_columns($table = ''): string
+  {
 		return 'SELECT "RDB$FIELD_NAME" FROM "RDB$RELATION_FIELDS" WHERE "RDB$RELATION_NAME" = '.$this->escape($table);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an object with field data
-	 *
-	 * @param	string	$table
-	 * @return	array
-	 */
-	public function field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an object with field data
+  //
+  //@param	string	$table
+  //@return	array
+  
+  public function field_data($table): array
+  {
 		$sql = 'SELECT "rfields"."RDB$FIELD_NAME" AS "name",
 				CASE "fields"."RDB$FIELD_TYPE"
 					WHEN 7 THEN \'SMALLINT\'
@@ -180,71 +174,67 @@ class CI_DB_pdo_firebird_driver extends CI_DB_pdo_driver {
 		return (($query = $this->query($sql)) !== FALSE)
 			? $query->result_object()
 			: FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update statement
-	 *
-	 * Generates a platform-specific update string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @param	array	$values
-	 * @return	string
-	 */
-	protected function _update($table, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update statement
+  //
+  //Generates a platform-specific update string from the supplied data
+  //
+  //@param	string	$table
+  //@param	array	$values
+  //@return	string
+  
+  protected function _update($table, $values): string
+  {
 		$this->qb_limit = FALSE;
 		return parent::_update($table, $values);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Truncate statement
-	 *
-	 * Generates a platform-specific truncate string from the supplied data
-	 *
-	 * If the database does not support the TRUNCATE statement,
-	 * then this method maps to 'DELETE FROM table'
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _truncate($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Truncate statement
+  //
+  //Generates a platform-specific truncate string from the supplied data
+  //
+  //If the database does not support the TRUNCATE statement,
+  //then this method maps to 'DELETE FROM table'
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _truncate($table): string
+  {
 		return 'DELETE FROM '.$table;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete statement
-	 *
-	 * Generates a platform-specific delete string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _delete($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete statement
+  //
+  //Generates a platform-specific delete string from the supplied data
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _delete($table): string
+  {
 		$this->qb_limit = FALSE;
 		return parent::_delete($table);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * LIMIT
-	 *
-	 * Generates a platform-specific LIMIT clause
-	 *
-	 * @param	string	$sql	SQL Query
-	 * @return	string
-	 */
-	protected function _limit($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //LIMIT
+  //
+  //Generates a platform-specific LIMIT clause
+  //
+  //@param	string	$sql	SQL Query
+  //@return	string
+  
+  protected function _limit($sql): string
+  {
 		// Limit clause depends on if Interbase or Firebird
 		if (stripos($this->version(), 'firebird') !== FALSE)
 		{
@@ -258,22 +248,23 @@ class CI_DB_pdo_firebird_driver extends CI_DB_pdo_driver {
 		}
 
 		return preg_replace('`SELECT`i', 'SELECT '.$select, $sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert batch statement
-	 *
-	 * Generates a platform-specific insert string from the supplied data.
-	 *
-	 * @param	string	$table	Table name
-	 * @param	array	$keys	INSERT keys
-	 * @param	array	$values	INSERT values
-	 * @return	string|bool
-	 */
-	protected function _insert_batch($table, $keys, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert batch statement
+  //
+  //Generates a platform-specific insert string from the supplied data.
+  //
+  //@param	string	$table	Table name
+  //@param	array	$keys	INSERT keys
+  //@param	array	$values	INSERT values
+  //@return	string|bool
+  
+  protected function _insert_batch($table, $keys, $values): string|bool
+  {
 		return ($this->db_debug) ? $this->display_error('db_unsupported_feature') : FALSE;
-	}
+  }
+
 }
+

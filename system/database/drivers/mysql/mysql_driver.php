@@ -37,92 +37,88 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * MySQL Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//MySQL Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_mysql_driver extends CI_DB {
+  //
+  //Database driver
+  //
+  //@var	string
+  
+  public $dbdriver =  'mysql';
 
-	/**
-	 * Database driver
-	 *
-	 * @var	string
-	 */
-	public $dbdriver = 'mysql';
+  //
+  //Compression flag
+  //
+  //@var	bool
+  
+  public $compress =  FALSE;
 
-	/**
-	 * Compression flag
-	 *
-	 * @var	bool
-	 */
-	public $compress = FALSE;
+  //
+  //DELETE hack flag
+  //
+  //Whether to use the MySQL "delete hack" which allows the number
+  //of affected rows to be shown. Uses a preg_replace when enabled,
+  //adding a bit more processing to all queries.
+  //
+  //@var	bool
+  
+  public $delete_hack =  TRUE;
 
-	/**
-	 * DELETE hack flag
-	 *
-	 * Whether to use the MySQL "delete hack" which allows the number
-	 * of affected rows to be shown. Uses a preg_replace when enabled,
-	 * adding a bit more processing to all queries.
-	 *
-	 * @var	bool
-	 */
-	public $delete_hack = TRUE;
+  //
+  //Strict ON flag
+  //
+  //Whether we're running in strict SQL mode.
+  //
+  //@var	bool
+  
+  public $stricton;
 
-	/**
-	 * Strict ON flag
-	 *
-	 * Whether we're running in strict SQL mode.
-	 *
-	 * @var	bool
-	 */
-	public $stricton;
+  // --------------------------------------------------------------------
+  //
+  //Identifier escape character
+  //
+  //@var	string
+  
+  protected $_escape_char =  '`';
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Identifier escape character
-	 *
-	 * @var	string
-	 */
-	protected $_escape_char = '`';
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		if ( ! empty($this->port))
 		{
 			$this->hostname .= ':'.$this->port;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Non-persistent database connection
-	 *
-	 * @param	bool	$persistent
-	 * @return	resource
-	 */
-	public function db_connect($persistent = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Non-persistent database connection
+  //
+  //@param	bool	$persistent
+  //@return	resource
+  
+  public function db_connect($persistent = FALSE): resource
+  {
 		$client_flags = ($this->compress === FALSE) ? 0 : MYSQL_CLIENT_COMPRESS;
 
 		if ($this->encrypt === TRUE)
@@ -170,36 +166,34 @@ class CI_DB_mysql_driver extends CI_DB {
 		}
 
 		return $this->conn_id;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Reconnect
-	 *
-	 * Keep / reestablish the db connection if no queries have been
-	 * sent for a length of time exceeding the server's idle timeout
-	 *
-	 * @return	void
-	 */
-	public function reconnect()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Reconnect
+  //
+  //Keep / reestablish the db connection if no queries have been
+  //sent for a length of time exceeding the server's idle timeout
+  //
+  //@return	void
+  
+  public function reconnect()
+  {
 		if (mysql_ping($this->conn_id) === FALSE)
 		{
 			$this->conn_id = FALSE;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Select the database
-	 *
-	 * @param	string	$database
-	 * @return	bool
-	 */
-	public function db_select($database = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Select the database
+  //
+  //@param	string	$database
+  //@return	bool
+  
+  public function db_select($database = ''): bool
+  {
 		if ($database === '')
 		{
 			$database = $this->database;
@@ -213,30 +207,28 @@ class CI_DB_mysql_driver extends CI_DB {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set client character set
-	 *
-	 * @param	string	$charset
-	 * @return	bool
-	 */
-	protected function _db_set_charset($charset)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set client character set
+  //
+  //@param	string	$charset
+  //@return	bool
+  
+  protected function _db_set_charset($charset): bool
+  {
 		return mysql_set_charset($charset, $this->conn_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database version number
-	 *
-	 * @return	string
-	 */
-	public function version()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database version number
+  //
+  //@return	string
+  
+  public function version(): string
+  {
 		if (isset($this->data_cache['version']))
 		{
 			return $this->data_cache['version'];
@@ -248,33 +240,31 @@ class CI_DB_mysql_driver extends CI_DB {
 		}
 
 		return $this->data_cache['version'] = $version;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Execute the query
-	 *
-	 * @param	string	$sql	an SQL query
-	 * @return	mixed
-	 */
-	protected function _execute($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Execute the query
+  //
+  //@param	string	$sql	an SQL query
+  //@return	mixed
+  
+  protected function _execute($sql): mixed
+  {
 		return mysql_query($this->_prep_query($sql), $this->conn_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Prep the query
-	 *
-	 * If needed, each database adapter can prep the query string
-	 *
-	 * @param	string	$sql	an SQL query
-	 * @return	string
-	 */
-	protected function _prep_query($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Prep the query
+  //
+  //If needed, each database adapter can prep the query string
+  //
+  //@param	string	$sql	an SQL query
+  //@return	string
+  
+  protected function _prep_query($sql): string
+  {
 		// mysql_affected_rows() returns 0 for "DELETE FROM TABLE" queries. This hack
 		// modifies the query so that it a proper number of affected rows is returned.
 		if ($this->delete_hack === TRUE && preg_match('/^\s*DELETE\s+FROM\s+(\S+)\s*$/i', $sql))
@@ -283,30 +273,28 @@ class CI_DB_mysql_driver extends CI_DB {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Begin Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_begin()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Begin Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_begin(): bool
+  {
 		$this->simple_query('SET AUTOCOMMIT=0');
 		return $this->simple_query('START TRANSACTION'); // can also be BEGIN or BEGIN WORK
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Commit Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_commit()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Commit Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_commit(): bool
+  {
 		if ($this->simple_query('COMMIT'))
 		{
 			$this->simple_query('SET AUTOCOMMIT=1');
@@ -314,17 +302,16 @@ class CI_DB_mysql_driver extends CI_DB {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Rollback Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_rollback()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Rollback Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_rollback(): bool
+  {
 		if ($this->simple_query('ROLLBACK'))
 		{
 			$this->simple_query('SET AUTOCOMMIT=1');
@@ -332,57 +319,53 @@ class CI_DB_mysql_driver extends CI_DB {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Platform-dependent string escape
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _escape_str($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Platform-dependent string escape
+  //
+  //@param	string
+  //@return	string
+  
+  protected function _escape_str($str): string
+  {
 		return mysql_real_escape_string($str, $this->conn_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Affected Rows
-	 *
-	 * @return	int
-	 */
-	public function affected_rows()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Affected Rows
+  //
+  //@return	int
+  
+  public function affected_rows(): int
+  {
 		return mysql_affected_rows($this->conn_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert ID
-	 *
-	 * @return	int
-	 */
-	public function insert_id()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert ID
+  //
+  //@return	int
+  
+  public function insert_id(): int
+  {
 		return mysql_insert_id($this->conn_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * List table query
-	 *
-	 * Generates a platform-specific query string so that the table names can be fetched
-	 *
-	 * @param	bool	$prefix_limit
-	 * @return	string
-	 */
-	protected function _list_tables($prefix_limit = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //List table query
+  //
+  //Generates a platform-specific query string so that the table names can be fetched
+  //
+  //@param	bool	$prefix_limit
+  //@return	string
+  
+  protected function _list_tables($prefix_limit = FALSE): string
+  {
 		$sql = 'SHOW TABLES FROM '.$this->escape_identifiers($this->database);
 
 		if ($prefix_limit !== FALSE && $this->dbprefix !== '')
@@ -391,33 +374,31 @@ class CI_DB_mysql_driver extends CI_DB {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show column query
-	 *
-	 * Generates a platform-specific query string so that the column names can be fetched
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _list_columns($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show column query
+  //
+  //Generates a platform-specific query string so that the column names can be fetched
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _list_columns($table = ''): string
+  {
 		return 'SHOW COLUMNS FROM '.$this->protect_identifiers($table, TRUE, NULL, FALSE);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an object with field data
-	 *
-	 * @param	string	$table
-	 * @return	array
-	 */
-	public function field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an object with field data
+  //
+  //@param	string	$table
+  //@return	array
+  
+  public function field_data($table): array
+  {
 		if (($query = $this->query('SHOW COLUMNS FROM '.$this->protect_identifiers($table, TRUE, NULL, FALSE))) === FALSE)
 		{
 			return FALSE;
@@ -440,55 +421,53 @@ class CI_DB_mysql_driver extends CI_DB {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Error
-	 *
-	 * Returns an array containing code and message of the last
-	 * database error that has occurred.
-	 *
-	 * @return	array
-	 */
-	public function error()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Error
+  //
+  //Returns an array containing code and message of the last
+  //database error that has occurred.
+  //
+  //@return	array
+  
+  public function error(): array
+  {
 		return array('code' => mysql_errno($this->conn_id), 'message' => mysql_error($this->conn_id));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * FROM tables
-	 *
-	 * Groups tables in FROM clauses if needed, so there is no confusion
-	 * about operator precedence.
-	 *
-	 * @return	string
-	 */
-	protected function _from_tables()
-	{
+  // --------------------------------------------------------------------
+  //
+  //FROM tables
+  //
+  //Groups tables in FROM clauses if needed, so there is no confusion
+  //about operator precedence.
+  //
+  //@return	string
+  
+  protected function _from_tables(): string
+  {
 		if ( ! empty($this->qb_join) && count($this->qb_from) > 1)
 		{
 			return '('.implode(', ', $this->qb_from).')';
 		}
 
 		return implode(', ', $this->qb_from);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Close DB Connection
-	 *
-	 * @return	void
-	 */
-	protected function _close()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Close DB Connection
+  //
+  //@return	void
+  
+  protected function _close()
+  {
 		// Error suppression to avoid annoying E_WARNINGs in cases
 		// where the connection has already been closed for some reason.
 		@mysql_close($this->conn_id);
-	}
+  }
 
 }
+

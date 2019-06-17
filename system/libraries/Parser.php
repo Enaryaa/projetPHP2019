@@ -37,104 +37,99 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Parser Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Parser
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/parser.html
- */
+//
+//Parser Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Parser
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/parser.html
+
 class CI_Parser {
+  //
+  //Left delimiter character for pseudo vars
+  //
+  //@var string
+  
+  public $l_delim =  '{';
 
-	/**
-	 * Left delimiter character for pseudo vars
-	 *
-	 * @var string
-	 */
-	public $l_delim = '{';
+  //
+  //Right delimiter character for pseudo vars
+  //
+  //@var string
+  
+  public $r_delim =  '}';
 
-	/**
-	 * Right delimiter character for pseudo vars
-	 *
-	 * @var string
-	 */
-	public $r_delim = '}';
+  //
+  //Reference to CodeIgniter instance
+  //
+  //@var object
+  
+  protected $CI;
 
-	/**
-	 * Reference to CodeIgniter instance
-	 *
-	 * @var object
-	 */
-	protected $CI;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@return	void
+  
+  public function __construct()
+  {
 		$this->CI =& get_instance();
 		log_message('info', 'Parser Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Parse a template
-	 *
-	 * Parses pseudo-variables contained in the specified template view,
-	 * replacing them with the data in the second param
-	 *
-	 * @param	string
-	 * @param	array
-	 * @param	bool
-	 * @return	string
-	 */
-	public function parse($template, $data, $return = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Parse a template
+  //
+  //Parses pseudo-variables contained in the specified template view,
+  //replacing them with the data in the second param
+  //
+  //@param	string
+  //@param	array
+  //@param	bool
+  //@return	string
+  
+  public function parse($template, $data, $return = FALSE): string
+  {
 		$template = $this->CI->load->view($template, $data, TRUE);
 
 		return $this->_parse($template, $data, $return);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Parse a String
-	 *
-	 * Parses pseudo-variables contained in the specified string,
-	 * replacing them with the data in the second param
-	 *
-	 * @param	string
-	 * @param	array
-	 * @param	bool
-	 * @return	string
-	 */
-	public function parse_string($template, $data, $return = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Parse a String
+  //
+  //Parses pseudo-variables contained in the specified string,
+  //replacing them with the data in the second param
+  //
+  //@param	string
+  //@param	array
+  //@param	bool
+  //@return	string
+  
+  public function parse_string($template, $data, $return = FALSE): string
+  {
 		return $this->_parse($template, $data, $return);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Parse a template
-	 *
-	 * Parses pseudo-variables contained in the specified template,
-	 * replacing them with the data in the second param
-	 *
-	 * @param	string
-	 * @param	array
-	 * @param	bool
-	 * @return	string
-	 */
-	protected function _parse($template, $data, $return = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Parse a template
+  //
+  //Parses pseudo-variables contained in the specified template,
+  //replacing them with the data in the second param
+  //
+  //@param	string
+  //@param	array
+  //@param	bool
+  //@return	string
+  
+  protected function _parse($template, $data, $return = FALSE): string
+  {
 		if ($template === '')
 		{
 			return FALSE;
@@ -160,52 +155,49 @@ class CI_Parser {
 		}
 
 		return $template;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set the left/right variable delimiters
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	void
-	 */
-	public function set_delimiters($l = '{', $r = '}')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set the left/right variable delimiters
+  //
+  //@param	string
+  //@param	string
+  //@return	void
+  
+  public function set_delimiters($l = '{', $r = '}')
+  {
 		$this->l_delim = $l;
 		$this->r_delim = $r;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Parse a single key/value
-	 *
-	 * @param	string
-	 * @param	string
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _parse_single($key, $val, $string)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Parse a single key/value
+  //
+  //@param	string
+  //@param	string
+  //@param	string
+  //@return	string
+  
+  protected function _parse_single($key, $val, $string): string
+  {
 		return array($this->l_delim.$key.$this->r_delim => (string) $val);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Parse a tag pair
-	 *
-	 * Parses tag pairs: {some_tag} string... {/some_tag}
-	 *
-	 * @param	string
-	 * @param	array
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _parse_pair($variable, $data, $string)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Parse a tag pair
+  //
+  //Parses tag pairs: {some_tag} string... {/some_tag}
+  //
+  //@param	string
+  //@param	array
+  //@param	string
+  //@return	string
+  
+  protected function _parse_pair($variable, $data, $string): string
+  {
 		$replace = array();
 		preg_match_all(
 			'#'.preg_quote($this->l_delim.$variable.$this->r_delim).'(.+?)'.preg_quote($this->l_delim.'/'.$variable.$this->r_delim).'#s',
@@ -243,6 +235,7 @@ class CI_Parser {
 		}
 
 		return $replace;
-	}
+  }
 
 }
+

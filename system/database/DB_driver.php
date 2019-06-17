@@ -37,333 +37,331 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Database Driver Class
- *
- * This is the platform-independent base DB implementation class.
- * This class will not be called directly. Rather, the adapter
- * class for the specific database will extend and instantiate it.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//Database Driver Class
+//
+//This is the platform-independent base DB implementation class.
+//This class will not be called directly. Rather, the adapter
+//class for the specific database will extend and instantiate it.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 abstract class CI_DB_driver {
+  //
+  //Data Source Name / Connect string
+  //
+  //@var	string
+  
+  public $dsn;
 
-	/**
-	 * Data Source Name / Connect string
-	 *
-	 * @var	string
-	 */
-	public $dsn;
+  //
+  //Username
+  //
+  //@var	string
+  
+  public $username;
 
-	/**
-	 * Username
-	 *
-	 * @var	string
-	 */
-	public $username;
+  //
+  //Password
+  //
+  //@var	string
+  
+  public $password;
 
-	/**
-	 * Password
-	 *
-	 * @var	string
-	 */
-	public $password;
+  //
+  //Hostname
+  //
+  //@var	string
+  
+  public $hostname;
 
-	/**
-	 * Hostname
-	 *
-	 * @var	string
-	 */
-	public $hostname;
+  //
+  //Database name
+  //
+  //@var	string
+  
+  public $database;
 
-	/**
-	 * Database name
-	 *
-	 * @var	string
-	 */
-	public $database;
+  //
+  //Database driver
+  //
+  //@var	string
+  
+  public $dbdriver =  'mysqli';
 
-	/**
-	 * Database driver
-	 *
-	 * @var	string
-	 */
-	public $dbdriver		= 'mysqli';
+  //
+  //Sub-driver
+  //
+  //@used-by	CI_DB_pdo_driver
+  //@var	string
+  
+  public $subdriver;
 
-	/**
-	 * Sub-driver
-	 *
-	 * @used-by	CI_DB_pdo_driver
-	 * @var	string
-	 */
-	public $subdriver;
+  //
+  //Table prefix
+  //
+  //@var	string
+  
+  public $dbprefix =  '';
 
-	/**
-	 * Table prefix
-	 *
-	 * @var	string
-	 */
-	public $dbprefix		= '';
+  //
+  //Character set
+  //
+  //@var	string
+  
+  public $char_set =  'utf8';
 
-	/**
-	 * Character set
-	 *
-	 * @var	string
-	 */
-	public $char_set		= 'utf8';
+  //
+  //Collation
+  //
+  //@var	string
+  
+  public $dbcollat =  'utf8_general_ci';
 
-	/**
-	 * Collation
-	 *
-	 * @var	string
-	 */
-	public $dbcollat		= 'utf8_general_ci';
+  //
+  //Encryption flag/data
+  //
+  //@var	mixed
+  
+  public $encrypt =  FALSE;
 
-	/**
-	 * Encryption flag/data
-	 *
-	 * @var	mixed
-	 */
-	public $encrypt			= FALSE;
+  //
+  //Swap Prefix
+  //
+  //@var	string
+  
+  public $swap_pre =  '';
 
-	/**
-	 * Swap Prefix
-	 *
-	 * @var	string
-	 */
-	public $swap_pre		= '';
+  //
+  //Database port
+  //
+  //@var	int
+  
+  public $port =  NULL;
 
-	/**
-	 * Database port
-	 *
-	 * @var	int
-	 */
-	public $port			= NULL;
+  //
+  //Persistent connection flag
+  //
+  //@var	bool
+  
+  public $pconnect =  FALSE;
 
-	/**
-	 * Persistent connection flag
-	 *
-	 * @var	bool
-	 */
-	public $pconnect		= FALSE;
+  //
+  //Connection ID
+  //
+  //@var	object|resource
+  
+  public $conn_id =  FALSE;
 
-	/**
-	 * Connection ID
-	 *
-	 * @var	object|resource
-	 */
-	public $conn_id			= FALSE;
+  //
+  //Result ID
+  //
+  //@var	object|resource
+  
+  public $result_id =  FALSE;
 
-	/**
-	 * Result ID
-	 *
-	 * @var	object|resource
-	 */
-	public $result_id		= FALSE;
+  //
+  //Debug flag
+  //
+  //Whether to display error messages.
+  //
+  //@var	bool
+  
+  public $db_debug =  FALSE;
 
-	/**
-	 * Debug flag
-	 *
-	 * Whether to display error messages.
-	 *
-	 * @var	bool
-	 */
-	public $db_debug		= FALSE;
+  //
+  //Benchmark time
+  //
+  //@var	int
+  
+  public $benchmark =  0;
 
-	/**
-	 * Benchmark time
-	 *
-	 * @var	int
-	 */
-	public $benchmark		= 0;
+  //
+  //Executed queries count
+  //
+  //@var	int
+  
+  public $query_count =  0;
 
-	/**
-	 * Executed queries count
-	 *
-	 * @var	int
-	 */
-	public $query_count		= 0;
+  //
+  //Bind marker
+  //
+  //Character used to identify values in a prepared statement.
+  //
+  //@var	string
+  
+  public $bind_marker =  '?';
 
-	/**
-	 * Bind marker
-	 *
-	 * Character used to identify values in a prepared statement.
-	 *
-	 * @var	string
-	 */
-	public $bind_marker		= '?';
+  //
+  //Save queries flag
+  //
+  //Whether to keep an in-memory history of queries for debugging purposes.
+  //
+  //@var	bool
+  
+  public $save_queries =  TRUE;
 
-	/**
-	 * Save queries flag
-	 *
-	 * Whether to keep an in-memory history of queries for debugging purposes.
-	 *
-	 * @var	bool
-	 */
-	public $save_queries		= TRUE;
+  //
+  //Queries list
+  //
+  //@see	CI_DB_driver::$save_queries
+  //@var	string[]
+  
+  public $queries =  array();
 
-	/**
-	 * Queries list
-	 *
-	 * @see	CI_DB_driver::$save_queries
-	 * @var	string[]
-	 */
-	public $queries			= array();
+  //
+  //Query times
+  //
+  //A list of times that queries took to execute.
+  //
+  //@var	array
+  
+  public $query_times =  array();
 
-	/**
-	 * Query times
-	 *
-	 * A list of times that queries took to execute.
-	 *
-	 * @var	array
-	 */
-	public $query_times		= array();
+  //
+  //Data cache
+  //
+  //An internal generic value cache.
+  //
+  //@var	array
+  
+  public $data_cache =  array();
 
-	/**
-	 * Data cache
-	 *
-	 * An internal generic value cache.
-	 *
-	 * @var	array
-	 */
-	public $data_cache		= array();
+  //
+  //Transaction enabled flag
+  //
+  //@var	bool
+  
+  public $trans_enabled =  TRUE;
 
-	/**
-	 * Transaction enabled flag
-	 *
-	 * @var	bool
-	 */
-	public $trans_enabled		= TRUE;
+  //
+  //Strict transaction mode flag
+  //
+  //@var	bool
+  
+  public $trans_strict =  TRUE;
 
-	/**
-	 * Strict transaction mode flag
-	 *
-	 * @var	bool
-	 */
-	public $trans_strict		= TRUE;
+  //
+  //Transaction depth level
+  //
+  //@var	int
+  
+  protected $_trans_depth =  0;
 
-	/**
-	 * Transaction depth level
-	 *
-	 * @var	int
-	 */
-	protected $_trans_depth		= 0;
+  //
+  //Transaction status flag
+  //
+  //Used with transactions to determine if a rollback should occur.
+  //
+  //@var	bool
+  
+  protected $_trans_status =  TRUE;
 
-	/**
-	 * Transaction status flag
-	 *
-	 * Used with transactions to determine if a rollback should occur.
-	 *
-	 * @var	bool
-	 */
-	protected $_trans_status	= TRUE;
+  //
+  //Transaction failure flag
+  //
+  //Used with transactions to determine if a transaction has failed.
+  //
+  //@var	bool
+  
+  protected $_trans_failure =  FALSE;
 
-	/**
-	 * Transaction failure flag
-	 *
-	 * Used with transactions to determine if a transaction has failed.
-	 *
-	 * @var	bool
-	 */
-	protected $_trans_failure	= FALSE;
+  //
+  //Cache On flag
+  //
+  //@var	bool
+  
+  public $cache_on =  FALSE;
 
-	/**
-	 * Cache On flag
-	 *
-	 * @var	bool
-	 */
-	public $cache_on		= FALSE;
+  //
+  //Cache directory path
+  //
+  //@var	bool
+  
+  public $cachedir =  '';
 
-	/**
-	 * Cache directory path
-	 *
-	 * @var	bool
-	 */
-	public $cachedir		= '';
+  //
+  //Cache auto-delete flag
+  //
+  //@var	bool
+  
+  public $cache_autodel =  FALSE;
 
-	/**
-	 * Cache auto-delete flag
-	 *
-	 * @var	bool
-	 */
-	public $cache_autodel		= FALSE;
+  //
+  //DB Cache object
+  //
+  //@see	CI_DB_cache
+  //@var	object
+  
+  public $CACHE;
 
-	/**
-	 * DB Cache object
-	 *
-	 * @see	CI_DB_cache
-	 * @var	object
-	 */
-	public $CACHE;
+  //
+  //Protect identifiers flag
+  //
+  //@var	bool
+  
+  protected $_protect_identifiers =  TRUE;
 
-	/**
-	 * Protect identifiers flag
-	 *
-	 * @var	bool
-	 */
-	protected $_protect_identifiers		= TRUE;
+  //
+  //List of reserved identifiers
+  //
+  //Identifiers that must NOT be escaped.
+  //
+  //@var	string[]
+  
+  protected $_reserved_identifiers =  array('*');
 
-	/**
-	 * List of reserved identifiers
-	 *
-	 * Identifiers that must NOT be escaped.
-	 *
-	 * @var	string[]
-	 */
-	protected $_reserved_identifiers	= array('*');
+  //
+  //Identifier escape character
+  //
+  //@var	string
+  
+  protected $_escape_char =  '"';
 
-	/**
-	 * Identifier escape character
-	 *
-	 * @var	string
-	 */
-	protected $_escape_char = '"';
+  //
+  //ESCAPE statement string
+  //
+  //@var	string
+  
+  protected $_like_escape_str =  " ESCAPE '%s' ";
 
-	/**
-	 * ESCAPE statement string
-	 *
-	 * @var	string
-	 */
-	protected $_like_escape_str = " ESCAPE '%s' ";
+  //
+  //ESCAPE character
+  //
+  //@var	string
+  
+  protected $_like_escape_chr =  '!';
 
-	/**
-	 * ESCAPE character
-	 *
-	 * @var	string
-	 */
-	protected $_like_escape_chr = '!';
+  //
+  //ORDER BY random keyword
+  //
+  //@var	array
+  
+  protected $_random_keyword =  array('RAND()', 'RAND(%d)');
 
-	/**
-	 * ORDER BY random keyword
-	 *
-	 * @var	array
-	 */
-	protected $_random_keyword = array('RAND()', 'RAND(%d)');
+  //
+  //COUNT string
+  //
+  //@used-by	CI_DB_driver::count_all()
+  //@used-by	CI_DB_query_builder::count_all_results()
+  //
+  //@var	string
+  
+  protected $_count_string =  'SELECT COUNT(*) AS ';
 
-	/**
-	 * COUNT string
-	 *
-	 * @used-by	CI_DB_driver::count_all()
-	 * @used-by	CI_DB_query_builder::count_all_results()
-	 *
-	 * @var	string
-	 */
-	protected $_count_string = 'SELECT COUNT(*) AS ';
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		if (is_array($params))
 		{
 			foreach ($params as $key => $val)
@@ -373,17 +371,16 @@ abstract class CI_DB_driver {
 		}
 
 		log_message('info', 'Database Driver Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize Database Settings
-	 *
-	 * @return	bool
-	 */
-	public function initialize()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize Database Settings
+  //
+  //@return	bool
+  
+  public function initialize(): bool
+  {
 		/* If an established connection is available, then there's
 		 * no need to connect and select the database.
 		 *
@@ -442,88 +439,82 @@ abstract class CI_DB_driver {
 
 		// Now we set the character set and that's all
 		return $this->db_set_charset($this->char_set);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * DB connect
-	 *
-	 * This is just a dummy method that all drivers will override.
-	 *
-	 * @return	mixed
-	 */
-	public function db_connect()
-	{
+  // --------------------------------------------------------------------
+  //
+  //DB connect
+  //
+  //This is just a dummy method that all drivers will override.
+  //
+  //@return	mixed
+  
+  public function db_connect(): mixed
+  {
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Persistent database connection
-	 *
-	 * @return	mixed
-	 */
-	public function db_pconnect()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Persistent database connection
+  //
+  //@return	mixed
+  
+  public function db_pconnect(): mixed
+  {
 		return $this->db_connect(TRUE);
-	}
+  }
 
-	// --------------------------------------------------------------------
+  // --------------------------------------------------------------------
+  //
+  //Reconnect
+  //
+  //Keep / reestablish the db connection if no queries have been
+  //sent for a length of time exceeding the server's idle timeout.
+  //
+  //This is just a dummy method to allow drivers without such
+  //functionality to not declare it, while others will override it.
+  //
+  //@return	void
+  
+  public function reconnect()
+  {
+  }
 
-	/**
-	 * Reconnect
-	 *
-	 * Keep / reestablish the db connection if no queries have been
-	 * sent for a length of time exceeding the server's idle timeout.
-	 *
-	 * This is just a dummy method to allow drivers without such
-	 * functionality to not declare it, while others will override it.
-	 *
-	 * @return	void
-	 */
-	public function reconnect()
-	{
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Select database
-	 *
-	 * This is just a dummy method to allow drivers without such
-	 * functionality to not declare it, while others will override it.
-	 *
-	 * @return	bool
-	 */
-	public function db_select()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Select database
+  //
+  //This is just a dummy method to allow drivers without such
+  //functionality to not declare it, while others will override it.
+  //
+  //@return	bool
+  
+  public function db_select(): bool
+  {
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Last error
-	 *
-	 * @return	array
-	 */
-	public function error()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Last error
+  //
+  //@return	array
+  
+  public function error(): array
+  {
 		return array('code' => NULL, 'message' => NULL);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set client character set
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function db_set_charset($charset)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set client character set
+  //
+  //@param	string
+  //@return	bool
+  
+  public function db_set_charset($charset): bool
+  {
 		if (method_exists($this, '_db_set_charset') && ! $this->_db_set_charset($charset))
 		{
 			log_message('error', 'Unable to set database connection charset: '.$charset);
@@ -537,32 +528,30 @@ abstract class CI_DB_driver {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * The name of the platform in use (mysql, mssql, etc...)
-	 *
-	 * @return	string
-	 */
-	public function platform()
-	{
+  // --------------------------------------------------------------------
+  //
+  //The name of the platform in use (mysql, mssql, etc...)
+  //
+  //@return	string
+  
+  public function platform(): string
+  {
 		return $this->dbdriver;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database version number
-	 *
-	 * Returns a string containing the version of the database being used.
-	 * Most drivers will override this method.
-	 *
-	 * @return	string
-	 */
-	public function version()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database version number
+  //
+  //Returns a string containing the version of the database being used.
+  //Most drivers will override this method.
+  //
+  //@return	string
+  
+  public function version(): string
+  {
 		if (isset($this->data_cache['version']))
 		{
 			return $this->data_cache['version'];
@@ -575,38 +564,36 @@ abstract class CI_DB_driver {
 
 		$query = $this->query($sql)->row();
 		return $this->data_cache['version'] = $query->ver;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Version number query string
-	 *
-	 * @return	string
-	 */
-	protected function _version()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Version number query string
+  //
+  //@return	string
+  
+  protected function _version(): string
+  {
 		return 'SELECT VERSION() AS ver';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Execute the query
-	 *
-	 * Accepts an SQL string as input and returns a result object upon
-	 * successful execution of a "read" type query. Returns boolean TRUE
-	 * upon successful execution of a "write" type query. Returns boolean
-	 * FALSE upon failure, and if the $db_debug variable is set to TRUE
-	 * will raise an error.
-	 *
-	 * @param	string	$sql
-	 * @param	array	$binds = FALSE		An array of binding data
-	 * @param	bool	$return_object = NULL
-	 * @return	mixed
-	 */
-	public function query($sql, $binds = FALSE, $return_object = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Execute the query
+  //
+  //Accepts an SQL string as input and returns a result object upon
+  //successful execution of a "read" type query. Returns boolean TRUE
+  //upon successful execution of a "write" type query. Returns boolean
+  //FALSE upon failure, and if the $db_debug variable is set to TRUE
+  //will raise an error.
+  //
+  //@param	string	$sql
+  //@param	array	$binds = FALSE		An array of binding data
+  //@param	bool	$return_object = NULL
+  //@return	mixed
+  
+  public function query($sql, $binds = FALSE, $return_object = NULL): mixed
+  {
 		if ($sql === '')
 		{
 			log_message('error', 'Invalid query: '.$sql);
@@ -745,17 +732,16 @@ abstract class CI_DB_driver {
 		}
 
 		return $RES;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Load the result drivers
-	 *
-	 * @return	string	the name of the result class
-	 */
-	public function load_rdriver()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Load the result drivers
+  //
+  //@return	string	the name of the result class
+  
+  public function load_rdriver(): string
+  {
 		$driver = 'CI_DB_'.$this->dbdriver.'_result';
 
 		if ( ! class_exists($driver, FALSE))
@@ -765,21 +751,20 @@ abstract class CI_DB_driver {
 		}
 
 		return $driver;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Simple Query
-	 * This is a simplified version of the query() function. Internally
-	 * we only use it when running transaction commands since they do
-	 * not require all the features of the main query() function.
-	 *
-	 * @param	string	the sql query
-	 * @return	mixed
-	 */
-	public function simple_query($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Simple Query
+  //This is a simplified version of the query() function. Internally
+  //we only use it when running transaction commands since they do
+  //not require all the features of the main query() function.
+  //
+  //@param	string	the sql query
+  //@return	mixed
+  
+  public function simple_query($sql): mixed
+  {
 		if ( ! $this->conn_id)
 		{
 			if ( ! $this->initialize())
@@ -789,68 +774,64 @@ abstract class CI_DB_driver {
 		}
 
 		return $this->_execute($sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Disable Transactions
-	 * This permits transactions to be disabled at run-time.
-	 *
-	 * @return	void
-	 */
-	public function trans_off()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Disable Transactions
+  //This permits transactions to be disabled at run-time.
+  //
+  //@return	void
+  
+  public function trans_off()
+  {
 		$this->trans_enabled = FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Enable/disable Transaction Strict Mode
-	 *
-	 * When strict mode is enabled, if you are running multiple groups of
-	 * transactions, if one group fails all subsequent groups will be
-	 * rolled back.
-	 *
-	 * If strict mode is disabled, each group is treated autonomously,
-	 * meaning a failure of one group will not affect any others
-	 *
-	 * @param	bool	$mode = TRUE
-	 * @return	void
-	 */
-	public function trans_strict($mode = TRUE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Enable/disable Transaction Strict Mode
+  //
+  //When strict mode is enabled, if you are running multiple groups of
+  //transactions, if one group fails all subsequent groups will be
+  //rolled back.
+  //
+  //If strict mode is disabled, each group is treated autonomously,
+  //meaning a failure of one group will not affect any others
+  //
+  //@param	bool	$mode = TRUE
+  //@return	void
+  
+  public function trans_strict($mode = TRUE)
+  {
 		$this->trans_strict = is_bool($mode) ? $mode : TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Start Transaction
-	 *
-	 * @param	bool	$test_mode = FALSE
-	 * @return	bool
-	 */
-	public function trans_start($test_mode = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Start Transaction
+  //
+  //@param	bool	$test_mode = FALSE
+  //@return	bool
+  
+  public function trans_start($test_mode = FALSE): bool
+  {
 		if ( ! $this->trans_enabled)
 		{
 			return FALSE;
 		}
 
 		return $this->trans_begin($test_mode);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Complete Transaction
-	 *
-	 * @return	bool
-	 */
-	public function trans_complete()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Complete Transaction
+  //
+  //@return	bool
+  
+  public function trans_complete(): bool
+  {
 		if ( ! $this->trans_enabled)
 		{
 			return FALSE;
@@ -874,30 +855,28 @@ abstract class CI_DB_driver {
 		}
 
 		return $this->trans_commit();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Lets you retrieve the transaction flag to determine if it has failed
-	 *
-	 * @return	bool
-	 */
-	public function trans_status()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Lets you retrieve the transaction flag to determine if it has failed
+  //
+  //@return	bool
+  
+  public function trans_status(): bool
+  {
 		return $this->_trans_status;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Begin Transaction
-	 *
-	 * @param	bool	$test_mode
-	 * @return	bool
-	 */
-	public function trans_begin($test_mode = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Begin Transaction
+  //
+  //@param	bool	$test_mode
+  //@return	bool
+  
+  public function trans_begin($test_mode = FALSE): bool
+  {
 		if ( ! $this->trans_enabled)
 		{
 			return FALSE;
@@ -922,17 +901,16 @@ abstract class CI_DB_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Commit Transaction
-	 *
-	 * @return	bool
-	 */
-	public function trans_commit()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Commit Transaction
+  //
+  //@return	bool
+  
+  public function trans_commit(): bool
+  {
 		if ( ! $this->trans_enabled OR $this->_trans_depth === 0)
 		{
 			return FALSE;
@@ -945,17 +923,16 @@ abstract class CI_DB_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Rollback Transaction
-	 *
-	 * @return	bool
-	 */
-	public function trans_rollback()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Rollback Transaction
+  //
+  //@return	bool
+  
+  public function trans_rollback(): bool
+  {
 		if ( ! $this->trans_enabled OR $this->_trans_depth === 0)
 		{
 			return FALSE;
@@ -968,19 +945,18 @@ abstract class CI_DB_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile Bindings
-	 *
-	 * @param	string	the sql statement
-	 * @param	array	an array of bind data
-	 * @return	string
-	 */
-	public function compile_binds($sql, $binds)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile Bindings
+  //
+  //@param	string	the sql statement
+  //@param	array	an array of bind data
+  //@return	string
+  
+  public function compile_binds($sql, $binds): string
+  {
 		if (empty($this->bind_marker) OR strpos($sql, $this->bind_marker) === FALSE)
 		{
 			return $sql;
@@ -1033,71 +1009,66 @@ abstract class CI_DB_driver {
 		while ($c !== 0);
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Determines if a query is a "write" type.
-	 *
-	 * @param	string	An SQL query string
-	 * @return	bool
-	 */
-	public function is_write_type($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Determines if a query is a "write" type.
+  //
+  //@param	string	An SQL query string
+  //@return	bool
+  
+  public function is_write_type($sql): bool
+  {
 		return (bool) preg_match('/^\s*"?(SET|INSERT|UPDATE|DELETE|REPLACE|CREATE|DROP|TRUNCATE|LOAD|COPY|ALTER|RENAME|GRANT|REVOKE|LOCK|UNLOCK|REINDEX|MERGE)\s/i', $sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Calculate the aggregate query elapsed time
-	 *
-	 * @param	int	The number of decimal places
-	 * @return	string
-	 */
-	public function elapsed_time($decimals = 6)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Calculate the aggregate query elapsed time
+  //
+  //@param	int	The number of decimal places
+  //@return	string
+  
+  public function elapsed_time($decimals = 6): string
+  {
 		return number_format($this->benchmark, $decimals);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns the total number of queries
-	 *
-	 * @return	int
-	 */
-	public function total_queries()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns the total number of queries
+  //
+  //@return	int
+  
+  public function total_queries(): int
+  {
 		return $this->query_count;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns the last query that was executed
-	 *
-	 * @return	string
-	 */
-	public function last_query()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns the last query that was executed
+  //
+  //@return	string
+  
+  public function last_query(): string
+  {
 		return end($this->queries);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * "Smart" Escape String
-	 *
-	 * Escapes data based on type
-	 * Sets boolean and null types
-	 *
-	 * @param	string
-	 * @return	mixed
-	 */
-	public function escape($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //"Smart" Escape String
+  //
+  //Escapes data based on type
+  //Sets boolean and null types
+  //
+  //@param	string
+  //@return	mixed
+  
+  public function escape($str): mixed
+  {
 		if (is_array($str))
 		{
 			$str = array_map(array(&$this, 'escape'), $str);
@@ -1117,19 +1088,18 @@ abstract class CI_DB_driver {
 		}
 
 		return $str;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Escape String
-	 *
-	 * @param	string|string[]	$str	Input string
-	 * @param	bool	$like	Whether or not the string will be used in a LIKE condition
-	 * @return	string
-	 */
-	public function escape_str($str, $like = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Escape String
+  //
+  //@param	string|string[]	$str	Input string
+  //@param	bool	$like	Whether or not the string will be used in a LIKE condition
+  //@return	string
+  
+  public function escape_str($str, $like = FALSE): string
+  {
 		if (is_array($str))
 		{
 			foreach ($str as $key => $val)
@@ -1153,67 +1123,63 @@ abstract class CI_DB_driver {
 		}
 
 		return $str;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Escape LIKE String
-	 *
-	 * Calls the individual driver for platform
-	 * specific escaping for LIKE conditions
-	 *
-	 * @param	string|string[]
-	 * @return	mixed
-	 */
-	public function escape_like_str($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Escape LIKE String
+  //
+  //Calls the individual driver for platform
+  //specific escaping for LIKE conditions
+  //
+  //@param	string|string[]
+  //@return	mixed
+  
+  public function escape_like_str($str): mixed
+  {
 		return $this->escape_str($str, TRUE);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Platform-dependent string escape
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _escape_str($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Platform-dependent string escape
+  //
+  //@param	string
+  //@return	string
+  
+  protected function _escape_str($str): string
+  {
 		return str_replace("'", "''", remove_invisible_characters($str, FALSE));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Primary
-	 *
-	 * Retrieves the primary key. It assumes that the row in the first
-	 * position is the primary key
-	 *
-	 * @param	string	$table	Table name
-	 * @return	string
-	 */
-	public function primary($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Primary
+  //
+  //Retrieves the primary key. It assumes that the row in the first
+  //position is the primary key
+  //
+  //@param	string	$table	Table name
+  //@return	string
+  
+  public function primary($table): string
+  {
 		$fields = $this->list_fields($table);
 		return is_array($fields) ? current($fields) : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * "Count All" query
-	 *
-	 * Generates a platform-specific query string that counts all records in
-	 * the specified database
-	 *
-	 * @param	string
-	 * @return	int
-	 */
-	public function count_all($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //"Count All" query
+  //
+  //Generates a platform-specific query string that counts all records in
+  //the specified database
+  //
+  //@param	string
+  //@return	int
+  
+  public function count_all($table = ''): int
+  {
 		if ($table === '')
 		{
 			return 0;
@@ -1228,18 +1194,17 @@ abstract class CI_DB_driver {
 		$query = $query->row();
 		$this->_reset_select();
 		return (int) $query->numrows;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an array of table names
-	 *
-	 * @param	string	$constrain_by_prefix = FALSE
-	 * @return	array
-	 */
-	public function list_tables($constrain_by_prefix = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an array of table names
+  //
+  //@param	string	$constrain_by_prefix = FALSE
+  //@return	array
+  
+  public function list_tables($constrain_by_prefix = FALSE): array
+  {
 		// Is there a cached result?
 		if (isset($this->data_cache['table_names']))
 		{
@@ -1283,31 +1248,29 @@ abstract class CI_DB_driver {
 		}
 
 		return $this->data_cache['table_names'];
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Determine if a particular table exists
-	 *
-	 * @param	string	$table_name
-	 * @return	bool
-	 */
-	public function table_exists($table_name)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Determine if a particular table exists
+  //
+  //@param	string	$table_name
+  //@return	bool
+  
+  public function table_exists($table_name): bool
+  {
 		return in_array($this->protect_identifiers($table_name, TRUE, FALSE, FALSE), $this->list_tables());
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Fetch Field Names
-	 *
-	 * @param	string	$table	Table name
-	 * @return	array
-	 */
-	public function list_fields($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Fetch Field Names
+  //
+  //@param	string	$table	Table name
+  //@return	array
+  
+  public function list_fields($table): array
+  {
 		if (FALSE === ($sql = $this->_list_columns($table)))
 		{
 			return ($this->db_debug) ? $this->display_error('db_unsupported_function') : FALSE;
@@ -1340,48 +1303,45 @@ abstract class CI_DB_driver {
 		}
 
 		return $fields;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Determine if a particular field exists
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	bool
-	 */
-	public function field_exists($field_name, $table_name)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Determine if a particular field exists
+  //
+  //@param	string
+  //@param	string
+  //@return	bool
+  
+  public function field_exists($field_name, $table_name): bool
+  {
 		return in_array($field_name, $this->list_fields($table_name));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an object with field data
-	 *
-	 * @param	string	$table	the table name
-	 * @return	array
-	 */
-	public function field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an object with field data
+  //
+  //@param	string	$table	the table name
+  //@return	array
+  
+  public function field_data($table): array
+  {
 		$query = $this->query($this->_field_data($this->protect_identifiers($table, TRUE, NULL, FALSE)));
 		return ($query) ? $query->field_data() : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Escape the SQL Identifiers
-	 *
-	 * This function escapes column and table names
-	 *
-	 * @param	mixed
-	 * @return	mixed
-	 */
-	public function escape_identifiers($item)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Escape the SQL Identifiers
+  //
+  //This function escapes column and table names
+  //
+  //@param	mixed
+  //@return	mixed
+  
+  public function escape_identifiers($item): mixed
+  {
 		if ($this->_escape_char === '' OR empty($item) OR in_array($item, $this->_reserved_identifiers))
 		{
 			return $item;
@@ -1430,19 +1390,18 @@ abstract class CI_DB_driver {
 		}
 
 		return preg_replace('/'.$preg_ec[0].'?([^'.$preg_ec[1].'\.]+)'.$preg_ec[1].'?(\.)?/i', $preg_ec[2].'$1'.$preg_ec[3].'$2', $item);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generate an insert string
-	 *
-	 * @param	string	the table upon which the query will be performed
-	 * @param	array	an associative array data of key/values
-	 * @return	string
-	 */
-	public function insert_string($table, $data)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generate an insert string
+  //
+  //@param	string	the table upon which the query will be performed
+  //@param	array	an associative array data of key/values
+  //@return	string
+  
+  public function insert_string($table, $data): string
+  {
 		$fields = $values = array();
 
 		foreach ($data as $key => $val)
@@ -1452,37 +1411,35 @@ abstract class CI_DB_driver {
 		}
 
 		return $this->_insert($this->protect_identifiers($table, TRUE, NULL, FALSE), $fields, $values);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert statement
-	 *
-	 * Generates a platform-specific insert string from the supplied data
-	 *
-	 * @param	string	the table name
-	 * @param	array	the insert keys
-	 * @param	array	the insert values
-	 * @return	string
-	 */
-	protected function _insert($table, $keys, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert statement
+  //
+  //Generates a platform-specific insert string from the supplied data
+  //
+  //@param	string	the table name
+  //@param	array	the insert keys
+  //@param	array	the insert values
+  //@return	string
+  
+  protected function _insert($table, $keys, $values): string
+  {
 		return 'INSERT INTO '.$table.' ('.implode(', ', $keys).') VALUES ('.implode(', ', $values).')';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generate an update string
-	 *
-	 * @param	string	the table upon which the query will be performed
-	 * @param	array	an associative array data of key/values
-	 * @param	mixed	the "where" statement
-	 * @return	string
-	 */
-	public function update_string($table, $data, $where)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generate an update string
+  //
+  //@param	string	the table upon which the query will be performed
+  //@param	array	an associative array data of key/values
+  //@param	mixed	the "where" statement
+  //@return	string
+  
+  public function update_string($table, $data, $where): string
+  {
 		if (empty($where))
 		{
 			return FALSE;
@@ -1499,21 +1456,20 @@ abstract class CI_DB_driver {
 		$sql = $this->_update($this->protect_identifiers($table, TRUE, NULL, FALSE), $fields);
 		$this->_reset_write();
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update statement
-	 *
-	 * Generates a platform-specific update string from the supplied data
-	 *
-	 * @param	string	the table name
-	 * @param	array	the update data
-	 * @return	string
-	 */
-	protected function _update($table, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update statement
+  //
+  //Generates a platform-specific update string from the supplied data
+  //
+  //@param	string	the table name
+  //@param	array	the update data
+  //@return	string
+  
+  protected function _update($table, $values): string
+  {
 		foreach ($values as $key => $val)
 		{
 			$valstr[] = $key.' = '.$val;
@@ -1523,31 +1479,29 @@ abstract class CI_DB_driver {
 			.$this->_compile_wh('qb_where')
 			.$this->_compile_order_by()
 			.($this->qb_limit !== FALSE ? ' LIMIT '.$this->qb_limit : '');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Tests whether the string has an SQL operator
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	protected function _has_operator($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Tests whether the string has an SQL operator
+  //
+  //@param	string
+  //@return	bool
+  
+  protected function _has_operator($str): bool
+  {
 		return (bool) preg_match('/(<|>|!|=|\sIS NULL|\sIS NOT NULL|\sEXISTS|\sBETWEEN|\sLIKE|\sIN\s*\(|\s)/i', trim($str));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns the SQL string operator
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _get_operator($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns the SQL string operator
+  //
+  //@param	string
+  //@return	string
+  
+  protected function _get_operator($str): string
+  {
 		static $_operators;
 
 		if (empty($_operators))
@@ -1574,18 +1528,17 @@ abstract class CI_DB_driver {
 
 		return preg_match('/'.implode('|', $_operators).'/i', $str, $match)
 			? $match[0] : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Enables a native PHP function to be run, using a platform agnostic wrapper.
-	 *
-	 * @param	string	$function	Function name
-	 * @return	mixed
-	 */
-	public function call_function($function)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Enables a native PHP function to be run, using a platform agnostic wrapper.
+  //
+  //@param	string	$function	Function name
+  //@return	mixed
+  
+  public function call_function($function): mixed
+  {
 		$driver = ($this->dbdriver === 'postgre') ? 'pg_' : $this->dbdriver.'_';
 
 		if (FALSE === strpos($driver, $function))
@@ -1601,84 +1554,78 @@ abstract class CI_DB_driver {
 		return (func_num_args() > 1)
 			? call_user_func_array($function, array_slice(func_get_args(), 1))
 			: call_user_func($function);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Cache Directory Path
-	 *
-	 * @param	string	the path to the cache directory
-	 * @return	void
-	 */
-	public function cache_set_path($path = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Cache Directory Path
+  //
+  //@param	string	the path to the cache directory
+  //@return	void
+  
+  public function cache_set_path($path = '')
+  {
 		$this->cachedir = $path;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Enable Query Caching
-	 *
-	 * @return	bool	cache_on value
-	 */
-	public function cache_on()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Enable Query Caching
+  //
+  //@return	bool	cache_on value
+  
+  public function cache_on(): bool
+  {
 		return $this->cache_on = TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Disable Query Caching
-	 *
-	 * @return	bool	cache_on value
-	 */
-	public function cache_off()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Disable Query Caching
+  //
+  //@return	bool	cache_on value
+  
+  public function cache_off(): bool
+  {
 		return $this->cache_on = FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete the cache files associated with a particular URI
-	 *
-	 * @param	string	$segment_one = ''
-	 * @param	string	$segment_two = ''
-	 * @return	bool
-	 */
-	public function cache_delete($segment_one = '', $segment_two = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete the cache files associated with a particular URI
+  //
+  //@param	string	$segment_one = ''
+  //@param	string	$segment_two = ''
+  //@return	bool
+  
+  public function cache_delete($segment_one = '', $segment_two = ''): bool
+  {
 		return $this->_cache_init()
 			? $this->CACHE->delete($segment_one, $segment_two)
 			: FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete All cache files
-	 *
-	 * @return	bool
-	 */
-	public function cache_delete_all()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete All cache files
+  //
+  //@return	bool
+  
+  public function cache_delete_all(): bool
+  {
 		return $this->_cache_init()
 			? $this->CACHE->delete_all()
 			: FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize the Cache Class
-	 *
-	 * @return	bool
-	 */
-	protected function _cache_init()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize the Cache Class
+  //
+  //@return	bool
+  
+  protected function _cache_init(): bool
+  {
 		if ( ! class_exists('CI_DB_Cache', FALSE))
 		{
 			require_once(BASEPATH.'database/DB_cache.php');
@@ -1690,50 +1637,47 @@ abstract class CI_DB_driver {
 
 		$this->CACHE = new CI_DB_Cache($this); // pass db object to support multiple db connections and returned db objects
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Close DB Connection
-	 *
-	 * @return	void
-	 */
-	public function close()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Close DB Connection
+  //
+  //@return	void
+  
+  public function close()
+  {
 		if ($this->conn_id)
 		{
 			$this->_close();
 			$this->conn_id = FALSE;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Close DB Connection
-	 *
-	 * This method would be overridden by most of the drivers.
-	 *
-	 * @return	void
-	 */
-	protected function _close()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Close DB Connection
+  //
+  //This method would be overridden by most of the drivers.
+  //
+  //@return	void
+  
+  protected function _close()
+  {
 		$this->conn_id = FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Display an error message
-	 *
-	 * @param	string	the error message
-	 * @param	string	any "swap" values
-	 * @param	bool	whether to localize the message
-	 * @return	string	sends the application/views/errors/error_db.php template
-	 */
-	public function display_error($error = '', $swap = '', $native = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Display an error message
+  //
+  //@param	string	the error message
+  //@param	string	any "swap" values
+  //@param	bool	whether to localize the message
+  //@return	string	sends the application/views/errors/error_db.php template
+  
+  public function display_error($error = '', $swap = '', $native = FALSE): string
+  {
 		$LANG =& load_class('Lang', 'core');
 		$LANG->load('db');
 
@@ -1775,38 +1719,37 @@ abstract class CI_DB_driver {
 		$error =& load_class('Exceptions', 'core');
 		echo $error->show_error($heading, $message, 'error_db');
 		exit(8); // EXIT_DATABASE
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Protect Identifiers
-	 *
-	 * This function is used extensively by the Query Builder class, and by
-	 * a couple functions in this class.
-	 * It takes a column or table name (optionally with an alias) and inserts
-	 * the table prefix onto it. Some logic is necessary in order to deal with
-	 * column names that include the path. Consider a query like this:
-	 *
-	 * SELECT hostname.database.table.column AS c FROM hostname.database.table
-	 *
-	 * Or a query with aliasing:
-	 *
-	 * SELECT m.member_id, m.member_name FROM members AS m
-	 *
-	 * Since the column name can include up to four segments (host, DB, table, column)
-	 * or also have an alias prefix, we need to do a bit of work to figure this out and
-	 * insert the table prefix (if it exists) in the proper position, and escape only
-	 * the correct identifiers.
-	 *
-	 * @param	string
-	 * @param	bool
-	 * @param	mixed
-	 * @param	bool
-	 * @return	string
-	 */
-	public function protect_identifiers($item, $prefix_single = FALSE, $protect_identifiers = NULL, $field_exists = TRUE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Protect Identifiers
+  //
+  //This function is used extensively by the Query Builder class, and by
+  //a couple functions in this class.
+  //It takes a column or table name (optionally with an alias) and inserts
+  //the table prefix onto it. Some logic is necessary in order to deal with
+  //column names that include the path. Consider a query like this:
+  //
+  //SELECT hostname.database.table.column AS c FROM hostname.database.table
+  //
+  //Or a query with aliasing:
+  //
+  //SELECT m.member_id, m.member_name FROM members AS m
+  //
+  //Since the column name can include up to four segments (host, DB, table, column)
+  //or also have an alias prefix, we need to do a bit of work to figure this out and
+  //insert the table prefix (if it exists) in the proper position, and escape only
+  //the correct identifiers.
+  //
+  //@param	string
+  //@param	bool
+  //@param	mixed
+  //@param	bool
+  //@return	string
+  
+  public function protect_identifiers($item, $prefix_single = FALSE, $protect_identifiers = NULL, $field_exists = TRUE): string
+  {
 		if ( ! is_bool($protect_identifiers))
 		{
 			$protect_identifiers = $this->_protect_identifiers;
@@ -1968,18 +1911,18 @@ abstract class CI_DB_driver {
 		}
 
 		return $item.$alias;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Dummy method that allows Query Builder class to be disabled
-	 * and keep count_all() working.
-	 *
-	 * @return	void
-	 */
-	protected function _reset_select()
-	{
-	}
+  // --------------------------------------------------------------------
+  //
+  //Dummy method that allows Query Builder class to be disabled
+  //and keep count_all() working.
+  //
+  //@return	void
+  
+  protected function _reset_select()
+  {
+  }
 
 }
+

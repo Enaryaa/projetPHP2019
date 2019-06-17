@@ -37,55 +37,53 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PDO Oracle Forge Class
- *
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//PDO Oracle Forge Class
+//
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_pdo_oci_forge extends CI_DB_pdo_forge {
+  //
+  //CREATE DATABASE statement
+  //
+  //@var	string
+  
+  protected $_create_database =  FALSE;
 
-	/**
-	 * CREATE DATABASE statement
-	 *
-	 * @var	string
-	 */
-	protected $_create_database	= FALSE;
+  //
+  //CREATE TABLE IF statement
+  //
+  //@var	string
+  
+  protected $_create_table_if =  FALSE;
 
-	/**
-	 * CREATE TABLE IF statement
-	 *
-	 * @var	string
-	 */
-	protected $_create_table_if	= FALSE;
+  //
+  //DROP DATABASE statement
+  //
+  //@var	string
+  
+  protected $_drop_database =  FALSE;
 
-	/**
-	 * DROP DATABASE statement
-	 *
-	 * @var	string
-	 */
-	protected $_drop_database	= FALSE;
+  //
+  //UNSIGNED support
+  //
+  //@var	bool|array
+  
+  protected $_unsigned =  FALSE;
 
-	/**
-	 * UNSIGNED support
-	 *
-	 * @var	bool|array
-	 */
-	protected $_unsigned		= FALSE;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * ALTER TABLE
-	 *
-	 * @param	string	$alter_type	ALTER type
-	 * @param	string	$table		Table name
-	 * @param	mixed	$field		Column definition
-	 * @return	string|string[]
-	 */
-	protected function _alter_table($alter_type, $table, $field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //ALTER TABLE
+  //
+  //@param	string	$alter_type	ALTER type
+  //@param	string	$table		Table name
+  //@param	mixed	$field		Column definition
+  //@return	string|string[]
+  
+  protected function _alter_table($alter_type, $table, $field): string|string[]
+  {
 		if ($alter_type === 'DROP')
 		{
 			return parent::_alter_table($alter_type, $table, $field);
@@ -130,32 +128,31 @@ class CI_DB_pdo_oci_forge extends CI_DB_pdo_forge {
 		// RENAME COLUMN must be executed after MODIFY
 		array_unshift($sqls, $sql);
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field attribute AUTO_INCREMENT
-	 *
-	 * @param	array	&$attributes
-	 * @param	array	&$field
-	 * @return	void
-	 */
-	protected function _attr_auto_increment(&$attributes, &$field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field attribute AUTO_INCREMENT
+  //
+  //@param	array	&$attributes
+  //@param	array	&$field
+  //@return	void
+  
+  protected function _attr_auto_increment(& $attributes, & $field)
+  {
 		// Not supported - sequences and triggers must be used instead
-	}
+  }
 
-	/**
-	 * Field attribute TYPE
-	 *
-	 * Performs a data type mapping between different databases.
-	 *
-	 * @param	array	&$attributes
-	 * @return	void
-	 */
-	protected function _attr_type(&$attributes)
-	{
+  //
+  //Field attribute TYPE
+  //
+  //Performs a data type mapping between different databases.
+  //
+  //@param	array	&$attributes
+  //@return	void
+  
+  protected function _attr_type(& $attributes)
+  {
 		switch (strtoupper($attributes['TYPE']))
 		{
 			case 'TINYINT':
@@ -172,5 +169,7 @@ class CI_DB_pdo_oci_forge extends CI_DB_pdo_forge {
 				return;
 			default: return;
 		}
-	}
+  }
+
 }
+

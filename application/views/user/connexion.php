@@ -9,17 +9,3 @@
 		<div class="col-4"></div>
 		<div class="col-4">
 		<?php echo form_open('connexion'); ?>
-			<div class="form-group">
-				<label for="inputEmail">Adresse Mail</label>
-				<input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Email">
-				<small id="emailHelp" class="form-text text-muted"></small>
-			</div>
-			<div class="form-group">
-				<label for="inputPassword">Mot de Passe</label>
-				<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Mot de passe">
-			</div>
-			<button type="submit" name="envoi" method="post" class="btn btn-warning">Connexion</button>
-		</form>
-		</div>
-		<div class="col-4"></div>
-	</div>

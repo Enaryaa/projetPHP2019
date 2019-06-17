@@ -37,89 +37,87 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Logging Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Logging
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/general/errors.html
- */
+//
+//Logging Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Logging
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/general/errors.html
+
 class CI_Log {
+  //
+  //Path to save log files
+  //
+  //@var string
+  
+  protected $_log_path;
 
-	/**
-	 * Path to save log files
-	 *
-	 * @var string
-	 */
-	protected $_log_path;
+  //
+  //File permissions
+  //
+  //@var	int
+  
+  protected $_file_permissions =  0644;
 
-	/**
-	 * File permissions
-	 *
-	 * @var	int
-	 */
-	protected $_file_permissions = 0644;
+  //
+  //Level of logging
+  //
+  //@var int
+  
+  protected $_threshold =  1;
 
-	/**
-	 * Level of logging
-	 *
-	 * @var int
-	 */
-	protected $_threshold = 1;
+  //
+  //Array of threshold levels to log
+  //
+  //@var array
+  
+  protected $_threshold_array =  array();
 
-	/**
-	 * Array of threshold levels to log
-	 *
-	 * @var array
-	 */
-	protected $_threshold_array = array();
+  //
+  //Format of timestamp for log files
+  //
+  //@var string
+  
+  protected $_date_fmt =  'Y-m-d H:i:s';
 
-	/**
-	 * Format of timestamp for log files
-	 *
-	 * @var string
-	 */
-	protected $_date_fmt = 'Y-m-d H:i:s';
+  //
+  //Filename extension
+  //
+  //@var	string
+  
+  protected $_file_ext;
 
-	/**
-	 * Filename extension
-	 *
-	 * @var	string
-	 */
-	protected $_file_ext;
+  //
+  //Whether or not the logger can write to the log files
+  //
+  //@var bool
+  
+  protected $_enabled =  TRUE;
 
-	/**
-	 * Whether or not the logger can write to the log files
-	 *
-	 * @var bool
-	 */
-	protected $_enabled = TRUE;
+  //
+  //Predefined logging levels
+  //
+  //@var array
+  
+  protected $_levels =  array('ERROR' => 1, 'DEBUG' => 2, 'INFO' => 3, 'ALL' => 4);
 
-	/**
-	 * Predefined logging levels
-	 *
-	 * @var array
-	 */
-	protected $_levels = array('ERROR' => 1, 'DEBUG' => 2, 'INFO' => 3, 'ALL' => 4);
+  //
+  //mbstring.func_overload flag
+  //
+  //@var	bool
+  
+  protected static $func_overload;
 
-	/**
-	 * mbstring.func_overload flag
-	 *
-	 * @var	bool
-	 */
-	protected static $func_overload;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@return	void
+  
+  public function __construct()
+  {
 		$config =& get_config();
 
 		isset(self::$func_overload) OR self::$func_overload = (extension_loaded('mbstring') && ini_get('mbstring.func_overload'));
@@ -154,21 +152,20 @@ class CI_Log {
 		{
 			$this->_file_permissions = $config['log_file_permissions'];
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Write Log File
-	 *
-	 * Generally this function will be called using the global log_message() function
-	 *
-	 * @param	string	$level 	The error level: 'error', 'debug' or 'info'
-	 * @param	string	$msg 	The error message
-	 * @return	bool
-	 */
-	public function write_log($level, $msg)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Write Log File
+  //
+  //Generally this function will be called using the global log_message() function
+  //
+  //@param	string	$level 	The error level: 'error', 'debug' or 'info'
+  //@param	string	$msg 	The error message
+  //@return	bool
+  
+  public function write_log($level, $msg): bool
+  {
 		if ($this->_enabled === FALSE)
 		{
 			return FALSE;
@@ -234,53 +231,50 @@ class CI_Log {
 		}
 
 		return is_int($result);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Format the log line.
-	 *
-	 * This is for extensibility of log formatting
-	 * If you want to change the log format, extend the CI_Log class and override this method
-	 *
-	 * @param	string	$level 	The error level
-	 * @param	string	$date 	Formatted date string
-	 * @param	string	$message 	The log message
-	 * @return	string	Formatted log line with a new line character '\n' at the end
-	 */
-	protected function _format_line($level, $date, $message)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Format the log line.
+  //
+  //This is for extensibility of log formatting
+  //If you want to change the log format, extend the CI_Log class and override this method
+  //
+  //@param	string	$level 	The error level
+  //@param	string	$date 	Formatted date string
+  //@param	string	$message 	The log message
+  //@return	string	Formatted log line with a new line character '\n' at the end
+  
+  protected function _format_line($level, $date, $message): string
+  {
 		return $level.' - '.$date.' --> '.$message."\n";
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Byte-safe strlen()
-	 *
-	 * @param	string	$str
-	 * @return	int
-	 */
-	protected static function strlen($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Byte-safe strlen()
+  //
+  //@param	string	$str
+  //@return	int
+  
+  protected static function strlen($str): int
+  {
 		return (self::$func_overload)
 			? mb_strlen($str, '8bit')
 			: strlen($str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Byte-safe substr()
-	 *
-	 * @param	string	$str
-	 * @param	int	$start
-	 * @param	int	$length
-	 * @return	string
-	 */
-	protected static function substr($str, $start, $length = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Byte-safe substr()
+  //
+  //@param	string	$str
+  //@param	int	$start
+  //@param	int	$length
+  //@return	string
+  
+  protected static function substr($str, $start, $length = NULL): string
+  {
 		if (self::$func_overload)
 		{
 			// mb_substr($str, $start, null, '8bit') returns an empty
@@ -292,5 +286,7 @@ class CI_Log {
 		return isset($length)
 			? substr($str, $start, $length)
 			: substr($str, $start);
-	}
+  }
+
 }
+

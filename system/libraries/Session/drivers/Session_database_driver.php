@@ -37,48 +37,46 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Session Database Driver
- *
- * @package	CodeIgniter
- * @subpackage	Libraries
- * @category	Sessions
- * @author	Andrey Andreev
- * @link	https://codeigniter.com/user_guide/libraries/sessions.html
- */
+//
+//CodeIgniter Session Database Driver
+//
+//@package	CodeIgniter
+//@subpackage	Libraries
+//@category	Sessions
+//@author	Andrey Andreev
+//@link	https://codeigniter.com/user_guide/libraries/sessions.html
+
 class CI_Session_database_driver extends CI_Session_driver implements SessionHandlerInterface {
+  //
+  //DB object
+  //
+  //@var	object
+  
+  protected $_db;
 
-	/**
-	 * DB object
-	 *
-	 * @var	object
-	 */
-	protected $_db;
+  //
+  //Row exists flag
+  //
+  //@var	bool
+  
+  protected $_row_exists =  FALSE;
 
-	/**
-	 * Row exists flag
-	 *
-	 * @var	bool
-	 */
-	protected $_row_exists = FALSE;
+  //
+  //Lock "driver" flag
+  //
+  //@var	string
+  
+  protected $_platform;
 
-	/**
-	 * Lock "driver" flag
-	 *
-	 * @var	string
-	 */
-	protected $_platform;
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params	Configuration parameters
-	 * @return	void
-	 */
-	public function __construct(&$params)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	array	$params	Configuration parameters
+  //@return	void
+  
+  public function __construct(& $params)
+  {
 		parent::__construct($params);
 
 		$CI =& get_instance();
@@ -113,21 +111,20 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 		{
 			log_message('debug', 'Session: "sess_save_path" is empty; using BC fallback to "sess_table_name".');
 		}
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Open
-	 *
-	 * Initializes the database connection
-	 *
-	 * @param	string	$save_path	Table name
-	 * @param	string	$name		Session cookie name, unused
-	 * @return	bool
-	 */
-	public function open($save_path, $name)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Open
+  //
+  //Initializes the database connection
+  //
+  //@param	string	$save_path	Table name
+  //@param	string	$name		Session cookie name, unused
+  //@return	bool
+  
+  public function open($save_path, $name): bool
+  {
 		if (empty($this->_db->conn_id) && ! $this->_db->db_connect())
 		{
 			return $this->_fail();
@@ -136,20 +133,19 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 		$this->php5_validate_id();
 
 		return $this->_success;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Read
-	 *
-	 * Reads session data and acquires a lock
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @return	string	Serialized session data
-	 */
-	public function read($session_id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Read
+  //
+  //Reads session data and acquires a lock
+  //
+  //@param	string	$session_id	Session ID
+  //@return	string	Serialized session data
+  
+  public function read($session_id): string
+  {
 		if ($this->_get_lock($session_id) !== FALSE)
 		{
 			// Prevent previous QB calls from messing with our queries
@@ -192,21 +188,20 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 
 		$this->_fingerprint = md5('');
 		return '';
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Write
-	 *
-	 * Writes (create / update) session data
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @param	string	$session_data	Serialized session data
-	 * @return	bool
-	 */
-	public function write($session_id, $session_data)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Write
+  //
+  //Writes (create / update) session data
+  //
+  //@param	string	$session_id	Session ID
+  //@param	string	$session_data	Serialized session data
+  //@return	bool
+  
+  public function write($session_id, $session_data): bool
+  {
 		// Prevent previous QB calls from messing with our queries
 		$this->_db->reset_query();
 
@@ -266,36 +261,34 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 		}
 
 		return $this->_fail();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Close
-	 *
-	 * Releases locks
-	 *
-	 * @return	bool
-	 */
-	public function close()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Close
+  //
+  //Releases locks
+  //
+  //@return	bool
+  
+  public function close(): bool
+  {
 		return ($this->_lock && ! $this->_release_lock())
 			? $this->_fail()
 			: $this->_success;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Destroy
-	 *
-	 * Destroys the current session.
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @return	bool
-	 */
-	public function destroy($session_id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Destroy
+  //
+  //Destroys the current session.
+  //
+  //@param	string	$session_id	Session ID
+  //@return	bool
+  
+  public function destroy($session_id): bool
+  {
 		if ($this->_lock)
 		{
 			// Prevent previous QB calls from messing with our queries
@@ -320,41 +313,39 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 		}
 
 		return $this->_fail();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Garbage Collector
-	 *
-	 * Deletes expired sessions
-	 *
-	 * @param	int 	$maxlifetime	Maximum lifetime of sessions
-	 * @return	bool
-	 */
-	public function gc($maxlifetime)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Garbage Collector
+  //
+  //Deletes expired sessions
+  //
+  //@param	int 	$maxlifetime	Maximum lifetime of sessions
+  //@return	bool
+  
+  public function gc($maxlifetime): bool
+  {
 		// Prevent previous QB calls from messing with our queries
 		$this->_db->reset_query();
 
 		return ($this->_db->delete($this->_config['save_path'], 'timestamp < '.(time() - $maxlifetime)))
 			? $this->_success
 			: $this->_fail();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Validate ID
-	 *
-	 * Checks whether a session ID record exists server-side,
-	 * to enforce session.use_strict_mode.
-	 *
-	 * @param	string	$id
-	 * @return	bool
-	 */
-	public function validateSessionId($id)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Validate ID
+  //
+  //Checks whether a session ID record exists server-side,
+  //to enforce session.use_strict_mode.
+  //
+  //@param	string	$id
+  //@return	bool
+  
+  public function validateSessionId($id): bool
+  {
 		// Prevent previous QB calls from messing with our queries
 		$this->_db->reset_query();
 
@@ -364,20 +355,19 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 		empty($result) OR $result = $result->row();
 
 		return ! empty($result);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Get lock
-	 *
-	 * Acquires a lock, depending on the underlying platform.
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @return	bool
-	 */
-	protected function _get_lock($session_id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Get lock
+  //
+  //Acquires a lock, depending on the underlying platform.
+  //
+  //@param	string	$session_id	Session ID
+  //@return	bool
+  
+  protected function _get_lock($session_id): bool
+  {
 		if ($this->_platform === 'mysql')
 		{
 			$arg = md5($session_id.($this->_config['match_ip'] ? '_'.$_SERVER['REMOTE_ADDR'] : ''));
@@ -402,19 +392,18 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 		}
 
 		return parent::_get_lock($session_id);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Release lock
-	 *
-	 * Releases a previously acquired lock
-	 *
-	 * @return	bool
-	 */
-	protected function _release_lock()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Release lock
+  //
+  //Releases a previously acquired lock
+  //
+  //@return	bool
+  
+  protected function _release_lock(): bool
+  {
 		if ( ! $this->_lock)
 		{
 			return TRUE;
@@ -442,5 +431,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 		}
 
 		return parent::_release_lock();
-	}
+  }
+
 }
+

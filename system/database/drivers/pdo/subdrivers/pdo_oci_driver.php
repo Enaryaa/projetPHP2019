@@ -37,68 +37,66 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PDO Oracle Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//PDO Oracle Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
+  //
+  //Sub-driver
+  //
+  //@var	string
+  
+  public $subdriver =  'oci';
 
-	/**
-	 * Sub-driver
-	 *
-	 * @var	string
-	 */
-	public $subdriver = 'oci';
+  // --------------------------------------------------------------------
+  //
+  //List of reserved identifiers
+  //
+  //Identifiers that must NOT be escaped.
+  //
+  //@var	string[]
+  
+  protected $_reserved_identifiers =  array('*', 'rownum');
 
-	// --------------------------------------------------------------------
+  //
+  //ORDER BY random keyword
+  //
+  //@var	array
+  
+  protected $_random_keyword =  array('ASC', 'ASC');
 
-	/**
-	 * List of reserved identifiers
-	 *
-	 * Identifiers that must NOT be escaped.
-	 *
-	 * @var	string[]
-	 */
-	protected $_reserved_identifiers = array('*', 'rownum');
+  // Currently not supported
+  //
+  //COUNT string
+  //
+  //@used-by	CI_DB_driver::count_all()
+  //@used-by	CI_DB_query_builder::count_all_results()
+  //
+  //@var	string
+  
+  protected $_count_string =  'SELECT COUNT(1) AS ';
 
-	/**
-	 * ORDER BY random keyword
-	 *
-	 * @var	array
-	 */
-	protected $_random_keyword = array('ASC', 'ASC'); // Currently not supported
-
-	/**
-	 * COUNT string
-	 *
-	 * @used-by	CI_DB_driver::count_all()
-	 * @used-by	CI_DB_query_builder::count_all_results()
-	 *
-	 * @var	string
-	 */
-	protected $_count_string = 'SELECT COUNT(1) AS ';
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Builds the DSN if not already set.
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Builds the DSN if not already set.
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		if (empty($this->dsn))
@@ -125,17 +123,16 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 		{
 			$this->dsn .= ';charset='.$this->char_set;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database version number
-	 *
-	 * @return	string
-	 */
-	public function version()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database version number
+  //
+  //@return	string
+  
+  public function version(): string
+  {
 		if (isset($this->data_cache['version']))
 		{
 			return $this->data_cache['version'];
@@ -148,20 +145,19 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show table query
-	 *
-	 * Generates a platform-specific query string so that the table names can be fetched
-	 *
-	 * @param	bool	$prefix_limit
-	 * @return	string
-	 */
-	protected function _list_tables($prefix_limit = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show table query
+  //
+  //Generates a platform-specific query string so that the table names can be fetched
+  //
+  //@param	bool	$prefix_limit
+  //@return	string
+  
+  protected function _list_tables($prefix_limit = FALSE): string
+  {
 		$sql = 'SELECT "TABLE_NAME" FROM "ALL_TABLES"';
 
 		if ($prefix_limit === TRUE && $this->dbprefix !== '')
@@ -171,20 +167,19 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show column query
-	 *
-	 * Generates a platform-specific query string so that the column names can be fetched
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _list_columns($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show column query
+  //
+  //Generates a platform-specific query string so that the column names can be fetched
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _list_columns($table = ''): string
+  {
 		if (strpos($table, '.') !== FALSE)
 		{
 			sscanf($table, '%[^.].%s', $owner, $table);
@@ -197,18 +192,17 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 		return 'SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS
 			WHERE UPPER(OWNER) = '.$this->escape(strtoupper($owner)).'
 				AND UPPER(TABLE_NAME) = '.$this->escape(strtoupper($table));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an object with field data
-	 *
-	 * @param	string	$table
-	 * @return	array
-	 */
-	public function field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an object with field data
+  //
+  //@param	string	$table
+  //@return	array
+  
+  public function field_data($table): array
+  {
 		if (strpos($table, '.') !== FALSE)
 		{
 			sscanf($table, '%[^.].%s', $owner, $table);
@@ -253,20 +247,19 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert batch statement
-	 *
-	 * @param	string	$table	Table name
-	 * @param	array	$keys	INSERT keys
-	 * @param	array	$values	INSERT values
-	 * @return 	string
-	 */
-	protected function _insert_batch($table, $keys, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert batch statement
+  //
+  //@param	string	$table	Table name
+  //@param	array	$keys	INSERT keys
+  //@param	array	$values	INSERT values
+  //@return 	string
+  
+  protected function _insert_batch($table, $keys, $values): string
+  {
 		$keys = implode(', ', $keys);
 		$sql = "INSERT ALL\n";
 
@@ -276,20 +269,19 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 		}
 
 		return $sql.'SELECT * FROM dual';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete statement
-	 *
-	 * Generates a platform-specific delete string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _delete($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete statement
+  //
+  //Generates a platform-specific delete string from the supplied data
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _delete($table): string
+  {
 		if ($this->qb_limit)
 		{
 			$this->where('rownum <= ',$this->qb_limit, FALSE);
@@ -297,20 +289,19 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 		}
 
 		return parent::_delete($table);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * LIMIT
-	 *
-	 * Generates a platform-specific LIMIT clause
-	 *
-	 * @param	string	$sql	SQL Query
-	 * @return	string
-	 */
-	protected function _limit($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //LIMIT
+  //
+  //Generates a platform-specific LIMIT clause
+  //
+  //@param	string	$sql	SQL Query
+  //@return	string
+  
+  protected function _limit($sql): string
+  {
 		if (version_compare($this->version(), '12.1', '>='))
 		{
 			// OFFSET-FETCH can be used only with the ORDER BY clause
@@ -321,6 +312,7 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 
 		return 'SELECT * FROM (SELECT inner_query.*, rownum rnum FROM ('.$sql.') inner_query WHERE rownum < '.($this->qb_offset + $this->qb_limit + 1).')'
 			.($this->qb_offset ? ' WHERE rnum >= '.($this->qb_offset + 1): '');
-	}
+  }
 
 }
+

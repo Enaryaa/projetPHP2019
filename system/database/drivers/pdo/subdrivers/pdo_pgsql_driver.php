@@ -37,56 +37,53 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PDO PostgreSQL Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//PDO PostgreSQL Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
+  //
+  //Sub-driver
+  //
+  //@var	string
+  
+  public $subdriver =  'pgsql';
 
-	/**
-	 * Sub-driver
-	 *
-	 * @var	string
-	 */
-	public $subdriver = 'pgsql';
+  //
+  //Database schema
+  //
+  //@var	string
+  
+  public $schema =  'public';
 
-	/**
-	 * Database schema
-	 *
-	 * @var	string
-	 */
-	public $schema = 'public';
+  // --------------------------------------------------------------------
+  //
+  //ORDER BY random keyword
+  //
+  //@var	array
+  
+  protected $_random_keyword =  array('RANDOM()', 'RANDOM()');
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ORDER BY random keyword
-	 *
-	 * @var	array
-	 */
-	protected $_random_keyword = array('RANDOM()', 'RANDOM()');
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Builds the DSN if not already set.
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Builds the DSN if not already set.
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		if (empty($this->dsn))
@@ -102,18 +99,17 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 				empty($this->password) OR $this->dsn .= ';password='.$this->password;
 			}
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database connection
-	 *
-	 * @param	bool	$persistent
-	 * @return	object
-	 */
-	public function db_connect($persistent = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database connection
+  //
+  //@param	bool	$persistent
+  //@return	object
+  
+  public function db_connect($persistent = FALSE): object
+  {
 		$this->conn_id = parent::db_connect($persistent);
 
 		if (is_object($this->conn_id) && ! empty($this->schema))
@@ -122,18 +118,17 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 		}
 
 		return $this->conn_id;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert ID
-	 *
-	 * @param	string	$name
-	 * @return	int
-	 */
-	public function insert_id($name = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert ID
+  //
+  //@param	string	$name
+  //@return	int
+  
+  public function insert_id($name = NULL): int
+  {
 		if ($name === NULL && version_compare($this->version(), '8.1', '>='))
 		{
 			$query = $this->query('SELECT LASTVAL() AS ins_id');
@@ -142,58 +137,55 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 		}
 
 		return $this->conn_id->lastInsertId($name);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Determines if a query is a "write" type.
-	 *
-	 * @param	string	An SQL query string
-	 * @return	bool
-	 */
-	public function is_write_type($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Determines if a query is a "write" type.
+  //
+  //@param	string	An SQL query string
+  //@return	bool
+  
+  public function is_write_type($sql): bool
+  {
 		if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#is', $sql))
 		{
 			return FALSE;
 		}
 
 		return parent::is_write_type($sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * "Smart" Escape String
-	 *
-	 * Escapes data based on type
-	 *
-	 * @param	string	$str
-	 * @return	mixed
-	 */
-	public function escape($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //"Smart" Escape String
+  //
+  //Escapes data based on type
+  //
+  //@param	string	$str
+  //@return	mixed
+  
+  public function escape($str): mixed
+  {
 		if (is_bool($str))
 		{
 			return ($str) ? 'TRUE' : 'FALSE';
 		}
 
 		return parent::escape($str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ORDER BY
-	 *
-	 * @param	string	$orderby
-	 * @param	string	$direction	ASC, DESC or RANDOM
-	 * @param	bool	$escape
-	 * @return	object
-	 */
-	public function order_by($orderby, $direction = '', $escape = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //ORDER BY
+  //
+  //@param	string	$orderby
+  //@param	string	$direction	ASC, DESC or RANDOM
+  //@param	bool	$escape
+  //@return	object
+  
+  public function order_by($orderby, $direction = '', $escape = NULL): object
+  {
 		$direction = strtoupper(trim($direction));
 		if ($direction === 'RANDOM')
 		{
@@ -215,20 +207,19 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 		}
 
 		return parent::order_by($orderby, $direction, $escape);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show table query
-	 *
-	 * Generates a platform-specific query string so that the table names can be fetched
-	 *
-	 * @param	bool	$prefix_limit
-	 * @return	string
-	 */
-	protected function _list_tables($prefix_limit = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show table query
+  //
+  //Generates a platform-specific query string so that the table names can be fetched
+  //
+  //@param	bool	$prefix_limit
+  //@return	string
+  
+  protected function _list_tables($prefix_limit = FALSE): string
+  {
 		$sql = 'SELECT "table_name" FROM "information_schema"."tables" WHERE "table_schema" = \''.$this->schema."'";
 
 		if ($prefix_limit === TRUE && $this->dbprefix !== '')
@@ -239,35 +230,33 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * List column query
-	 *
-	 * Generates a platform-specific query string so that the column names can be fetched
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _list_columns($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //List column query
+  //
+  //Generates a platform-specific query string so that the column names can be fetched
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _list_columns($table = ''): string
+  {
 		return 'SELECT "column_name"
 			FROM "information_schema"."columns"
 			WHERE LOWER("table_name") = '.$this->escape(strtolower($table));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an object with field data
-	 *
-	 * @param	string	$table
-	 * @return	array
-	 */
-	public function field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an object with field data
+  //
+  //@param	string	$table
+  //@return	array
+  
+  public function field_data($table): array
+  {
 		$sql = 'SELECT "column_name", "data_type", "character_maximum_length", "numeric_precision", "column_default"
 			FROM "information_schema"."columns"
 			WHERE LOWER("table_name") = '.$this->escape(strtolower($table));
@@ -289,40 +278,38 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update statement
-	 *
-	 * Generates a platform-specific update string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @param	array	$values
-	 * @return	string
-	 */
-	protected function _update($table, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update statement
+  //
+  //Generates a platform-specific update string from the supplied data
+  //
+  //@param	string	$table
+  //@param	array	$values
+  //@return	string
+  
+  protected function _update($table, $values): string
+  {
 		$this->qb_limit = FALSE;
 		$this->qb_orderby = array();
 		return parent::_update($table, $values);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update_Batch statement
-	 *
-	 * Generates a platform-specific batch update string from the supplied data
-	 *
-	 * @param	string	$table	Table name
-	 * @param	array	$values	Update data
-	 * @param	string	$index	WHERE key
-	 * @return	string
-	 */
-	protected function _update_batch($table, $values, $index)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update_Batch statement
+  //
+  //Generates a platform-specific batch update string from the supplied data
+  //
+  //@param	string	$table	Table name
+  //@param	array	$values	Update data
+  //@param	string	$index	WHERE key
+  //@return	string
+  
+  protected function _update_batch($table, $values, $index): string
+  {
 		$ids = array();
 		foreach ($values as $key => $val)
 		{
@@ -348,37 +335,36 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 		$this->where($val[$index]['field'].' IN('.implode(',', $ids).')', NULL, FALSE);
 
 		return 'UPDATE '.$table.' SET '.substr($cases, 0, -2).$this->_compile_wh('qb_where');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete statement
-	 *
-	 * Generates a platform-specific delete string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _delete($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete statement
+  //
+  //Generates a platform-specific delete string from the supplied data
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _delete($table): string
+  {
 		$this->qb_limit = FALSE;
 		return parent::_delete($table);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * LIMIT
-	 *
-	 * Generates a platform-specific LIMIT clause
-	 *
-	 * @param	string	$sql	SQL Query
-	 * @return	string
-	 */
-	protected function _limit($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //LIMIT
+  //
+  //Generates a platform-specific LIMIT clause
+  //
+  //@param	string	$sql	SQL Query
+  //@return	string
+  
+  protected function _limit($sql): string
+  {
 		return $sql.' LIMIT '.$this->qb_limit.($this->qb_offset ? ' OFFSET '.$this->qb_offset : '');
-	}
+  }
 
 }
+

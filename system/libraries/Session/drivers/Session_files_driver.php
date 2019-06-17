@@ -37,69 +37,67 @@
 */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Session Files Driver
- *
- * @package	CodeIgniter
- * @subpackage	Libraries
- * @category	Sessions
- * @author	Andrey Andreev
- * @link	https://codeigniter.com/user_guide/libraries/sessions.html
- */
+//
+//CodeIgniter Session Files Driver
+//
+//@package	CodeIgniter
+//@subpackage	Libraries
+//@category	Sessions
+//@author	Andrey Andreev
+//@link	https://codeigniter.com/user_guide/libraries/sessions.html
+
 class CI_Session_files_driver extends CI_Session_driver implements SessionHandlerInterface {
+  //
+  //Save path
+  //
+  //@var	string
+  
+  protected $_save_path;
 
-	/**
-	 * Save path
-	 *
-	 * @var	string
-	 */
-	protected $_save_path;
+  //
+  //File handle
+  //
+  //@var	resource
+  
+  protected $_file_handle;
 
-	/**
-	 * File handle
-	 *
-	 * @var	resource
-	 */
-	protected $_file_handle;
+  //
+  //File name
+  //
+  //@var	resource
+  
+  protected $_file_path;
 
-	/**
-	 * File name
-	 *
-	 * @var	resource
-	 */
-	protected $_file_path;
+  //
+  //File new flag
+  //
+  //@var	bool
+  
+  protected $_file_new;
 
-	/**
-	 * File new flag
-	 *
-	 * @var	bool
-	 */
-	protected $_file_new;
+  //
+  //Validate SID regular expression
+  //
+  //@var	string
+  
+  protected $_sid_regexp;
 
-	/**
-	 * Validate SID regular expression
-	 *
-	 * @var	string
-	 */
-	protected $_sid_regexp;
+  //
+  //mbstring.func_overload flag
+  //
+  //@var	bool
+  
+  protected static $func_overload;
 
-	/**
-	 * mbstring.func_overload flag
-	 *
-	 * @var	bool
-	 */
-	protected static $func_overload;
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params	Configuration parameters
-	 * @return	void
-	 */
-	public function __construct(&$params)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	array	$params	Configuration parameters
+  //@return	void
+  
+  public function __construct(& $params)
+  {
 		parent::__construct($params);
 
 		if (isset($this->_config['save_path']))
@@ -116,21 +114,20 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		$this->_sid_regexp = $this->_config['_sid_regexp'];
 
 		isset(self::$func_overload) OR self::$func_overload = (extension_loaded('mbstring') && ini_get('mbstring.func_overload'));
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Open
-	 *
-	 * Sanitizes the save_path directory.
-	 *
-	 * @param	string	$save_path	Path to session files' directory
-	 * @param	string	$name		Session cookie name
-	 * @return	bool
-	 */
-	public function open($save_path, $name)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Open
+  //
+  //Sanitizes the save_path directory.
+  //
+  //@param	string	$save_path	Path to session files' directory
+  //@param	string	$name		Session cookie name
+  //@return	bool
+  
+  public function open($save_path, $name): bool
+  {
 		if ( ! is_dir($save_path))
 		{
 			if ( ! mkdir($save_path, 0700, TRUE))
@@ -151,20 +148,19 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		$this->php5_validate_id();
 
 		return $this->_success;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Read
-	 *
-	 * Reads session data and acquires a lock
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @return	string	Serialized session data
-	 */
-	public function read($session_id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Read
+  //
+  //Reads session data and acquires a lock
+  //
+  //@param	string	$session_id	Session ID
+  //@return	string	Serialized session data
+  
+  public function read($session_id): string
+  {
 		// This might seem weird, but PHP 5.6 introduces session_reset(),
 		// which re-reads session data
 		if ($this->_file_handle === NULL)
@@ -219,21 +215,20 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 
 		$this->_fingerprint = md5($session_data);
 		return $session_data;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Write
-	 *
-	 * Writes (create / update) session data
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @param	string	$session_data	Serialized session data
-	 * @return	bool
-	 */
-	public function write($session_id, $session_data)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Write
+  //
+  //Writes (create / update) session data
+  //
+  //@param	string	$session_id	Session ID
+  //@param	string	$session_data	Serialized session data
+  //@return	bool
+  
+  public function write($session_id, $session_data): bool
+  {
 		// If the two IDs don't match, we have a session_regenerate_id() call
 		// and we need to close the old handle and open a new one
 		if ($session_id !== $this->_session_id && ($this->close() === $this->_failure OR $this->read($session_id) === $this->_failure))
@@ -278,19 +273,18 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 
 		$this->_fingerprint = md5($session_data);
 		return $this->_success;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Close
-	 *
-	 * Releases locks and closes file descriptor.
-	 *
-	 * @return	bool
-	 */
-	public function close()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Close
+  //
+  //Releases locks and closes file descriptor.
+  //
+  //@return	bool
+  
+  public function close(): bool
+  {
 		if (is_resource($this->_file_handle))
 		{
 			flock($this->_file_handle, LOCK_UN);
@@ -300,20 +294,19 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		}
 
 		return $this->_success;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Destroy
-	 *
-	 * Destroys the current session.
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @return	bool
-	 */
-	public function destroy($session_id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Destroy
+  //
+  //Destroys the current session.
+  //
+  //@param	string	$session_id	Session ID
+  //@return	bool
+  
+  public function destroy($session_id): bool
+  {
 		if ($this->close() === $this->_success)
 		{
 			if (file_exists($this->_file_path.$session_id))
@@ -341,20 +334,19 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		}
 
 		return $this->_failure;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Garbage Collector
-	 *
-	 * Deletes expired sessions
-	 *
-	 * @param	int 	$maxlifetime	Maximum lifetime of sessions
-	 * @return	bool
-	 */
-	public function gc($maxlifetime)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Garbage Collector
+  //
+  //Deletes expired sessions
+  //
+  //@param	int 	$maxlifetime	Maximum lifetime of sessions
+  //@return	bool
+  
+  public function gc($maxlifetime): bool
+  {
 		if ( ! is_dir($this->_config['save_path']) OR ($directory = opendir($this->_config['save_path'])) === FALSE)
 		{
 			log_message('debug', "Session: Garbage collector couldn't list files under directory '".$this->_config['save_path']."'.");
@@ -389,38 +381,38 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		closedir($directory);
 
 		return $this->_success;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Validate ID
-	 *
-	 * Checks whether a session ID record exists server-side,
-	 * to enforce session.use_strict_mode.
-	 *
-	 * @param	string	$id
-	 * @return	bool
-	 */
-	public function validateSessionId($id)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Validate ID
+  //
+  //Checks whether a session ID record exists server-side,
+  //to enforce session.use_strict_mode.
+  //
+  //@param	string	$id
+  //@return	bool
+  
+  public function validateSessionId($id): bool
+  {
 		$result = is_file($this->_file_path.$id);
 		clearstatcache(TRUE, $this->_file_path.$id);
 		return $result;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Byte-safe strlen()
-	 *
-	 * @param	string	$str
-	 * @return	int
-	 */
-	protected static function strlen($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Byte-safe strlen()
+  //
+  //@param	string	$str
+  //@return	int
+  
+  protected static function strlen($str): int
+  {
 		return (self::$func_overload)
 			? mb_strlen($str, '8bit')
 			: strlen($str);
-	}
+  }
+
 }
+

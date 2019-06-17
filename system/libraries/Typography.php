@@ -37,76 +37,75 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Typography Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Helpers
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/typography.html
- */
+//
+//Typography Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Helpers
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/typography.html
+
 class CI_Typography {
+  //
+  //Block level elements that should not be wrapped inside <p> tags
+  //
+  //@var string
+  
+  public $block_elements =  'address|blockquote|div|dl|fieldset|form|h\d|hr|noscript|object|ol|p|pre|script|table|ul';
 
-	/**
-	 * Block level elements that should not be wrapped inside <p> tags
-	 *
-	 * @var string
-	 */
-	public $block_elements = 'address|blockquote|div|dl|fieldset|form|h\d|hr|noscript|object|ol|p|pre|script|table|ul';
+  //
+  //Elements that should not have <p> and <br /> tags within them.
+  //
+  //@var string
+  
+  public $skip_elements =  'p|pre|ol|ul|dl|object|table|h\d';
 
-	/**
-	 * Elements that should not have <p> and <br /> tags within them.
-	 *
-	 * @var string
-	 */
-	public $skip_elements	= 'p|pre|ol|ul|dl|object|table|h\d';
+  //
+  //Tags we want the parser to completely ignore when splitting the string.
+  //
+  //@var string
+  
+  public $inline_elements =  'a|abbr|acronym|b|bdo|big|br|button|cite|code|del|dfn|em|i|img|ins|input|label|map|kbd|q|samp|select|small|span|strong|sub|sup|textarea|tt|var';
 
-	/**
-	 * Tags we want the parser to completely ignore when splitting the string.
-	 *
-	 * @var string
-	 */
-	public $inline_elements = 'a|abbr|acronym|b|bdo|big|br|button|cite|code|del|dfn|em|i|img|ins|input|label|map|kbd|q|samp|select|small|span|strong|sub|sup|textarea|tt|var';
+  //
+  //array of block level elements that require inner content to be within another block level element
+  //
+  //@var array
+  
+  public $inner_block_required =  array('blockquote');
 
-	/**
-	 * array of block level elements that require inner content to be within another block level element
-	 *
-	 * @var array
-	 */
-	public $inner_block_required = array('blockquote');
+  //
+  //the last block element parsed
+  //
+  //@var string
+  
+  public $last_block_element =  '';
 
-	/**
-	 * the last block element parsed
-	 *
-	 * @var string
-	 */
-	public $last_block_element = '';
+  //
+  //whether or not to protect quotes within { curly braces }
+  //
+  //@var bool
+  
+  public $protect_braced_quotes =  FALSE;
 
-	/**
-	 * whether or not to protect quotes within { curly braces }
-	 *
-	 * @var bool
-	 */
-	public $protect_braced_quotes = FALSE;
-
-	/**
-	 * Auto Typography
-	 *
-	 * This function converts text, making it typographically correct:
-	 *	- Converts double spaces into paragraphs.
-	 *	- Converts single line breaks into <br /> tags
-	 *	- Converts single and double quotes into correctly facing curly quote entities.
-	 *	- Converts three dots into ellipsis.
-	 *	- Converts double dashes into em-dashes.
-	 *  - Converts two spaces into entities
-	 *
-	 * @param	string
-	 * @param	bool	whether to reduce more then two consecutive newlines to two
-	 * @return	string
-	 */
-	public function auto_typography($str, $reduce_linebreaks = FALSE)
-	{
+  //
+  //Auto Typography
+  //
+  //This function converts text, making it typographically correct:
+  //	- Converts double spaces into paragraphs.
+  //	- Converts single line breaks into <br /> tags
+  //	- Converts single and double quotes into correctly facing curly quote entities.
+  //	- Converts three dots into ellipsis.
+  //	- Converts double dashes into em-dashes.
+  // - Converts two spaces into entities
+  //
+  //@param	string
+  //@param	bool	whether to reduce more then two consecutive newlines to two
+  //@return	string
+  
+  public function auto_typography($str, $reduce_linebreaks = FALSE): string
+  {
 		if ($str === '')
 		{
 			return '';
@@ -276,22 +275,21 @@ class CI_Typography {
 
 		return preg_replace(array_keys($table), $table, $str);
 
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Format Characters
-	 *
-	 * This function mainly converts double and single quotes
-	 * to curly entities, but it also converts em-dashes,
-	 * double spaces, and ampersands
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function format_characters($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Format Characters
+  //
+  //This function mainly converts double and single quotes
+  //to curly entities, but it also converts em-dashes,
+  //double spaces, and ampersands
+  //
+  //@param	string
+  //@return	string
+  
+  public function format_characters($str): string
+  {
 		static $table;
 
 		if ( ! isset($table))
@@ -341,20 +339,19 @@ class CI_Typography {
 		}
 
 		return preg_replace(array_keys($table), $table, $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Format Newlines
-	 *
-	 * Converts newline characters into either <p> tags or <br />
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _format_newlines($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Format Newlines
+  //
+  //Converts newline characters into either <p> tags or <br />
+  //
+  //@param	string
+  //@return	string
+  
+  protected function _format_newlines($str): string
+  {
 		if ($str === '' OR (strpos($str, "\n") === FALSE && ! in_array($this->last_block_element, $this->inner_block_required)))
 		{
 			return $str;
@@ -378,36 +375,34 @@ class CI_Typography {
 		// Remove empty paragraphs if they are on the first line, as this
 		// is a potential unintended consequence of the previous code
 		return preg_replace('/<p><\/p>(.*)/', '\\1', $str, 1);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Protect Characters
-	 *
-	 * Protects special characters from being formatted later
-	 * We don't want quotes converted within tags so we'll temporarily convert them to {@DQ} and {@SQ}
-	 * and we don't want double dashes converted to emdash entities, so they are marked with {@DD}
-	 * likewise double spaces are converted to {@NBS} to prevent entity conversion
-	 *
-	 * @param	array
-	 * @return	string
-	 */
-	protected function _protect_characters($match)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Protect Characters
+  //
+  //Protects special characters from being formatted later
+  //We don't want quotes converted within tags so we'll temporarily convert them to {@DQ} and {@SQ}
+  //and we don't want double dashes converted to emdash entities, so they are marked with {@DD}
+  //likewise double spaces are converted to {@NBS} to prevent entity conversion
+  //
+  //@param	array
+  //@return	string
+  
+  protected function _protect_characters($match): string
+  {
 		return str_replace(array("'",'"','--','  '), array('{@SQ}', '{@DQ}', '{@DD}', '{@NBS}'), $match[0]);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Convert newlines to HTML line breaks except within PRE tags
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function nl2br_except_pre($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Convert newlines to HTML line breaks except within PRE tags
+  //
+  //@param	string
+  //@return	string
+  
+  public function nl2br_except_pre($str): string
+  {
 		$newstr = '';
 		for ($ex = explode('pre>', $str), $ct = count($ex), $i = 0; $i < $ct; $i++)
 		{
@@ -419,6 +414,7 @@ class CI_Typography {
 		}
 
 		return $newstr;
-	}
+  }
 
 }
+

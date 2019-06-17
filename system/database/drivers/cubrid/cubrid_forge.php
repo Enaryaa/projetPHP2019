@@ -37,52 +37,51 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CUBRID Forge Class
- *
- * @category	Database
- * @author		Esen Sagynov
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//CUBRID Forge Class
+//
+//@category	Database
+//@author		Esen Sagynov
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_cubrid_forge extends CI_DB_forge {
+  //
+  //CREATE DATABASE statement
+  //
+  //@var	string
+  
+  protected $_create_database =  FALSE;
 
-	/**
-	 * CREATE DATABASE statement
-	 *
-	 * @var	string
-	 */
-	protected $_create_database	= FALSE;
+  //
+  //CREATE TABLE keys flag
+  //
+  //Whether table keys are created from within the
+  //CREATE TABLE statement.
+  //
+  //@var	bool
+  
+  protected $_create_table_keys =  TRUE;
 
-	/**
-	 * CREATE TABLE keys flag
-	 *
-	 * Whether table keys are created from within the
-	 * CREATE TABLE statement.
-	 *
-	 * @var	bool
-	 */
-	protected $_create_table_keys	= TRUE;
+  //
+  //DROP DATABASE statement
+  //
+  //@var	string
+  
+  protected $_drop_database =  FALSE;
 
-	/**
-	 * DROP DATABASE statement
-	 *
-	 * @var	string
-	 */
-	protected $_drop_database	= FALSE;
+  //
+  //CREATE TABLE IF statement
+  //
+  //@var	string
+  
+  protected $_create_table_if =  FALSE;
 
-	/**
-	 * CREATE TABLE IF statement
-	 *
-	 * @var	string
-	 */
-	protected $_create_table_if	= FALSE;
-
-	/**
-	 * UNSIGNED support
-	 *
-	 * @var	array
-	 */
-	protected $_unsigned		= array(
+  //
+  //UNSIGNED support
+  //
+  //@var	array
+  
+  protected $_unsigned =  array(
 		'SHORT'		=> 'INTEGER',
 		'SMALLINT'	=> 'INTEGER',
 		'INT'		=> 'BIGINT',
@@ -92,18 +91,17 @@ class CI_DB_cubrid_forge extends CI_DB_forge {
 		'REAL'		=> 'DOUBLE'
 	);
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ALTER TABLE
-	 *
-	 * @param	string	$alter_type	ALTER type
-	 * @param	string	$table		Table name
-	 * @param	mixed	$field		Column definition
-	 * @return	string|string[]
-	 */
-	protected function _alter_table($alter_type, $table, $field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //ALTER TABLE
+  //
+  //@param	string	$alter_type	ALTER type
+  //@param	string	$table		Table name
+  //@param	mixed	$field		Column definition
+  //@return	string|string[]
+  
+  protected function _alter_table($alter_type, $table, $field): string|string[]
+  {
 		if (in_array($alter_type, array('DROP', 'ADD'), TRUE))
 		{
 			return parent::_alter_table($alter_type, $table, $field);
@@ -125,18 +123,17 @@ class CI_DB_cubrid_forge extends CI_DB_forge {
 		}
 
 		return $sqls;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Process column
-	 *
-	 * @param	array	$field
-	 * @return	string
-	 */
-	protected function _process_column($field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Process column
+  //
+  //@param	array	$field
+  //@return	string
+  
+  protected function _process_column($field): string
+  {
 		$extra_clause = isset($field['after'])
 			? ' AFTER '.$this->db->escape_identifiers($field['after']) : '';
 
@@ -154,20 +151,19 @@ class CI_DB_cubrid_forge extends CI_DB_forge {
 			.$field['auto_increment']
 			.$field['unique']
 			.$extra_clause;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field attribute TYPE
-	 *
-	 * Performs a data type mapping between different databases.
-	 *
-	 * @param	array	&$attributes
-	 * @return	void
-	 */
-	protected function _attr_type(&$attributes)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field attribute TYPE
+  //
+  //Performs a data type mapping between different databases.
+  //
+  //@param	array	&$attributes
+  //@return	void
+  
+  protected function _attr_type(& $attributes)
+  {
 		switch (strtoupper($attributes['TYPE']))
 		{
 			case 'TINYINT':
@@ -183,18 +179,17 @@ class CI_DB_cubrid_forge extends CI_DB_forge {
 				return;
 			default: return;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Process indexes
-	 *
-	 * @param	string	$table	(ignored)
-	 * @return	string
-	 */
-	protected function _process_indexes($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Process indexes
+  //
+  //@param	string	$table	(ignored)
+  //@return	string
+  
+  protected function _process_indexes($table): string
+  {
 		$sql = '';
 
 		for ($i = 0, $c = count($this->keys); $i < $c; $i++)
@@ -225,6 +220,7 @@ class CI_DB_cubrid_forge extends CI_DB_forge {
 		$this->keys = array();
 
 		return $sql;
-	}
+  }
 
 }
+

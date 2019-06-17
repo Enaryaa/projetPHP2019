@@ -37,40 +37,39 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * MySQLi Forge Class
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//MySQLi Forge Class
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_mysqli_forge extends CI_DB_forge {
+  //
+  //CREATE DATABASE statement
+  //
+  //@var	string
+  
+  protected $_create_database =  'CREATE DATABASE %s CHARACTER SET %s COLLATE %s';
 
-	/**
-	 * CREATE DATABASE statement
-	 *
-	 * @var	string
-	 */
-	protected $_create_database	= 'CREATE DATABASE %s CHARACTER SET %s COLLATE %s';
+  //
+  //CREATE TABLE keys flag
+  //
+  //Whether table keys are created from within the
+  //CREATE TABLE statement.
+  //
+  //@var	bool
+  
+  protected $_create_table_keys =  TRUE;
 
-	/**
-	 * CREATE TABLE keys flag
-	 *
-	 * Whether table keys are created from within the
-	 * CREATE TABLE statement.
-	 *
-	 * @var	bool
-	 */
-	protected $_create_table_keys	= TRUE;
-
-	/**
-	 * UNSIGNED support
-	 *
-	 * @var	array
-	 */
-	protected $_unsigned		= array(
+  //
+  //UNSIGNED support
+  //
+  //@var	array
+  
+  protected $_unsigned =  array(
 		'TINYINT',
 		'SMALLINT',
 		'MEDIUMINT',
@@ -85,23 +84,22 @@ class CI_DB_mysqli_forge extends CI_DB_forge {
 		'NUMERIC'
 	);
 
-	/**
-	 * NULL value representation in CREATE/ALTER TABLE statements
-	 *
-	 * @var	string
-	 */
-	protected $_null = 'NULL';
+  //
+  //NULL value representation in CREATE/ALTER TABLE statements
+  //
+  //@var	string
+  
+  protected $_null =  'NULL';
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * CREATE TABLE attributes
-	 *
-	 * @param	array	$attributes	Associative array of table attributes
-	 * @return	string
-	 */
-	protected function _create_table_attr($attributes)
-	{
+  // --------------------------------------------------------------------
+  //
+  //CREATE TABLE attributes
+  //
+  //@param	array	$attributes	Associative array of table attributes
+  //@return	string
+  
+  protected function _create_table_attr($attributes): string
+  {
 		$sql = '';
 
 		foreach (array_keys($attributes) as $key)
@@ -123,20 +121,19 @@ class CI_DB_mysqli_forge extends CI_DB_forge {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ALTER TABLE
-	 *
-	 * @param	string	$alter_type	ALTER type
-	 * @param	string	$table		Table name
-	 * @param	mixed	$field		Column definition
-	 * @return	string|string[]
-	 */
-	protected function _alter_table($alter_type, $table, $field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //ALTER TABLE
+  //
+  //@param	string	$alter_type	ALTER type
+  //@param	string	$table		Table name
+  //@param	mixed	$field		Column definition
+  //@return	string|string[]
+  
+  protected function _alter_table($alter_type, $table, $field): string|string[]
+  {
 		if ($alter_type === 'DROP')
 		{
 			return parent::_alter_table($alter_type, $table, $field);
@@ -167,18 +164,17 @@ class CI_DB_mysqli_forge extends CI_DB_forge {
 		}
 
 		return array($sql.implode(',', $field));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Process column
-	 *
-	 * @param	array	$field
-	 * @return	string
-	 */
-	protected function _process_column($field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Process column
+  //
+  //@param	array	$field
+  //@return	string
+  
+  protected function _process_column($field): string
+  {
 		$extra_clause = isset($field['after'])
 			? ' AFTER '.$this->db->escape_identifiers($field['after']) : '';
 
@@ -197,18 +193,17 @@ class CI_DB_mysqli_forge extends CI_DB_forge {
 			.$field['unique']
 			.(empty($field['comment']) ? '' : ' COMMENT '.$field['comment'])
 			.$extra_clause;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Process indexes
-	 *
-	 * @param	string	$table	(ignored)
-	 * @return	string
-	 */
-	protected function _process_indexes($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Process indexes
+  //
+  //@param	string	$table	(ignored)
+  //@return	string
+  
+  protected function _process_indexes($table): string
+  {
 		$sql = '';
 
 		for ($i = 0, $c = count($this->keys); $i < $c; $i++)
@@ -239,6 +234,7 @@ class CI_DB_mysqli_forge extends CI_DB_forge {
 		$this->keys = array();
 
 		return $sql;
-	}
+  }
 
 }
+

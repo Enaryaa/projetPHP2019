@@ -37,82 +37,79 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Interbase/Firebird Forge Class
- *
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//Interbase/Firebird Forge Class
+//
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_ibase_forge extends CI_DB_forge {
+  //
+  //CREATE TABLE IF statement
+  //
+  //@var	string
+  
+  protected $_create_table_if =  FALSE;
 
-	/**
-	 * CREATE TABLE IF statement
-	 *
-	 * @var	string
-	 */
-	protected $_create_table_if	= FALSE;
+  //
+  //RENAME TABLE statement
+  //
+  //@var	string
+  
+  protected $_rename_table =  FALSE;
 
-	/**
-	 * RENAME TABLE statement
-	 *
-	 * @var	string
-	 */
-	protected $_rename_table	= FALSE;
+  //
+  //DROP TABLE IF statement
+  //
+  //@var	string
+  
+  protected $_drop_table_if =  FALSE;
 
-	/**
-	 * DROP TABLE IF statement
-	 *
-	 * @var	string
-	 */
-	protected $_drop_table_if	= FALSE;
-
-	/**
-	 * UNSIGNED support
-	 *
-	 * @var	array
-	 */
-	protected $_unsigned		= array(
+  //
+  //UNSIGNED support
+  //
+  //@var	array
+  
+  protected $_unsigned =  array(
 		'SMALLINT'	=> 'INTEGER',
 		'INTEGER'	=> 'INT64',
 		'FLOAT'		=> 'DOUBLE PRECISION'
 	);
 
-	/**
-	 * NULL value representation in CREATE/ALTER TABLE statements
-	 *
-	 * @var	string
-	 */
-	protected $_null		= 'NULL';
+  //
+  //NULL value representation in CREATE/ALTER TABLE statements
+  //
+  //@var	string
+  
+  protected $_null =  'NULL';
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Create database
-	 *
-	 * @param	string	$db_name
-	 * @return	bool
-	 */
-	public function create_database($db_name)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Create database
+  //
+  //@param	string	$db_name
+  //@return	bool
+  
+  public function create_database($db_name): bool
+  {
 		// Firebird databases are flat files, so a path is required
 
 		// Hostname is needed for remote access
 		empty($this->db->hostname) OR $db_name = $this->hostname.':'.$db_name;
 
 		return parent::create_database('"'.$db_name.'"');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Drop database
-	 *
-	 * @param	string	$db_name	(ignored)
-	 * @return	bool
-	 */
-	public function drop_database($db_name)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Drop database
+  //
+  //@param	string	$db_name	(ignored)
+  //@return	bool
+  
+  public function drop_database($db_name): bool
+  {
 		if ( ! ibase_drop_db($this->conn_id))
 		{
 			return ($this->db->db_debug) ? $this->db->display_error('db_unable_to_drop') : FALSE;
@@ -127,20 +124,19 @@ class CI_DB_ibase_forge extends CI_DB_forge {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ALTER TABLE
-	 *
-	 * @param	string	$alter_type	ALTER type
-	 * @param	string	$table		Table name
-	 * @param	mixed	$field		Column definition
-	 * @return	string|string[]
-	 */
-	protected function _alter_table($alter_type, $table, $field)
- 	{
+  // --------------------------------------------------------------------
+  //
+  //ALTER TABLE
+  //
+  //@param	string	$alter_type	ALTER type
+  //@param	string	$table		Table name
+  //@param	mixed	$field		Column definition
+  //@return	string|string[]
+  
+  protected function _alter_table($alter_type, $table, $field): string|string[]
+  {
 		if (in_array($alter_type, array('DROP', 'ADD'), TRUE))
 		{
 			return parent::_alter_table($alter_type, $table, $field);
@@ -183,37 +179,35 @@ class CI_DB_ibase_forge extends CI_DB_forge {
 		}
 
 		return $sqls;
- 	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Process column
-	 *
-	 * @param	array	$field
-	 * @return	string
-	 */
-	protected function _process_column($field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Process column
+  //
+  //@param	array	$field
+  //@return	string
+  
+  protected function _process_column($field): string
+  {
 		return $this->db->escape_identifiers($field['name'])
 			.' '.$field['type'].$field['length']
 			.$field['null']
 			.$field['unique']
 			.$field['default'];
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field attribute TYPE
-	 *
-	 * Performs a data type mapping between different databases.
-	 *
-	 * @param	array	&$attributes
-	 * @return	void
-	 */
-	protected function _attr_type(&$attributes)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field attribute TYPE
+  //
+  //Performs a data type mapping between different databases.
+  //
+  //@param	array	&$attributes
+  //@return	void
+  
+  protected function _attr_type(& $attributes)
+  {
 		switch (strtoupper($attributes['TYPE']))
 		{
 			case 'TINYINT':
@@ -232,20 +226,20 @@ class CI_DB_ibase_forge extends CI_DB_forge {
 				return;
 			default: return;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field attribute AUTO_INCREMENT
-	 *
-	 * @param	array	&$attributes
-	 * @param	array	&$field
-	 * @return	void
-	 */
-	protected function _attr_auto_increment(&$attributes, &$field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field attribute AUTO_INCREMENT
+  //
+  //@param	array	&$attributes
+  //@param	array	&$field
+  //@return	void
+  
+  protected function _attr_auto_increment(& $attributes, & $field)
+  {
 		// Not supported
-	}
+  }
 
 }
+

@@ -37,46 +37,44 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * MySQL Utility Class
- *
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//MySQL Utility Class
+//
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_mysql_utility extends CI_DB_utility {
+  //
+  //List databases statement
+  //
+  //@var	string
+  
+  protected $_list_databases =  'SHOW DATABASES';
 
-	/**
-	 * List databases statement
-	 *
-	 * @var	string
-	 */
-	protected $_list_databases	= 'SHOW DATABASES';
+  //
+  //OPTIMIZE TABLE statement
+  //
+  //@var	string
+  
+  protected $_optimize_table =  'OPTIMIZE TABLE %s';
 
-	/**
-	 * OPTIMIZE TABLE statement
-	 *
-	 * @var	string
-	 */
-	protected $_optimize_table	= 'OPTIMIZE TABLE %s';
+  //
+  //REPAIR TABLE statement
+  //
+  //@var	string
+  
+  protected $_repair_table =  'REPAIR TABLE %s';
 
-	/**
-	 * REPAIR TABLE statement
-	 *
-	 * @var	string
-	 */
-	protected $_repair_table	= 'REPAIR TABLE %s';
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Export
-	 *
-	 * @param	array	$params	Preferences
-	 * @return	mixed
-	 */
-	protected function _backup($params = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Export
+  //
+  //@param	array	$params	Preferences
+  //@return	mixed
+  
+  protected function _backup($params = array()): mixed
+  {
 		if (count($params) === 0)
 		{
 			return FALSE;
@@ -206,6 +204,7 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 		}
 
 		return $output;
-	}
+  }
 
 }
+

@@ -37,47 +37,45 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PDO Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//PDO Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_pdo_driver extends CI_DB {
+  //
+  //Database driver
+  //
+  //@var	string
+  
+  public $dbdriver =  'pdo';
 
-	/**
-	 * Database driver
-	 *
-	 * @var	string
-	 */
-	public $dbdriver = 'pdo';
+  //
+  //PDO Options
+  //
+  //@var	array
+  
+  public $options =  array();
 
-	/**
-	 * PDO Options
-	 *
-	 * @var	array
-	 */
-	public $options = array();
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Validates the DSN string and/or detects the subdriver.
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Validates the DSN string and/or detects the subdriver.
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		if (preg_match('/([^:]+):/', $this->dsn, $match) && count($match) === 2)
@@ -114,18 +112,17 @@ class CI_DB_pdo_driver extends CI_DB {
 		}
 
 		$this->dsn = NULL;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database connection
-	 *
-	 * @param	bool	$persistent
-	 * @return	object
-	 */
-	public function db_connect($persistent = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database connection
+  //
+  //@param	bool	$persistent
+  //@return	object
+  
+  public function db_connect($persistent = FALSE): object
+  {
 		if ($persistent === TRUE)
 		{
 			$this->options[PDO::ATTR_PERSISTENT] = TRUE;
@@ -144,17 +141,16 @@ class CI_DB_pdo_driver extends CI_DB {
 
 			return FALSE;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database version number
-	 *
-	 * @return	string
-	 */
-	public function version()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database version number
+  //
+  //@return	string
+  
+  public function version(): string
+  {
 		if (isset($this->data_cache['version']))
 		{
 			return $this->data_cache['version'];
@@ -169,67 +165,62 @@ class CI_DB_pdo_driver extends CI_DB {
 		{
 			return parent::version();
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Execute the query
-	 *
-	 * @param	string	$sql	SQL query
-	 * @return	mixed
-	 */
-	protected function _execute($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Execute the query
+  //
+  //@param	string	$sql	SQL query
+  //@return	mixed
+  
+  protected function _execute($sql): mixed
+  {
 		return $this->conn_id->query($sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Begin Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_begin()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Begin Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_begin(): bool
+  {
 		return $this->conn_id->beginTransaction();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Commit Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_commit()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Commit Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_commit(): bool
+  {
 		return $this->conn_id->commit();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Rollback Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_rollback()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Rollback Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_rollback(): bool
+  {
 		return $this->conn_id->rollBack();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Platform-dependent string escape
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _escape_str($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Platform-dependent string escape
+  //
+  //@param	string
+  //@return	string
+  
+  protected function _escape_str($str): string
+  {
 		// Escape the string
 		$str = $this->conn_id->quote($str);
 
@@ -237,60 +228,56 @@ class CI_DB_pdo_driver extends CI_DB {
 		return ($str[0] === "'")
 			? substr($str, 1, -1)
 			: $str;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Affected Rows
-	 *
-	 * @return	int
-	 */
-	public function affected_rows()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Affected Rows
+  //
+  //@return	int
+  
+  public function affected_rows(): int
+  {
 		return is_object($this->result_id) ? $this->result_id->rowCount() : 0;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert ID
-	 *
-	 * @param	string	$name
-	 * @return	int
-	 */
-	public function insert_id($name = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert ID
+  //
+  //@param	string	$name
+  //@return	int
+  
+  public function insert_id($name = NULL): int
+  {
 		return $this->conn_id->lastInsertId($name);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field data query
-	 *
-	 * Generates a platform-specific query so that the column data can be retrieved
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field data query
+  //
+  //Generates a platform-specific query so that the column data can be retrieved
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _field_data($table): string
+  {
 		return 'SELECT TOP 1 * FROM '.$this->protect_identifiers($table);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Error
-	 *
-	 * Returns an array containing code and message of the last
-	 * database error that has occurred.
-	 *
-	 * @return	array
-	 */
-	public function error()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Error
+  //
+  //Returns an array containing code and message of the last
+  //database error that has occurred.
+  //
+  //@return	array
+  
+  public function error(): array
+  {
 		$error = array('code' => '00000', 'message' => '');
 		$pdo_error = $this->conn_id->errorInfo();
 
@@ -306,24 +293,24 @@ class CI_DB_pdo_driver extends CI_DB {
 		}
 
 		return $error;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Truncate statement
-	 *
-	 * Generates a platform-specific truncate string from the supplied data
-	 *
-	 * If the database does not support the TRUNCATE statement,
-	 * then this method maps to 'DELETE FROM table'
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _truncate($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Truncate statement
+  //
+  //Generates a platform-specific truncate string from the supplied data
+  //
+  //If the database does not support the TRUNCATE statement,
+  //then this method maps to 'DELETE FROM table'
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _truncate($table): string
+  {
 		return 'TRUNCATE TABLE '.$table;
-	}
+  }
 
 }
+

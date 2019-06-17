@@ -37,67 +37,66 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Encryption Class
- *
- * Provides two-way keyed encryption via PHP's MCrypt and/or OpenSSL extensions.
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		Andrey Andreev
- * @link		https://codeigniter.com/user_guide/libraries/encryption.html
- */
+//
+//CodeIgniter Encryption Class
+//
+//Provides two-way keyed encryption via PHP's MCrypt and/or OpenSSL extensions.
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Libraries
+//@author		Andrey Andreev
+//@link		https://codeigniter.com/user_guide/libraries/encryption.html
+
 class CI_Encryption {
+  //
+  //Encryption cipher
+  //
+  //@var	string
+  
+  protected $_cipher =  'aes-128';
 
-	/**
-	 * Encryption cipher
-	 *
-	 * @var	string
-	 */
-	protected $_cipher = 'aes-128';
+  //
+  //Cipher mode
+  //
+  //@var	string
+  
+  protected $_mode =  'cbc';
 
-	/**
-	 * Cipher mode
-	 *
-	 * @var	string
-	 */
-	protected $_mode = 'cbc';
+  //
+  //Cipher handle
+  //
+  //@var	mixed
+  
+  protected $_handle;
 
-	/**
-	 * Cipher handle
-	 *
-	 * @var	mixed
-	 */
-	protected $_handle;
+  //
+  //Encryption key
+  //
+  //@var	string
+  
+  protected $_key;
 
-	/**
-	 * Encryption key
-	 *
-	 * @var	string
-	 */
-	protected $_key;
+  //
+  //PHP extension to be used
+  //
+  //@var	string
+  
+  protected $_driver;
 
-	/**
-	 * PHP extension to be used
-	 *
-	 * @var	string
-	 */
-	protected $_driver;
+  //
+  //List of usable drivers (PHP extensions)
+  //
+  //@var	array
+  
+  protected $_drivers =  array();
 
-	/**
-	 * List of usable drivers (PHP extensions)
-	 *
-	 * @var	array
-	 */
-	protected $_drivers = array();
-
-	/**
-	 * List of available modes
-	 *
-	 * @var	array
-	 */
-	protected $_modes = array(
+  //
+  //List of available modes
+  //
+  //@var	array
+  
+  protected $_modes =  array(
 		'mcrypt' => array(
 			'cbc' => 'cbc',
 			'ecb' => 'ecb',
@@ -120,37 +119,36 @@ class CI_Encryption {
 		)
 	);
 
-	/**
-	 * List of supported HMAC algorithms
-	 *
-	 * name => digest size pairs
-	 *
-	 * @var	array
-	 */
-	protected $_digests = array(
+  //
+  //List of supported HMAC algorithms
+  //
+  //name => digest size pairs
+  //
+  //@var	array
+  
+  protected $_digests =  array(
 		'sha224' => 28,
 		'sha256' => 32,
 		'sha384' => 48,
 		'sha512' => 64
 	);
 
-	/**
-	 * mbstring.func_overload flag
-	 *
-	 * @var	bool
-	 */
-	protected static $func_overload;
+  //
+  //mbstring.func_overload flag
+  //
+  //@var	bool
+  
+  protected static $func_overload;
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params	Configuration parameters
-	 * @return	void
-	 */
-	public function __construct(array $params = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	array	$params	Configuration parameters
+  //@return	void
+  
+  public function __construct(array $params = array())
+  {
 		$this->_drivers = array(
 			'mcrypt'  => defined('MCRYPT_DEV_URANDOM'),
 			'openssl' => extension_loaded('openssl')
@@ -170,18 +168,17 @@ class CI_Encryption {
 		}
 
 		log_message('info', 'Encryption Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize
-	 *
-	 * @param	array	$params	Configuration parameters
-	 * @return	CI_Encryption
-	 */
-	public function initialize(array $params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize
+  //
+  //@param	array	$params	Configuration parameters
+  //@return	CI_Encryption
+  
+  public function initialize(array $params): CI_Encryption
+  {
 		if ( ! empty($params['driver']))
 		{
 			if (isset($this->_drivers[$params['driver']]))
@@ -214,18 +211,17 @@ class CI_Encryption {
 		empty($params['key']) OR $this->_key = $params['key'];
 		$this->{'_'.$this->_driver.'_initialize'}($params);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize MCrypt
-	 *
-	 * @param	array	$params	Configuration parameters
-	 * @return	void
-	 */
-	protected function _mcrypt_initialize($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize MCrypt
+  //
+  //@param	array	$params	Configuration parameters
+  //@return	void
+  
+  protected function _mcrypt_initialize($params)
+  {
 		if ( ! empty($params['cipher']))
 		{
 			$params['cipher'] = strtolower($params['cipher']);
@@ -273,18 +269,17 @@ class CI_Encryption {
 				log_message('error', 'Encryption: Unable to initialize MCrypt with cipher '.strtoupper($this->_cipher).' in '.strtoupper($this->_mode).' mode.');
 			}
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize OpenSSL
-	 *
-	 * @param	array	$params	Configuration parameters
-	 * @return	void
-	 */
-	protected function _openssl_initialize($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize OpenSSL
+  //
+  //@param	array	$params	Configuration parameters
+  //@return	void
+  
+  protected function _openssl_initialize($params)
+  {
 		if ( ! empty($params['cipher']))
 		{
 			$params['cipher'] = strtolower($params['cipher']);
@@ -323,18 +318,17 @@ class CI_Encryption {
 				log_message('info', 'Encryption: OpenSSL initialized with method '.strtoupper($handle).'.');
 			}
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Create a random key
-	 *
-	 * @param	int	$length	Output length
-	 * @return	string
-	 */
-	public function create_key($length)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Create a random key
+  //
+  //@param	int	$length	Output length
+  //@return	string
+  
+  public function create_key($length): string
+  {
 		if (function_exists('random_bytes'))
 		{
 			try
@@ -357,19 +351,18 @@ class CI_Encryption {
 		return ($is_secure === TRUE)
 			? $key
 			: FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Encrypt
-	 *
-	 * @param	string	$data	Input data
-	 * @param	array	$params	Input parameters
-	 * @return	string
-	 */
-	public function encrypt($data, array $params = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Encrypt
+  //
+  //@param	string	$data	Input data
+  //@param	array	$params	Input parameters
+  //@return	string
+  
+  public function encrypt($data, array $params = NULL): string
+  {
 		if (($params = $this->_get_params($params)) === FALSE)
 		{
 			return FALSE;
@@ -391,19 +384,18 @@ class CI_Encryption {
 		}
 
 		return $data;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Encrypt via MCrypt
-	 *
-	 * @param	string	$data	Input data
-	 * @param	array	$params	Input parameters
-	 * @return	string
-	 */
-	protected function _mcrypt_encrypt($data, $params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Encrypt via MCrypt
+  //
+  //@param	string	$data	Input data
+  //@param	array	$params	Input parameters
+  //@return	string
+  
+  protected function _mcrypt_encrypt($data, $params): string
+  {
 		if ( ! is_resource($params['handle']))
 		{
 			return FALSE;
@@ -456,19 +448,18 @@ class CI_Encryption {
 		}
 
 		return $data;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Encrypt via OpenSSL
-	 *
-	 * @param	string	$data	Input data
-	 * @param	array	$params	Input parameters
-	 * @return	string
-	 */
-	protected function _openssl_encrypt($data, $params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Encrypt via OpenSSL
+  //
+  //@param	string	$data	Input data
+  //@param	array	$params	Input parameters
+  //@return	string
+  
+  protected function _openssl_encrypt($data, $params): string
+  {
 		if (empty($params['handle']))
 		{
 			return FALSE;
@@ -492,19 +483,18 @@ class CI_Encryption {
 		}
 
 		return $iv.$data;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Decrypt
-	 *
-	 * @param	string	$data	Encrypted data
-	 * @param	array	$params	Input parameters
-	 * @return	string
-	 */
-	public function decrypt($data, array $params = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Decrypt
+  //
+  //@param	string	$data	Encrypted data
+  //@param	array	$params	Input parameters
+  //@return	string
+  
+  public function decrypt($data, array $params = NULL): string
+  {
 		if (($params = $this->_get_params($params)) === FALSE)
 		{
 			return FALSE;
@@ -550,19 +540,18 @@ class CI_Encryption {
 		isset($params['key']) OR $params['key'] = $this->hkdf($this->_key, 'sha512', NULL, self::strlen($this->_key), 'encryption');
 
 		return $this->{'_'.$this->_driver.'_decrypt'}($data, $params);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Decrypt via MCrypt
-	 *
-	 * @param	string	$data	Encrypted data
-	 * @param	array	$params	Input parameters
-	 * @return	string
-	 */
-	protected function _mcrypt_decrypt($data, $params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Decrypt via MCrypt
+  //
+  //@param	string	$data	Encrypted data
+  //@param	array	$params	Input parameters
+  //@return	string
+  
+  protected function _mcrypt_decrypt($data, $params): string
+  {
 		if ( ! is_resource($params['handle']))
 		{
 			return FALSE;
@@ -612,19 +601,18 @@ class CI_Encryption {
 		}
 
 		return $data;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Decrypt via OpenSSL
-	 *
-	 * @param	string	$data	Encrypted data
-	 * @param	array	$params	Input parameters
-	 * @return	string
-	 */
-	protected function _openssl_decrypt($data, $params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Decrypt via OpenSSL
+  //
+  //@param	string	$data	Encrypted data
+  //@param	array	$params	Input parameters
+  //@return	string
+  
+  protected function _openssl_decrypt($data, $params): string
+  {
 		if ($iv_size = openssl_cipher_iv_length($params['handle']))
 		{
 			$iv = self::substr($data, 0, $iv_size);
@@ -644,18 +632,17 @@ class CI_Encryption {
 				1, // DO NOT TOUCH!
 				$iv
 			);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get params
-	 *
-	 * @param	array	$params	Input parameters
-	 * @return	array
-	 */
-	protected function _get_params($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get params
+  //
+  //@param	array	$params	Input parameters
+  //@return	array
+  
+  protected function _get_params($params): array
+  {
 		if (empty($params))
 		{
 			return isset($this->_cipher, $this->_mode, $this->_key, $this->_handle)
@@ -726,51 +713,48 @@ class CI_Encryption {
 			: $this->_handle;
 
 		return $params;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get MCrypt handle
-	 *
-	 * @param	string	$cipher	Cipher name
-	 * @param	string	$mode	Encryption mode
-	 * @return	resource
-	 */
-	protected function _mcrypt_get_handle($cipher, $mode)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get MCrypt handle
+  //
+  //@param	string	$cipher	Cipher name
+  //@param	string	$mode	Encryption mode
+  //@return	resource
+  
+  protected function _mcrypt_get_handle($cipher, $mode): resource
+  {
 		return mcrypt_module_open($cipher, '', $mode, '');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get OpenSSL handle
-	 *
-	 * @param	string	$cipher	Cipher name
-	 * @param	string	$mode	Encryption mode
-	 * @return	string
-	 */
-	protected function _openssl_get_handle($cipher, $mode)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get OpenSSL handle
+  //
+  //@param	string	$cipher	Cipher name
+  //@param	string	$mode	Encryption mode
+  //@return	string
+  
+  protected function _openssl_get_handle($cipher, $mode): string
+  {
 		// OpenSSL methods aren't suffixed with '-stream' for this mode
 		return ($mode === 'stream')
 			? $cipher
 			: $cipher.'-'.$mode;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Cipher alias
-	 *
-	 * Tries to translate cipher names between MCrypt and OpenSSL's "dialects".
-	 *
-	 * @param	string	$cipher	Cipher name
-	 * @return	void
-	 */
-	protected function _cipher_alias(&$cipher)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Cipher alias
+  //
+  //Tries to translate cipher names between MCrypt and OpenSSL's "dialects".
+  //
+  //@param	string	$cipher	Cipher name
+  //@return	void
+  
+  protected function _cipher_alias(& $cipher)
+  {
 		static $dictionary;
 
 		if (empty($dictionary))
@@ -832,23 +816,22 @@ class CI_Encryption {
 		{
 			$cipher = $dictionary[$this->_driver][$cipher];
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * HKDF
-	 *
-	 * @link	https://tools.ietf.org/rfc/rfc5869.txt
-	 * @param	$key	Input key
-	 * @param	$digest	A SHA-2 hashing algorithm
-	 * @param	$salt	Optional salt
-	 * @param	$length	Output length (defaults to the selected digest size)
-	 * @param	$info	Optional context/application-specific info
-	 * @return	string	A pseudo-random key
-	 */
-	public function hkdf($key, $digest = 'sha512', $salt = NULL, $length = NULL, $info = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //HKDF
+  //
+  //@link	https://tools.ietf.org/rfc/rfc5869.txt
+  //@param	$key	Input key
+  //@param	$digest	A SHA-2 hashing algorithm
+  //@param	$salt	Optional salt
+  //@param	$length	Output length (defaults to the selected digest size)
+  //@param	$info	Optional context/application-specific info
+  //@return	string	A pseudo-random key
+  
+  public function hkdf($key, $digest = 'sha512', $salt = NULL, $length = NULL, $info = ''): string
+  {
 		if ( ! isset($this->_digests[$digest]))
 		{
 			return FALSE;
@@ -874,18 +857,17 @@ class CI_Encryption {
 		}
 
 		return self::substr($key, 0, $length);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * __get() magic
-	 *
-	 * @param	string	$key	Property name
-	 * @return	mixed
-	 */
-	public function __get($key)
-	{
+  // --------------------------------------------------------------------
+  //
+  //__get() magic
+  //
+  //@param	string	$key	Property name
+  //@return	mixed
+  
+  public function __get($key): mixed
+  {
 		// Because aliases
 		if ($key === 'mode')
 		{
@@ -897,35 +879,33 @@ class CI_Encryption {
 		}
 
 		return NULL;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Byte-safe strlen()
-	 *
-	 * @param	string	$str
-	 * @return	int
-	 */
-	protected static function strlen($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Byte-safe strlen()
+  //
+  //@param	string	$str
+  //@return	int
+  
+  protected static function strlen($str): int
+  {
 		return (self::$func_overload)
 			? mb_strlen($str, '8bit')
 			: strlen($str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Byte-safe substr()
-	 *
-	 * @param	string	$str
-	 * @param	int	$start
-	 * @param	int	$length
-	 * @return	string
-	 */
-	protected static function substr($str, $start, $length = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Byte-safe substr()
+  //
+  //@param	string	$str
+  //@param	int	$start
+  //@param	int	$length
+  //@return	string
+  
+  protected static function substr($str, $start, $length = NULL): string
+  {
 		if (self::$func_overload)
 		{
 			// mb_substr($str, $start, null, '8bit') returns an empty
@@ -937,5 +917,7 @@ class CI_Encryption {
 		return isset($length)
 			? substr($str, $start, $length)
 			: substr($str, $start);
-	}
+  }
+
 }
+

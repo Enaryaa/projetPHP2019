@@ -37,26 +37,25 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * ODBC Result Class
- *
- * This class extends the parent result class: CI_DB_result
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
-class CI_DB_odbc_result extends CI_DB_result {
+//
+//ODBC Result Class
+//
+//This class extends the parent result class: CI_DB_result
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
 
-	/**
-	 * Number of rows in the result set
-	 *
-	 * @return	int
-	 */
-	public function num_rows()
-	{
+class CI_DB_odbc_result extends CI_DB_result {
+  //
+  //Number of rows in the result set
+  //
+  //@return	int
+  
+  public function num_rows(): int
+  {
 		if (is_int($this->num_rows))
 		{
 			return $this->num_rows;
@@ -77,31 +76,29 @@ class CI_DB_odbc_result extends CI_DB_result {
 		}
 
 		return $this->num_rows = count($this->result_array());
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Number of fields in the result set
-	 *
-	 * @return	int
-	 */
-	public function num_fields()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Number of fields in the result set
+  //
+  //@return	int
+  
+  public function num_fields(): int
+  {
 		return odbc_num_fields($this->result_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Fetch Field Names
-	 *
-	 * Generates an array of column names
-	 *
-	 * @return	array
-	 */
-	public function list_fields()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Fetch Field Names
+  //
+  //Generates an array of column names
+  //
+  //@return	array
+  
+  public function list_fields(): array
+  {
 		$field_names = array();
 		$num_fields = $this->num_fields();
 
@@ -114,19 +111,18 @@ class CI_DB_odbc_result extends CI_DB_result {
 		}
 
 		return $field_names;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field data
-	 *
-	 * Generates an array of objects containing field meta-data
-	 *
-	 * @return	array
-	 */
-	public function field_data()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field data
+  //
+  //Generates an array of objects containing field meta-data
+  //
+  //@return	array
+  
+  public function field_data(): array
+  {
 		$retval = array();
 		for ($i = 0, $odbc_index = 1, $c = $this->num_fields(); $i < $c; $i++, $odbc_index++)
 		{
@@ -139,50 +135,47 @@ class CI_DB_odbc_result extends CI_DB_result {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Free the result
-	 *
-	 * @return	void
-	 */
-	public function free_result()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Free the result
+  //
+  //@return	void
+  
+  public function free_result()
+  {
 		if (is_resource($this->result_id))
 		{
 			odbc_free_result($this->result_id);
 			$this->result_id = FALSE;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Result - associative array
-	 *
-	 * Returns the result set as an array
-	 *
-	 * @return	array
-	 */
-	protected function _fetch_assoc()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Result - associative array
+  //
+  //Returns the result set as an array
+  //
+  //@return	array
+  
+  protected function _fetch_assoc(): array
+  {
 		return odbc_fetch_array($this->result_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Result - object
-	 *
-	 * Returns the result set as an object
-	 *
-	 * @param	string	$class_name
-	 * @return	object
-	 */
-	protected function _fetch_object($class_name = 'stdClass')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Result - object
+  //
+  //Returns the result set as an object
+  //
+  //@param	string	$class_name
+  //@return	object
+  
+  protected function _fetch_object($class_name = 'stdClass'): object
+  {
 		$row = odbc_fetch_object($this->result_id);
 
 		if ($class_name === 'stdClass' OR ! $row)
@@ -197,9 +190,10 @@ class CI_DB_odbc_result extends CI_DB_result {
 		}
 
 		return $class_name;
-	}
+  }
 
 }
+
 
 // --------------------------------------------------------------------
 

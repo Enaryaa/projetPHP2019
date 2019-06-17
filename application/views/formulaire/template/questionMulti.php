@@ -29,21 +29,4 @@
 <script type="text/javascript">
 
 var id = 'ajoutRep<?php echo $cpt; ?>';
-var cpt = <?php echo $cpt; ?>;
-var element = document.getElementById(id);
-element.addEventListener('click', function() {
-  addRep(element, cpt);
-});
-
-
-function Suppr() {
-  var x = document.getElementById("qChoix");
-  x.remove(x.selectedIndex);
-  $.ajax('formulaire/remove')
-    .done(function(result) {
-      console.log(result);
-    });
-}
-
-
-</script>
+var cpt = <?php echo $cpt; ?>

@@ -37,52 +37,49 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * SQLite Result Class
- *
- * This class extends the parent result class: CI_DB_result
- *
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
-class CI_DB_sqlite_result extends CI_DB_result {
+//
+//SQLite Result Class
+//
+//This class extends the parent result class: CI_DB_result
+//
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
 
-	/**
-	 * Number of rows in the result set
-	 *
-	 * @return	int
-	 */
-	public function num_rows()
-	{
+class CI_DB_sqlite_result extends CI_DB_result {
+  //
+  //Number of rows in the result set
+  //
+  //@return	int
+  
+  public function num_rows(): int
+  {
 		return is_int($this->num_rows)
 			? $this->num_rows
 			: $this->num_rows = @sqlite_num_rows($this->result_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Number of fields in the result set
-	 *
-	 * @return	int
-	 */
-	public function num_fields()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Number of fields in the result set
+  //
+  //@return	int
+  
+  public function num_fields(): int
+  {
 		return @sqlite_num_fields($this->result_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Fetch Field Names
-	 *
-	 * Generates an array of column names
-	 *
-	 * @return	array
-	 */
-	public function list_fields()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Fetch Field Names
+  //
+  //Generates an array of column names
+  //
+  //@return	array
+  
+  public function list_fields(): array
+  {
 		$field_names = array();
 		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
 		{
@@ -90,19 +87,18 @@ class CI_DB_sqlite_result extends CI_DB_result {
 		}
 
 		return $field_names;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field data
-	 *
-	 * Generates an array of objects containing field meta-data
-	 *
-	 * @return	array
-	 */
-	public function field_data()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field data
+  //
+  //Generates an array of objects containing field meta-data
+  //
+  //@return	array
+  
+  public function field_data(): array
+  {
 		$retval = array();
 		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
 		{
@@ -113,52 +109,50 @@ class CI_DB_sqlite_result extends CI_DB_result {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Data Seek
-	 *
-	 * Moves the internal pointer to the desired offset. We call
-	 * this internally before fetching results to make sure the
-	 * result set starts at zero.
-	 *
-	 * @param	int	$n
-	 * @return	bool
-	 */
-	public function data_seek($n = 0)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Data Seek
+  //
+  //Moves the internal pointer to the desired offset. We call
+  //this internally before fetching results to make sure the
+  //result set starts at zero.
+  //
+  //@param	int	$n
+  //@return	bool
+  
+  public function data_seek($n = 0): bool
+  {
 		return sqlite_seek($this->result_id, $n);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Result - associative array
-	 *
-	 * Returns the result set as an array
-	 *
-	 * @return	array
-	 */
-	protected function _fetch_assoc()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Result - associative array
+  //
+  //Returns the result set as an array
+  //
+  //@return	array
+  
+  protected function _fetch_assoc(): array
+  {
 		return sqlite_fetch_array($this->result_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Result - object
-	 *
-	 * Returns the result set as an object
-	 *
-	 * @param	string	$class_name
-	 * @return	object
-	 */
-	protected function _fetch_object($class_name = 'stdClass')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Result - object
+  //
+  //Returns the result set as an object
+  //
+  //@param	string	$class_name
+  //@return	object
+  
+  protected function _fetch_object($class_name = 'stdClass'): object
+  {
 		return sqlite_fetch_object($this->result_id, $class_name);
-	}
+  }
 
 }
+

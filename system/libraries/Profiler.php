@@ -37,29 +37,28 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Profiler Class
- *
- * This class enables you to display benchmark, query, and other data
- * in order to help with debugging and optimization.
- *
- * Note: At some point it would be good to move all the HTML in this class
- * into a set of template files in order to allow customization.
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/general/profiling.html
- */
-class CI_Profiler {
+//
+//CodeIgniter Profiler Class
+//
+//This class enables you to display benchmark, query, and other data
+//in order to help with debugging and optimization.
+//
+//Note: At some point it would be good to move all the HTML in this class
+//into a set of template files in order to allow customization.
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Libraries
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/general/profiling.html
 
-	/**
-	 * List of profiler sections available to show
-	 *
-	 * @var array
-	 */
-	protected $_available_sections = array(
+class CI_Profiler {
+  //
+  //List of profiler sections available to show
+  //
+  //@var array
+  
+  protected $_available_sections =  array(
 		'benchmarks',
 		'get',
 		'memory_usage',
@@ -72,31 +71,30 @@ class CI_Profiler {
 		'config'
 	);
 
-	/**
-	 * Number of queries to show before making the additional queries togglable
-	 *
-	 * @var int
-	 */
-	protected $_query_toggle_count = 25;
+  //
+  //Number of queries to show before making the additional queries togglable
+  //
+  //@var int
+  
+  protected $_query_toggle_count =  25;
 
-	/**
-	 * Reference to the CodeIgniter singleton
-	 *
-	 * @var object
-	 */
-	protected $CI;
+  //
+  //Reference to the CodeIgniter singleton
+  //
+  //@var object
+  
+  protected $CI;
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Initialize Profiler
-	 *
-	 * @param	array	$config	Parameters
-	 */
-	public function __construct($config = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Initialize Profiler
+  //
+  //@param	array	$config	Parameters
+  
+  public function __construct($config = array())
+  {
 		$this->CI =& get_instance();
 		$this->CI->load->language('profiler');
 
@@ -111,20 +109,19 @@ class CI_Profiler {
 
 		$this->set_sections($config);
 		log_message('info', 'Profiler Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Sections
-	 *
-	 * Sets the private _compile_* properties to enable/disable Profiler sections
-	 *
-	 * @param	mixed	$config
-	 * @return	void
-	 */
-	public function set_sections($config)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Sections
+  //
+  //Sets the private _compile_* properties to enable/disable Profiler sections
+  //
+  //@param	mixed	$config
+  //@return	void
+  
+  public function set_sections($config)
+  {
 		if (isset($config['query_toggle_count']))
 		{
 			$this->_query_toggle_count = (int) $config['query_toggle_count'];
@@ -138,22 +135,21 @@ class CI_Profiler {
 				$this->_compile_{$method} = ($enable !== FALSE);
 			}
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Auto Profiler
-	 *
-	 * This function cycles through the entire array of mark points and
-	 * matches any two points that are named identically (ending in "_start"
-	 * and "_end" respectively).  It then compiles the execution times for
-	 * all points and returns it as an array
-	 *
-	 * @return	array
-	 */
-	protected function _compile_benchmarks()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Auto Profiler
+  //
+  //This function cycles through the entire array of mark points and
+  //matches any two points that are named identically (ending in "_start"
+  //and "_end" respectively).  It then compiles the execution times for
+  //all points and returns it as an array
+  //
+  //@return	array
+  
+  protected function _compile_benchmarks(): array
+  {
 		$profile = array();
 		foreach ($this->CI->benchmark->marker as $key => $val)
 		{
@@ -185,17 +181,16 @@ class CI_Profiler {
 		}
 
 		return $output."</table>\n</fieldset>";
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile Queries
-	 *
-	 * @return	string
-	 */
-	protected function _compile_queries()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile Queries
+  //
+  //@return	string
+  
+  protected function _compile_queries(): string
+  {
 		$dbs = array();
 
 		// Let's determine which databases are currently connected to
@@ -288,17 +283,16 @@ class CI_Profiler {
 		}
 
 		return $output;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile $_GET Data
-	 *
-	 * @return	string
-	 */
-	protected function _compile_get()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile $_GET Data
+  //
+  //@return	string
+  
+  protected function _compile_get(): string
+  {
 		$output = "\n\n"
 			.'<fieldset id="ci_profiler_get" style="border:1px solid #cd6e00;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 			."\n"
@@ -328,17 +322,16 @@ class CI_Profiler {
 		}
 
 		return $output.'</fieldset>';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile $_POST Data
-	 *
-	 * @return	string
-	 */
-	protected function _compile_post()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile $_POST Data
+  //
+  //@return	string
+  
+  protected function _compile_post(): string
+  {
 		$output = "\n\n"
 			.'<fieldset id="ci_profiler_post" style="border:1px solid #009900;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 			."\n"
@@ -380,17 +373,16 @@ class CI_Profiler {
 		}
 
 		return $output.'</fieldset>';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show query string
-	 *
-	 * @return	string
-	 */
-	protected function _compile_uri_string()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show query string
+  //
+  //@return	string
+  
+  protected function _compile_uri_string(): string
+  {
 		return "\n\n"
 			.'<fieldset id="ci_profiler_uri_string" style="border:1px solid #000;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 			."\n"
@@ -398,36 +390,34 @@ class CI_Profiler {
 			.'<div style="color:#000;font-weight:normal;padding:4px 0 4px 0;">'
 			.($this->CI->uri->uri_string === '' ? $this->CI->lang->line('profiler_no_uri') : $this->CI->uri->uri_string)
 			.'</div></fieldset>';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show the controller and function that were called
-	 *
-	 * @return	string
-	 */
-	protected function _compile_controller_info()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show the controller and function that were called
+  //
+  //@return	string
+  
+  protected function _compile_controller_info(): string
+  {
 		return "\n\n"
 			.'<fieldset id="ci_profiler_controller_info" style="border:1px solid #995300;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 			."\n"
 			.'<legend style="color:#995300;">&nbsp;&nbsp;'.$this->CI->lang->line('profiler_controller_info')."&nbsp;&nbsp;</legend>\n"
 			.'<div style="color:#995300;font-weight:normal;padding:4px 0 4px 0;">'.$this->CI->router->class.'/'.$this->CI->router->method
 			.'</div></fieldset>';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile memory usage
-	 *
-	 * Display total used memory
-	 *
-	 * @return	string
-	 */
-	protected function _compile_memory_usage()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile memory usage
+  //
+  //Display total used memory
+  //
+  //@return	string
+  
+  protected function _compile_memory_usage(): string
+  {
 		return "\n\n"
 			.'<fieldset id="ci_profiler_memory_usage" style="border:1px solid #5a0099;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 			."\n"
@@ -435,19 +425,18 @@ class CI_Profiler {
 			.'<div style="color:#5a0099;font-weight:normal;padding:4px 0 4px 0;">'
 			.(($usage = memory_get_usage()) != '' ? number_format($usage).' bytes' : $this->CI->lang->line('profiler_no_memory'))
 			.'</div></fieldset>';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile header information
-	 *
-	 * Lists HTTP headers
-	 *
-	 * @return	string
-	 */
-	protected function _compile_http_headers()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile header information
+  //
+  //Lists HTTP headers
+  //
+  //@return	string
+  
+  protected function _compile_http_headers(): string
+  {
 		$output = "\n\n"
 			.'<fieldset id="ci_profiler_http_headers" style="border:1px solid #000;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 			."\n"
@@ -463,19 +452,18 @@ class CI_Profiler {
 		}
 
 		return $output."</table>\n</fieldset>";
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile config information
-	 *
-	 * Lists developer config variables
-	 *
-	 * @return	string
-	 */
-	protected function _compile_config()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile config information
+  //
+  //Lists developer config variables
+  //
+  //@return	string
+  
+  protected function _compile_config(): string
+  {
 		$output = "\n\n"
 			.'<fieldset id="ci_profiler_config" style="border:1px solid #000;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
 			."\n"
@@ -500,17 +488,16 @@ class CI_Profiler {
 		}
 
 		return $output."</table>\n</fieldset>";
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile session userdata
-	 *
-	 * @return 	string
-	 */
-	protected function _compile_session_data()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile session userdata
+  //
+  //@return 	string
+  
+  protected function _compile_session_data(): string
+  {
 		if ( ! isset($this->CI->session))
 		{
 			return;
@@ -538,17 +525,16 @@ class CI_Profiler {
 		}
 
 		return $output."</table>\n</fieldset>";
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Run the Profiler
-	 *
-	 * @return	string
-	 */
-	public function run()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Run the Profiler
+  //
+  //@return	string
+  
+  public function run(): string
+  {
 		$output = '<div id="codeigniter_profiler" style="clear:both;background-color:#fff;padding:10px;">';
 		$fields_displayed = 0;
 
@@ -569,6 +555,7 @@ class CI_Profiler {
 		}
 
 		return $output.'</div>';
-	}
+  }
 
 }
+

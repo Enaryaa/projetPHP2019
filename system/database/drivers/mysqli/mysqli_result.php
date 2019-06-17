@@ -37,54 +37,51 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * MySQLi Result Class
- *
- * This class extends the parent result class: CI_DB_result
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
-class CI_DB_mysqli_result extends CI_DB_result {
+//
+//MySQLi Result Class
+//
+//This class extends the parent result class: CI_DB_result
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
 
-	/**
-	 * Number of rows in the result set
-	 *
-	 * @return	int
-	 */
-	public function num_rows()
-	{
+class CI_DB_mysqli_result extends CI_DB_result {
+  //
+  //Number of rows in the result set
+  //
+  //@return	int
+  
+  public function num_rows(): int
+  {
 		return is_int($this->num_rows)
 			? $this->num_rows
 			: $this->num_rows = $this->result_id->num_rows;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Number of fields in the result set
-	 *
-	 * @return	int
-	 */
-	public function num_fields()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Number of fields in the result set
+  //
+  //@return	int
+  
+  public function num_fields(): int
+  {
 		return $this->result_id->field_count;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Fetch Field Names
-	 *
-	 * Generates an array of column names
-	 *
-	 * @return	array
-	 */
-	public function list_fields()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Fetch Field Names
+  //
+  //Generates an array of column names
+  //
+  //@return	array
+  
+  public function list_fields(): array
+  {
 		$field_names = array();
 		$this->result_id->field_seek(0);
 		while ($field = $this->result_id->fetch_field())
@@ -93,19 +90,18 @@ class CI_DB_mysqli_result extends CI_DB_result {
 		}
 
 		return $field_names;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field data
-	 *
-	 * Generates an array of objects containing field meta-data
-	 *
-	 * @return	array
-	 */
-	public function field_data()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field data
+  //
+  //Generates an array of objects containing field meta-data
+  //
+  //@return	array
+  
+  public function field_data(): array
+  {
 		$retval = array();
 		$field_data = $this->result_id->fetch_fields();
 		for ($i = 0, $c = count($field_data); $i < $c; $i++)
@@ -119,22 +115,21 @@ class CI_DB_mysqli_result extends CI_DB_result {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get field type
-	 *
-	 * Extracts field type info from the bitflags returned by
-	 * mysqli_result::fetch_fields()
-	 *
-	 * @used-by	CI_DB_mysqli_result::field_data()
-	 * @param	int	$type
-	 * @return	string
-	 */
-	private static function _get_field_type($type)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get field type
+  //
+  //Extracts field type info from the bitflags returned by
+  //mysqli_result::fetch_fields()
+  //
+  //@used-by	CI_DB_mysqli_result::field_data()
+  //@param	int	$type
+  //@return	string
+  
+  private static function _get_field_type($type): string
+  {
 		static $map;
 		isset($map) OR $map = array(
 			MYSQLI_TYPE_DECIMAL     => 'decimal',
@@ -165,68 +160,65 @@ class CI_DB_mysqli_result extends CI_DB_result {
 		);
 
 		return isset($map[$type]) ? $map[$type] : $type;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Free the result
-	 *
-	 * @return	void
-	 */
-	public function free_result()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Free the result
+  //
+  //@return	void
+  
+  public function free_result()
+  {
 		if (is_object($this->result_id))
 		{
 			$this->result_id->free();
 			$this->result_id = FALSE;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Data Seek
-	 *
-	 * Moves the internal pointer to the desired offset. We call
-	 * this internally before fetching results to make sure the
-	 * result set starts at zero.
-	 *
-	 * @param	int	$n
-	 * @return	bool
-	 */
-	public function data_seek($n = 0)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Data Seek
+  //
+  //Moves the internal pointer to the desired offset. We call
+  //this internally before fetching results to make sure the
+  //result set starts at zero.
+  //
+  //@param	int	$n
+  //@return	bool
+  
+  public function data_seek($n = 0): bool
+  {
 		return $this->result_id->data_seek($n);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Result - associative array
-	 *
-	 * Returns the result set as an array
-	 *
-	 * @return	array
-	 */
-	protected function _fetch_assoc()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Result - associative array
+  //
+  //Returns the result set as an array
+  //
+  //@return	array
+  
+  protected function _fetch_assoc(): array
+  {
 		return $this->result_id->fetch_assoc();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Result - object
-	 *
-	 * Returns the result set as an object
-	 *
-	 * @param	string	$class_name
-	 * @return	object
-	 */
-	protected function _fetch_object($class_name = 'stdClass')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Result - object
+  //
+  //Returns the result set as an object
+  //
+  //@param	string	$class_name
+  //@return	object
+  
+  protected function _fetch_object($class_name = 'stdClass'): object
+  {
 		return $this->result_id->fetch_object($class_name);
-	}
+  }
 
 }
+

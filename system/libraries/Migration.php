@@ -37,84 +37,83 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Migration Class
- *
- * All migrations should implement this, forces up() and down() and gives
- * access to the CI super-global.
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		Reactor Engineers
- * @link
- */
+//
+//Migration Class
+//
+//All migrations should implement this, forces up() and down() and gives
+//access to the CI super-global.
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Libraries
+//@author		Reactor Engineers
+//@link
+
 class CI_Migration {
+  //
+  //Whether the library is enabled
+  //
+  //@var bool
+  
+  protected $_migration_enabled =  FALSE;
 
-	/**
-	 * Whether the library is enabled
-	 *
-	 * @var bool
-	 */
-	protected $_migration_enabled = FALSE;
+  //
+  //Migration numbering type
+  //
+  //@var	bool
+  
+  protected $_migration_type =  'sequential';
 
-	/**
-	 * Migration numbering type
-	 *
-	 * @var	bool
-	 */
-	protected $_migration_type = 'sequential';
+  //
+  //Path to migration classes
+  //
+  //@var string
+  
+  protected $_migration_path =  NULL;
 
-	/**
-	 * Path to migration classes
-	 *
-	 * @var string
-	 */
-	protected $_migration_path = NULL;
+  //
+  //Current migration version
+  //
+  //@var mixed
+  
+  protected $_migration_version =  0;
 
-	/**
-	 * Current migration version
-	 *
-	 * @var mixed
-	 */
-	protected $_migration_version = 0;
+  //
+  //Database table with migration info
+  //
+  //@var string
+  
+  protected $_migration_table =  'migrations';
 
-	/**
-	 * Database table with migration info
-	 *
-	 * @var string
-	 */
-	protected $_migration_table = 'migrations';
+  //
+  //Whether to automatically run migrations
+  //
+  //@var	bool
+  
+  protected $_migration_auto_latest =  FALSE;
 
-	/**
-	 * Whether to automatically run migrations
-	 *
-	 * @var	bool
-	 */
-	protected $_migration_auto_latest = FALSE;
+  //
+  //Migration basename regex
+  //
+  //@var string
+  
+  protected $_migration_regex;
 
-	/**
-	 * Migration basename regex
-	 *
-	 * @var string
-	 */
-	protected $_migration_regex;
+  //
+  //Error message
+  //
+  //@var string
+  
+  protected $_error_string =  '';
 
-	/**
-	 * Error message
-	 *
-	 * @var string
-	 */
-	protected $_error_string = '';
-
-	/**
-	 * Initialize Migration Class
-	 *
-	 * @param	array	$config
-	 * @return	void
-	 */
-	public function __construct($config = array())
-	{
+  //
+  //Initialize Migration Class
+  //
+  //@param	array	$config
+  //@return	void
+  
+  public function __construct($config = array())
+  {
 		// Only run this constructor on main library load
 		if ( ! in_array(get_class($this), array('CI_Migration', config_item('subclass_prefix').'Migration'), TRUE))
 		{
@@ -180,21 +179,20 @@ class CI_Migration {
 		{
 			show_error($this->error_string());
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Migrate to a schema version
-	 *
-	 * Calls each migration step required to get to the schema version of
-	 * choice
-	 *
-	 * @param	string	$target_version	Target schema version
-	 * @return	mixed	TRUE if no migrations are found, current version string on success, FALSE on failure
-	 */
-	public function version($target_version)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Migrate to a schema version
+  //
+  //Calls each migration step required to get to the schema version of
+  //choice
+  //
+  //@param	string	$target_version	Target schema version
+  //@return	mixed	TRUE if no migrations are found, current version string on success, FALSE on failure
+  
+  public function version($target_version): mixed
+  {
 		// Note: We use strings, so that timestamp versions work on 32-bit systems
 		$current_version = $this->_get_version();
 
@@ -318,17 +316,16 @@ class CI_Migration {
 
 		log_message('debug', 'Finished migrating to '.$current_version);
 		return $current_version;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Sets the schema to the latest migration
-	 *
-	 * @return	mixed	Current version string on success, FALSE on failure
-	 */
-	public function latest()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Sets the schema to the latest migration
+  //
+  //@return	mixed	Current version string on success, FALSE on failure
+  
+  public function latest(): mixed
+  {
 		$migrations = $this->find_migrations();
 
 		if (empty($migrations))
@@ -342,41 +339,38 @@ class CI_Migration {
 		// Calculate the last migration step from existing migration
 		// filenames and proceed to the standard version migration
 		return $this->version($this->_get_migration_number($last_migration));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Sets the schema to the migration version set in config
-	 *
-	 * @return	mixed	TRUE if no migrations are found, current version string on success, FALSE on failure
-	 */
-	public function current()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Sets the schema to the migration version set in config
+  //
+  //@return	mixed	TRUE if no migrations are found, current version string on success, FALSE on failure
+  
+  public function current(): mixed
+  {
 		return $this->version($this->_migration_version);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Error string
-	 *
-	 * @return	string	Error message returned as a string
-	 */
-	public function error_string()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Error string
+  //
+  //@return	string	Error message returned as a string
+  
+  public function error_string(): string
+  {
 		return $this->_error_string;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Retrieves list of available migration scripts
-	 *
-	 * @return	array	list of migration file paths sorted by version
-	 */
-	public function find_migrations()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Retrieves list of available migration scripts
+  //
+  //@return	array	list of migration file paths sorted by version
+  
+  public function find_migrations(): array
+  {
 		$migrations = array();
 
 		// Load all *_*.php files in the migrations path
@@ -402,76 +396,72 @@ class CI_Migration {
 
 		ksort($migrations);
 		return $migrations;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Extracts the migration number from a filename
-	 *
-	 * @param	string	$migration
-	 * @return	string	Numeric portion of a migration filename
-	 */
-	protected function _get_migration_number($migration)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Extracts the migration number from a filename
+  //
+  //@param	string	$migration
+  //@return	string	Numeric portion of a migration filename
+  
+  protected function _get_migration_number($migration): string
+  {
 		return sscanf($migration, '%[0-9]+', $number)
 			? $number : '0';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Extracts the migration class name from a filename
-	 *
-	 * @param	string	$migration
-	 * @return	string	text portion of a migration filename
-	 */
-	protected function _get_migration_name($migration)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Extracts the migration class name from a filename
+  //
+  //@param	string	$migration
+  //@return	string	text portion of a migration filename
+  
+  protected function _get_migration_name($migration): string
+  {
 		$parts = explode('_', $migration);
 		array_shift($parts);
 		return implode('_', $parts);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Retrieves current schema version
-	 *
-	 * @return	string	Current migration version
-	 */
-	protected function _get_version()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Retrieves current schema version
+  //
+  //@return	string	Current migration version
+  
+  protected function _get_version(): string
+  {
 		$row = $this->db->select('version')->get($this->_migration_table)->row();
 		return $row ? $row->version : '0';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Stores the current schema version
-	 *
-	 * @param	string	$migration	Migration reached
-	 * @return	void
-	 */
-	protected function _update_version($migration)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Stores the current schema version
+  //
+  //@param	string	$migration	Migration reached
+  //@return	void
+  
+  protected function _update_version($migration)
+  {
 		$this->db->update($this->_migration_table, array(
 			'version' => $migration
 		));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Enable the use of CI super-global
-	 *
-	 * @param	string	$var
-	 * @return	mixed
-	 */
-	public function __get($var)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Enable the use of CI super-global
+  //
+  //@param	string	$var
+  //@return	mixed
+  
+  public function __get($var): mixed
+  {
 		return get_instance()->$var;
-	}
+  }
 
 }
+

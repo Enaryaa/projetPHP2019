@@ -37,43 +37,43 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CUBRID Utility Class
- *
- * @category	Database
- * @author		Esen Sagynov
- * @link		https://codeigniter.com/user_guide/database/
- */
-class CI_DB_cubrid_utility extends CI_DB_utility {
+//
+//CUBRID Utility Class
+//
+//@category	Database
+//@author		Esen Sagynov
+//@link		https://codeigniter.com/user_guide/database/
 
-	/**
-	 * List databases
-	 *
-	 * @return	array
-	 */
-	public function list_databases()
-	{
+class CI_DB_cubrid_utility extends CI_DB_utility {
+  //
+  //List databases
+  //
+  //@return	array
+  
+  public function list_databases(): array
+  {
 		if (isset($this->db->data_cache['db_names']))
 		{
 			return $this->db->data_cache['db_names'];
 		}
 
 		return $this->db->data_cache['db_names'] = cubrid_list_dbs($this->db->conn_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * CUBRID Export
-	 *
-	 * @param	array	Preferences
-	 * @return	mixed
-	 */
-	protected function _backup($params = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //CUBRID Export
+  //
+  //@param	array	Preferences
+  //@return	mixed
+  
+  protected function _backup($params = array()): mixed
+  {
 		// No SQL based support in CUBRID as of version 8.4.0. Database or
 		// table backup can be performed using CUBRID Manager
 		// database administration tool.
 		return $this->db->display_error('db_unsupported_feature');
-	}
+  }
+
 }
+

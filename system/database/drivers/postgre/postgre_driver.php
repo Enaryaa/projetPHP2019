@@ -37,56 +37,53 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Postgre Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//Postgre Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_postgre_driver extends CI_DB {
+  //
+  //Database driver
+  //
+  //@var	string
+  
+  public $dbdriver =  'postgre';
 
-	/**
-	 * Database driver
-	 *
-	 * @var	string
-	 */
-	public $dbdriver = 'postgre';
+  //
+  //Database schema
+  //
+  //@var	string
+  
+  public $schema =  'public';
 
-	/**
-	 * Database schema
-	 *
-	 * @var	string
-	 */
-	public $schema = 'public';
+  // --------------------------------------------------------------------
+  //
+  //ORDER BY random keyword
+  //
+  //@var	array
+  
+  protected $_random_keyword =  array('RANDOM()', 'RANDOM()');
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ORDER BY random keyword
-	 *
-	 * @var	array
-	 */
-	protected $_random_keyword = array('RANDOM()', 'RANDOM()');
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Creates a DSN string to be used for db_connect() and db_pconnect()
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Creates a DSN string to be used for db_connect() and db_pconnect()
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		if ( ! empty($this->dsn))
@@ -137,18 +134,17 @@ class CI_DB_postgre_driver extends CI_DB {
 		}
 
 		$this->dsn = rtrim($this->dsn);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database connection
-	 *
-	 * @param	bool	$persistent
-	 * @return	resource
-	 */
-	public function db_connect($persistent = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database connection
+  //
+  //@param	bool	$persistent
+  //@return	resource
+  
+  public function db_connect($persistent = FALSE): resource
+  {
 		$this->conn_id = ($persistent === TRUE)
 			? pg_pconnect($this->dsn)
 			: pg_connect($this->dsn);
@@ -167,48 +163,45 @@ class CI_DB_postgre_driver extends CI_DB {
 		}
 
 		return $this->conn_id;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Reconnect
-	 *
-	 * Keep / reestablish the db connection if no queries have been
-	 * sent for a length of time exceeding the server's idle timeout
-	 *
-	 * @return	void
-	 */
-	public function reconnect()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Reconnect
+  //
+  //Keep / reestablish the db connection if no queries have been
+  //sent for a length of time exceeding the server's idle timeout
+  //
+  //@return	void
+  
+  public function reconnect()
+  {
 		if (pg_ping($this->conn_id) === FALSE)
 		{
 			$this->conn_id = FALSE;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set client character set
-	 *
-	 * @param	string	$charset
-	 * @return	bool
-	 */
-	protected function _db_set_charset($charset)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set client character set
+  //
+  //@param	string	$charset
+  //@return	bool
+  
+  protected function _db_set_charset($charset): bool
+  {
 		return (pg_set_client_encoding($this->conn_id, $charset) === 0);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database version number
-	 *
-	 * @return	string
-	 */
-	public function version()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database version number
+  //
+  //@return	string
+  
+  public function version(): string
+  {
 		if (isset($this->data_cache['version']))
 		{
 			return $this->data_cache['version'];
@@ -227,100 +220,93 @@ class CI_DB_postgre_driver extends CI_DB {
 		return (isset($pg_version['server']) && preg_match('#^(\d+\.\d+)#', $pg_version['server'], $match))
 			? $this->data_cache['version'] = $match[1]
 			: parent::version();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Execute the query
-	 *
-	 * @param	string	$sql	an SQL query
-	 * @return	resource
-	 */
-	protected function _execute($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Execute the query
+  //
+  //@param	string	$sql	an SQL query
+  //@return	resource
+  
+  protected function _execute($sql): resource
+  {
 		return pg_query($this->conn_id, $sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Begin Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_begin()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Begin Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_begin(): bool
+  {
 		return (bool) pg_query($this->conn_id, 'BEGIN');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Commit Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_commit()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Commit Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_commit(): bool
+  {
 		return (bool) pg_query($this->conn_id, 'COMMIT');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Rollback Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_rollback()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Rollback Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_rollback(): bool
+  {
 		return (bool) pg_query($this->conn_id, 'ROLLBACK');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Determines if a query is a "write" type.
-	 *
-	 * @param	string	An SQL query string
-	 * @return	bool
-	 */
-	public function is_write_type($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Determines if a query is a "write" type.
+  //
+  //@param	string	An SQL query string
+  //@return	bool
+  
+  public function is_write_type($sql): bool
+  {
 		if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#is', $sql))
 		{
 			return FALSE;
 		}
 
 		return parent::is_write_type($sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Platform-dependent string escape
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _escape_str($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Platform-dependent string escape
+  //
+  //@param	string
+  //@return	string
+  
+  protected function _escape_str($str): string
+  {
 		return pg_escape_string($this->conn_id, $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * "Smart" Escape String
-	 *
-	 * Escapes data based on type
-	 *
-	 * @param	string	$str
-	 * @return	mixed
-	 */
-	public function escape($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //"Smart" Escape String
+  //
+  //Escapes data based on type
+  //
+  //@param	string	$str
+  //@return	mixed
+  
+  public function escape($str): mixed
+  {
 		if (is_php('5.4.4') && (is_string($str) OR (is_object($str) && method_exists($str, '__toString'))))
 		{
 			return pg_escape_literal($this->conn_id, $str);
@@ -331,29 +317,27 @@ class CI_DB_postgre_driver extends CI_DB {
 		}
 
 		return parent::escape($str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Affected Rows
-	 *
-	 * @return	int
-	 */
-	public function affected_rows()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Affected Rows
+  //
+  //@return	int
+  
+  public function affected_rows(): int
+  {
 		return pg_affected_rows($this->result_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert ID
-	 *
-	 * @return	string
-	 */
-	public function insert_id()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert ID
+  //
+  //@return	string
+  
+  public function insert_id(): string
+  {
 		$v = $this->version();
 
 		$table	= (func_num_args() > 0) ? func_get_arg(0) : NULL;
@@ -388,20 +372,19 @@ class CI_DB_postgre_driver extends CI_DB {
 		$query = $this->query($sql);
 		$query = $query->row();
 		return (int) $query->ins_id;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show table query
-	 *
-	 * Generates a platform-specific query string so that the table names can be fetched
-	 *
-	 * @param	bool	$prefix_limit
-	 * @return	string
-	 */
-	protected function _list_tables($prefix_limit = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show table query
+  //
+  //Generates a platform-specific query string so that the table names can be fetched
+  //
+  //@param	bool	$prefix_limit
+  //@return	string
+  
+  protected function _list_tables($prefix_limit = FALSE): string
+  {
 		$sql = 'SELECT "table_name" FROM "information_schema"."tables" WHERE "table_schema" = \''.$this->schema."'";
 
 		if ($prefix_limit !== FALSE && $this->dbprefix !== '')
@@ -412,35 +395,33 @@ class CI_DB_postgre_driver extends CI_DB {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * List column query
-	 *
-	 * Generates a platform-specific query string so that the column names can be fetched
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _list_columns($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //List column query
+  //
+  //Generates a platform-specific query string so that the column names can be fetched
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _list_columns($table = ''): string
+  {
 		return 'SELECT "column_name"
 			FROM "information_schema"."columns"
 			WHERE LOWER("table_name") = '.$this->escape(strtolower($table));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an object with field data
-	 *
-	 * @param	string	$table
-	 * @return	array
-	 */
-	public function field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an object with field data
+  //
+  //@param	string	$table
+  //@return	array
+  
+  public function field_data($table): array
+  {
 		$sql = 'SELECT "column_name", "data_type", "character_maximum_length", "numeric_precision", "column_default"
 			FROM "information_schema"."columns"
 			WHERE LOWER("table_name") = '.$this->escape(strtolower($table));
@@ -462,35 +443,33 @@ class CI_DB_postgre_driver extends CI_DB {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Error
-	 *
-	 * Returns an array containing code and message of the last
-	 * database error that has occurred.
-	 *
-	 * @return	array
-	 */
-	public function error()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Error
+  //
+  //Returns an array containing code and message of the last
+  //database error that has occurred.
+  //
+  //@return	array
+  
+  public function error(): array
+  {
 		return array('code' => '', 'message' => pg_last_error($this->conn_id));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ORDER BY
-	 *
-	 * @param	string	$orderby
-	 * @param	string	$direction	ASC, DESC or RANDOM
-	 * @param	bool	$escape
-	 * @return	object
-	 */
-	public function order_by($orderby, $direction = '', $escape = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //ORDER BY
+  //
+  //@param	string	$orderby
+  //@param	string	$direction	ASC, DESC or RANDOM
+  //@param	bool	$escape
+  //@return	object
+  
+  public function order_by($orderby, $direction = '', $escape = NULL): object
+  {
 		$direction = strtoupper(trim($direction));
 		if ($direction === 'RANDOM')
 		{
@@ -512,40 +491,38 @@ class CI_DB_postgre_driver extends CI_DB {
 		}
 
 		return parent::order_by($orderby, $direction, $escape);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update statement
-	 *
-	 * Generates a platform-specific update string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @param	array	$values
-	 * @return	string
-	 */
-	protected function _update($table, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update statement
+  //
+  //Generates a platform-specific update string from the supplied data
+  //
+  //@param	string	$table
+  //@param	array	$values
+  //@return	string
+  
+  protected function _update($table, $values): string
+  {
 		$this->qb_limit = FALSE;
 		$this->qb_orderby = array();
 		return parent::_update($table, $values);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update_Batch statement
-	 *
-	 * Generates a platform-specific batch update string from the supplied data
-	 *
-	 * @param	string	$table	Table name
-	 * @param	array	$values	Update data
-	 * @param	string	$index	WHERE key
-	 * @return	string
-	 */
-	protected function _update_batch($table, $values, $index)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update_Batch statement
+  //
+  //Generates a platform-specific batch update string from the supplied data
+  //
+  //@param	string	$table	Table name
+  //@param	array	$values	Update data
+  //@param	string	$index	WHERE key
+  //@return	string
+  
+  protected function _update_batch($table, $values, $index): string
+  {
 		$ids = array();
 		foreach ($values as $key => $val)
 		{
@@ -571,49 +548,47 @@ class CI_DB_postgre_driver extends CI_DB {
 		$this->where($val[$index]['field'].' IN('.implode(',', $ids).')', NULL, FALSE);
 
 		return 'UPDATE '.$table.' SET '.substr($cases, 0, -2).$this->_compile_wh('qb_where');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete statement
-	 *
-	 * Generates a platform-specific delete string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _delete($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete statement
+  //
+  //Generates a platform-specific delete string from the supplied data
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _delete($table): string
+  {
 		$this->qb_limit = FALSE;
 		return parent::_delete($table);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * LIMIT
-	 *
-	 * Generates a platform-specific LIMIT clause
-	 *
-	 * @param	string	$sql	SQL Query
-	 * @return	string
-	 */
-	protected function _limit($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //LIMIT
+  //
+  //Generates a platform-specific LIMIT clause
+  //
+  //@param	string	$sql	SQL Query
+  //@return	string
+  
+  protected function _limit($sql): string
+  {
 		return $sql.' LIMIT '.$this->qb_limit.($this->qb_offset ? ' OFFSET '.$this->qb_offset : '');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Close DB Connection
-	 *
-	 * @return	void
-	 */
-	protected function _close()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Close DB Connection
+  //
+  //@return	void
+  
+  protected function _close()
+  {
 		pg_close($this->conn_id);
-	}
+  }
 
 }
+

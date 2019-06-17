@@ -37,95 +37,94 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Form Validation Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Validation
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/form_validation.html
- */
+//
+//Form Validation Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Validation
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/form_validation.html
+
 class CI_Form_validation {
+  //
+  //Reference to the CodeIgniter instance
+  //
+  //@var object
+  
+  protected $CI;
 
-	/**
-	 * Reference to the CodeIgniter instance
-	 *
-	 * @var object
-	 */
-	protected $CI;
+  //
+  //Validation data for the current form submission
+  //
+  //@var array
+  
+  protected $_field_data =  array();
 
-	/**
-	 * Validation data for the current form submission
-	 *
-	 * @var array
-	 */
-	protected $_field_data		= array();
+  //
+  //Validation rules for the current form
+  //
+  //@var array
+  
+  protected $_config_rules =  array();
 
-	/**
-	 * Validation rules for the current form
-	 *
-	 * @var array
-	 */
-	protected $_config_rules	= array();
+  //
+  //Array of validation errors
+  //
+  //@var array
+  
+  protected $_error_array =  array();
 
-	/**
-	 * Array of validation errors
-	 *
-	 * @var array
-	 */
-	protected $_error_array		= array();
+  //
+  //Array of custom error messages
+  //
+  //@var array
+  
+  protected $_error_messages =  array();
 
-	/**
-	 * Array of custom error messages
-	 *
-	 * @var array
-	 */
-	protected $_error_messages	= array();
+  //
+  //Start tag for error wrapping
+  //
+  //@var string
+  
+  protected $_error_prefix =  '<p>';
 
-	/**
-	 * Start tag for error wrapping
-	 *
-	 * @var string
-	 */
-	protected $_error_prefix	= '<p>';
+  //
+  //End tag for error wrapping
+  //
+  //@var string
+  
+  protected $_error_suffix =  '</p>';
 
-	/**
-	 * End tag for error wrapping
-	 *
-	 * @var string
-	 */
-	protected $_error_suffix	= '</p>';
+  //
+  //Custom error message
+  //
+  //@var string
+  
+  protected $error_string =  '';
 
-	/**
-	 * Custom error message
-	 *
-	 * @var string
-	 */
-	protected $error_string		= '';
+  //
+  //Whether the form data has been validated as safe
+  //
+  //@var bool
+  
+  protected $_safe_form_data =  FALSE;
 
-	/**
-	 * Whether the form data has been validated as safe
-	 *
-	 * @var bool
-	 */
-	protected $_safe_form_data	= FALSE;
+  //
+  //Custom data to validate
+  //
+  //@var array
+  
+  public $validation_data =  array();
 
-	/**
-	 * Custom data to validate
-	 *
-	 * @var array
-	 */
-	public $validation_data	= array();
-
-	/**
-	 * Initialize Form_Validation class
-	 *
-	 * @param	array	$rules
-	 * @return	void
-	 */
-	public function __construct($rules = array())
-	{
+  //
+  //Initialize Form_Validation class
+  //
+  //@param	array	$rules
+  //@return	void
+  
+  public function __construct($rules = array())
+  {
 		$this->CI =& get_instance();
 
 		// applies delimiters set in config file.
@@ -147,25 +146,24 @@ class CI_Form_validation {
 		$this->CI->load->helper('form');
 
 		log_message('info', 'Form Validation Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Rules
-	 *
-	 * This function takes an array of field names and validation
-	 * rules as input, any custom error messages, validates the info,
-	 * and stores it
-	 *
-	 * @param	mixed	$field
-	 * @param	string	$label
-	 * @param	mixed	$rules
-	 * @param	array	$errors
-	 * @return	CI_Form_validation
-	 */
-	public function set_rules($field, $label = '', $rules = array(), $errors = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Rules
+  //
+  //This function takes an array of field names and validation
+  //rules as input, any custom error messages, validates the info,
+  //and stores it
+  //
+  //@param	mixed	$field
+  //@param	string	$label
+  //@param	mixed	$rules
+  //@param	array	$errors
+  //@return	CI_Form_validation
+  
+  public function set_rules($field, $label = '', $rules = array(), $errors = array()): CI_Form_validation
+  {
 		// No reason to set rules if we have no POST data
 		// or a validation array has not been specified
 		if ($this->CI->input->method() !== 'post' && empty($this->validation_data))
@@ -247,47 +245,45 @@ class CI_Form_validation {
 		);
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * By default, form validation uses the $_POST array to validate
-	 *
-	 * If an array is set through this method, then this array will
-	 * be used instead of the $_POST array
-	 *
-	 * Note that if you are validating multiple arrays, then the
-	 * reset_validation() function should be called after validating
-	 * each array due to the limitations of CI's singleton
-	 *
-	 * @param	array	$data
-	 * @return	CI_Form_validation
-	 */
-	public function set_data(array $data)
-	{
+  // --------------------------------------------------------------------
+  //
+  //By default, form validation uses the $_POST array to validate
+  //
+  //If an array is set through this method, then this array will
+  //be used instead of the $_POST array
+  //
+  //Note that if you are validating multiple arrays, then the
+  //reset_validation() function should be called after validating
+  //each array due to the limitations of CI's singleton
+  //
+  //@param	array	$data
+  //@return	CI_Form_validation
+  
+  public function set_data(array $data): CI_Form_validation
+  {
 		if ( ! empty($data))
 		{
 			$this->validation_data = $data;
 		}
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Error Message
-	 *
-	 * Lets users set their own error messages on the fly. Note:
-	 * The key name has to match the function name that it corresponds to.
-	 *
-	 * @param	array
-	 * @param	string
-	 * @return	CI_Form_validation
-	 */
-	public function set_message($lang, $val = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Error Message
+  //
+  //Lets users set their own error messages on the fly. Note:
+  //The key name has to match the function name that it corresponds to.
+  //
+  //@param	array
+  //@param	string
+  //@return	CI_Form_validation
+  
+  public function set_message($lang, $val = ''): CI_Form_validation
+  {
 		if ( ! is_array($lang))
 		{
 			$lang = array($lang => $val);
@@ -295,40 +291,38 @@ class CI_Form_validation {
 
 		$this->_error_messages = array_merge($this->_error_messages, $lang);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set The Error Delimiter
-	 *
-	 * Permits a prefix/suffix to be added to each error message
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	CI_Form_validation
-	 */
-	public function set_error_delimiters($prefix = '<p>', $suffix = '</p>')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set The Error Delimiter
+  //
+  //Permits a prefix/suffix to be added to each error message
+  //
+  //@param	string
+  //@param	string
+  //@return	CI_Form_validation
+  
+  public function set_error_delimiters($prefix = '<p>', $suffix = '</p>'): CI_Form_validation
+  {
 		$this->_error_prefix = $prefix;
 		$this->_error_suffix = $suffix;
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Error Message
-	 *
-	 * Gets the error message associated with a particular field
-	 *
-	 * @param	string	$field	Field name
-	 * @param	string	$prefix	HTML start tag
-	 * @param 	string	$suffix	HTML end tag
-	 * @return	string
-	 */
-	public function error($field, $prefix = '', $suffix = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Error Message
+  //
+  //Gets the error message associated with a particular field
+  //
+  //@param	string	$field	Field name
+  //@param	string	$prefix	HTML start tag
+  //@param 	string	$suffix	HTML end tag
+  //@return	string
+  
+  public function error($field, $prefix = '', $suffix = ''): string
+  {
 		if (empty($this->_field_data[$field]['error']))
 		{
 			return '';
@@ -345,35 +339,33 @@ class CI_Form_validation {
 		}
 
 		return $prefix.$this->_field_data[$field]['error'].$suffix;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Array of Error Messages
-	 *
-	 * Returns the error messages as an array
-	 *
-	 * @return	array
-	 */
-	public function error_array()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Array of Error Messages
+  //
+  //Returns the error messages as an array
+  //
+  //@return	array
+  
+  public function error_array(): array
+  {
 		return $this->_error_array;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Error String
-	 *
-	 * Returns the error messages as a string, wrapped in the error delimiters
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
-	 */
-	public function error_string($prefix = '', $suffix = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Error String
+  //
+  //Returns the error messages as a string, wrapped in the error delimiters
+  //
+  //@param	string
+  //@param	string
+  //@return	string
+  
+  public function error_string($prefix = '', $suffix = ''): string
+  {
 		// No errors, validation passes!
 		if (count($this->_error_array) === 0)
 		{
@@ -401,20 +393,19 @@ class CI_Form_validation {
 		}
 
 		return $str;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Run the Validator
-	 *
-	 * This function does all the work.
-	 *
-	 * @param	string	$group
-	 * @return	bool
-	 */
-	public function run($group = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Run the Validator
+  //
+  //This function does all the work.
+  //
+  //@param	string	$group
+  //@return	bool
+  
+  public function run($group = ''): bool
+  {
 		$validation_array = empty($this->validation_data)
 			? $_POST
 			: $this->validation_data;
@@ -489,25 +480,24 @@ class CI_Form_validation {
 		empty($this->validation_data) && $this->_reset_post_array();
 
 		return ($total_errors === 0);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Prepare rules
-	 *
-	 * Re-orders the provided rules in order of importance, so that
-	 * they can easily be executed later without weird checks ...
-	 *
-	 * "Callbacks" are given the highest priority (always called),
-	 * followed by 'required' (called if callbacks didn't fail),
-	 * and then every next rule depends on the previous one passing.
-	 *
-	 * @param	array	$rules
-	 * @return	array
-	 */
-	protected function _prepare_rules($rules)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Prepare rules
+  //
+  //Re-orders the provided rules in order of importance, so that
+  //they can easily be executed later without weird checks ...
+  //
+  //"Callbacks" are given the highest priority (always called),
+  //followed by 'required' (called if callbacks didn't fail),
+  //and then every next rule depends on the previous one passing.
+  //
+  //@param	array	$rules
+  //@return	array
+  
+  protected function _prepare_rules($rules): array
+  {
 		$new_rules = array();
 		$callbacks = array();
 
@@ -546,20 +536,19 @@ class CI_Form_validation {
 		}
 
 		return array_merge($callbacks, $new_rules);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Traverse a multidimensional $_POST array index until the data is found
-	 *
-	 * @param	array
-	 * @param	array
-	 * @param	int
-	 * @return	mixed
-	 */
-	protected function _reduce_array($array, $keys, $i = 0)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Traverse a multidimensional $_POST array index until the data is found
+  //
+  //@param	array
+  //@param	array
+  //@param	int
+  //@return	mixed
+  
+  protected function _reduce_array($array, $keys, $i = 0): mixed
+  {
 		if (is_array($array) && isset($keys[$i]))
 		{
 			return isset($array[$keys[$i]]) ? $this->_reduce_array($array[$keys[$i]], $keys, ($i+1)) : NULL;
@@ -567,17 +556,16 @@ class CI_Form_validation {
 
 		// NULL must be returned for empty fields
 		return ($array === '') ? NULL : $array;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Re-populate the _POST array with our finalized and processed data
-	 *
-	 * @return	void
-	 */
-	protected function _reset_post_array()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Re-populate the _POST array with our finalized and processed data
+  //
+  //@return	void
+  
+  protected function _reset_post_array()
+  {
 		foreach ($this->_field_data as $field => $row)
 		{
 			if ($row['postdata'] !== NULL)
@@ -608,21 +596,20 @@ class CI_Form_validation {
 				}
 			}
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Executes the Validation routines
-	 *
-	 * @param	array
-	 * @param	array
-	 * @param	mixed
-	 * @param	int
-	 * @return	mixed
-	 */
-	protected function _execute($row, $rules, $postdata = NULL, $cycles = 0)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Executes the Validation routines
+  //
+  //@param	array
+  //@param	array
+  //@param	mixed
+  //@param	int
+  //@return	mixed
+  
+  protected function _execute($row, $rules, $postdata = NULL, $cycles = 0): mixed
+  {
 		// If the $_POST data is an array we will run a recursive call
 		//
 		// Note: We MUST check if the array is empty or not!
@@ -818,19 +805,18 @@ class CI_Form_validation {
 				return;
 			}
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get the error message for the rule
-	 *
-	 * @param 	string $rule 	The rule name
-	 * @param 	string $field	The field name
-	 * @return 	string
-	 */
-	protected function _get_error_message($rule, $field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get the error message for the rule
+  //
+  //@param 	string $rule 	The rule name
+  //@param 	string $field	The field name
+  //@return 	string
+  
+  protected function _get_error_message($rule, $field): string
+  {
 		// check if a custom message is defined through validation config row.
 		if (isset($this->_field_data[$field]['errors'][$rule]))
 		{
@@ -852,18 +838,17 @@ class CI_Form_validation {
 		}
 
 		return $this->CI->lang->line('form_validation_error_message_not_set').'('.$rule.')';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Translate a field name
-	 *
-	 * @param	string	the field name
-	 * @return	string
-	 */
-	protected function _translate_fieldname($fieldname)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Translate a field name
+  //
+  //@param	string	the field name
+  //@return	string
+  
+  protected function _translate_fieldname($fieldname): string
+  {
 		// Do we need to translate the field name? We look for the prefix 'lang:' to determine this
 		// If we find one, but there's no translation for the string - just return it
 		if (sscanf($fieldname, 'lang:%s', $line) === 1 && FALSE === ($fieldname = $this->CI->lang->line($line, FALSE)))
@@ -872,20 +857,19 @@ class CI_Form_validation {
 		}
 
 		return $fieldname;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Build an error message using the field and param.
-	 *
-	 * @param	string	The error message line
-	 * @param	string	A field's human name
-	 * @param	mixed	A rule's optional parameter
-	 * @return	string
-	 */
-	protected function _build_error_msg($line, $field = '', $param = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Build an error message using the field and param.
+  //
+  //@param	string	The error message line
+  //@param	string	A field's human name
+  //@param	mixed	A rule's optional parameter
+  //@return	string
+  
+  protected function _build_error_msg($line, $field = '', $param = ''): string
+  {
 		// Check for %s in the string for legacy support.
 		if (strpos($line, '%s') !== FALSE)
 		{
@@ -893,37 +877,35 @@ class CI_Form_validation {
 		}
 
 		return str_replace(array('{field}', '{param}'), array($field, $param), $line);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Checks if the rule is present within the validator
-	 *
-	 * Permits you to check if a rule is present within the validator
-	 *
-	 * @param	string	the field name
-	 * @return	bool
-	 */
-	public function has_rule($field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Checks if the rule is present within the validator
+  //
+  //Permits you to check if a rule is present within the validator
+  //
+  //@param	string	the field name
+  //@return	bool
+  
+  public function has_rule($field): bool
+  {
 		return isset($this->_field_data[$field]);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get the value from a form
-	 *
-	 * Permits you to repopulate a form field with the value it was submitted
-	 * with, or, if that value doesn't exist, with the default
-	 *
-	 * @param	string	the field name
-	 * @param	string
-	 * @return	string
-	 */
-	public function set_value($field = '', $default = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get the value from a form
+  //
+  //Permits you to repopulate a form field with the value it was submitted
+  //with, or, if that value doesn't exist, with the default
+  //
+  //@param	string	the field name
+  //@param	string
+  //@return	string
+  
+  public function set_value($field = '', $default = ''): string
+  {
 		if ( ! isset($this->_field_data[$field], $this->_field_data[$field]['postdata']))
 		{
 			return $default;
@@ -937,23 +919,22 @@ class CI_Form_validation {
 		}
 
 		return $this->_field_data[$field]['postdata'];
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Select
-	 *
-	 * Enables pull-down lists to be set to the value the user
-	 * selected in the event of an error
-	 *
-	 * @param	string
-	 * @param	string
-	 * @param	bool
-	 * @return	string
-	 */
-	public function set_select($field = '', $value = '', $default = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Select
+  //
+  //Enables pull-down lists to be set to the value the user
+  //selected in the event of an error
+  //
+  //@param	string
+  //@param	string
+  //@param	bool
+  //@return	string
+  
+  public function set_select($field = '', $value = '', $default = FALSE): string
+  {
 		if ( ! isset($this->_field_data[$field], $this->_field_data[$field]['postdata']))
 		{
 			return ($default === TRUE && count($this->_field_data) === 0) ? ' selected="selected"' : '';
@@ -980,23 +961,22 @@ class CI_Form_validation {
 		}
 
 		return ' selected="selected"';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Radio
-	 *
-	 * Enables radio buttons to be set to the value the user
-	 * selected in the event of an error
-	 *
-	 * @param	string
-	 * @param	string
-	 * @param	bool
-	 * @return	string
-	 */
-	public function set_radio($field = '', $value = '', $default = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Radio
+  //
+  //Enables radio buttons to be set to the value the user
+  //selected in the event of an error
+  //
+  //@param	string
+  //@param	string
+  //@param	bool
+  //@return	string
+  
+  public function set_radio($field = '', $value = '', $default = FALSE): string
+  {
 		if ( ! isset($this->_field_data[$field], $this->_field_data[$field]['postdata']))
 		{
 			return ($default === TRUE && count($this->_field_data) === 0) ? ' checked="checked"' : '';
@@ -1023,173 +1003,163 @@ class CI_Form_validation {
 		}
 
 		return ' checked="checked"';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Checkbox
-	 *
-	 * Enables checkboxes to be set to the value the user
-	 * selected in the event of an error
-	 *
-	 * @param	string
-	 * @param	string
-	 * @param	bool
-	 * @return	string
-	 */
-	public function set_checkbox($field = '', $value = '', $default = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Checkbox
+  //
+  //Enables checkboxes to be set to the value the user
+  //selected in the event of an error
+  //
+  //@param	string
+  //@param	string
+  //@param	bool
+  //@return	string
+  
+  public function set_checkbox($field = '', $value = '', $default = FALSE): string
+  {
 		// Logic is exactly the same as for radio fields
 		return $this->set_radio($field, $value, $default);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Required
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function required($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Required
+  //
+  //@param	string
+  //@return	bool
+  
+  public function required($str): bool
+  {
 		return is_array($str)
 			? (empty($str) === FALSE)
 			: (trim($str) !== '');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Performs a Regular Expression match test.
-	 *
-	 * @param	string
-	 * @param	string	regex
-	 * @return	bool
-	 */
-	public function regex_match($str, $regex)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Performs a Regular Expression match test.
+  //
+  //@param	string
+  //@param	string	regex
+  //@return	bool
+  
+  public function regex_match($str, $regex): bool
+  {
 		return (bool) preg_match($regex, $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Match one field to another
-	 *
-	 * @param	string	$str	string to compare against
-	 * @param	string	$field
-	 * @return	bool
-	 */
-	public function matches($str, $field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Match one field to another
+  //
+  //@param	string	$str	string to compare against
+  //@param	string	$field
+  //@return	bool
+  
+  public function matches($str, $field): bool
+  {
 		return isset($this->_field_data[$field], $this->_field_data[$field]['postdata'])
 			? ($str === $this->_field_data[$field]['postdata'])
 			: FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Differs from another field
-	 *
-	 * @param	string
-	 * @param	string	field
-	 * @return	bool
-	 */
-	public function differs($str, $field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Differs from another field
+  //
+  //@param	string
+  //@param	string	field
+  //@return	bool
+  
+  public function differs($str, $field): bool
+  {
 		return ! (isset($this->_field_data[$field]) && $this->_field_data[$field]['postdata'] === $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Is Unique
-	 *
-	 * Check if the input value doesn't already exist
-	 * in the specified database field.
-	 *
-	 * @param	string	$str
-	 * @param	string	$field
-	 * @return	bool
-	 */
-	public function is_unique($str, $field)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Is Unique
+  //
+  //Check if the input value doesn't already exist
+  //in the specified database field.
+  //
+  //@param	string	$str
+  //@param	string	$field
+  //@return	bool
+  
+  public function is_unique($str, $field): bool
+  {
 		sscanf($field, '%[^.].%[^.]', $table, $field);
 		return isset($this->CI->db)
 			? ($this->CI->db->limit(1)->get_where($table, array($field => $str))->num_rows() === 0)
 			: FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Minimum Length
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	bool
-	 */
-	public function min_length($str, $val)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Minimum Length
+  //
+  //@param	string
+  //@param	string
+  //@return	bool
+  
+  public function min_length($str, $val): bool
+  {
 		if ( ! is_numeric($val))
 		{
 			return FALSE;
 		}
 
 		return ($val <= mb_strlen($str));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Max Length
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	bool
-	 */
-	public function max_length($str, $val)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Max Length
+  //
+  //@param	string
+  //@param	string
+  //@return	bool
+  
+  public function max_length($str, $val): bool
+  {
 		if ( ! is_numeric($val))
 		{
 			return FALSE;
 		}
 
 		return ($val >= mb_strlen($str));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Exact Length
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	bool
-	 */
-	public function exact_length($str, $val)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Exact Length
+  //
+  //@param	string
+  //@param	string
+  //@return	bool
+  
+  public function exact_length($str, $val): bool
+  {
 		if ( ! is_numeric($val))
 		{
 			return FALSE;
 		}
 
 		return (mb_strlen($str) === (int) $val);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Valid URL
-	 *
-	 * @param	string	$str
-	 * @return	bool
-	 */
-	public function valid_url($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Valid URL
+  //
+  //@param	string	$str
+  //@return	bool
+  
+  public function valid_url($str): bool
+  {
 		if (empty($str))
 		{
 			return FALSE;
@@ -1217,18 +1187,17 @@ class CI_Form_validation {
 		}
 
 		return (filter_var('http://'.$str, FILTER_VALIDATE_URL) !== FALSE);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Valid Email
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function valid_email($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Valid Email
+  //
+  //@param	string
+  //@return	bool
+  
+  public function valid_email($str): bool
+  {
 		if (function_exists('idn_to_ascii') && preg_match('#\A([^@]+)@(.+)\z#', $str, $matches))
 		{
 			$domain = defined('INTL_IDNA_VARIANT_UTS46')
@@ -1242,18 +1211,17 @@ class CI_Form_validation {
 		}
 
 		return (bool) filter_var($str, FILTER_VALIDATE_EMAIL);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Valid Emails
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function valid_emails($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Valid Emails
+  //
+  //@param	string
+  //@return	bool
+  
+  public function valid_emails($str): bool
+  {
 		if (strpos($str, ',') === FALSE)
 		{
 			return $this->valid_email(trim($str));
@@ -1268,240 +1236,223 @@ class CI_Form_validation {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Validate IP Address
-	 *
-	 * @param	string
-	 * @param	string	'ipv4' or 'ipv6' to validate a specific IP format
-	 * @return	bool
-	 */
-	public function valid_ip($ip, $which = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Validate IP Address
+  //
+  //@param	string
+  //@param	string	'ipv4' or 'ipv6' to validate a specific IP format
+  //@return	bool
+  
+  public function valid_ip($ip, $which = ''): bool
+  {
 		return $this->CI->input->valid_ip($ip, $which);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Alpha
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function alpha($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Alpha
+  //
+  //@param	string
+  //@return	bool
+  
+  public function alpha($str): bool
+  {
 		return ctype_alpha($str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Alpha-numeric
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function alpha_numeric($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Alpha-numeric
+  //
+  //@param	string
+  //@return	bool
+  
+  public function alpha_numeric($str): bool
+  {
 		return ctype_alnum((string) $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Alpha-numeric w/ spaces
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function alpha_numeric_spaces($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Alpha-numeric w/ spaces
+  //
+  //@param	string
+  //@return	bool
+  
+  public function alpha_numeric_spaces($str): bool
+  {
 		return (bool) preg_match('/^[A-Z0-9 ]+$/i', $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Alpha-numeric with underscores and dashes
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function alpha_dash($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Alpha-numeric with underscores and dashes
+  //
+  //@param	string
+  //@return	bool
+  
+  public function alpha_dash($str): bool
+  {
 		return (bool) preg_match('/^[a-z0-9_-]+$/i', $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Numeric
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function numeric($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Numeric
+  //
+  //@param	string
+  //@return	bool
+  
+  public function numeric($str): bool
+  {
 		return (bool) preg_match('/^[\-+]?[0-9]*\.?[0-9]+$/', $str);
 
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Integer
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function integer($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Integer
+  //
+  //@param	string
+  //@return	bool
+  
+  public function integer($str): bool
+  {
 		return (bool) preg_match('/^[\-+]?[0-9]+$/', $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Decimal number
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function decimal($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Decimal number
+  //
+  //@param	string
+  //@return	bool
+  
+  public function decimal($str): bool
+  {
 		return (bool) preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Greater than
-	 *
-	 * @param	string
-	 * @param	int
-	 * @return	bool
-	 */
-	public function greater_than($str, $min)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Greater than
+  //
+  //@param	string
+  //@param	int
+  //@return	bool
+  
+  public function greater_than($str, $min): bool
+  {
 		return is_numeric($str) ? ($str > $min) : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Equal to or Greater than
-	 *
-	 * @param	string
-	 * @param	int
-	 * @return	bool
-	 */
-	public function greater_than_equal_to($str, $min)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Equal to or Greater than
+  //
+  //@param	string
+  //@param	int
+  //@return	bool
+  
+  public function greater_than_equal_to($str, $min): bool
+  {
 		return is_numeric($str) ? ($str >= $min) : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Less than
-	 *
-	 * @param	string
-	 * @param	int
-	 * @return	bool
-	 */
-	public function less_than($str, $max)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Less than
+  //
+  //@param	string
+  //@param	int
+  //@return	bool
+  
+  public function less_than($str, $max): bool
+  {
 		return is_numeric($str) ? ($str < $max) : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Equal to or Less than
-	 *
-	 * @param	string
-	 * @param	int
-	 * @return	bool
-	 */
-	public function less_than_equal_to($str, $max)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Equal to or Less than
+  //
+  //@param	string
+  //@param	int
+  //@return	bool
+  
+  public function less_than_equal_to($str, $max): bool
+  {
 		return is_numeric($str) ? ($str <= $max) : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Value should be within an array of values
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	bool
-	 */
-	public function in_list($value, $list)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Value should be within an array of values
+  //
+  //@param	string
+  //@param	string
+  //@return	bool
+  
+  public function in_list($value, $list): bool
+  {
 		return in_array($value, explode(',', $list), TRUE);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Is a Natural number  (0,1,2,3, etc.)
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function is_natural($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Is a Natural number  (0,1,2,3, etc.)
+  //
+  //@param	string
+  //@return	bool
+  
+  public function is_natural($str): bool
+  {
 		return ctype_digit((string) $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Is a Natural number, but not a zero  (1,2,3, etc.)
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function is_natural_no_zero($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Is a Natural number, but not a zero  (1,2,3, etc.)
+  //
+  //@param	string
+  //@return	bool
+  
+  public function is_natural_no_zero($str): bool
+  {
 		return ($str != 0 && ctype_digit((string) $str));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Valid Base64
-	 *
-	 * Tests a string for characters outside of the Base64 alphabet
-	 * as defined by RFC 2045 http://www.faqs.org/rfcs/rfc2045
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function valid_base64($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Valid Base64
+  //
+  //Tests a string for characters outside of the Base64 alphabet
+  //as defined by RFC 2045 http://www.faqs.org/rfcs/rfc2045
+  //
+  //@param	string
+  //@return	bool
+  
+  public function valid_base64($str): bool
+  {
 		return (base64_encode(base64_decode($str)) === $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Prep data for form
-	 *
-	 * This function allows HTML to be safely shown in a form.
-	 * Special characters are converted.
-	 *
-	 * @deprecated	3.0.6	Not used anywhere within the framework and pretty much useless
-	 * @param	mixed	$data	Input data
-	 * @return	mixed
-	 */
-	public function prep_for_form($data)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Prep data for form
+  //
+  //This function allows HTML to be safely shown in a form.
+  //Special characters are converted.
+  //
+  //@deprecated	3.0.6	Not used anywhere within the framework and pretty much useless
+  //@param	mixed	$data	Input data
+  //@return	mixed
+  
+  public function prep_for_form($data): mixed
+  {
 		if ($this->_safe_form_data === FALSE OR empty($data))
 		{
 			return $data;
@@ -1518,18 +1469,17 @@ class CI_Form_validation {
 		}
 
 		return str_replace(array("'", '"', '<', '>'), array('&#39;', '&quot;', '&lt;', '&gt;'), stripslashes($data));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Prep URL
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function prep_url($str = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Prep URL
+  //
+  //@param	string
+  //@return	string
+  
+  public function prep_url($str = ''): string
+  {
 		if ($str === 'http://' OR $str === '')
 		{
 			return '';
@@ -1541,51 +1491,49 @@ class CI_Form_validation {
 		}
 
 		return $str;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Strip Image Tags
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function strip_image_tags($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Strip Image Tags
+  //
+  //@param	string
+  //@return	string
+  
+  public function strip_image_tags($str): string
+  {
 		return $this->CI->security->strip_image_tags($str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Convert PHP tags to entities
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function encode_php_tags($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Convert PHP tags to entities
+  //
+  //@param	string
+  //@return	string
+  
+  public function encode_php_tags($str): string
+  {
 		return str_replace(array('<?', '?>'), array('&lt;?', '?&gt;'), $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Reset validation vars
-	 *
-	 * Prevents subsequent validation routines from being affected by the
-	 * results of any previous validation routine due to the CI singleton.
-	 *
-	 * @return	CI_Form_validation
-	 */
-	public function reset_validation()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Reset validation vars
+  //
+  //Prevents subsequent validation routines from being affected by the
+  //results of any previous validation routine due to the CI singleton.
+  //
+  //@return	CI_Form_validation
+  
+  public function reset_validation(): CI_Form_validation
+  {
 		$this->_field_data = array();
 		$this->_error_array = array();
 		$this->_error_messages = array();
 		$this->error_string = '';
 		return $this;
-	}
+  }
 
 }
+

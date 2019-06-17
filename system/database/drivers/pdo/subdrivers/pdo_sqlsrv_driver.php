@@ -37,59 +37,56 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PDO SQLSRV Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//PDO SQLSRV Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_pdo_sqlsrv_driver extends CI_DB_pdo_driver {
+  //
+  //Sub-driver
+  //
+  //@var	string
+  
+  public $subdriver =  'sqlsrv';
 
-	/**
-	 * Sub-driver
-	 *
-	 * @var	string
-	 */
-	public $subdriver = 'sqlsrv';
+  // --------------------------------------------------------------------
+  //
+  //ORDER BY random keyword
+  //
+  //@var	array
+  
+  protected $_random_keyword =  array('NEWID()', 'RAND(%d)');
 
-	// --------------------------------------------------------------------
+  //
+  //Quoted identifier flag
+  //
+  //Whether to use SQL-92 standard quoted identifier
+  //(double quotes) or brackets for identifier escaping.
+  //
+  //@var	bool
+  
+  protected $_quoted_identifier;
 
-	/**
-	 * ORDER BY random keyword
-	 *
-	 * @var	array
-	 */
-	protected $_random_keyword = array('NEWID()', 'RAND(%d)');
-
-	/**
-	 * Quoted identifier flag
-	 *
-	 * Whether to use SQL-92 standard quoted identifier
-	 * (double quotes) or brackets for identifier escaping.
-	 *
-	 * @var	bool
-	 */
-	protected $_quoted_identifier;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Builds the DSN if not already set.
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Builds the DSN if not already set.
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		if (empty($this->dsn))
@@ -138,18 +135,17 @@ class CI_DB_pdo_sqlsrv_driver extends CI_DB_pdo_driver {
 		{
 			$this->_quoted_identifier = (bool) $match[1];
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database connection
-	 *
-	 * @param	bool	$persistent
-	 * @return	object
-	 */
-	public function db_connect($persistent = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database connection
+  //
+  //@param	bool	$persistent
+  //@return	object
+  
+  public function db_connect($persistent = FALSE): object
+  {
 		if ( ! empty($this->char_set) && preg_match('/utf[^8]*8/i', $this->char_set))
 		{
 			$this->options[PDO::SQLSRV_ENCODING_UTF8] = 1;
@@ -169,20 +165,19 @@ class CI_DB_pdo_sqlsrv_driver extends CI_DB_pdo_driver {
 		$this->_escape_char = ($this->_quoted_identifier) ? '"' : array('[', ']');
 
 		return $this->conn_id;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show table query
-	 *
-	 * Generates a platform-specific query string so that the table names can be fetched
-	 *
-	 * @param	bool	$prefix_limit
-	 * @return	string
-	 */
-	protected function _list_tables($prefix_limit = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show table query
+  //
+  //Generates a platform-specific query string so that the table names can be fetched
+  //
+  //@param	bool	$prefix_limit
+  //@return	string
+  
+  protected function _list_tables($prefix_limit = FALSE): string
+  {
 		$sql = 'SELECT '.$this->escape_identifiers('name')
 			.' FROM '.$this->escape_identifiers('sysobjects')
 			.' WHERE '.$this->escape_identifiers('type')." = 'U'";
@@ -194,35 +189,33 @@ class CI_DB_pdo_sqlsrv_driver extends CI_DB_pdo_driver {
 		}
 
 		return $sql.' ORDER BY '.$this->escape_identifiers('name');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show column query
-	 *
-	 * Generates a platform-specific query string so that the column names can be fetched
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _list_columns($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show column query
+  //
+  //Generates a platform-specific query string so that the column names can be fetched
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _list_columns($table = ''): string
+  {
 		return 'SELECT COLUMN_NAME
 			FROM INFORMATION_SCHEMA.Columns
 			WHERE UPPER(TABLE_NAME) = '.$this->escape(strtoupper($table));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an object with field data
-	 *
-	 * @param	string	$table
-	 * @return	array
-	 */
-	public function field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an object with field data
+  //
+  //@param	string	$table
+  //@return	array
+  
+  public function field_data($table): array
+  {
 		$sql = 'SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION, COLUMN_DEFAULT
 			FROM INFORMATION_SCHEMA.Columns
 			WHERE UPPER(TABLE_NAME) = '.$this->escape(strtoupper($table));
@@ -244,58 +237,55 @@ class CI_DB_pdo_sqlsrv_driver extends CI_DB_pdo_driver {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update statement
-	 *
-	 * Generates a platform-specific update string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @param	array	$values
-	 * @return	string
-	 */
-	protected function _update($table, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update statement
+  //
+  //Generates a platform-specific update string from the supplied data
+  //
+  //@param	string	$table
+  //@param	array	$values
+  //@return	string
+  
+  protected function _update($table, $values): string
+  {
 		$this->qb_limit = FALSE;
 		$this->qb_orderby = array();
 		return parent::_update($table, $values);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete statement
-	 *
-	 * Generates a platform-specific delete string from the supplied data
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _delete($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete statement
+  //
+  //Generates a platform-specific delete string from the supplied data
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _delete($table): string
+  {
 		if ($this->qb_limit)
 		{
 			return 'WITH ci_delete AS (SELECT TOP '.$this->qb_limit.' * FROM '.$table.$this->_compile_wh('qb_where').') DELETE FROM ci_delete';
 		}
 
 		return parent::_delete($table);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * LIMIT
-	 *
-	 * Generates a platform-specific LIMIT clause
-	 *
-	 * @param	string	$sql	SQL Query
-	 * @return	string
-	 */
-	protected function _limit($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //LIMIT
+  //
+  //Generates a platform-specific LIMIT clause
+  //
+  //@param	string	$sql	SQL Query
+  //@return	string
+  
+  protected function _limit($sql): string
+  {
 		// As of SQL Server 2012 (11.0.*) OFFSET is supported
 		if (version_compare($this->version(), '11', '>='))
 		{
@@ -341,22 +331,21 @@ class CI_DB_pdo_sqlsrv_driver extends CI_DB_pdo_driver {
 		}
 
 		return preg_replace('/(^\SELECT (DISTINCT)?)/i','\\1 TOP '.$limit.' ', $sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert batch statement
-	 *
-	 * Generates a platform-specific insert string from the supplied data.
-	 *
-	 * @param	string	$table	Table name
-	 * @param	array	$keys	INSERT keys
-	 * @param	array	$values	INSERT values
-	 * @return	string|bool
-	 */
-	protected function _insert_batch($table, $keys, $values)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert batch statement
+  //
+  //Generates a platform-specific insert string from the supplied data.
+  //
+  //@param	string	$table	Table name
+  //@param	array	$keys	INSERT keys
+  //@param	array	$values	INSERT values
+  //@return	string|bool
+  
+  protected function _insert_batch($table, $keys, $values): string|bool
+  {
 		// Multiple-value inserts are only supported as of SQL Server 2008
 		if (version_compare($this->version(), '10', '>='))
 		{
@@ -364,6 +353,7 @@ class CI_DB_pdo_sqlsrv_driver extends CI_DB_pdo_driver {
 		}
 
 		return ($this->db_debug) ? $this->display_error('db_unsupported_feature') : FALSE;
-	}
+  }
 
 }
+

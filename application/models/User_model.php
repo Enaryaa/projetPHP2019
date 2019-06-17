@@ -1,18 +1,19 @@
 <?php
-
 class User_model extends CI_Model {
-
-	public function __construct() {
+  public function __construct()
+  {
 		$this->load->database();
        	$this->load->library('session');
-	}
+  }
 
-	public function get_user() {
+  public function get_user()
+  {
 		$query = $this->db->get('user');
 		return $query->result_array();
-	}
+  }
 
-	public function create_user() {
+  public function create_user()
+  {
 		$this->load->helper('url');
 		$data = [
 			'email' => $this->input->post('email'),
@@ -21,31 +22,35 @@ class User_model extends CI_Model {
 		];
 
 		return $this->db->insert('user', $data);
-	}
+  }
 
-	public function update_password(){
+  public function update_password()
+  {
 		$this->load->helper('url');
 		$user = $this->session->userdata('user_session');
 		$password = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
 		$sql = "UPDATE user SET password = ? WHERE email = ?";
 
 		return $this->db->query($sql, array($password, $user['email']));
-	}
+  }
 
-	public function get_user_by_email($email) {
+  public function get_user_by_email($email)
+  {
 		$sql = "SELECT * FROM user WHERE email = ?";
 		$query = $this->db->query($sql, $email);
 
 		return $query->row_array();
-	}
+  }
 
-	public function delete_user(){
+  public function delete_user()
+  {
 		$user = $this->session->userdata('user_session');
 		$sql = "DELETE from user WHERE email = ?";
 		return $this->db->query($sql, $user['email']);
-	}
+  }
 
-	public function set_session_user() {
+  public function set_session_user()
+  {
 		$this->load->helper('url');
 
 		$email = $this->input->post('email');
@@ -55,9 +60,10 @@ class User_model extends CI_Model {
 		if (isset($result)) {
 			$this->session->set_userdata('user_session', $result);
 		}
-	}
+  }
 
-	public function connect() {
+  public function connect()
+  {
 		$this->load->helper('url');
 
 		$data = [
@@ -71,5 +77,7 @@ class User_model extends CI_Model {
 		}
 
 		return false;
-	}
+  }
+
 }
+

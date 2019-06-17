@@ -37,67 +37,65 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Shopping Cart Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Shopping Cart
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/cart.html
- * @deprecated	3.0.0	This class is too specific for CI.
- */
+//
+//Shopping Cart Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Shopping Cart
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/cart.html
+//@deprecated	3.0.0	This class is too specific for CI.
+
 class CI_Cart {
+  //
+  //These are the regular expression rules that we use to validate the product ID and product name
+  //alpha-numeric, dashes, underscores, or periods
+  //
+  //@var string
+  
+  public $product_id_rules =  '\.a-z0-9_-';
 
-	/**
-	 * These are the regular expression rules that we use to validate the product ID and product name
-	 * alpha-numeric, dashes, underscores, or periods
-	 *
-	 * @var string
-	 */
-	public $product_id_rules = '\.a-z0-9_-';
+  //
+  //These are the regular expression rules that we use to validate the product ID and product name
+  //alpha-numeric, dashes, underscores, colons or periods
+  //
+  //@var string
+  
+  public $product_name_rules =  '\w \-\.\:';
 
-	/**
-	 * These are the regular expression rules that we use to validate the product ID and product name
-	 * alpha-numeric, dashes, underscores, colons or periods
-	 *
-	 * @var string
-	 */
-	public $product_name_rules = '\w \-\.\:';
+  //
+  //only allow safe product names
+  //
+  //@var bool
+  
+  public $product_name_safe =  TRUE;
 
-	/**
-	 * only allow safe product names
-	 *
-	 * @var bool
-	 */
-	public $product_name_safe = TRUE;
+  // --------------------------------------------------------------------------
+  //
+  //Reference to CodeIgniter instance
+  //
+  //@var object
+  
+  protected $CI;
 
-	// --------------------------------------------------------------------------
+  //
+  //Contents of the cart
+  //
+  //@var array
+  
+  protected $_cart_contents =  array();
 
-	/**
-	 * Reference to CodeIgniter instance
-	 *
-	 * @var object
-	 */
-	protected $CI;
-
-	/**
-	 * Contents of the cart
-	 *
-	 * @var array
-	 */
-	protected $_cart_contents = array();
-
-	/**
-	 * Shopping Class Constructor
-	 *
-	 * The constructor loads the Session class, used to store the shopping cart contents.
-	 *
-	 * @param	array
-	 * @return	void
-	 */
-	public function __construct($params = array())
-	{
+  //
+  //Shopping Class Constructor
+  //
+  //The constructor loads the Session class, used to store the shopping cart contents.
+  //
+  //@param	array
+  //@return	void
+  
+  public function __construct($params = array())
+  {
 		// Set the super object to a local variable for use later
 		$this->CI =& get_instance();
 
@@ -116,18 +114,17 @@ class CI_Cart {
 		}
 
 		log_message('info', 'Cart Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert items into the cart and save it to the session table
-	 *
-	 * @param	array
-	 * @return	bool
-	 */
-	public function insert($items = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert items into the cart and save it to the session table
+  //
+  //@param	array
+  //@return	bool
+  
+  public function insert($items = array()): bool
+  {
 		// Was any cart data passed? No? Bah...
 		if ( ! is_array($items) OR count($items) === 0)
 		{
@@ -170,18 +167,17 @@ class CI_Cart {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert
-	 *
-	 * @param	array
-	 * @return	bool
-	 */
-	protected function _insert($items = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert
+  //
+  //@param	array
+  //@return	bool
+  
+  protected function _insert($items = array()): bool
+  {
 		// Was any cart data passed? No? Bah...
 		if ( ! is_array($items) OR count($items) === 0)
 		{
@@ -269,23 +265,22 @@ class CI_Cart {
 		$this->_cart_contents[$rowid] = $items;
 
 		return $rowid;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update the cart
-	 *
-	 * This function permits the quantity of a given item to be changed.
-	 * Typically it is called from the "view cart" page if a user makes
-	 * changes to the quantity before checkout. That array must contain the
-	 * product ID and quantity for each item.
-	 *
-	 * @param	array
-	 * @return	bool
-	 */
-	public function update($items = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update the cart
+  //
+  //This function permits the quantity of a given item to be changed.
+  //Typically it is called from the "view cart" page if a user makes
+  //changes to the quantity before checkout. That array must contain the
+  //product ID and quantity for each item.
+  //
+  //@param	array
+  //@return	bool
+  
+  public function update($items = array()): bool
+  {
 		// Was any cart data passed?
 		if ( ! is_array($items) OR count($items) === 0)
 		{
@@ -326,23 +321,22 @@ class CI_Cart {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update the cart
-	 *
-	 * This function permits changing item properties.
-	 * Typically it is called from the "view cart" page if a user makes
-	 * changes to the quantity before checkout. That array must contain the
-	 * rowid and quantity for each item.
-	 *
-	 * @param	array
-	 * @return	bool
-	 */
-	protected function _update($items = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update the cart
+  //
+  //This function permits changing item properties.
+  //Typically it is called from the "view cart" page if a user makes
+  //changes to the quantity before checkout. That array must contain the
+  //rowid and quantity for each item.
+  //
+  //@param	array
+  //@return	bool
+  
+  protected function _update($items = array()): bool
+  {
 		// Without these array indexes there is nothing we can do
 		if ( ! isset($items['rowid'], $this->_cart_contents[$items['rowid']]))
 		{
@@ -377,17 +371,16 @@ class CI_Cart {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Save the cart array to the session DB
-	 *
-	 * @return	bool
-	 */
-	protected function _save_cart()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Save the cart array to the session DB
+  //
+  //@return	bool
+  
+  protected function _save_cart(): bool
+  {
 		// Let's add up the individual prices and set the cart sub-total
 		$this->_cart_contents['total_items'] = $this->_cart_contents['cart_total'] = 0;
 		foreach ($this->_cart_contents as $key => $val)
@@ -418,64 +411,60 @@ class CI_Cart {
 
 		// Woot!
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Cart Total
-	 *
-	 * @return	int
-	 */
-	public function total()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Cart Total
+  //
+  //@return	int
+  
+  public function total(): int
+  {
 		return $this->_cart_contents['cart_total'];
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Remove Item
-	 *
-	 * Removes an item from the cart
-	 *
-	 * @param	int
-	 * @return	bool
-	 */
-	 public function remove($rowid)
-	 {
+  // --------------------------------------------------------------------
+  //
+  //Remove Item
+  //
+  //Removes an item from the cart
+  //
+  //@param	int
+  //@return	bool
+  
+  public function remove($rowid): bool
+  {
 		// unset & save
 		unset($this->_cart_contents[$rowid]);
 		$this->_save_cart();
 		return TRUE;
-	 }
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Total Items
-	 *
-	 * Returns the total item count
-	 *
-	 * @return	int
-	 */
-	public function total_items()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Total Items
+  //
+  //Returns the total item count
+  //
+  //@return	int
+  
+  public function total_items(): int
+  {
 		return $this->_cart_contents['total_items'];
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Cart Contents
-	 *
-	 * Returns the entire cart array
-	 *
-	 * @param	bool
-	 * @return	array
-	 */
-	public function contents($newest_first = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Cart Contents
+  //
+  //Returns the entire cart array
+  //
+  //@param	bool
+  //@return	array
+  
+  public function contents($newest_first = FALSE): array
+  {
 		// do we want the newest first?
 		$cart = ($newest_first) ? array_reverse($this->_cart_contents) : $this->_cart_contents;
 
@@ -484,84 +473,80 @@ class CI_Cart {
 		unset($cart['cart_total']);
 
 		return $cart;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get cart item
-	 *
-	 * Returns the details of a specific item in the cart
-	 *
-	 * @param	string	$row_id
-	 * @return	array
-	 */
-	public function get_item($row_id)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get cart item
+  //
+  //Returns the details of a specific item in the cart
+  //
+  //@param	string	$row_id
+  //@return	array
+  
+  public function get_item($row_id): array
+  {
 		return (in_array($row_id, array('total_items', 'cart_total'), TRUE) OR ! isset($this->_cart_contents[$row_id]))
 			? FALSE
 			: $this->_cart_contents[$row_id];
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Has options
-	 *
-	 * Returns TRUE if the rowid passed to this function correlates to an item
-	 * that has options associated with it.
-	 *
-	 * @param	string	$row_id = ''
-	 * @return	bool
-	 */
-	public function has_options($row_id = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Has options
+  //
+  //Returns TRUE if the rowid passed to this function correlates to an item
+  //that has options associated with it.
+  //
+  //@param	string	$row_id = ''
+  //@return	bool
+  
+  public function has_options($row_id = ''): bool
+  {
 		return (isset($this->_cart_contents[$row_id]['options']) && count($this->_cart_contents[$row_id]['options']) !== 0);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Product options
-	 *
-	 * Returns the an array of options, for a particular product row ID
-	 *
-	 * @param	string	$row_id = ''
-	 * @return	array
-	 */
-	public function product_options($row_id = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Product options
+  //
+  //Returns the an array of options, for a particular product row ID
+  //
+  //@param	string	$row_id = ''
+  //@return	array
+  
+  public function product_options($row_id = ''): array
+  {
 		return isset($this->_cart_contents[$row_id]['options']) ? $this->_cart_contents[$row_id]['options'] : array();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Format Number
-	 *
-	 * Returns the supplied number with commas and a decimal point.
-	 *
-	 * @param	float
-	 * @return	string
-	 */
-	public function format_number($n = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Format Number
+  //
+  //Returns the supplied number with commas and a decimal point.
+  //
+  //@param	float
+  //@return	string
+  
+  public function format_number($n = ''): string
+  {
 		return ($n === '') ? '' : number_format( (float) $n, 2, '.', ',');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Destroy the cart
-	 *
-	 * Empties the cart and kills the session
-	 *
-	 * @return	void
-	 */
-	public function destroy()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Destroy the cart
+  //
+  //Empties the cart and kills the session
+  //
+  //@return	void
+  
+  public function destroy()
+  {
 		$this->_cart_contents = array('cart_total' => 0, 'total_items' => 0);
 		$this->CI->session->unset_userdata('cart_contents');
-	}
+  }
 
 }
+

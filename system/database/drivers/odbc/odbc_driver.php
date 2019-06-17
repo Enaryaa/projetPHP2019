@@ -37,86 +37,82 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * ODBC Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//ODBC Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_odbc_driver extends CI_DB_driver {
+  //
+  //Database driver
+  //
+  //@var	string
+  
+  public $dbdriver =  'odbc';
 
-	/**
-	 * Database driver
-	 *
-	 * @var	string
-	 */
-	public $dbdriver = 'odbc';
+  //
+  //Database schema
+  //
+  //@var	string
+  
+  public $schema =  'public';
 
-	/**
-	 * Database schema
-	 *
-	 * @var	string
-	 */
-	public $schema = 'public';
+  // --------------------------------------------------------------------
+  //
+  //Identifier escape character
+  //
+  //Must be empty for ODBC.
+  //
+  //@var	string
+  
+  protected $_escape_char =  '';
 
-	// --------------------------------------------------------------------
+  //
+  //ESCAPE statement string
+  //
+  //@var	string
+  
+  protected $_like_escape_str =  " {escape '%s'} ";
 
-	/**
-	 * Identifier escape character
-	 *
-	 * Must be empty for ODBC.
-	 *
-	 * @var	string
-	 */
-	protected $_escape_char = '';
+  //
+  //ORDER BY random keyword
+  //
+  //@var	array
+  
+  protected $_random_keyword =  array('RND()', 'RND(%d)');
 
-	/**
-	 * ESCAPE statement string
-	 *
-	 * @var	string
-	 */
-	protected $_like_escape_str = " {escape '%s'} ";
+  // --------------------------------------------------------------------
+  //
+  //ODBC result ID resource returned from odbc_prepare()
+  //
+  //@var	resource
+  
+  private $odbc_result;
 
-	/**
-	 * ORDER BY random keyword
-	 *
-	 * @var	array
-	 */
-	protected $_random_keyword = array('RND()', 'RND(%d)');
+  //
+  //Values to use with odbc_execute() for prepared statements
+  //
+  //@var	array
+  
+  private $binds =  array();
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * ODBC result ID resource returned from odbc_prepare()
-	 *
-	 * @var	resource
-	 */
-	private $odbc_result;
-
-	/**
-	 * Values to use with odbc_execute() for prepared statements
-	 *
-	 * @var	array
-	 */
-	private $binds = array();
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		// Legacy support for DSN in the hostname field
@@ -124,34 +120,32 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		{
 			$this->dsn = $this->hostname;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Non-persistent database connection
-	 *
-	 * @param	bool	$persistent
-	 * @return	resource
-	 */
-	public function db_connect($persistent = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Non-persistent database connection
+  //
+  //@param	bool	$persistent
+  //@return	resource
+  
+  public function db_connect($persistent = FALSE): resource
+  {
 		return ($persistent === TRUE)
 			? odbc_pconnect($this->dsn, $this->username, $this->password)
 			: odbc_connect($this->dsn, $this->username, $this->password);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Compile Bindings
-	 *
-	 * @param	string	$sql	SQL statement
-	 * @param	array	$binds	An array of values to bind
-	 * @return	string
-	 */
-	public function compile_binds($sql, $binds)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Compile Bindings
+  //
+  //@param	string	$sql	SQL statement
+  //@param	array	$binds	An array of values to bind
+  //@return	string
+  
+  public function compile_binds($sql, $binds): string
+  {
 		if (empty($binds) OR empty($this->bind_marker) OR strpos($sql, $this->bind_marker) === FALSE)
 		{
 			return $sql;
@@ -207,18 +201,17 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Execute the query
-	 *
-	 * @param	string	$sql	an SQL query
-	 * @return	resource
-	 */
-	protected function _execute($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Execute the query
+  //
+  //@param	string	$sql	an SQL query
+  //@return	resource
+  
+  protected function _execute($sql): resource
+  {
 		if ( ! isset($this->odbc_result))
 		{
 			return odbc_exec($this->conn_id, $sql);
@@ -238,29 +231,27 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		$this->binds       = array();
 
 		return $success;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Begin Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_begin()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Begin Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_begin(): bool
+  {
 		return odbc_autocommit($this->conn_id, FALSE);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Commit Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_commit()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Commit Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_commit(): bool
+  {
 		if (odbc_commit($this->conn_id))
 		{
 			odbc_autocommit($this->conn_id, TRUE);
@@ -268,17 +259,16 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Rollback Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_rollback()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Rollback Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_rollback(): bool
+  {
 		if (odbc_rollback($this->conn_id))
 		{
 			odbc_autocommit($this->conn_id, TRUE);
@@ -286,75 +276,70 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Determines if a query is a "write" type.
-	 *
-	 * @param	string	An SQL query string
-	 * @return	bool
-	 */
-	public function is_write_type($sql)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Determines if a query is a "write" type.
+  //
+  //@param	string	An SQL query string
+  //@return	bool
+  
+  public function is_write_type($sql): bool
+  {
 		if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#is', $sql))
 		{
 			return FALSE;
 		}
 
 		return parent::is_write_type($sql);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Platform-dependent string escape
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _escape_str($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Platform-dependent string escape
+  //
+  //@param	string
+  //@return	string
+  
+  protected function _escape_str($str): string
+  {
 		$this->display_error('db_unsupported_feature');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Affected Rows
-	 *
-	 * @return	int
-	 */
-	public function affected_rows()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Affected Rows
+  //
+  //@return	int
+  
+  public function affected_rows(): int
+  {
 		return odbc_num_rows($this->result_id);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Insert ID
-	 *
-	 * @return	bool
-	 */
-	public function insert_id()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Insert ID
+  //
+  //@return	bool
+  
+  public function insert_id(): bool
+  {
 		return ($this->db_debug) ? $this->display_error('db_unsupported_feature') : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show table query
-	 *
-	 * Generates a platform-specific query string so that the table names can be fetched
-	 *
-	 * @param	bool	$prefix_limit
-	 * @return	string
-	 */
-	protected function _list_tables($prefix_limit = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show table query
+  //
+  //Generates a platform-specific query string so that the table names can be fetched
+  //
+  //@param	bool	$prefix_limit
+  //@return	string
+  
+  protected function _list_tables($prefix_limit = FALSE): string
+  {
 		$sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = '".$this->schema."'";
 
 		if ($prefix_limit !== FALSE && $this->dbprefix !== '')
@@ -364,62 +349,60 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show column query
-	 *
-	 * Generates a platform-specific query string so that the column names can be fetched
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _list_columns($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show column query
+  //
+  //Generates a platform-specific query string so that the column names can be fetched
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _list_columns($table = ''): string
+  {
 		return 'SHOW COLUMNS FROM '.$table;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Field data query
-	 *
-	 * Generates a platform-specific query so that the column data can be retrieved
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Field data query
+  //
+  //Generates a platform-specific query so that the column data can be retrieved
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _field_data($table): string
+  {
 		return 'SELECT TOP 1 FROM '.$table;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Error
-	 *
-	 * Returns an array containing code and message of the last
-	 * database error that has occurred.
-	 *
-	 * @return	array
-	 */
-	public function error()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Error
+  //
+  //Returns an array containing code and message of the last
+  //database error that has occurred.
+  //
+  //@return	array
+  
+  public function error(): array
+  {
 		return array('code' => odbc_error($this->conn_id), 'message' => odbc_errormsg($this->conn_id));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Close DB Connection
-	 *
-	 * @return	void
-	 */
-	protected function _close()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Close DB Connection
+  //
+  //@return	void
+  
+  protected function _close()
+  {
 		odbc_close($this->conn_id);
-	}
+  }
+
 }
+

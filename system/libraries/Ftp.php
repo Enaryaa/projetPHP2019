@@ -37,94 +37,90 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * FTP Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/ftp.html
- */
+//
+//FTP Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Libraries
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/ftp.html
+
 class CI_FTP {
+  //
+  //FTP Server hostname
+  //
+  //@var	string
+  
+  public $hostname =  '';
 
-	/**
-	 * FTP Server hostname
-	 *
-	 * @var	string
-	 */
-	public $hostname = '';
+  //
+  //FTP Username
+  //
+  //@var	string
+  
+  public $username =  '';
 
-	/**
-	 * FTP Username
-	 *
-	 * @var	string
-	 */
-	public $username = '';
+  //
+  //FTP Password
+  //
+  //@var	string
+  
+  public $password =  '';
 
-	/**
-	 * FTP Password
-	 *
-	 * @var	string
-	 */
-	public $password = '';
+  //
+  //FTP Server port
+  //
+  //@var	int
+  
+  public $port =  21;
 
-	/**
-	 * FTP Server port
-	 *
-	 * @var	int
-	 */
-	public $port = 21;
+  //
+  //Passive mode flag
+  //
+  //@var	bool
+  
+  public $passive =  TRUE;
 
-	/**
-	 * Passive mode flag
-	 *
-	 * @var	bool
-	 */
-	public $passive = TRUE;
+  //
+  //Debug flag
+  //
+  //Specifies whether to display error messages.
+  //
+  //@var	bool
+  
+  public $debug =  FALSE;
 
-	/**
-	 * Debug flag
-	 *
-	 * Specifies whether to display error messages.
-	 *
-	 * @var	bool
-	 */
-	public $debug = FALSE;
+  // --------------------------------------------------------------------
+  //
+  //Connection ID
+  //
+  //@var	resource
+  
+  protected $conn_id;
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Connection ID
-	 *
-	 * @var	resource
-	 */
-	protected $conn_id;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Constructor
-	 *
-	 * @param	array	$config
-	 * @return	void
-	 */
-	public function __construct($config = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Constructor
+  //
+  //@param	array	$config
+  //@return	void
+  
+  public function __construct($config = array())
+  {
 		empty($config) OR $this->initialize($config);
 		log_message('info', 'FTP Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize preferences
-	 *
-	 * @param	array	$config
-	 * @return	void
-	 */
-	public function initialize($config = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize preferences
+  //
+  //@param	array	$config
+  //@return	void
+  
+  public function initialize($config = array())
+  {
 		foreach ($config as $key => $val)
 		{
 			if (isset($this->$key))
@@ -135,18 +131,17 @@ class CI_FTP {
 
 		// Prep the hostname
 		$this->hostname = preg_replace('|.+?://|', '', $this->hostname);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * FTP Connect
-	 *
-	 * @param	array	 $config	Connection values
-	 * @return	bool
-	 */
-	public function connect($config = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //FTP Connect
+  //
+  //@param	array	 $config	Connection values
+  //@return	bool
+  
+  public function connect($config = array()): bool
+  {
 		if (count($config) > 0)
 		{
 			$this->initialize($config);
@@ -179,29 +174,27 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * FTP Login
-	 *
-	 * @return	bool
-	 */
-	protected function _login()
-	{
+  // --------------------------------------------------------------------
+  //
+  //FTP Login
+  //
+  //@return	bool
+  
+  protected function _login(): bool
+  {
 		return @ftp_login($this->conn_id, $this->username, $this->password);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Validates the connection ID
-	 *
-	 * @return	bool
-	 */
-	protected function _is_conn()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Validates the connection ID
+  //
+  //@return	bool
+  
+  protected function _is_conn(): bool
+  {
 		if ( ! is_resource($this->conn_id))
 		{
 			if ($this->debug === TRUE)
@@ -213,25 +206,24 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Change directory
-	 *
-	 * The second parameter lets us momentarily turn off debugging so that
-	 * this function can be used to test for the existence of a folder
-	 * without throwing an error. There's no FTP equivalent to is_dir()
-	 * so we do it by trying to change to a particular directory.
-	 * Internally, this parameter is only used by the "mirror" function below.
-	 *
-	 * @param	string	$path
-	 * @param	bool	$suppress_debug
-	 * @return	bool
-	 */
-	public function changedir($path, $suppress_debug = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Change directory
+  //
+  //The second parameter lets us momentarily turn off debugging so that
+  //this function can be used to test for the existence of a folder
+  //without throwing an error. There's no FTP equivalent to is_dir()
+  //so we do it by trying to change to a particular directory.
+  //Internally, this parameter is only used by the "mirror" function below.
+  //
+  //@param	string	$path
+  //@param	bool	$suppress_debug
+  //@return	bool
+  
+  public function changedir($path, $suppress_debug = FALSE): bool
+  {
 		if ( ! $this->_is_conn())
 		{
 			return FALSE;
@@ -250,19 +242,18 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Create a directory
-	 *
-	 * @param	string	$path
-	 * @param	int	$permissions
-	 * @return	bool
-	 */
-	public function mkdir($path, $permissions = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Create a directory
+  //
+  //@param	string	$path
+  //@param	int	$permissions
+  //@return	bool
+  
+  public function mkdir($path, $permissions = NULL): bool
+  {
 		if ($path === '' OR ! $this->_is_conn())
 		{
 			return FALSE;
@@ -287,21 +278,20 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Upload a file to the server
-	 *
-	 * @param	string	$locpath
-	 * @param	string	$rempath
-	 * @param	string	$mode
-	 * @param	int	$permissions
-	 * @return	bool
-	 */
-	public function upload($locpath, $rempath, $mode = 'auto', $permissions = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Upload a file to the server
+  //
+  //@param	string	$locpath
+  //@param	string	$rempath
+  //@param	string	$mode
+  //@param	int	$permissions
+  //@return	bool
+  
+  public function upload($locpath, $rempath, $mode = 'auto', $permissions = NULL): bool
+  {
 		if ( ! $this->_is_conn())
 		{
 			return FALSE;
@@ -342,20 +332,19 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Download a file from a remote server to the local server
-	 *
-	 * @param	string	$rempath
-	 * @param	string	$locpath
-	 * @param	string	$mode
-	 * @return	bool
-	 */
-	public function download($rempath, $locpath, $mode = 'auto')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Download a file from a remote server to the local server
+  //
+  //@param	string	$rempath
+  //@param	string	$locpath
+  //@param	string	$mode
+  //@return	bool
+  
+  public function download($rempath, $locpath, $mode = 'auto'): bool
+  {
 		if ( ! $this->_is_conn())
 		{
 			return FALSE;
@@ -384,20 +373,19 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Rename (or move) a file
-	 *
-	 * @param	string	$old_file
-	 * @param	string	$new_file
-	 * @param	bool	$move
-	 * @return	bool
-	 */
-	public function rename($old_file, $new_file, $move = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Rename (or move) a file
+  //
+  //@param	string	$old_file
+  //@param	string	$new_file
+  //@param	bool	$move
+  //@return	bool
+  
+  public function rename($old_file, $new_file, $move = FALSE): bool
+  {
 		if ( ! $this->_is_conn())
 		{
 			return FALSE;
@@ -416,32 +404,30 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Move a file
-	 *
-	 * @param	string	$old_file
-	 * @param	string	$new_file
-	 * @return	bool
-	 */
-	public function move($old_file, $new_file)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Move a file
+  //
+  //@param	string	$old_file
+  //@param	string	$new_file
+  //@return	bool
+  
+  public function move($old_file, $new_file): bool
+  {
 		return $this->rename($old_file, $new_file, TRUE);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Rename (or move) a file
-	 *
-	 * @param	string	$filepath
-	 * @return	bool
-	 */
-	public function delete_file($filepath)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Rename (or move) a file
+  //
+  //@param	string	$filepath
+  //@return	bool
+  
+  public function delete_file($filepath): bool
+  {
 		if ( ! $this->_is_conn())
 		{
 			return FALSE;
@@ -460,19 +446,18 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete a folder and recursively delete everything (including sub-folders)
-	 * contained within it.
-	 *
-	 * @param	string	$filepath
-	 * @return	bool
-	 */
-	public function delete_dir($filepath)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete a folder and recursively delete everything (including sub-folders)
+  //contained within it.
+  //
+  //@param	string	$filepath
+  //@return	bool
+  
+  public function delete_dir($filepath): bool
+  {
 		if ( ! $this->_is_conn())
 		{
 			return FALSE;
@@ -506,19 +491,18 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set file permissions
-	 *
-	 * @param	string	$path	File path
-	 * @param	int	$perm	Permissions
-	 * @return	bool
-	 */
-	public function chmod($path, $perm)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set file permissions
+  //
+  //@param	string	$path	File path
+  //@param	int	$perm	Permissions
+  //@return	bool
+  
+  public function chmod($path, $perm): bool
+  {
 		if ( ! $this->_is_conn())
 		{
 			return FALSE;
@@ -535,39 +519,37 @@ class CI_FTP {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * FTP List files in the specified directory
-	 *
-	 * @param	string	$path
-	 * @return	array
-	 */
-	public function list_files($path = '.')
-	{
+  // --------------------------------------------------------------------
+  //
+  //FTP List files in the specified directory
+  //
+  //@param	string	$path
+  //@return	array
+  
+  public function list_files($path = '.'): array
+  {
 		return $this->_is_conn()
 			? ftp_nlist($this->conn_id, $path)
 			: FALSE;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Read a directory and recreate it remotely
-	 *
-	 * This function recursively reads a folder and everything it contains
-	 * (including sub-folders) and creates a mirror via FTP based on it.
-	 * Whatever the directory structure of the original file path will be
-	 * recreated on the server.
-	 *
-	 * @param	string	$locpath	Path to source with trailing slash
-	 * @param	string	$rempath	Path to destination - include the base folder with trailing slash
-	 * @return	bool
-	 */
-	public function mirror($locpath, $rempath)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Read a directory and recreate it remotely
+  //
+  //This function recursively reads a folder and everything it contains
+  //(including sub-folders) and creates a mirror via FTP based on it.
+  //Whatever the directory structure of the original file path will be
+  //recreated on the server.
+  //
+  //@param	string	$locpath	Path to source with trailing slash
+  //@param	string	$rempath	Path to destination - include the base folder with trailing slash
+  //@return	bool
+  
+  public function mirror($locpath, $rempath): bool
+  {
 		if ( ! $this->_is_conn())
 		{
 			return FALSE;
@@ -603,65 +585,62 @@ class CI_FTP {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Extract the file extension
-	 *
-	 * @param	string	$filename
-	 * @return	string
-	 */
-	protected function _getext($filename)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Extract the file extension
+  //
+  //@param	string	$filename
+  //@return	string
+  
+  protected function _getext($filename): string
+  {
 		return (($dot = strrpos($filename, '.')) === FALSE)
 			? 'txt'
 			: substr($filename, $dot + 1);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set the upload type
-	 *
-	 * @param	string	$ext	Filename extension
-	 * @return	string
-	 */
-	protected function _settype($ext)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set the upload type
+  //
+  //@param	string	$ext	Filename extension
+  //@return	string
+  
+  protected function _settype($ext): string
+  {
 		return in_array($ext, array('txt', 'text', 'php', 'phps', 'php4', 'js', 'css', 'htm', 'html', 'phtml', 'shtml', 'log', 'xml'), TRUE)
 			? 'ascii'
 			: 'binary';
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Close the connection
-	 *
-	 * @return	bool
-	 */
-	public function close()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Close the connection
+  //
+  //@return	bool
+  
+  public function close(): bool
+  {
 		return $this->_is_conn()
 			? @ftp_close($this->conn_id)
 			: FALSE;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Display error message
-	 *
-	 * @param	string	$line
-	 * @return	void
-	 */
-	protected function _error($line)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Display error message
+  //
+  //@param	string	$line
+  //@return	void
+  
+  protected function _error($line)
+  {
 		$CI =& get_instance();
 		$CI->lang->load('ftp');
 		show_error($CI->lang->line($line));
-	}
+  }
 
 }
+

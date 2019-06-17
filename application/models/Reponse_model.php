@@ -1,16 +1,16 @@
 <?php
-
 class Reponse_model extends CI_Model {
-
-	public function __construct() {
+  public function __construct()
+  {
 		$this->load->database();
 		$this->load->model('participant_model');
 		$this->load->model('formulaire_model');
 		$this->load->helper('url');
 		$this->load->helper('url_helper');
-	}
+  }
 
-	public function save_reponse() {
+  public function save_reponse()
+  {
 		$this->participant_model->create_participant();
 		$parcipantId = $this->participant_model->getLastParticipant();
 
@@ -43,9 +43,10 @@ class Reponse_model extends CI_Model {
 
 		return $this->db->insert_batch('reponse_donnee', $repForQuery);
 
-	}
+  }
 
-	public function getStats() {
+  public function getStats()
+  {
 		$stats = [];
 		$key = $this->input->get('cle');
 		$form = $this->formulaire_model->get_total_form($key);
@@ -58,16 +59,18 @@ class Reponse_model extends CI_Model {
 		$stats['reponseCount'] = $this->getReponseMultiForStat($form['form_id']);
 
 		return $stats;
-	}
+  }
 
-	private function getDistinctParticipantByForm($form_id) {
+  private function getDistinctParticipantByForm($form_id)
+  {
 		$sql = "SELECT COUNT(DISTINCT id_participant) as result FROM reponse_donnee WHERE id_form = ?";
 		$query = $this->db->query($sql, $form_id);
 		$result = $query->row_array();
 		return $result['result'];
-	}
+  }
 
-	private function getReponseMultiForStat($form_id) {
+  private function getReponseMultiForStat($form_id)
+  {
 		$sql = "SELECT DISTINCT id_quest, text_quest, COUNT(text_reponse) as count, text_reponse 
 				FROM reponse_donnee, question 
 				WHERE id_form = ? 
@@ -77,5 +80,7 @@ class Reponse_model extends CI_Model {
 		$query = $this->db->query($sql, $form_id);
 		return json_decode(json_encode($query->result()), true); 
 		//ici on a un StrObject, c'est un hack pour le changer en array
-	}
+  }
+
 }
+

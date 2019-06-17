@@ -37,298 +37,296 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Pagination Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Pagination
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/pagination.html
- */
+//
+//Pagination Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Pagination
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/pagination.html
+
 class CI_Pagination {
+  //
+  //Base URL
+  //
+  //The page that we're linking to
+  //
+  //@var	string
+  
+  protected $base_url =  '';
 
-	/**
-	 * Base URL
-	 *
-	 * The page that we're linking to
-	 *
-	 * @var	string
-	 */
-	protected $base_url		= '';
+  //
+  //Prefix
+  //
+  //@var	string
+  
+  protected $prefix =  '';
 
-	/**
-	 * Prefix
-	 *
-	 * @var	string
-	 */
-	protected $prefix = '';
+  //
+  //Suffix
+  //
+  //@var	string
+  
+  protected $suffix =  '';
 
-	/**
-	 * Suffix
-	 *
-	 * @var	string
-	 */
-	protected $suffix = '';
+  //
+  //Total number of items
+  //
+  //@var	int
+  
+  protected $total_rows =  0;
 
-	/**
-	 * Total number of items
-	 *
-	 * @var	int
-	 */
-	protected $total_rows = 0;
+  //
+  //Number of links to show
+  //
+  //Relates to "digit" type links shown before/after
+  //the currently viewed page.
+  //
+  //@var	int
+  
+  protected $num_links =  2;
 
-	/**
-	 * Number of links to show
-	 *
-	 * Relates to "digit" type links shown before/after
-	 * the currently viewed page.
-	 *
-	 * @var	int
-	 */
-	protected $num_links = 2;
+  //
+  //Items per page
+  //
+  //@var	int
+  
+  public $per_page =  10;
 
-	/**
-	 * Items per page
-	 *
-	 * @var	int
-	 */
-	public $per_page = 10;
+  //
+  //Current page
+  //
+  //@var	int
+  
+  public $cur_page =  0;
 
-	/**
-	 * Current page
-	 *
-	 * @var	int
-	 */
-	public $cur_page = 0;
+  //
+  //Use page numbers flag
+  //
+  //Whether to use actual page numbers instead of an offset
+  //
+  //@var	bool
+  
+  protected $use_page_numbers =  FALSE;
 
-	/**
-	 * Use page numbers flag
-	 *
-	 * Whether to use actual page numbers instead of an offset
-	 *
-	 * @var	bool
-	 */
-	protected $use_page_numbers = FALSE;
+  //
+  //First link
+  //
+  //@var	string
+  
+  protected $first_link =  '&lsaquo; First';
 
-	/**
-	 * First link
-	 *
-	 * @var	string
-	 */
-	protected $first_link = '&lsaquo; First';
+  //
+  //Next link
+  //
+  //@var	string
+  
+  protected $next_link =  '&gt;';
 
-	/**
-	 * Next link
-	 *
-	 * @var	string
-	 */
-	protected $next_link = '&gt;';
+  //
+  //Previous link
+  //
+  //@var	string
+  
+  protected $prev_link =  '&lt;';
 
-	/**
-	 * Previous link
-	 *
-	 * @var	string
-	 */
-	protected $prev_link = '&lt;';
+  //
+  //Last link
+  //
+  //@var	string
+  
+  protected $last_link =  'Last &rsaquo;';
 
-	/**
-	 * Last link
-	 *
-	 * @var	string
-	 */
-	protected $last_link = 'Last &rsaquo;';
+  //
+  //URI Segment
+  //
+  //@var	int
+  
+  protected $uri_segment =  0;
 
-	/**
-	 * URI Segment
-	 *
-	 * @var	int
-	 */
-	protected $uri_segment = 0;
+  //
+  //Full tag open
+  //
+  //@var	string
+  
+  protected $full_tag_open =  '';
 
-	/**
-	 * Full tag open
-	 *
-	 * @var	string
-	 */
-	protected $full_tag_open = '';
+  //
+  //Full tag close
+  //
+  //@var	string
+  
+  protected $full_tag_close =  '';
 
-	/**
-	 * Full tag close
-	 *
-	 * @var	string
-	 */
-	protected $full_tag_close = '';
+  //
+  //First tag open
+  //
+  //@var	string
+  
+  protected $first_tag_open =  '';
 
-	/**
-	 * First tag open
-	 *
-	 * @var	string
-	 */
-	protected $first_tag_open = '';
+  //
+  //First tag close
+  //
+  //@var	string
+  
+  protected $first_tag_close =  '';
 
-	/**
-	 * First tag close
-	 *
-	 * @var	string
-	 */
-	protected $first_tag_close = '';
+  //
+  //Last tag open
+  //
+  //@var	string
+  
+  protected $last_tag_open =  '';
 
-	/**
-	 * Last tag open
-	 *
-	 * @var	string
-	 */
-	protected $last_tag_open = '';
+  //
+  //Last tag close
+  //
+  //@var	string
+  
+  protected $last_tag_close =  '';
 
-	/**
-	 * Last tag close
-	 *
-	 * @var	string
-	 */
-	protected $last_tag_close = '';
+  //
+  //First URL
+  //
+  //An alternative URL for the first page
+  //
+  //@var	string
+  
+  protected $first_url =  '';
 
-	/**
-	 * First URL
-	 *
-	 * An alternative URL for the first page
-	 *
-	 * @var	string
-	 */
-	protected $first_url = '';
+  //
+  //Current tag open
+  //
+  //@var	string
+  
+  protected $cur_tag_open =  '<strong>';
 
-	/**
-	 * Current tag open
-	 *
-	 * @var	string
-	 */
-	protected $cur_tag_open = '<strong>';
+  //
+  //Current tag close
+  //
+  //@var	string
+  
+  protected $cur_tag_close =  '</strong>';
 
-	/**
-	 * Current tag close
-	 *
-	 * @var	string
-	 */
-	protected $cur_tag_close = '</strong>';
+  //
+  //Next tag open
+  //
+  //@var	string
+  
+  protected $next_tag_open =  '';
 
-	/**
-	 * Next tag open
-	 *
-	 * @var	string
-	 */
-	protected $next_tag_open = '';
+  //
+  //Next tag close
+  //
+  //@var	string
+  
+  protected $next_tag_close =  '';
 
-	/**
-	 * Next tag close
-	 *
-	 * @var	string
-	 */
-	protected $next_tag_close = '';
+  //
+  //Previous tag open
+  //
+  //@var	string
+  
+  protected $prev_tag_open =  '';
 
-	/**
-	 * Previous tag open
-	 *
-	 * @var	string
-	 */
-	protected $prev_tag_open = '';
+  //
+  //Previous tag close
+  //
+  //@var	string
+  
+  protected $prev_tag_close =  '';
 
-	/**
-	 * Previous tag close
-	 *
-	 * @var	string
-	 */
-	protected $prev_tag_close = '';
+  //
+  //Number tag open
+  //
+  //@var	string
+  
+  protected $num_tag_open =  '';
 
-	/**
-	 * Number tag open
-	 *
-	 * @var	string
-	 */
-	protected $num_tag_open = '';
+  //
+  //Number tag close
+  //
+  //@var	string
+  
+  protected $num_tag_close =  '';
 
-	/**
-	 * Number tag close
-	 *
-	 * @var	string
-	 */
-	protected $num_tag_close = '';
+  //
+  //Page query string flag
+  //
+  //@var	bool
+  
+  protected $page_query_string =  FALSE;
 
-	/**
-	 * Page query string flag
-	 *
-	 * @var	bool
-	 */
-	protected $page_query_string = FALSE;
+  //
+  //Query string segment
+  //
+  //@var	string
+  
+  protected $query_string_segment =  'per_page';
 
-	/**
-	 * Query string segment
-	 *
-	 * @var	string
-	 */
-	protected $query_string_segment = 'per_page';
+  //
+  //Display pages flag
+  //
+  //@var	bool
+  
+  protected $display_pages =  TRUE;
 
-	/**
-	 * Display pages flag
-	 *
-	 * @var	bool
-	 */
-	protected $display_pages = TRUE;
+  //
+  //Attributes
+  //
+  //@var	string
+  
+  protected $_attributes =  '';
 
-	/**
-	 * Attributes
-	 *
-	 * @var	string
-	 */
-	protected $_attributes = '';
+  //
+  //Link types
+  //
+  //"rel" attribute
+  //
+  //@see	CI_Pagination::_attr_rel()
+  //@var	array
+  
+  protected $_link_types =  array();
 
-	/**
-	 * Link types
-	 *
-	 * "rel" attribute
-	 *
-	 * @see	CI_Pagination::_attr_rel()
-	 * @var	array
-	 */
-	protected $_link_types = array();
+  //
+  //Reuse query string flag
+  //
+  //@var	bool
+  
+  protected $reuse_query_string =  FALSE;
 
-	/**
-	 * Reuse query string flag
-	 *
-	 * @var	bool
-	 */
-	protected $reuse_query_string = FALSE;
+  //
+  //Use global URL suffix flag
+  //
+  //@var	bool
+  
+  protected $use_global_url_suffix =  FALSE;
 
-	/**
-	 * Use global URL suffix flag
-	 *
-	 * @var	bool
-	 */
-	protected $use_global_url_suffix = FALSE;
+  //
+  //Data page attribute
+  //
+  //@var	string
+  
+  protected $data_page_attr =  'data-ci-pagination-page';
 
-	/**
-	 * Data page attribute
-	 *
-	 * @var	string
-	 */
-	protected $data_page_attr = 'data-ci-pagination-page';
+  //
+  //CI Singleton
+  //
+  //@var	object
+  
+  protected $CI;
 
-	/**
-	 * CI Singleton
-	 *
-	 * @var	object
-	 */
-	protected $CI;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Constructor
-	 *
-	 * @param	array	$params	Initialization parameters
-	 * @return	void
-	 */
-	public function __construct($params = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Constructor
+  //
+  //@param	array	$params	Initialization parameters
+  //@return	void
+  
+  public function __construct($params = array())
+  {
 		$this->CI =& get_instance();
 		$this->CI->load->language('pagination');
 		foreach (array('first_link', 'next_link', 'prev_link', 'last_link') as $key)
@@ -345,18 +343,17 @@ class CI_Pagination {
 
 		$this->initialize($params);
 		log_message('info', 'Pagination Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize Preferences
-	 *
-	 * @param	array	$params	Initialization parameters
-	 * @return	CI_Pagination
-	 */
-	public function initialize(array $params = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize Preferences
+  //
+  //@param	array	$params	Initialization parameters
+  //@return	CI_Pagination
+  
+  public function initialize(array $params = array()): CI_Pagination
+  {
 		if (isset($params['attributes']) && is_array($params['attributes']))
 		{
 			$this->_parse_attributes($params['attributes']);
@@ -390,17 +387,16 @@ class CI_Pagination {
 		}
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generate the pagination links
-	 *
-	 * @return	string
-	 */
-	public function create_links()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generate the pagination links
+  //
+  //@return	string
+  
+  public function create_links(): string
+  {
 		// If our item count or per-page total is zero there is no need to continue.
 		// Note: DO NOT change the operator to === here!
 		if ($this->total_rows == 0 OR $this->per_page == 0)
@@ -656,18 +652,17 @@ class CI_Pagination {
 
 		// Add the wrapper HTML if exists
 		return $this->full_tag_open.$output.$this->full_tag_close;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Parse attributes
-	 *
-	 * @param	array	$attributes
-	 * @return	void
-	 */
-	protected function _parse_attributes($attributes)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Parse attributes
+  //
+  //@param	array	$attributes
+  //@return	void
+  
+  protected function _parse_attributes($attributes)
+  {
 		isset($attributes['rel']) OR $attributes['rel'] = TRUE;
 		$this->_link_types = ($attributes['rel'])
 			? array('start' => 'start', 'prev' => 'prev', 'next' => 'next')
@@ -679,19 +674,18 @@ class CI_Pagination {
 		{
 			$this->_attributes .= ' '.$key.'="'.$value.'"';
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Add "rel" attribute
-	 *
-	 * @link	http://www.w3.org/TR/html5/links.html#linkTypes
-	 * @param	string	$type
-	 * @return	string
-	 */
-	protected function _attr_rel($type)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Add "rel" attribute
+  //
+  //@link	http://www.w3.org/TR/html5/links.html#linkTypes
+  //@param	string	$type
+  //@return	string
+  
+  protected function _attr_rel($type): string
+  {
 		if (isset($this->_link_types[$type]))
 		{
 			unset($this->_link_types[$type]);
@@ -699,6 +693,7 @@ class CI_Pagination {
 		}
 
 		return '';
-	}
+  }
 
 }
+

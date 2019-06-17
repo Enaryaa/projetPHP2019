@@ -37,68 +37,64 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Database Utility Class
- *
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//Database Utility Class
+//
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 abstract class CI_DB_utility {
+  //
+  //Database object
+  //
+  //@var	object
+  
+  protected $db;
 
-	/**
-	 * Database object
-	 *
-	 * @var	object
-	 */
-	protected $db;
+  // --------------------------------------------------------------------
+  //
+  //List databases statement
+  //
+  //@var	string
+  
+  protected $_list_databases =  FALSE;
 
-	// --------------------------------------------------------------------
+  //
+  //OPTIMIZE TABLE statement
+  //
+  //@var	string
+  
+  protected $_optimize_table =  FALSE;
 
-	/**
-	 * List databases statement
-	 *
-	 * @var	string
-	 */
-	protected $_list_databases		= FALSE;
+  //
+  //REPAIR TABLE statement
+  //
+  //@var	string
+  
+  protected $_repair_table =  FALSE;
 
-	/**
-	 * OPTIMIZE TABLE statement
-	 *
-	 * @var	string
-	 */
-	protected $_optimize_table	= FALSE;
-
-	/**
-	 * REPAIR TABLE statement
-	 *
-	 * @var	string
-	 */
-	protected $_repair_table	= FALSE;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	object	&$db	Database object
-	 * @return	void
-	 */
-	public function __construct(&$db)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	object	&$db	Database object
+  //@return	void
+  
+  public function __construct(& $db)
+  {
 		$this->db =& $db;
 		log_message('info', 'Database Utility Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * List databases
-	 *
-	 * @return	array
-	 */
-	public function list_databases()
-	{
+  // --------------------------------------------------------------------
+  //
+  //List databases
+  //
+  //@return	array
+  
+  public function list_databases(): array
+  {
 		// Is there a cached result?
 		if (isset($this->db->data_cache['db_names']))
 		{
@@ -123,31 +119,29 @@ abstract class CI_DB_utility {
 		}
 
 		return $this->db->data_cache['db_names'];
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Determine if a particular database exists
-	 *
-	 * @param	string	$database_name
-	 * @return	bool
-	 */
-	public function database_exists($database_name)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Determine if a particular database exists
+  //
+  //@param	string	$database_name
+  //@return	bool
+  
+  public function database_exists($database_name): bool
+  {
 		return in_array($database_name, $this->list_databases());
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Optimize Table
-	 *
-	 * @param	string	$table_name
-	 * @return	mixed
-	 */
-	public function optimize_table($table_name)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Optimize Table
+  //
+  //@param	string	$table_name
+  //@return	mixed
+  
+  public function optimize_table($table_name): mixed
+  {
 		if ($this->_optimize_table === FALSE)
 		{
 			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
@@ -161,17 +155,16 @@ abstract class CI_DB_utility {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Optimize Database
-	 *
-	 * @return	mixed
-	 */
-	public function optimize_database()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Optimize Database
+  //
+  //@return	mixed
+  
+  public function optimize_database(): mixed
+  {
 		if ($this->_optimize_table === FALSE)
 		{
 			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
@@ -197,18 +190,17 @@ abstract class CI_DB_utility {
 		}
 
 		return $result;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Repair Table
-	 *
-	 * @param	string	$table_name
-	 * @return	mixed
-	 */
-	public function repair_table($table_name)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Repair Table
+  //
+  //@param	string	$table_name
+  //@return	mixed
+  
+  public function repair_table($table_name): mixed
+  {
 		if ($this->_repair_table === FALSE)
 		{
 			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
@@ -222,21 +214,20 @@ abstract class CI_DB_utility {
 
 		$query = $query->result_array();
 		return current($query);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generate CSV from a query result object
-	 *
-	 * @param	object	$query		Query result object
-	 * @param	string	$delim		Delimiter (default: ,)
-	 * @param	string	$newline	Newline character (default: \n)
-	 * @param	string	$enclosure	Enclosure (default: ")
-	 * @return	string
-	 */
-	public function csv_from_result($query, $delim = ',', $newline = "\n", $enclosure = '"')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generate CSV from a query result object
+  //
+  //@param	object	$query		Query result object
+  //@param	string	$delim		Delimiter (default: ,)
+  //@param	string	$newline	Newline character (default: \n)
+  //@param	string	$enclosure	Enclosure (default: ")
+  //@return	string
+  
+  public function csv_from_result($query, $delim = ',', $newline = "\n", $enclosure = '"'): string
+  {
 		if ( ! is_object($query) OR ! method_exists($query, 'list_fields'))
 		{
 			show_error('You must submit a valid result object');
@@ -263,19 +254,18 @@ abstract class CI_DB_utility {
 		}
 
 		return $out;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generate XML data from a query result object
-	 *
-	 * @param	object	$query	Query result object
-	 * @param	array	$params	Any preferences
-	 * @return	string
-	 */
-	public function xml_from_result($query, $params = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generate XML data from a query result object
+  //
+  //@param	object	$query	Query result object
+  //@param	array	$params	Any preferences
+  //@return	string
+  
+  public function xml_from_result($query, $params = array()): string
+  {
 		if ( ! is_object($query) OR ! method_exists($query, 'list_fields'))
 		{
 			show_error('You must submit a valid result object');
@@ -309,18 +299,17 @@ abstract class CI_DB_utility {
 		}
 
 		return $xml.'</'.$root.'>'.$newline;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database Backup
-	 *
-	 * @param	array	$params
-	 * @return	string
-	 */
-	public function backup($params = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database Backup
+  //
+  //@param	array	$params
+  //@return	string
+  
+  public function backup($params = array()): string
+  {
 		// If the parameters have not been submitted as an
 		// array then we know that it is simply the table
 		// name, which is a valid short cut.
@@ -419,6 +408,7 @@ abstract class CI_DB_utility {
 		}
 
 		return;
-	}
+  }
 
 }
+

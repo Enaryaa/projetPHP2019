@@ -37,62 +37,61 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Unit Testing Class
- *
- * Simple testing class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	UnitTesting
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/unit_testing.html
- */
+//
+//Unit Testing Class
+//
+//Simple testing class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	UnitTesting
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/unit_testing.html
+
 class CI_Unit_test {
+  //
+  //Active flag
+  //
+  //@var	bool
+  
+  public $active =  TRUE;
 
-	/**
-	 * Active flag
-	 *
-	 * @var	bool
-	 */
-	public $active = TRUE;
+  //
+  //Test results
+  //
+  //@var	array
+  
+  public $results =  array();
 
-	/**
-	 * Test results
-	 *
-	 * @var	array
-	 */
-	public $results = array();
+  //
+  //Strict comparison flag
+  //
+  //Whether to use === or == when comparing
+  //
+  //@var	bool
+  
+  public $strict =  FALSE;
 
-	/**
-	 * Strict comparison flag
-	 *
-	 * Whether to use === or == when comparing
-	 *
-	 * @var	bool
-	 */
-	public $strict = FALSE;
+  //
+  //Template
+  //
+  //@var	string
+  
+  protected $_template =  NULL;
 
-	/**
-	 * Template
-	 *
-	 * @var	string
-	 */
-	protected $_template = NULL;
+  //
+  //Template rows
+  //
+  //@var	string
+  
+  protected $_template_rows =  NULL;
 
-	/**
-	 * Template rows
-	 *
-	 * @var	string
-	 */
-	protected $_template_rows = NULL;
-
-	/**
-	 * List of visible test items
-	 *
-	 * @var	array
-	 */
-	protected $_test_items_visible	= array(
+  //
+  //List of visible test items
+  //
+  //@var	array
+  
+  protected $_test_items_visible =  array(
 		'test_name',
 		'test_datatype',
 		'res_datatype',
@@ -102,51 +101,48 @@ class CI_Unit_test {
 		'notes'
 	);
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Constructor
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Constructor
+  //
+  //@return	void
+  
+  public function __construct()
+  {
 		log_message('info', 'Unit Testing Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Run the tests
-	 *
-	 * Runs the supplied tests
-	 *
-	 * @param	array	$items
-	 * @return	void
-	 */
-	public function set_test_items($items)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Run the tests
+  //
+  //Runs the supplied tests
+  //
+  //@param	array	$items
+  //@return	void
+  
+  public function set_test_items($items)
+  {
 		if ( ! empty($items) && is_array($items))
 		{
 			$this->_test_items_visible = $items;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Run the tests
-	 *
-	 * Runs the supplied tests
-	 *
-	 * @param	mixed	$test
-	 * @param	mixed	$expected
-	 * @param	string	$test_name
-	 * @param	string	$notes
-	 * @return	string
-	 */
-	public function run($test, $expected = TRUE, $test_name = 'undefined', $notes = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Run the tests
+  //
+  //Runs the supplied tests
+  //
+  //@param	mixed	$test
+  //@param	mixed	$expected
+  //@param	string	$test_name
+  //@param	string	$notes
+  //@return	string
+  
+  public function run($test, $expected = TRUE, $test_name = 'undefined', $notes = ''): string
+  {
 		if ($this->active === FALSE)
 		{
 			return FALSE;
@@ -178,20 +174,19 @@ class CI_Unit_test {
 		$this->results[] = $report;
 
 		return $this->report($this->result(array($report)));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generate a report
-	 *
-	 * Displays a table with the test data
-	 *
-	 * @param	array	 $result
-	 * @return	string
-	 */
-	public function report($result = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generate a report
+  //
+  //Displays a table with the test data
+  //
+  //@param	array	 $result
+  //@return	string
+  
+  public function report($result = array()): string
+  {
 		if (count($result) === 0)
 		{
 			$result = $this->result();
@@ -228,50 +223,47 @@ class CI_Unit_test {
 		}
 
 		return $r;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Use strict comparison
-	 *
-	 * Causes the evaluation to use === rather than ==
-	 *
-	 * @param	bool	$state
-	 * @return	void
-	 */
-	public function use_strict($state = TRUE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Use strict comparison
+  //
+  //Causes the evaluation to use === rather than ==
+  //
+  //@param	bool	$state
+  //@return	void
+  
+  public function use_strict($state = TRUE)
+  {
 		$this->strict = (bool) $state;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Make Unit testing active
-	 *
-	 * Enables/disables unit testing
-	 *
-	 * @param	bool
-	 * @return	void
-	 */
-	public function active($state = TRUE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Make Unit testing active
+  //
+  //Enables/disables unit testing
+  //
+  //@param	bool
+  //@return	void
+  
+  public function active($state = TRUE)
+  {
 		$this->active = (bool) $state;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Result Array
-	 *
-	 * Returns the raw result data
-	 *
-	 * @param	array	$results
-	 * @return	array
-	 */
-	public function result($results = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Result Array
+  //
+  //Returns the raw result data
+  //
+  //@param	array	$results
+  //@return	array
+  
+  public function result($results = array()): array
+  {
 		$CI =& get_instance();
 		$CI->load->language('unit_test');
 
@@ -305,67 +297,63 @@ class CI_Unit_test {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set the template
-	 *
-	 * This lets us set the template to be used to display results
-	 *
-	 * @param	string
-	 * @return	void
-	 */
-	public function set_template($template)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set the template
+  //
+  //This lets us set the template to be used to display results
+  //
+  //@param	string
+  //@return	void
+  
+  public function set_template($template)
+  {
 		$this->_template = $template;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generate a backtrace
-	 *
-	 * This lets us show file names and line numbers
-	 *
-	 * @return	array
-	 */
-	protected function _backtrace()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generate a backtrace
+  //
+  //This lets us show file names and line numbers
+  //
+  //@return	array
+  
+  protected function _backtrace(): array
+  {
 		$back = debug_backtrace();
 		return array(
 			'file' => (isset($back[1]['file']) ? $back[1]['file'] : ''),
 			'line' => (isset($back[1]['line']) ? $back[1]['line'] : '')
 		);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Default Template
-	 *
-	 * @return	string
-	 */
-	protected function _default_template()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Default Template
+  //
+  //@return	string
+  
+  protected function _default_template(): string
+  {
 		$this->_template = "\n".'<table style="width:100%; font-size:small; margin:10px 0; border-collapse:collapse; border:1px solid #CCC;">{rows}'."\n</table>";
 
 		$this->_template_rows = "\n\t<tr>\n\t\t".'<th style="text-align: left; border-bottom:1px solid #CCC;">{item}</th>'
 					."\n\t\t".'<td style="border-bottom:1px solid #CCC;">{result}</td>'."\n\t</tr>";
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Parse Template
-	 *
-	 * Harvests the data within the template {pseudo-variables}
-	 *
-	 * @return	void
-	 */
-	protected function _parse_template()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Parse Template
+  //
+  //Harvests the data within the template {pseudo-variables}
+  //
+  //@return	void
+  
+  protected function _parse_template()
+  {
 		if ($this->_template_rows !== NULL)
 		{
 			return;
@@ -379,9 +367,10 @@ class CI_Unit_test {
 
 		$this->_template_rows = $match[1];
 		$this->_template = str_replace($match[0], '{rows}', $this->_template);
-	}
+  }
 
 }
+
 
 /**
  * Helper function to test boolean TRUE

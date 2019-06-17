@@ -37,65 +37,62 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PDO MySQL Database Adapter Class
- *
- * Note: _DB is an extender class that the app controller
- * creates dynamically based on whether the query builder
- * class is being used or not.
- *
- * @package		CodeIgniter
- * @subpackage	Drivers
- * @category	Database
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
- */
+//
+//PDO MySQL Database Adapter Class
+//
+//Note: _DB is an extender class that the app controller
+//creates dynamically based on whether the query builder
+//class is being used or not.
+//
+//@package		CodeIgniter
+//@subpackage	Drivers
+//@category	Database
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/database/
+
 class CI_DB_pdo_mysql_driver extends CI_DB_pdo_driver {
+  //
+  //Sub-driver
+  //
+  //@var	string
+  
+  public $subdriver =  'mysql';
 
-	/**
-	 * Sub-driver
-	 *
-	 * @var	string
-	 */
-	public $subdriver = 'mysql';
+  //
+  //Compression flag
+  //
+  //@var	bool
+  
+  public $compress =  FALSE;
 
-	/**
-	 * Compression flag
-	 *
-	 * @var	bool
-	 */
-	public $compress = FALSE;
+  //
+  //Strict ON flag
+  //
+  //Whether we're running in strict SQL mode.
+  //
+  //@var	bool
+  
+  public $stricton;
 
-	/**
-	 * Strict ON flag
-	 *
-	 * Whether we're running in strict SQL mode.
-	 *
-	 * @var	bool
-	 */
-	public $stricton;
+  // --------------------------------------------------------------------
+  //
+  //Identifier escape character
+  //
+  //@var	string
+  
+  protected $_escape_char =  '`';
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Identifier escape character
-	 *
-	 * @var	string
-	 */
-	protected $_escape_char = '`';
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Builds the DSN if not already set.
-	 *
-	 * @param	array	$params
-	 * @return	void
-	 */
-	public function __construct($params)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Builds the DSN if not already set.
+  //
+  //@param	array	$params
+  //@return	void
+  
+  public function __construct($params)
+  {
 		parent::__construct($params);
 
 		if (empty($this->dsn))
@@ -110,18 +107,17 @@ class CI_DB_pdo_mysql_driver extends CI_DB_pdo_driver {
 		{
 			$this->dsn .= ';charset='.$this->char_set;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database connection
-	 *
-	 * @param	bool	$persistent
-	 * @return	object
-	 */
-	public function db_connect($persistent = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database connection
+  //
+  //@param	bool	$persistent
+  //@return	object
+  
+  public function db_connect($persistent = FALSE): object
+  {
 		if (isset($this->stricton))
 		{
 			if ($this->stricton)
@@ -191,18 +187,17 @@ class CI_DB_pdo_mysql_driver extends CI_DB_pdo_driver {
 		}
 
 		return $pdo;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Select the database
-	 *
-	 * @param	string	$database
-	 * @return	bool
-	 */
-	public function db_select($database = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Select the database
+  //
+  //@param	string	$database
+  //@return	bool
+  
+  public function db_select($database = ''): bool
+  {
 		if ($database === '')
 		{
 			$database = $this->database;
@@ -216,30 +211,28 @@ class CI_DB_pdo_mysql_driver extends CI_DB_pdo_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Begin Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_begin()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Begin Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_begin(): bool
+  {
 		$this->conn_id->setAttribute(PDO::ATTR_AUTOCOMMIT, FALSE);
 		return $this->conn_id->beginTransaction();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Commit Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_commit()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Commit Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_commit(): bool
+  {
 		if ($this->conn_id->commit())
 		{
 			$this->conn_id->setAttribute(PDO::ATTR_AUTOCOMMIT, TRUE);
@@ -247,17 +240,16 @@ class CI_DB_pdo_mysql_driver extends CI_DB_pdo_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Rollback Transaction
-	 *
-	 * @return	bool
-	 */
-	protected function _trans_rollback()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Rollback Transaction
+  //
+  //@return	bool
+  
+  protected function _trans_rollback(): bool
+  {
 		if ($this->conn_id->rollBack())
 		{
 			$this->conn_id->setAttribute(PDO::ATTR_AUTOCOMMIT, TRUE);
@@ -265,20 +257,19 @@ class CI_DB_pdo_mysql_driver extends CI_DB_pdo_driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show table query
-	 *
-	 * Generates a platform-specific query string so that the table names can be fetched
-	 *
-	 * @param	bool	$prefix_limit
-	 * @return	string
-	 */
-	protected function _list_tables($prefix_limit = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show table query
+  //
+  //Generates a platform-specific query string so that the table names can be fetched
+  //
+  //@param	bool	$prefix_limit
+  //@return	string
+  
+  protected function _list_tables($prefix_limit = FALSE): string
+  {
 		$sql = 'SHOW TABLES';
 
 		if ($prefix_limit === TRUE && $this->dbprefix !== '')
@@ -287,33 +278,31 @@ class CI_DB_pdo_mysql_driver extends CI_DB_pdo_driver {
 		}
 
 		return $sql;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show column query
-	 *
-	 * Generates a platform-specific query string so that the column names can be fetched
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _list_columns($table = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show column query
+  //
+  //Generates a platform-specific query string so that the column names can be fetched
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _list_columns($table = ''): string
+  {
 		return 'SHOW COLUMNS FROM '.$this->protect_identifiers($table, TRUE, NULL, FALSE);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns an object with field data
-	 *
-	 * @param	string	$table
-	 * @return	array
-	 */
-	public function field_data($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Returns an object with field data
+  //
+  //@param	string	$table
+  //@return	array
+  
+  public function field_data($table): array
+  {
 		if (($query = $this->query('SHOW COLUMNS FROM '.$this->protect_identifiers($table, TRUE, NULL, FALSE))) === FALSE)
 		{
 			return FALSE;
@@ -336,44 +325,43 @@ class CI_DB_pdo_mysql_driver extends CI_DB_pdo_driver {
 		}
 
 		return $retval;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Truncate statement
-	 *
-	 * Generates a platform-specific truncate string from the supplied data
-	 *
-	 * If the database does not support the TRUNCATE statement,
-	 * then this method maps to 'DELETE FROM table'
-	 *
-	 * @param	string	$table
-	 * @return	string
-	 */
-	protected function _truncate($table)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Truncate statement
+  //
+  //Generates a platform-specific truncate string from the supplied data
+  //
+  //If the database does not support the TRUNCATE statement,
+  //then this method maps to 'DELETE FROM table'
+  //
+  //@param	string	$table
+  //@return	string
+  
+  protected function _truncate($table): string
+  {
 		return 'TRUNCATE '.$table;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * FROM tables
-	 *
-	 * Groups tables in FROM clauses if needed, so there is no confusion
-	 * about operator precedence.
-	 *
-	 * @return	string
-	 */
-	protected function _from_tables()
-	{
+  // --------------------------------------------------------------------
+  //
+  //FROM tables
+  //
+  //Groups tables in FROM clauses if needed, so there is no confusion
+  //about operator precedence.
+  //
+  //@return	string
+  
+  protected function _from_tables(): string
+  {
 		if ( ! empty($this->qb_join) && count($this->qb_from) > 1)
 		{
 			return '('.implode(', ', $this->qb_from).')';
 		}
 
 		return implode(', ', $this->qb_from);
-	}
+  }
 
 }
+

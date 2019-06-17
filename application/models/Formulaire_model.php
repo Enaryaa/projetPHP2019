@@ -1,13 +1,13 @@
 <?php
-
 class Formulaire_model extends CI_Model {
-
-	public function __construct() {
+  public function __construct()
+  {
 		$this->load->database();
        	$this->load->library('session');
-	}
+  }
 
-	public function create_form(){
+  public function create_form()
+  {
 		$this->load->helper('url');
 		$this->load->helper('date');
 		$now = date('Y-m-d H:i:s');
@@ -27,10 +27,10 @@ class Formulaire_model extends CI_Model {
 		} else {
 			return false;
 		}
-	}
+  }
 
-
-	public function modifier_active(){
+  public function modifier_active()
+  {
 		$key = $this->input->get('cle');
 		$form = $this->get_form($key);
 		if (empty($form)) {
@@ -45,16 +45,18 @@ class Formulaire_model extends CI_Model {
 		
 		$sql = "UPDATE formulaire SET active = ? WHERE form_key = ?";
 		return $this->db->query($sql, array($form['active'], $form['form_key']));
-	}
+  }
 
-	public function get_form($key) {
+  public function get_form($key)
+  {
 		$sql = "SELECT * FROM formulaire WHERE form_key = ?";
 		$query = $this->db->query($sql, $key);
 
 		return $query->row_array();
-	}
+  }
 
-	public function get_total_form($key){
+  public function get_total_form($key)
+  {
 		$form = $this->get_form($key);
 		if (!empty($form) && intval($form['active']) == 1) {
 			$question = $this->get_question_by_form_id($form['form_id']);
@@ -76,25 +78,28 @@ class Formulaire_model extends CI_Model {
 		}
 
 		return $form;
-	}
+  }
 
-	public function get_forms_by_user($user_id) {
+  public function get_forms_by_user($user_id)
+  {
 		$sql = "SELECT * FROM formulaire WHERE user_id = ?";
 		$query = $this->db->query($sql, $user_id);
 
 		return $query->result_array();
-	}
+  }
 
-	public function random_key($length=20){
+  public function random_key($length = 20)
+  {
 	    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	    $string = '';
 	    for($i=0; $i<$length; $i++){
 	        $string .= $chars[rand(0, strlen($chars)-1)];
 	    }
 	    return $string;
-	}
+  }
 
-	public function add_reponse($responses, $questions, $form) {
+  public function add_reponse($responses, $questions, $form)
+  {
 		$repForInsert = [];
 		foreach ($responses as $key => $reponseGroup) {
 			foreach ($reponseGroup as $reponse) {
@@ -106,9 +111,10 @@ class Formulaire_model extends CI_Model {
 			}
 		}
 		return $this->db->insert_batch('reponse_possible', $repForInsert);
-	}
+  }
 
-	public function add_question($form){
+  public function add_question($form)
+  {
 		$this->load->helper('url');
 
 		$data = $this->input->post('question');
@@ -144,23 +150,25 @@ class Formulaire_model extends CI_Model {
 		} else {
 			return false;
 		}
-	}
+  }
 
-	public function get_question_by_form_id($id) {
+  public function get_question_by_form_id($id)
+  {
 		$sql = "SELECT * FROM question WHERE form_id = ?";
 		$query = $this->db->query($sql, $id);
 
 		return json_decode(json_encode($query->result()), true); 
 		//ici on a un StrObject, c'est un hack pour le changer en array
-	}
+  }
 
-	public function get_reponse_by_form_id($id) {
+  public function get_reponse_by_form_id($id)
+  {
 		$sql = "SELECT * FROM reponse_possible WHERE form_id = ?";
 		$query = $this->db->query($sql, $id);
 
 		return json_decode(json_encode($query->result()), true); 
 		//ici on a un StrObject, c'est un hack pour le changer en array
-	}
-
+  }
 
 }
+

@@ -37,30 +37,29 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Memcached Caching Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Core
- * @author		EllisLab Dev Team
- * @link
- */
+//
+//CodeIgniter Memcached Caching Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Core
+//@author		EllisLab Dev Team
+//@link
+
 class CI_Cache_memcached extends CI_Driver {
+  //
+  //Holds the memcached object
+  //
+  //@var object
+  
+  protected $_memcached;
 
-	/**
-	 * Holds the memcached object
-	 *
-	 * @var object
-	 */
-	protected $_memcached;
-
-	/**
-	 * Memcached configuration
-	 *
-	 * @var array
-	 */
-	protected $_config = array(
+  //
+  //Memcached configuration
+  //
+  //@var array
+  
+  protected $_config =  array(
 		'default' => array(
 			'host'		=> '127.0.0.1',
 			'port'		=> 11211,
@@ -68,17 +67,16 @@ class CI_Cache_memcached extends CI_Driver {
 		)
 	);
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Setup Memcache(d)
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Setup Memcache(d)
+  //
+  //@return	void
+  
+  public function __construct()
+  {
 		// Try to load memcached server info from the config file.
 		$CI =& get_instance();
 		$defaults = $this->_config['default'];
@@ -127,36 +125,34 @@ class CI_Cache_memcached extends CI_Driver {
 				);
 			}
 		}
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Fetch from cache
-	 *
-	 * @param	string	$id	Cache ID
-	 * @return	mixed	Data on success, FALSE on failure
-	 */
-	public function get($id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Fetch from cache
+  //
+  //@param	string	$id	Cache ID
+  //@return	mixed	Data on success, FALSE on failure
+  
+  public function get($id): mixed
+  {
 		$data = $this->_memcached->get($id);
 
 		return is_array($data) ? $data[0] : $data;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Save
-	 *
-	 * @param	string	$id	Cache ID
-	 * @param	mixed	$data	Data being cached
-	 * @param	int	$ttl	Time to live
-	 * @param	bool	$raw	Whether to store the raw value
-	 * @return	bool	TRUE on success, FALSE on failure
-	 */
-	public function save($id, $data, $ttl = 60, $raw = FALSE)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Save
+  //
+  //@param	string	$id	Cache ID
+  //@param	mixed	$data	Data being cached
+  //@param	int	$ttl	Time to live
+  //@param	bool	$raw	Whether to store the raw value
+  //@return	bool	TRUE on success, FALSE on failure
+  
+  public function save($id, $data, $ttl = 60, $raw = FALSE): bool
+  {
 		if ($raw !== TRUE)
 		{
 			$data = array($data, time(), $ttl);
@@ -172,93 +168,87 @@ class CI_Cache_memcached extends CI_Driver {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Delete from Cache
-	 *
-	 * @param	mixed	$id	key to be deleted.
-	 * @return	bool	true on success, false on failure
-	 */
-	public function delete($id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Delete from Cache
+  //
+  //@param	mixed	$id	key to be deleted.
+  //@return	bool	true on success, false on failure
+  
+  public function delete($id): bool
+  {
 		return $this->_memcached->delete($id);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Increment a raw value
-	 *
-	 * @param	string	$id	Cache ID
-	 * @param	int	$offset	Step/value to add
-	 * @return	mixed	New value on success or FALSE on failure
-	 */
-	public function increment($id, $offset = 1)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Increment a raw value
+  //
+  //@param	string	$id	Cache ID
+  //@param	int	$offset	Step/value to add
+  //@return	mixed	New value on success or FALSE on failure
+  
+  public function increment($id, $offset = 1): mixed
+  {
 		if (($result = $this->_memcached->increment($id, $offset)) === FALSE)
 		{
 			return $this->_memcached->add($id, $offset) ? $offset : FALSE;
 		}
 
 		return $result;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Decrement a raw value
-	 *
-	 * @param	string	$id	Cache ID
-	 * @param	int	$offset	Step/value to reduce by
-	 * @return	mixed	New value on success or FALSE on failure
-	 */
-	public function decrement($id, $offset = 1)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Decrement a raw value
+  //
+  //@param	string	$id	Cache ID
+  //@param	int	$offset	Step/value to reduce by
+  //@return	mixed	New value on success or FALSE on failure
+  
+  public function decrement($id, $offset = 1): mixed
+  {
 		if (($result = $this->_memcached->decrement($id, $offset)) === FALSE)
 		{
 			return $this->_memcached->add($id, 0) ? 0 : FALSE;
 		}
 
 		return $result;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Clean the Cache
-	 *
-	 * @return	bool	false on failure/true on success
-	 */
-	public function clean()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Clean the Cache
+  //
+  //@return	bool	false on failure/true on success
+  
+  public function clean(): bool
+  {
 		return $this->_memcached->flush();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Cache Info
-	 *
-	 * @return	mixed	array on success, false on failure
-	 */
-	public function cache_info()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Cache Info
+  //
+  //@return	mixed	array on success, false on failure
+  
+  public function cache_info(): mixed
+  {
 		return $this->_memcached->getStats();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Get Cache Metadata
-	 *
-	 * @param	mixed	$id	key to get cache metadata on
-	 * @return	mixed	FALSE on failure, array on success.
-	 */
-	public function get_metadata($id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Get Cache Metadata
+  //
+  //@param	mixed	$id	key to get cache metadata on
+  //@return	mixed	FALSE on failure, array on success.
+  
+  public function get_metadata($id): mixed
+  {
 		$stored = $this->_memcached->get($id);
 
 		if (count($stored) !== 3)
@@ -273,34 +263,32 @@ class CI_Cache_memcached extends CI_Driver {
 			'mtime'		=> $time,
 			'data'		=> $data
 		);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Is supported
-	 *
-	 * Returns FALSE if memcached is not supported on the system.
-	 * If it is, we setup the memcached object & return TRUE
-	 *
-	 * @return	bool
-	 */
-	public function is_supported()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Is supported
+  //
+  //Returns FALSE if memcached is not supported on the system.
+  //If it is, we setup the memcached object & return TRUE
+  //
+  //@return	bool
+  
+  public function is_supported(): bool
+  {
 		return (extension_loaded('memcached') OR extension_loaded('memcache'));
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Class destructor
-	 *
-	 * Closes the connection to Memcache(d) if present.
-	 *
-	 * @return	void
-	 */
-	public function __destruct()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Class destructor
+  //
+  //Closes the connection to Memcache(d) if present.
+  //
+  //@return	void
+  
+  public function __destruct()
+  {
 		if ($this->_memcached instanceof Memcache)
 		{
 			$this->_memcached->close();
@@ -309,5 +297,7 @@ class CI_Cache_memcached extends CI_Driver {
 		{
 			$this->_memcached->quit();
 		}
-	}
+  }
+
 }
+

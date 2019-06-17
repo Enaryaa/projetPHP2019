@@ -19,6 +19,3 @@
 <?php } else { ?>
 	<p style="font-size: 1.10em!important;"> Aucun résultat</p>
 <?php } ?>
-
-</div>
-

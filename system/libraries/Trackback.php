@@ -37,32 +37,31 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Trackback Class
- *
- * Trackback Sending/Receiving Class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Trackbacks
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/trackback.html
- */
+//
+//Trackback Class
+//
+//Trackback Sending/Receiving Class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Trackbacks
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/trackback.html
+
 class CI_Trackback {
+  //
+  //Character set
+  //
+  //@var	string
+  
+  public $charset =  'UTF-8';
 
-	/**
-	 * Character set
-	 *
-	 * @var	string
-	 */
-	public $charset = 'UTF-8';
-
-	/**
-	 * Trackback data
-	 *
-	 * @var	array
-	 */
-	public $data = array(
+  //
+  //Trackback data
+  //
+  //@var	array
+  
+  public $data =  array(
 		'url' => '',
 		'title' => '',
 		'excerpt' => '',
@@ -70,52 +69,50 @@ class CI_Trackback {
 		'charset' => ''
 	);
 
-	/**
-	 * Convert ASCII flag
-	 *
-	 * Whether to convert high-ASCII and MS Word
-	 * characters to HTML entities.
-	 *
-	 * @var	bool
-	 */
-	public $convert_ascii = TRUE;
+  //
+  //Convert ASCII flag
+  //
+  //Whether to convert high-ASCII and MS Word
+  //characters to HTML entities.
+  //
+  //@var	bool
+  
+  public $convert_ascii =  TRUE;
 
-	/**
-	 * Response
-	 *
-	 * @var	string
-	 */
-	public $response = '';
+  //
+  //Response
+  //
+  //@var	string
+  
+  public $response =  '';
 
-	/**
-	 * Error messages list
-	 *
-	 * @var	string[]
-	 */
-	public $error_msg = array();
+  //
+  //Error messages list
+  //
+  //@var	string[]
+  
+  public $error_msg =  array();
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Constructor
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Constructor
+  //
+  //@return	void
+  
+  public function __construct()
+  {
 		log_message('info', 'Trackback Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Send Trackback
-	 *
-	 * @param	array
-	 * @return	bool
-	 */
-	public function send($tb_data)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Send Trackback
+  //
+  //@param	array
+  //@return	bool
+  
+  public function send($tb_data): bool
+  {
 		if ( ! is_array($tb_data))
 		{
 			$this->set_error('The send() method must be passed an array');
@@ -174,22 +171,21 @@ class CI_Trackback {
 		}
 
 		return $return;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Receive Trackback  Data
-	 *
-	 * This function simply validates the incoming TB data.
-	 * It returns FALSE on failure and TRUE on success.
-	 * If the data is valid it is set to the $this->data array
-	 * so that it can be inserted into a database.
-	 *
-	 * @return	bool
-	 */
-	public function receive()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Receive Trackback  Data
+  //
+  //This function simply validates the incoming TB data.
+  //It returns FALSE on failure and TRUE on success.
+  //If the data is valid it is set to the $this->data array
+  //so that it can be inserted into a database.
+  //
+  //@return	bool
+  
+  public function receive(): bool
+  {
 		foreach (array('url', 'title', 'blog_name', 'excerpt') as $val)
 		{
 			if (empty($_POST[$val]))
@@ -223,67 +219,63 @@ class CI_Trackback {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Send Trackback Error Message
-	 *
-	 * Allows custom errors to be set. By default it
-	 * sends the "incomplete information" error, as that's
-	 * the most common one.
-	 *
-	 * @param	string
-	 * @return	void
-	 */
-	public function send_error($message = 'Incomplete Information')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Send Trackback Error Message
+  //
+  //Allows custom errors to be set. By default it
+  //sends the "incomplete information" error, as that's
+  //the most common one.
+  //
+  //@param	string
+  //@return	void
+  
+  public function send_error($message = 'Incomplete Information')
+  {
 		exit('<?xml version="1.0" encoding="utf-8"?'.">\n<response>\n<error>1</error>\n<message>".$message."</message>\n</response>");
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Send Trackback Success Message
-	 *
-	 * This should be called when a trackback has been
-	 * successfully received and inserted.
-	 *
-	 * @return	void
-	 */
-	public function send_success()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Send Trackback Success Message
+  //
+  //This should be called when a trackback has been
+  //successfully received and inserted.
+  //
+  //@return	void
+  
+  public function send_success()
+  {
 		exit('<?xml version="1.0" encoding="utf-8"?'.">\n<response>\n<error>0</error>\n</response>");
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Fetch a particular item
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function data($item)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Fetch a particular item
+  //
+  //@param	string
+  //@return	string
+  
+  public function data($item): string
+  {
 		return isset($this->data[$item]) ? $this->data[$item] : '';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Process Trackback
-	 *
-	 * Opens a socket connection and passes the data to
-	 * the server. Returns TRUE on success, FALSE on failure
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	bool
-	 */
-	public function process($url, $data)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Process Trackback
+  //
+  //Opens a socket connection and passes the data to
+  //the server. Returns TRUE on success, FALSE on failure
+  //
+  //@param	string
+  //@param	string
+  //@return	bool
+  
+  public function process($url, $data): bool
+  {
 		$target = parse_url($url);
 
 		// Open the socket
@@ -330,22 +322,21 @@ class CI_Trackback {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Extract Trackback URLs
-	 *
-	 * This function lets multiple trackbacks be sent.
-	 * It takes a string of URLs (separated by comma or
-	 * space) and puts each URL into an array
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function extract_urls($urls)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Extract Trackback URLs
+  //
+  //This function lets multiple trackbacks be sent.
+  //It takes a string of URLs (separated by comma or
+  //space) and puts each URL into an array
+  //
+  //@param	string
+  //@return	string
+  
+  public function extract_urls($urls): string
+  {
 		// Remove the pesky white space and replace with a comma, then replace doubles.
 		$urls = str_replace(',,', ',', preg_replace('/\s*(\S+)\s*/', '\\1,', $urls));
 
@@ -354,38 +345,36 @@ class CI_Trackback {
 
 		array_walk($urls, array($this, 'validate_url'));
 		return $urls;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Validate URL
-	 *
-	 * Simply adds "http://" if missing
-	 *
-	 * @param	string
-	 * @return	void
-	 */
-	public function validate_url(&$url)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Validate URL
+  //
+  //Simply adds "http://" if missing
+  //
+  //@param	string
+  //@return	void
+  
+  public function validate_url(& $url)
+  {
 		$url = trim($url);
 
 		if (stripos($url, 'http') !== 0)
 		{
 			$url = 'http://'.$url;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Find the Trackback URL's ID
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function get_id($url)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Find the Trackback URL's ID
+  //
+  //@param	string
+  //@return	string
+  
+  public function get_id($url): string
+  {
 		$tb_id = '';
 
 		if (strpos($url, '?') !== FALSE)
@@ -415,18 +404,17 @@ class CI_Trackback {
 		}
 
 		return ctype_digit((string) $tb_id) ? $tb_id : FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Convert Reserved XML characters to Entities
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function convert_xml($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Convert Reserved XML characters to Entities
+  //
+  //@param	string
+  //@return	string
+  
+  public function convert_xml($str): string
+  {
 		$temp = '__TEMP_AMPERSANDS__';
 
 		$str = preg_replace(array('/&#(\d+);/', '/&(\w+);/'), $temp.'\\1;', $str);
@@ -436,22 +424,21 @@ class CI_Trackback {
 					$str);
 
 		return preg_replace(array('/'.$temp.'(\d+);/', '/'.$temp.'(\w+);/'), array('&#\\1;', '&\\1;'), $str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Character limiter
-	 *
-	 * Limits the string based on the character count. Will preserve complete words.
-	 *
-	 * @param	string
-	 * @param	int
-	 * @param	string
-	 * @return	string
-	 */
-	public function limit_characters($str, $n = 500, $end_char = '&#8230;')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Character limiter
+  //
+  //Limits the string based on the character count. Will preserve complete words.
+  //
+  //@param	string
+  //@param	int
+  //@param	string
+  //@return	string
+  
+  public function limit_characters($str, $n = 500, $end_char = '&#8230;'): string
+  {
 		if (strlen($str) < $n)
 		{
 			return $str;
@@ -473,21 +460,20 @@ class CI_Trackback {
 				return rtrim($out).$end_char;
 			}
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * High ASCII to Entities
-	 *
-	 * Converts Hight ascii text and MS Word special chars
-	 * to character entities
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function convert_ascii($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //High ASCII to Entities
+  //
+  //Converts Hight ascii text and MS Word special chars
+  //to character entities
+  //
+  //@param	string
+  //@return	string
+  
+  public function convert_ascii($str): string
+  {
 		$count	= 1;
 		$out	= '';
 		$temp	= array();
@@ -523,34 +509,33 @@ class CI_Trackback {
 		}
 
 		return $out;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set error message
-	 *
-	 * @param	string
-	 * @return	void
-	 */
-	public function set_error($msg)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set error message
+  //
+  //@param	string
+  //@return	void
+  
+  public function set_error($msg)
+  {
 		log_message('error', $msg);
 		$this->error_msg[] = $msg;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show error messages
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
-	 */
-	public function display_errors($open = '<p>', $close = '</p>')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show error messages
+  //
+  //@param	string
+  //@param	string
+  //@return	string
+  
+  public function display_errors($open = '<p>', $close = '</p>'): string
+  {
 		return (count($this->error_msg) > 0) ? $open.implode($close.$open, $this->error_msg).$close : '';
-	}
+  }
 
 }
+

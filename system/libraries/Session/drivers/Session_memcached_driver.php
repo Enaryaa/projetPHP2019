@@ -37,48 +37,46 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Session Memcached Driver
- *
- * @package	CodeIgniter
- * @subpackage	Libraries
- * @category	Sessions
- * @author	Andrey Andreev
- * @link	https://codeigniter.com/user_guide/libraries/sessions.html
- */
+//
+//CodeIgniter Session Memcached Driver
+//
+//@package	CodeIgniter
+//@subpackage	Libraries
+//@category	Sessions
+//@author	Andrey Andreev
+//@link	https://codeigniter.com/user_guide/libraries/sessions.html
+
 class CI_Session_memcached_driver extends CI_Session_driver implements SessionHandlerInterface {
+  //
+  //Memcached instance
+  //
+  //@var	Memcached
+  
+  protected $_memcached;
 
-	/**
-	 * Memcached instance
-	 *
-	 * @var	Memcached
-	 */
-	protected $_memcached;
+  //
+  //Key prefix
+  //
+  //@var	string
+  
+  protected $_key_prefix =  'ci_session:';
 
-	/**
-	 * Key prefix
-	 *
-	 * @var	string
-	 */
-	protected $_key_prefix = 'ci_session:';
+  //
+  //Lock key
+  //
+  //@var	string
+  
+  protected $_lock_key;
 
-	/**
-	 * Lock key
-	 *
-	 * @var	string
-	 */
-	protected $_lock_key;
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * @param	array	$params	Configuration parameters
-	 * @return	void
-	 */
-	public function __construct(&$params)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //@param	array	$params	Configuration parameters
+  //@return	void
+  
+  public function __construct(& $params)
+  {
 		parent::__construct($params);
 
 		if (empty($this->_config['save_path']))
@@ -90,21 +88,20 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		{
 			$this->_key_prefix .= $_SERVER['REMOTE_ADDR'].':';
 		}
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Open
-	 *
-	 * Sanitizes save_path and initializes connections.
-	 *
-	 * @param	string	$save_path	Server path(s)
-	 * @param	string	$name		Session cookie name, unused
-	 * @return	bool
-	 */
-	public function open($save_path, $name)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Open
+  //
+  //Sanitizes save_path and initializes connections.
+  //
+  //@param	string	$save_path	Server path(s)
+  //@param	string	$name		Session cookie name, unused
+  //@return	bool
+  
+  public function open($save_path, $name): bool
+  {
 		$this->_memcached = new Memcached();
 		$this->_memcached->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE); // required for touch() usage
 		$server_list = array();
@@ -148,20 +145,19 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		$this->php5_validate_id();
 
 		return $this->_success;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Read
-	 *
-	 * Reads session data and acquires a lock
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @return	string	Serialized session data
-	 */
-	public function read($session_id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Read
+  //
+  //Reads session data and acquires a lock
+  //
+  //@param	string	$session_id	Session ID
+  //@return	string	Serialized session data
+  
+  public function read($session_id): string
+  {
 		if (isset($this->_memcached) && $this->_get_lock($session_id))
 		{
 			// Needed by write() to detect session_regenerate_id() calls
@@ -173,21 +169,20 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		}
 
 		return $this->_fail();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Write
-	 *
-	 * Writes (create / update) session data
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @param	string	$session_data	Serialized session data
-	 * @return	bool
-	 */
-	public function write($session_id, $session_data)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Write
+  //
+  //Writes (create / update) session data
+  //
+  //@param	string	$session_id	Session ID
+  //@param	string	$session_data	Serialized session data
+  //@return	bool
+  
+  public function write($session_id, $session_data): bool
+  {
 		if ( ! isset($this->_memcached, $this->_lock_key))
 		{
 			return $this->_fail();
@@ -226,19 +221,18 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		}
 
 		return $this->_fail();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Close
-	 *
-	 * Releases locks and closes connection.
-	 *
-	 * @return	bool
-	 */
-	public function close()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Close
+  //
+  //Releases locks and closes connection.
+  //
+  //@return	bool
+  
+  public function close(): bool
+  {
 		if (isset($this->_memcached))
 		{
 			$this->_release_lock();
@@ -252,20 +246,19 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		}
 
 		return $this->_fail();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Destroy
-	 *
-	 * Destroys the current session.
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @return	bool
-	 */
-	public function destroy($session_id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Destroy
+  //
+  //Destroys the current session.
+  //
+  //@param	string	$session_id	Session ID
+  //@return	bool
+  
+  public function destroy($session_id): bool
+  {
 		if (isset($this->_memcached, $this->_lock_key))
 		{
 			$this->_memcached->delete($this->_key_prefix.$session_id);
@@ -274,53 +267,50 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		}
 
 		return $this->_fail();
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Garbage Collector
-	 *
-	 * Deletes expired sessions
-	 *
-	 * @param	int 	$maxlifetime	Maximum lifetime of sessions
-	 * @return	bool
-	 */
-	public function gc($maxlifetime)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Garbage Collector
+  //
+  //Deletes expired sessions
+  //
+  //@param	int 	$maxlifetime	Maximum lifetime of sessions
+  //@return	bool
+  
+  public function gc($maxlifetime): bool
+  {
 		// Not necessary, Memcached takes care of that.
 		return $this->_success;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Validate ID
-	 *
-	 * Checks whether a session ID record exists server-side,
-	 * to enforce session.use_strict_mode.
-	 *
-	 * @param	string	$id
-	 * @return	bool
-	 */
-	public function validateSessionId($id)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Validate ID
+  //
+  //Checks whether a session ID record exists server-side,
+  //to enforce session.use_strict_mode.
+  //
+  //@param	string	$id
+  //@return	bool
+  
+  public function validateSessionId($id): bool
+  {
 		$this->_memcached->get($this->_key_prefix.$id);
 		return ($this->_memcached->getResultCode() === Memcached::RES_SUCCESS);
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Get lock
-	 *
-	 * Acquires an (emulated) lock.
-	 *
-	 * @param	string	$session_id	Session ID
-	 * @return	bool
-	 */
-	protected function _get_lock($session_id)
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Get lock
+  //
+  //Acquires an (emulated) lock.
+  //
+  //@param	string	$session_id	Session ID
+  //@return	bool
+  
+  protected function _get_lock($session_id): bool
+  {
 		// PHP 7 reuses the SessionHandler object on regeneration,
 		// so we need to check here if the lock key is for the
 		// correct session ID.
@@ -367,19 +357,18 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 
 		$this->_lock = TRUE;
 		return TRUE;
-	}
+  }
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Release lock
-	 *
-	 * Releases a previously acquired lock
-	 *
-	 * @return	bool
-	 */
-	protected function _release_lock()
-	{
+  // ------------------------------------------------------------------------
+  //
+  //Release lock
+  //
+  //Releases a previously acquired lock
+  //
+  //@return	bool
+  
+  protected function _release_lock(): bool
+  {
 		if (isset($this->_memcached, $this->_lock_key) && $this->_lock)
 		{
 			if ( ! $this->_memcached->delete($this->_lock_key) && $this->_memcached->getResultCode() !== Memcached::RES_NOTFOUND)
@@ -393,5 +382,7 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		}
 
 		return TRUE;
-	}
+  }
+
 }
+

@@ -1,17 +1,17 @@
 <?php
-
 class Reponse extends CI_Controller {
-
-	public function __construct() {
+  public function __construct()
+  {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('formulaire_model');
 		$this->load->model('reponse_model');
 		$this->load->helper('url');
 		$this->load->helper('url_helper');
-	}
+  }
 
-	public function recherche(){
+  public function recherche()
+  {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
@@ -28,9 +28,10 @@ class Reponse extends CI_Controller {
 		$this->load->view('header', $data);
 		$this->load->view('formulaire/recherche', $data);
 		$this->load->view('footer', $data);
-	}
+  }
 
-	public function show() {
+  public function show()
+  {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
@@ -54,9 +55,10 @@ class Reponse extends CI_Controller {
 			$this->session->set_userdata('wrong_key', "Le champ ne doit pas être vide");
 			redirect('recherche');
 		}
-	}
+  }
 
-	public function send() {
+  public function send()
+  {
 		$data['title'] = 'Formulaire envoyé';
 
 		if ($this->session->has_userdata('user_session')) {
@@ -68,9 +70,10 @@ class Reponse extends CI_Controller {
 		$this->load->view('header', $data);
 		$this->load->view('formulaire/send', $data);
 		$this->load->view('footer', $data);
-	}
+  }
 
-	public function stats() {
+  public function stats()
+  {
 		if (!$this->session->has_userdata('user_session')) {
 			redirect('connexion');
 		}
@@ -82,5 +85,7 @@ class Reponse extends CI_Controller {
 		$this->load->view('header', $data);
 		$this->load->view('reponse/stats', $data);
 		$this->load->view('footer', $data);
-	}
+  }
+
 }
+

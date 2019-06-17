@@ -37,59 +37,58 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Driver Library Class
- *
- * This class enables you to create "Driver" libraries that add runtime ability
- * to extend the capabilities of a class via additional driver objects
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		EllisLab Dev Team
- * @link
- */
+//
+//CodeIgniter Driver Library Class
+//
+//This class enables you to create "Driver" libraries that add runtime ability
+//to extend the capabilities of a class via additional driver objects
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Libraries
+//@author		EllisLab Dev Team
+//@link
+
 class CI_Driver_Library {
+  //
+  //Array of drivers that are available to use with the driver class
+  //
+  //@var array
+  
+  protected $valid_drivers =  array();
 
-	/**
-	 * Array of drivers that are available to use with the driver class
-	 *
-	 * @var array
-	 */
-	protected $valid_drivers = array();
+  //
+  //Name of the current class - usually the driver class
+  //
+  //@var string
+  
+  protected $lib_name;
 
-	/**
-	 * Name of the current class - usually the driver class
-	 *
-	 * @var string
-	 */
-	protected $lib_name;
-
-	/**
-	 * Get magic method
-	 *
-	 * The first time a child is used it won't exist, so we instantiate it
-	 * subsequents calls will go straight to the proper child.
-	 *
-	 * @param	string	Child class name
-	 * @return	object	Child class
-	 */
-	public function __get($child)
-	{
+  //
+  //Get magic method
+  //
+  //The first time a child is used it won't exist, so we instantiate it
+  //subsequents calls will go straight to the proper child.
+  //
+  //@param	string	Child class name
+  //@return	object	Child class
+  
+  public function __get($child): object
+  {
 		// Try to load the driver
 		return $this->load_driver($child);
-	}
+  }
 
-	/**
-	 * Load driver
-	 *
-	 * Separate load_driver call to support explicit driver load by library or user
-	 *
-	 * @param	string	Driver name (w/o parent prefix)
-	 * @return	object	Child class
-	 */
-	public function load_driver($child)
-	{
+  //
+  //Load driver
+  //
+  //Separate load_driver call to support explicit driver load by library or user
+  //
+  //@param	string	Driver name (w/o parent prefix)
+  //@return	object	Child class
+  
+  public function load_driver($child): object
+  {
 		// Get CodeIgniter instance and subclass prefix
 		$prefix = config_item('subclass_prefix');
 
@@ -187,65 +186,62 @@ class CI_Driver_Library {
 		$obj->decorate($this);
 		$this->$child = $obj;
 		return $this->$child;
-	}
+  }
 
 }
-
 // --------------------------------------------------------------------------
+//
+//CodeIgniter Driver Class
+//
+//This class enables you to create drivers for a Library based on the Driver Library.
+//It handles the drivers' access to the parent library
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Libraries
+//@author		EllisLab Dev Team
+//@link
 
-/**
- * CodeIgniter Driver Class
- *
- * This class enables you to create drivers for a Library based on the Driver Library.
- * It handles the drivers' access to the parent library
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		EllisLab Dev Team
- * @link
- */
 class CI_Driver {
+  //
+  //Instance of the parent class
+  //
+  //@var object
+  
+  protected $_parent;
 
-	/**
-	 * Instance of the parent class
-	 *
-	 * @var object
-	 */
-	protected $_parent;
+  //
+  //List of methods in the parent class
+  //
+  //@var array
+  
+  protected $_methods =  array();
 
-	/**
-	 * List of methods in the parent class
-	 *
-	 * @var array
-	 */
-	protected $_methods = array();
+  //
+  //List of properties in the parent class
+  //
+  //@var array
+  
+  protected $_properties =  array();
 
-	/**
-	 * List of properties in the parent class
-	 *
-	 * @var array
-	 */
-	protected $_properties = array();
+  //
+  //Array of methods and properties for the parent class(es)
+  //
+  //@static
+  //@var	array
+  
+  protected static $_reflections =  array();
 
-	/**
-	 * Array of methods and properties for the parent class(es)
-	 *
-	 * @static
-	 * @var	array
-	 */
-	protected static $_reflections = array();
-
-	/**
-	 * Decorate
-	 *
-	 * Decorates the child with the parent driver lib's methods and properties
-	 *
-	 * @param	object
-	 * @return	void
-	 */
-	public function decorate($parent)
-	{
+  //
+  //Decorate
+  //
+  //Decorates the child with the parent driver lib's methods and properties
+  //
+  //@param	object
+  //@return	void
+  
+  public function decorate($parent)
+  {
 		$this->_parent = $parent;
 
 		// Lock down attributes to what is defined in the class
@@ -279,64 +275,62 @@ class CI_Driver {
 		{
 			list($this->_methods, $this->_properties) = self::$_reflections[$class_name];
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * __call magic method
-	 *
-	 * Handles access to the parent driver library's methods
-	 *
-	 * @param	string
-	 * @param	array
-	 * @return	mixed
-	 */
-	public function __call($method, $args = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //__call magic method
+  //
+  //Handles access to the parent driver library's methods
+  //
+  //@param	string
+  //@param	array
+  //@return	mixed
+  
+  public function __call($method, $args = array()): mixed
+  {
 		if (in_array($method, $this->_methods))
 		{
 			return call_user_func_array(array($this->_parent, $method), $args);
 		}
 
 		throw new BadMethodCallException('No such method: '.$method.'()');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * __get magic method
-	 *
-	 * Handles reading of the parent driver library's properties
-	 *
-	 * @param	string
-	 * @return	mixed
-	 */
-	public function __get($var)
-	{
+  // --------------------------------------------------------------------
+  //
+  //__get magic method
+  //
+  //Handles reading of the parent driver library's properties
+  //
+  //@param	string
+  //@return	mixed
+  
+  public function __get($var): mixed
+  {
 		if (in_array($var, $this->_properties))
 		{
 			return $this->_parent->$var;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * __set magic method
-	 *
-	 * Handles writing to the parent driver library's properties
-	 *
-	 * @param	string
-	 * @param	array
-	 * @return	mixed
-	 */
-	public function __set($var, $val)
-	{
+  // --------------------------------------------------------------------
+  //
+  //__set magic method
+  //
+  //Handles writing to the parent driver library's properties
+  //
+  //@param	string
+  //@param	array
+  //@return	mixed
+  
+  public function __set($var, $val): mixed
+  {
 		if (in_array($var, $this->_properties))
 		{
 			$this->_parent->$var = $val;
 		}
-	}
+  }
 
 }
+

@@ -37,158 +37,153 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Loader Class
- *
- * Loads framework components.
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Loader
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/loader.html
- */
+//
+//Loader Class
+//
+//Loads framework components.
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Loader
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/loader.html
+
 class CI_Loader {
+  // All these are set automatically. Don't mess with them.
+  //
+  //Nesting level of the output buffering mechanism
+  //
+  //@var	int
+  
+  protected $_ci_ob_level;
 
-	// All these are set automatically. Don't mess with them.
-	/**
-	 * Nesting level of the output buffering mechanism
-	 *
-	 * @var	int
-	 */
-	protected $_ci_ob_level;
+  //
+  //List of paths to load views from
+  //
+  //@var	array
+  
+  protected $_ci_view_paths = 	array(VIEWPATH	=> TRUE);
 
-	/**
-	 * List of paths to load views from
-	 *
-	 * @var	array
-	 */
-	protected $_ci_view_paths =	array(VIEWPATH	=> TRUE);
+  //
+  //List of paths to load libraries from
+  //
+  //@var	array
+  
+  protected $_ci_library_paths = 	array(APPPATH, BASEPATH);
 
-	/**
-	 * List of paths to load libraries from
-	 *
-	 * @var	array
-	 */
-	protected $_ci_library_paths =	array(APPPATH, BASEPATH);
+  //
+  //List of paths to load models from
+  //
+  //@var	array
+  
+  protected $_ci_model_paths = 	array(APPPATH);
 
-	/**
-	 * List of paths to load models from
-	 *
-	 * @var	array
-	 */
-	protected $_ci_model_paths =	array(APPPATH);
+  //
+  //List of paths to load helpers from
+  //
+  //@var	array
+  
+  protected $_ci_helper_paths = 	array(APPPATH, BASEPATH);
 
-	/**
-	 * List of paths to load helpers from
-	 *
-	 * @var	array
-	 */
-	protected $_ci_helper_paths =	array(APPPATH, BASEPATH);
+  //
+  //List of cached variables
+  //
+  //@var	array
+  
+  protected $_ci_cached_vars = 	array();
 
-	/**
-	 * List of cached variables
-	 *
-	 * @var	array
-	 */
-	protected $_ci_cached_vars =	array();
+  //
+  //List of loaded classes
+  //
+  //@var	array
+  
+  protected $_ci_classes = 	array();
 
-	/**
-	 * List of loaded classes
-	 *
-	 * @var	array
-	 */
-	protected $_ci_classes =	array();
+  //
+  //List of loaded models
+  //
+  //@var	array
+  
+  protected $_ci_models = 	array();
 
-	/**
-	 * List of loaded models
-	 *
-	 * @var	array
-	 */
-	protected $_ci_models =	array();
+  //
+  //List of loaded helpers
+  //
+  //@var	array
+  
+  protected $_ci_helpers = 	array();
 
-	/**
-	 * List of loaded helpers
-	 *
-	 * @var	array
-	 */
-	protected $_ci_helpers =	array();
-
-	/**
-	 * List of class name mappings
-	 *
-	 * @var	array
-	 */
-	protected $_ci_varmap =	array(
+  //
+  //List of class name mappings
+  //
+  //@var	array
+  
+  protected $_ci_varmap = 	array(
 		'unit_test' => 'unit',
 		'user_agent' => 'agent'
 	);
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Sets component load paths, gets the initial output buffering level.
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Sets component load paths, gets the initial output buffering level.
+  //
+  //@return	void
+  
+  public function __construct()
+  {
 		$this->_ci_ob_level = ob_get_level();
 		$this->_ci_classes =& is_loaded();
 
 		log_message('info', 'Loader Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initializer
-	 *
-	 * @todo	Figure out a way to move this to the constructor
-	 *		without breaking *package_path*() methods.
-	 * @uses	CI_Loader::_ci_autoloader()
-	 * @used-by	CI_Controller::__construct()
-	 * @return	void
-	 */
-	public function initialize()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initializer
+  //
+  //@todo	Figure out a way to move this to the constructor
+  //		without breaking *package_path*() methods.
+  //@uses	CI_Loader::_ci_autoloader()
+  //@used-by	CI_Controller::__construct()
+  //@return	void
+  
+  public function initialize()
+  {
 		$this->_ci_autoloader();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Is Loaded
-	 *
-	 * A utility method to test if a class is in the self::$_ci_classes array.
-	 *
-	 * @used-by	Mainly used by Form Helper function _get_validation_object().
-	 *
-	 * @param 	string		$class	Class name to check for
-	 * @return 	string|bool	Class object name if loaded or FALSE
-	 */
-	public function is_loaded($class)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Is Loaded
+  //
+  //A utility method to test if a class is in the self::$_ci_classes array.
+  //
+  //@used-by	Mainly used by Form Helper function _get_validation_object().
+  //
+  //@param 	string		$class	Class name to check for
+  //@return 	string|bool	Class object name if loaded or FALSE
+  
+  public function is_loaded($class): string|bool
+  {
 		return array_search(ucfirst($class), $this->_ci_classes, TRUE);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Library Loader
-	 *
-	 * Loads and instantiates libraries.
-	 * Designed to be called from application controllers.
-	 *
-	 * @param	mixed	$library	Library name
-	 * @param	array	$params		Optional parameters to pass to the library class constructor
-	 * @param	string	$object_name	An optional object name to assign to
-	 * @return	object
-	 */
-	public function library($library, $params = NULL, $object_name = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Library Loader
+  //
+  //Loads and instantiates libraries.
+  //Designed to be called from application controllers.
+  //
+  //@param	mixed	$library	Library name
+  //@param	array	$params		Optional parameters to pass to the library class constructor
+  //@param	string	$object_name	An optional object name to assign to
+  //@return	object
+  
+  public function library($library, $params = NULL, $object_name = NULL): object
+  {
 		if (empty($library))
 		{
 			return $this;
@@ -217,22 +212,21 @@ class CI_Loader {
 
 		$this->_ci_load_library($library, $params, $object_name);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Model Loader
-	 *
-	 * Loads and instantiates models.
-	 *
-	 * @param	mixed	$model		Model name
-	 * @param	string	$name		An optional object name to assign to
-	 * @param	bool	$db_conn	An optional database connection configuration to initialize
-	 * @return	object
-	 */
-	public function model($model, $name = '', $db_conn = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Model Loader
+  //
+  //Loads and instantiates models.
+  //
+  //@param	mixed	$model		Model name
+  //@param	string	$name		An optional object name to assign to
+  //@param	bool	$db_conn	An optional database connection configuration to initialize
+  //@return	object
+  
+  public function model($model, $name = '', $db_conn = FALSE): object
+  {
 		if (empty($model))
 		{
 			return $this;
@@ -358,23 +352,22 @@ class CI_Loader {
 		$CI->$name = $model;
 		log_message('info', 'Model "'.get_class($model).'" initialized');
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Database Loader
-	 *
-	 * @param	mixed	$params		Database configuration options
-	 * @param	bool	$return 	Whether to return the database object
-	 * @param	bool	$query_builder	Whether to enable Query Builder
-	 *					(overrides the configuration setting)
-	 *
-	 * @return	object|bool	Database object if $return is set to TRUE,
-	 *					FALSE on failure, CI_Loader instance in any other case
-	 */
-	public function database($params = '', $return = FALSE, $query_builder = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Database Loader
+  //
+  //@param	mixed	$params		Database configuration options
+  //@param	bool	$return 	Whether to return the database object
+  //@param	bool	$query_builder	Whether to enable Query Builder
+  //					(overrides the configuration setting)
+  //
+  //@return	object|bool	Database object if $return is set to TRUE,
+  //					FALSE on failure, CI_Loader instance in any other case
+  
+  public function database($params = '', $return = FALSE, $query_builder = NULL): object|bool
+  {
 		// Grab the super object
 		$CI =& get_instance();
 
@@ -398,19 +391,18 @@ class CI_Loader {
 		// Load the DB class
 		$CI->db =& DB($params, $query_builder);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Load the Database Utilities Class
-	 *
-	 * @param	object	$db	Database object
-	 * @param	bool	$return	Whether to return the DB Utilities class object or not
-	 * @return	object
-	 */
-	public function dbutil($db = NULL, $return = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Load the Database Utilities Class
+  //
+  //@param	object	$db	Database object
+  //@param	bool	$return	Whether to return the DB Utilities class object or not
+  //@return	object
+  
+  public function dbutil($db = NULL, $return = FALSE): object
+  {
 		$CI =& get_instance();
 
 		if ( ! is_object($db) OR ! ($db instanceof CI_DB))
@@ -430,19 +422,18 @@ class CI_Loader {
 
 		$CI->dbutil = new $class($db);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Load the Database Forge Class
-	 *
-	 * @param	object	$db	Database object
-	 * @param	bool	$return	Whether to return the DB Forge class object or not
-	 * @return	object
-	 */
-	public function dbforge($db = NULL, $return = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Load the Database Forge Class
+  //
+  //@param	object	$db	Database object
+  //@param	bool	$return	Whether to return the DB Forge class object or not
+  //@return	object
+  
+  public function dbforge($db = NULL, $return = FALSE): object
+  {
 		$CI =& get_instance();
 		if ( ! is_object($db) OR ! ($db instanceof CI_DB))
 		{
@@ -474,57 +465,54 @@ class CI_Loader {
 
 		$CI->dbforge = new $class($db);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * View Loader
-	 *
-	 * Loads "view" files.
-	 *
-	 * @param	string	$view	View name
-	 * @param	array	$vars	An associative array of data
-	 *				to be extracted for use in the view
-	 * @param	bool	$return	Whether to return the view output
-	 *				or leave it to the Output class
-	 * @return	object|string
-	 */
-	public function view($view, $vars = array(), $return = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //View Loader
+  //
+  //Loads "view" files.
+  //
+  //@param	string	$view	View name
+  //@param	array	$vars	An associative array of data
+  //				to be extracted for use in the view
+  //@param	bool	$return	Whether to return the view output
+  //				or leave it to the Output class
+  //@return	object|string
+  
+  public function view($view, $vars = array(), $return = FALSE): object|string
+  {
 		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generic File Loader
-	 *
-	 * @param	string	$path	File path
-	 * @param	bool	$return	Whether to return the file output
-	 * @return	object|string
-	 */
-	public function file($path, $return = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generic File Loader
+  //
+  //@param	string	$path	File path
+  //@param	bool	$return	Whether to return the file output
+  //@return	object|string
+  
+  public function file($path, $return = FALSE): object|string
+  {
 		return $this->_ci_load(array('_ci_path' => $path, '_ci_return' => $return));
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Variables
-	 *
-	 * Once variables are set they become available within
-	 * the controller class and its "view" files.
-	 *
-	 * @param	array|object|string	$vars
-	 *					An associative array or object containing values
-	 *					to be set, or a value's name if string
-	 * @param 	string	$val	Value to set, only used if $vars is a string
-	 * @return	object
-	 */
-	public function vars($vars, $val = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Variables
+  //
+  //Once variables are set they become available within
+  //the controller class and its "view" files.
+  //
+  //@param	array|object|string	$vars
+  //					An associative array or object containing values
+  //					to be set, or a value's name if string
+  //@param 	string	$val	Value to set, only used if $vars is a string
+  //@return	object
+  
+  public function vars($vars, $val = ''): object
+  {
 		$vars = is_string($vars)
 			? array($vars => $val)
 			: $this->_ci_prepare_view_vars($vars);
@@ -535,62 +523,58 @@ class CI_Loader {
 		}
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Clear Cached Variables
-	 *
-	 * Clears the cached variables.
-	 *
-	 * @return	CI_Loader
-	 */
-	public function clear_vars()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Clear Cached Variables
+  //
+  //Clears the cached variables.
+  //
+  //@return	CI_Loader
+  
+  public function clear_vars(): CI_Loader
+  {
 		$this->_ci_cached_vars = array();
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Variable
-	 *
-	 * Check if a variable is set and retrieve it.
-	 *
-	 * @param	string	$key	Variable name
-	 * @return	mixed	The variable or NULL if not found
-	 */
-	public function get_var($key)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Variable
+  //
+  //Check if a variable is set and retrieve it.
+  //
+  //@param	string	$key	Variable name
+  //@return	mixed	The variable or NULL if not found
+  
+  public function get_var($key): mixed
+  {
 		return isset($this->_ci_cached_vars[$key]) ? $this->_ci_cached_vars[$key] : NULL;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Variables
-	 *
-	 * Retrieves all loaded variables.
-	 *
-	 * @return	array
-	 */
-	public function get_vars()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Variables
+  //
+  //Retrieves all loaded variables.
+  //
+  //@return	array
+  
+  public function get_vars(): array
+  {
 		return $this->_ci_cached_vars;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Helper Loader
-	 *
-	 * @param	string|string[]	$helpers	Helper name(s)
-	 * @return	object
-	 */
-	public function helper($helpers = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Helper Loader
+  //
+  //@param	string|string[]	$helpers	Helper name(s)
+  //@return	object
+  
+  public function helper($helpers = array()): object
+  {
 		is_array($helpers) OR $helpers = array($helpers);
 		foreach ($helpers as &$helper)
 		{
@@ -652,76 +636,72 @@ class CI_Loader {
 		}
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Load Helpers
-	 *
-	 * An alias for the helper() method in case the developer has
-	 * written the plural form of it.
-	 *
-	 * @uses	CI_Loader::helper()
-	 * @param	string|string[]	$helpers	Helper name(s)
-	 * @return	object
-	 */
-	public function helpers($helpers = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Load Helpers
+  //
+  //An alias for the helper() method in case the developer has
+  //written the plural form of it.
+  //
+  //@uses	CI_Loader::helper()
+  //@param	string|string[]	$helpers	Helper name(s)
+  //@return	object
+  
+  public function helpers($helpers = array()): object
+  {
 		return $this->helper($helpers);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Language Loader
-	 *
-	 * Loads language files.
-	 *
-	 * @param	string|string[]	$files	List of language file names to load
-	 * @param	string		Language name
-	 * @return	object
-	 */
-	public function language($files, $lang = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Language Loader
+  //
+  //Loads language files.
+  //
+  //@param	string|string[]	$files	List of language file names to load
+  //@param	string		Language name
+  //@return	object
+  
+  public function language($files, $lang = ''): object
+  {
 		get_instance()->lang->load($files, $lang);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Config Loader
-	 *
-	 * Loads a config file (an alias for CI_Config::load()).
-	 *
-	 * @uses	CI_Config::load()
-	 * @param	string	$file			Configuration file name
-	 * @param	bool	$use_sections		Whether configuration values should be loaded into their own section
-	 * @param	bool	$fail_gracefully	Whether to just return FALSE or display an error message
-	 * @return	bool	TRUE if the file was loaded correctly or FALSE on failure
-	 */
-	public function config($file, $use_sections = FALSE, $fail_gracefully = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Config Loader
+  //
+  //Loads a config file (an alias for CI_Config::load()).
+  //
+  //@uses	CI_Config::load()
+  //@param	string	$file			Configuration file name
+  //@param	bool	$use_sections		Whether configuration values should be loaded into their own section
+  //@param	bool	$fail_gracefully	Whether to just return FALSE or display an error message
+  //@return	bool	TRUE if the file was loaded correctly or FALSE on failure
+  
+  public function config($file, $use_sections = FALSE, $fail_gracefully = FALSE): bool
+  {
 		return get_instance()->config->load($file, $use_sections, $fail_gracefully);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Driver Loader
-	 *
-	 * Loads a driver library.
-	 *
-	 * @param	string|string[]	$library	Driver name(s)
-	 * @param	array		$params		Optional parameters to pass to the driver
-	 * @param	string		$object_name	An optional object name to assign to
-	 *
-	 * @return	object|bool	Object or FALSE on failure if $library is a string
-	 *				and $object_name is set. CI_Loader instance otherwise.
-	 */
-	public function driver($library, $params = NULL, $object_name = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Driver Loader
+  //
+  //Loads a driver library.
+  //
+  //@param	string|string[]	$library	Driver name(s)
+  //@param	array		$params		Optional parameters to pass to the driver
+  //@param	string		$object_name	An optional object name to assign to
+  //
+  //@return	object|bool	Object or FALSE on failure if $library is a string
+  //				and $object_name is set. CI_Loader instance otherwise.
+  
+  public function driver($library, $params = NULL, $object_name = NULL): object|bool
+  {
 		if (is_array($library))
 		{
 			foreach ($library as $key => $value)
@@ -757,27 +737,26 @@ class CI_Loader {
 		}
 
 		return $this->library($library, $params, $object_name);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Add Package Path
-	 *
-	 * Prepends a parent path to the library, model, helper and config
-	 * path arrays.
-	 *
-	 * @see	CI_Loader::$_ci_library_paths
-	 * @see	CI_Loader::$_ci_model_paths
-	 * @see CI_Loader::$_ci_helper_paths
-	 * @see CI_Config::$_config_paths
-	 *
-	 * @param	string	$path		Path to add
-	 * @param 	bool	$view_cascade	(default: TRUE)
-	 * @return	object
-	 */
-	public function add_package_path($path, $view_cascade = TRUE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Add Package Path
+  //
+  //Prepends a parent path to the library, model, helper and config
+  //path arrays.
+  //
+  //@see	CI_Loader::$_ci_library_paths
+  //@see	CI_Loader::$_ci_model_paths
+  //@see CI_Loader::$_ci_helper_paths
+  //@see CI_Config::$_config_paths
+  //
+  //@param	string	$path		Path to add
+  //@param 	bool	$view_cascade	(default: TRUE)
+  //@return	object
+  
+  public function add_package_path($path, $view_cascade = TRUE): object
+  {
 		$path = rtrim($path, '/').'/';
 
 		array_unshift($this->_ci_library_paths, $path);
@@ -791,37 +770,35 @@ class CI_Loader {
 		$config->_config_paths[] = $path;
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Package Paths
-	 *
-	 * Return a list of all package paths.
-	 *
-	 * @param	bool	$include_base	Whether to include BASEPATH (default: FALSE)
-	 * @return	array
-	 */
-	public function get_package_paths($include_base = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Package Paths
+  //
+  //Return a list of all package paths.
+  //
+  //@param	bool	$include_base	Whether to include BASEPATH (default: FALSE)
+  //@return	array
+  
+  public function get_package_paths($include_base = FALSE): array
+  {
 		return ($include_base === TRUE) ? $this->_ci_library_paths : $this->_ci_model_paths;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Remove Package Path
-	 *
-	 * Remove a path from the library, model, helper and/or config
-	 * path arrays if it exists. If no path is provided, the most recently
-	 * added path will be removed removed.
-	 *
-	 * @param	string	$path	Path to remove
-	 * @return	object
-	 */
-	public function remove_package_path($path = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Remove Package Path
+  //
+  //Remove a path from the library, model, helper and/or config
+  //path arrays if it exists. If no path is provided, the most recently
+  //added path will be removed removed.
+  //
+  //@param	string	$path	Path to remove
+  //@return	object
+  
+  public function remove_package_path($path = ''): object
+  {
 		$config =& $this->_ci_get_component('config');
 
 		if ($path === '')
@@ -862,25 +839,24 @@ class CI_Loader {
 		$config->_config_paths = array_unique(array_merge($config->_config_paths, array(APPPATH)));
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Internal CI Data Loader
-	 *
-	 * Used to load views and files.
-	 *
-	 * Variables are prefixed with _ci_ to avoid symbol collision with
-	 * variables made available to view files.
-	 *
-	 * @used-by	CI_Loader::view()
-	 * @used-by	CI_Loader::file()
-	 * @param	array	$_ci_data	Data to load
-	 * @return	object
-	 */
-	protected function _ci_load($_ci_data)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Internal CI Data Loader
+  //
+  //Used to load views and files.
+  //
+  //Variables are prefixed with _ci_ to avoid symbol collision with
+  //variables made available to view files.
+  //
+  //@used-by	CI_Loader::view()
+  //@used-by	CI_Loader::file()
+  //@param	array	$_ci_data	Data to load
+  //@return	object
+  
+  protected function _ci_load($_ci_data): object
+  {
 		// Set the default data variables
 		foreach (array('_ci_view', '_ci_vars', '_ci_path', '_ci_return') as $_ci_val)
 		{
@@ -998,23 +974,22 @@ class CI_Loader {
 		}
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Internal CI Library Loader
-	 *
-	 * @used-by	CI_Loader::library()
-	 * @uses	CI_Loader::_ci_init_library()
-	 *
-	 * @param	string	$class		Class name to load
-	 * @param	mixed	$params		Optional parameters to pass to the class constructor
-	 * @param	string	$object_name	Optional object name to assign to
-	 * @return	void
-	 */
-	protected function _ci_load_library($class, $params = NULL, $object_name = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Internal CI Library Loader
+  //
+  //@used-by	CI_Loader::library()
+  //@uses	CI_Loader::_ci_init_library()
+  //
+  //@param	string	$class		Class name to load
+  //@param	mixed	$params		Optional parameters to pass to the class constructor
+  //@param	string	$object_name	Optional object name to assign to
+  //@return	void
+  
+  protected function _ci_load_library($class, $params = NULL, $object_name = NULL)
+  {
 		// Get the class name, and while we're at it trim any slashes.
 		// The directory path can be included as part of the class name,
 		// but we don't want a leading slash
@@ -1092,24 +1067,23 @@ class CI_Loader {
 		// If we got this far we were unable to find the requested class.
 		log_message('error', 'Unable to load the requested class: '.$class);
 		show_error('Unable to load the requested class: '.$class);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Internal CI Stock Library Loader
-	 *
-	 * @used-by	CI_Loader::_ci_load_library()
-	 * @uses	CI_Loader::_ci_init_library()
-	 *
-	 * @param	string	$library_name	Library name to load
-	 * @param	string	$file_path	Path to the library filename, relative to libraries/
-	 * @param	mixed	$params		Optional parameters to pass to the class constructor
-	 * @param	string	$object_name	Optional object name to assign to
-	 * @return	void
-	 */
-	protected function _ci_load_stock_library($library_name, $file_path, $params, $object_name)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Internal CI Stock Library Loader
+  //
+  //@used-by	CI_Loader::_ci_load_library()
+  //@uses	CI_Loader::_ci_init_library()
+  //
+  //@param	string	$library_name	Library name to load
+  //@param	string	$file_path	Path to the library filename, relative to libraries/
+  //@param	mixed	$params		Optional parameters to pass to the class constructor
+  //@param	string	$object_name	Optional object name to assign to
+  //@return	void
+  
+  protected function _ci_load_stock_library($library_name, $file_path, $params, $object_name)
+  {
 		$prefix = 'CI_';
 
 		if (class_exists($prefix.$library_name, FALSE))
@@ -1176,27 +1150,26 @@ class CI_Loader {
 		}
 
 		return $this->_ci_init_library($library_name, $prefix, $params, $object_name);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Internal CI Library Instantiator
-	 *
-	 * @used-by	CI_Loader::_ci_load_stock_library()
-	 * @used-by	CI_Loader::_ci_load_library()
-	 *
-	 * @param	string		$class		Class name
-	 * @param	string		$prefix		Class name prefix
-	 * @param	array|null|bool	$config		Optional configuration to pass to the class constructor:
-	 *						FALSE to skip;
-	 *						NULL to search in config paths;
-	 *						array containing configuration data
-	 * @param	string		$object_name	Optional object name to assign to
-	 * @return	void
-	 */
-	protected function _ci_init_library($class, $prefix, $config = FALSE, $object_name = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Internal CI Library Instantiator
+  //
+  //@used-by	CI_Loader::_ci_load_stock_library()
+  //@used-by	CI_Loader::_ci_load_library()
+  //
+  //@param	string		$class		Class name
+  //@param	string		$prefix		Class name prefix
+  //@param	array|null|bool	$config		Optional configuration to pass to the class constructor:
+  //						FALSE to skip;
+  //						NULL to search in config paths;
+  //						array containing configuration data
+  //@param	string		$object_name	Optional object name to assign to
+  //@return	void
+  
+  protected function _ci_init_library($class, $prefix, $config = FALSE, $object_name = NULL)
+  {
 		// Is there an associated config file for this class? Note: these should always be lowercase
 		if ($config === NULL)
 		{
@@ -1283,20 +1256,19 @@ class CI_Loader {
 		$CI->$object_name = isset($config)
 			? new $class_name($config)
 			: new $class_name();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * CI Autoloader
-	 *
-	 * Loads component listed in the config/autoload.php file.
-	 *
-	 * @used-by	CI_Loader::initialize()
-	 * @return	void
-	 */
-	protected function _ci_autoloader()
-	{
+  // --------------------------------------------------------------------
+  //
+  //CI Autoloader
+  //
+  //Loads component listed in the config/autoload.php file.
+  //
+  //@used-by	CI_Loader::initialize()
+  //@return	void
+  
+  protected function _ci_autoloader()
+  {
 		if (file_exists(APPPATH.'config/autoload.php'))
 		{
 			include(APPPATH.'config/autoload.php');
@@ -1364,21 +1336,20 @@ class CI_Loader {
 		{
 			$this->model($autoload['model']);
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Prepare variables for _ci_vars, to be later extract()-ed inside views
-	 *
-	 * Converts objects to associative arrays and filters-out internal
-	 * variable names (i.e. keys prefixed with '_ci_').
-	 *
-	 * @param	mixed	$vars
-	 * @return	array
-	 */
-	protected function _ci_prepare_view_vars($vars)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Prepare variables for _ci_vars, to be later extract()-ed inside views
+  //
+  //Converts objects to associative arrays and filters-out internal
+  //variable names (i.e. keys prefixed with '_ci_').
+  //
+  //@param	mixed	$vars
+  //@return	array
+  
+  protected function _ci_prepare_view_vars($vars): array
+  {
 		if ( ! is_array($vars))
 		{
 			$vars = is_object($vars)
@@ -1395,21 +1366,22 @@ class CI_Loader {
 		}
 
 		return $vars;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * CI Component getter
-	 *
-	 * Get a reference to a specific library or model.
-	 *
-	 * @param 	string	$component	Component name
-	 * @return	bool
-	 */
-	protected function &_ci_get_component($component)
-	{
+  // --------------------------------------------------------------------
+  //
+  //CI Component getter
+  //
+  //Get a reference to a specific library or model.
+  //
+  //@param 	string	$component	Component name
+  //@return	bool
+  
+  protected function &_ci_get_component($component): bool
+  {
 		$CI =& get_instance();
 		return $CI->$component;
-	}
+  }
+
 }
+

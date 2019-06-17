@@ -1,17 +1,22 @@
 <?php
 
-class Formulaire extends CI_Controller {
 
-	public function __construct(){
+require_once 'Controller.php';
+
+
+class Formulaire extends CI_Controller {
+  public function __construct()
+  {
 		parent::__construct();
        	$this->load->library('session');
 		$this->load->model('formulaire_model');
 		$this->load->helper('url');
 		$this->load->helper('url_helper');
 		
-	}
+  }
 
-	public function index (){
+  public function index()
+  {
 		if (!$this->session->has_userdata('user_session')) {
 			redirect('connexion');
 		}
@@ -40,14 +45,16 @@ class Formulaire extends CI_Controller {
 				$this->load->view('footer', $data);
 			}
 		}
-	}
+  }
 
-	public function modifier_active(){
+  public function modifier_active()
+  {
 		$this->formulaire_model->modifier_active();
 		redirect('formulaire/gerer');
-	}
+  }
 
-	public function gerer(){
+  public function gerer()
+  {
 		if (!$this->session->has_userdata('user_session')) {
 			redirect('connexion');
 		}
@@ -57,50 +64,57 @@ class Formulaire extends CI_Controller {
 		$this->load->view('header', $data);
 		$this->load->view('formulaire/gerer', $data);
 		$this->load->view('footer', $data);
-	}
+  }
 
-	public function questionRep(){
+  public function questionRep()
+  {
 		$data['cpt'] = $this->getCptQuestion();
 		$this->incrementeCptQuestion($data['cpt']);
 		$this->load->view('formulaire/template/questionRep', $data);
-	}
+  }
 
-	public function questionMulti(){
+  public function questionMulti()
+  {
 		$data['cpt'] = $this->getCptQuestion();
 		$this->incrementeCptQuestion($data['cpt']);
 
 		$this->load->view('formulaire/template/questionMulti', $data);
-	}
+  }
 
-	public function questionDate() {
+  public function questionDate()
+  {
 		$data['cpt'] = $this->getCptQuestion();
 		$this->incrementeCptQuestion($data['cpt']);
 
 		$this->load->view('formulaire/template/questionDate', $data);
-	}
+  }
 
-	public function getCptQuestion() {
+  public function getCptQuestion()
+  {
 		if (!$this->session->has_userdata('cpt_question')) {
 			$this->session->set_userdata('cpt_question', 0);
 		}
 		return $this->session->userdata('cpt_question');
-	}
+  }
 
-	public function removeCptQuestion(){
+  public function removeCptQuestion()
+  {
 		if ($this->session->has_userdata('cpt_question')) {
 			$current = $this->session->userdata('cpt_question');
 			$this->decrementCptQuestion($current);
 		}
 		return $this->session->userdata('cpt_question');
-	}
+  }
 
-	private function incrementeCptQuestion($current) {
+  private function incrementeCptQuestion($current)
+  {
 		$this->session->set_userdata('cpt_question', $current + 1);
-	}
+  }
 
-	private function decrementCptQuestion($current){
+  private function decrementCptQuestion($current)
+  {
 		$this->session->set_userdata('cpt_question', $current - 1);
-	}
+  }
 
-	
 }
+?>

@@ -119,7 +119,3 @@ function getReponsesByQuestionId($reponses, $question_id) {
 					break;
 			}
 		} ?>
-		<hr>
-		<button type="submit" class="btn btn-warning">Envoyer</button>
-	</form>
-</div>

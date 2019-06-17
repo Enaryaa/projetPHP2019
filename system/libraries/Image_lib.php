@@ -37,356 +37,353 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Image Manipulation class
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Image_lib
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/image_lib.html
- */
+//
+//Image Manipulation class
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Image_lib
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/image_lib.html
+
 class CI_Image_lib {
+  //
+  //PHP extension/library to use for image manipulation
+  //Can be: imagemagick, netpbm, gd, gd2
+  //
+  //@var string
+  
+  public $image_library =  'gd2';
 
-	/**
-	 * PHP extension/library to use for image manipulation
-	 * Can be: imagemagick, netpbm, gd, gd2
-	 *
-	 * @var string
-	 */
-	public $image_library		= 'gd2';
+  //
+  //Path to the graphic library (if applicable)
+  //
+  //@var string
+  
+  public $library_path =  '';
 
-	/**
-	 * Path to the graphic library (if applicable)
-	 *
-	 * @var string
-	 */
-	public $library_path		= '';
+  //
+  //Whether to send to browser or write to disk
+  //
+  //@var bool
+  
+  public $dynamic_output =  FALSE;
 
-	/**
-	 * Whether to send to browser or write to disk
-	 *
-	 * @var bool
-	 */
-	public $dynamic_output		= FALSE;
+  //
+  //Path to original image
+  //
+  //@var string
+  
+  public $source_image =  '';
 
-	/**
-	 * Path to original image
-	 *
-	 * @var string
-	 */
-	public $source_image		= '';
+  //
+  //Path to the modified image
+  //
+  //@var string
+  
+  public $new_image =  '';
 
-	/**
-	 * Path to the modified image
-	 *
-	 * @var string
-	 */
-	public $new_image		= '';
+  //
+  //Image width
+  //
+  //@var int
+  
+  public $width =  '';
 
-	/**
-	 * Image width
-	 *
-	 * @var int
-	 */
-	public $width			= '';
+  //
+  //Image height
+  //
+  //@var int
+  
+  public $height =  '';
 
-	/**
-	 * Image height
-	 *
-	 * @var int
-	 */
-	public $height			= '';
+  //
+  //Quality percentage of new image
+  //
+  //@var int
+  
+  public $quality =  90;
 
-	/**
-	 * Quality percentage of new image
-	 *
-	 * @var int
-	 */
-	public $quality			= 90;
+  //
+  //Whether to create a thumbnail
+  //
+  //@var bool
+  
+  public $create_thumb =  FALSE;
 
-	/**
-	 * Whether to create a thumbnail
-	 *
-	 * @var bool
-	 */
-	public $create_thumb		= FALSE;
+  //
+  //String to add to thumbnail version of image
+  //
+  //@var string
+  
+  public $thumb_marker =  '_thumb';
 
-	/**
-	 * String to add to thumbnail version of image
-	 *
-	 * @var string
-	 */
-	public $thumb_marker		= '_thumb';
+  //
+  //Whether to maintain aspect ratio when resizing or use hard values
+  //
+  //@var bool
+  
+  public $maintain_ratio =  TRUE;
 
-	/**
-	 * Whether to maintain aspect ratio when resizing or use hard values
-	 *
-	 * @var bool
-	 */
-	public $maintain_ratio		= TRUE;
+  //
+  //auto, height, or width.  Determines what to use as the master dimension
+  //
+  //@var string
+  
+  public $master_dim =  'auto';
 
-	/**
-	 * auto, height, or width.  Determines what to use as the master dimension
-	 *
-	 * @var string
-	 */
-	public $master_dim		= 'auto';
+  //
+  //Angle at to rotate image
+  //
+  //@var string
+  
+  public $rotation_angle =  '';
 
-	/**
-	 * Angle at to rotate image
-	 *
-	 * @var string
-	 */
-	public $rotation_angle		= '';
+  //
+  //X Coordinate for manipulation of the current image
+  //
+  //@var int
+  
+  public $x_axis =  '';
 
-	/**
-	 * X Coordinate for manipulation of the current image
-	 *
-	 * @var int
-	 */
-	public $x_axis			= '';
+  //
+  //Y Coordinate for manipulation of the current image
+  //
+  //@var int
+  
+  public $y_axis =  '';
 
-	/**
-	 * Y Coordinate for manipulation of the current image
-	 *
-	 * @var int
-	 */
-	public $y_axis			= '';
+  // --------------------------------------------------------------------------
+  // Watermark Vars
+  // --------------------------------------------------------------------------
+  //
+  //Watermark text if graphic is not used
+  //
+  //@var string
+  
+  public $wm_text =  '';
 
-	// --------------------------------------------------------------------------
-	// Watermark Vars
-	// --------------------------------------------------------------------------
+  //
+  //Type of watermarking.  Options:  text/overlay
+  //
+  //@var string
+  
+  public $wm_type =  'text';
 
-	/**
-	 * Watermark text if graphic is not used
-	 *
-	 * @var string
-	 */
-	public $wm_text			= '';
+  //
+  //Default transparency for watermark
+  //
+  //@var int
+  
+  public $wm_x_transp =  4;
 
-	/**
-	 * Type of watermarking.  Options:  text/overlay
-	 *
-	 * @var string
-	 */
-	public $wm_type			= 'text';
+  //
+  //Default transparency for watermark
+  //
+  //@var int
+  
+  public $wm_y_transp =  4;
 
-	/**
-	 * Default transparency for watermark
-	 *
-	 * @var int
-	 */
-	public $wm_x_transp		= 4;
+  //
+  //Watermark image path
+  //
+  //@var string
+  
+  public $wm_overlay_path =  '';
 
-	/**
-	 * Default transparency for watermark
-	 *
-	 * @var int
-	 */
-	public $wm_y_transp		= 4;
+  //
+  //TT font
+  //
+  //@var string
+  
+  public $wm_font_path =  '';
 
-	/**
-	 * Watermark image path
-	 *
-	 * @var string
-	 */
-	public $wm_overlay_path		= '';
+  //
+  //Font size (different versions of GD will either use points or pixels)
+  //
+  //@var int
+  
+  public $wm_font_size =  17;
 
-	/**
-	 * TT font
-	 *
-	 * @var string
-	 */
-	public $wm_font_path		= '';
+  //
+  //Vertical alignment:   T M B
+  //
+  //@var string
+  
+  public $wm_vrt_alignment =  'B';
 
-	/**
-	 * Font size (different versions of GD will either use points or pixels)
-	 *
-	 * @var int
-	 */
-	public $wm_font_size		= 17;
+  //
+  //Horizontal alignment: L R C
+  //
+  //@var string
+  
+  public $wm_hor_alignment =  'C';
 
-	/**
-	 * Vertical alignment:   T M B
-	 *
-	 * @var string
-	 */
-	public $wm_vrt_alignment	= 'B';
+  //
+  //Padding around text
+  //
+  //@var int
+  
+  public $wm_padding =  0;
 
-	/**
-	 * Horizontal alignment: L R C
-	 *
-	 * @var string
-	 */
-	public $wm_hor_alignment	= 'C';
+  //
+  //Lets you push text to the right
+  //
+  //@var int
+  
+  public $wm_hor_offset =  0;
 
-	/**
-	 * Padding around text
-	 *
-	 * @var int
-	 */
-	public $wm_padding			= 0;
+  //
+  //Lets you push text down
+  //
+  //@var int
+  
+  public $wm_vrt_offset =  0;
 
-	/**
-	 * Lets you push text to the right
-	 *
-	 * @var int
-	 */
-	public $wm_hor_offset		= 0;
+  //
+  //Text color
+  //
+  //@var string
+  
+  protected $wm_font_color =  '#ffffff';
 
-	/**
-	 * Lets you push text down
-	 *
-	 * @var int
-	 */
-	public $wm_vrt_offset		= 0;
+  //
+  //Dropshadow color
+  //
+  //@var string
+  
+  protected $wm_shadow_color =  '';
 
-	/**
-	 * Text color
-	 *
-	 * @var string
-	 */
-	protected $wm_font_color	= '#ffffff';
+  //
+  //Dropshadow distance
+  //
+  //@var int
+  
+  public $wm_shadow_distance =  2;
 
-	/**
-	 * Dropshadow color
-	 *
-	 * @var string
-	 */
-	protected $wm_shadow_color	= '';
+  //
+  //Image opacity: 1 - 100  Only works with image
+  //
+  //@var int
+  
+  public $wm_opacity =  50;
 
-	/**
-	 * Dropshadow distance
-	 *
-	 * @var int
-	 */
-	public $wm_shadow_distance	= 2;
+  // --------------------------------------------------------------------------
+  // Private Vars
+  // --------------------------------------------------------------------------
+  //
+  //Source image folder
+  //
+  //@var string
+  
+  public $source_folder =  '';
 
-	/**
-	 * Image opacity: 1 - 100  Only works with image
-	 *
-	 * @var int
-	 */
-	public $wm_opacity		= 50;
+  //
+  //Destination image folder
+  //
+  //@var string
+  
+  public $dest_folder =  '';
 
-	// --------------------------------------------------------------------------
-	// Private Vars
-	// --------------------------------------------------------------------------
+  //
+  //Image mime-type
+  //
+  //@var string
+  
+  public $mime_type =  '';
 
-	/**
-	 * Source image folder
-	 *
-	 * @var string
-	 */
-	public $source_folder		= '';
+  //
+  //Original image width
+  //
+  //@var int
+  
+  public $orig_width =  '';
 
-	/**
-	 * Destination image folder
-	 *
-	 * @var string
-	 */
-	public $dest_folder		= '';
+  //
+  //Original image height
+  //
+  //@var int
+  
+  public $orig_height =  '';
 
-	/**
-	 * Image mime-type
-	 *
-	 * @var string
-	 */
-	public $mime_type		= '';
+  //
+  //Image format
+  //
+  //@var string
+  
+  public $image_type =  '';
 
-	/**
-	 * Original image width
-	 *
-	 * @var int
-	 */
-	public $orig_width		= '';
+  //
+  //Size of current image
+  //
+  //@var string
+  
+  public $size_str =  '';
 
-	/**
-	 * Original image height
-	 *
-	 * @var int
-	 */
-	public $orig_height		= '';
+  //
+  //Full path to source image
+  //
+  //@var string
+  
+  public $full_src_path =  '';
 
-	/**
-	 * Image format
-	 *
-	 * @var string
-	 */
-	public $image_type		= '';
+  //
+  //Full path to destination image
+  //
+  //@var string
+  
+  public $full_dst_path =  '';
 
-	/**
-	 * Size of current image
-	 *
-	 * @var string
-	 */
-	public $size_str		= '';
+  //
+  //File permissions
+  //
+  //@var	int
+  
+  public $file_permissions =  0644;
 
-	/**
-	 * Full path to source image
-	 *
-	 * @var string
-	 */
-	public $full_src_path		= '';
+  //
+  //Name of function to create image
+  //
+  //@var string
+  
+  public $create_fnc =  'imagecreatetruecolor';
 
-	/**
-	 * Full path to destination image
-	 *
-	 * @var string
-	 */
-	public $full_dst_path		= '';
+  //
+  //Name of function to copy image
+  //
+  //@var string
+  
+  public $copy_fnc =  'imagecopyresampled';
 
-	/**
-	 * File permissions
-	 *
-	 * @var	int
-	 */
-	public $file_permissions = 0644;
+  //
+  //Error messages
+  //
+  //@var array
+  
+  public $error_msg =  array();
 
-	/**
-	 * Name of function to create image
-	 *
-	 * @var string
-	 */
-	public $create_fnc		= 'imagecreatetruecolor';
+  //
+  //Whether to have a drop shadow on watermark
+  //
+  //@var bool
+  
+  protected $wm_use_drop_shadow =  FALSE;
 
-	/**
-	 * Name of function to copy image
-	 *
-	 * @var string
-	 */
-	public $copy_fnc		= 'imagecopyresampled';
+  //
+  //Whether to use truetype fonts
+  //
+  //@var bool
+  
+  public $wm_use_truetype =  FALSE;
 
-	/**
-	 * Error messages
-	 *
-	 * @var array
-	 */
-	public $error_msg		= array();
-
-	/**
-	 * Whether to have a drop shadow on watermark
-	 *
-	 * @var bool
-	 */
-	protected $wm_use_drop_shadow	= FALSE;
-
-	/**
-	 * Whether to use truetype fonts
-	 *
-	 * @var bool
-	 */
-	public $wm_use_truetype	= FALSE;
-
-	/**
-	 * Initialize Image Library
-	 *
-	 * @param	array	$props
-	 * @return	void
-	 */
-	public function __construct($props = array())
-	{
+  //
+  //Initialize Image Library
+  //
+  //@param	array	$props
+  //@return	void
+  
+  public function __construct($props = array())
+  {
 		if (count($props) > 0)
 		{
 			$this->initialize($props);
@@ -403,19 +400,18 @@ class CI_Image_lib {
 		ini_set('gd.jpeg_ignore_warning', 1);
 
 		log_message('info', 'Image Lib Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize image properties
-	 *
-	 * Resets values in case this class is used in a loop
-	 *
-	 * @return	void
-	 */
-	public function clear()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize image properties
+  //
+  //Resets values in case this class is used in a loop
+  //
+  //@return	void
+  
+  public function clear()
+  {
 		$props = array('thumb_marker', 'library_path', 'source_image', 'new_image', 'width', 'height', 'rotation_angle', 'x_axis', 'y_axis', 'wm_text', 'wm_overlay_path', 'wm_font_path', 'wm_shadow_color', 'source_folder', 'dest_folder', 'mime_type', 'orig_width', 'orig_height', 'image_type', 'size_str', 'full_src_path', 'full_dst_path');
 
 		foreach ($props as $val)
@@ -447,18 +443,17 @@ class CI_Image_lib {
 		$this->error_msg 			= array();
 		$this->wm_use_drop_shadow 	= FALSE;
 		$this->wm_use_truetype 		= FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * initialize image preferences
-	 *
-	 * @param	array
-	 * @return	bool
-	 */
-	public function initialize($props = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //initialize image preferences
+  //
+  //@param	array
+  //@return	bool
+  
+  public function initialize($props = array()): bool
+  {
 		// Convert array elements into class variables
 		if (count($props) > 0)
 		{
@@ -660,52 +655,49 @@ class CI_Image_lib {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Image Resize
-	 *
-	 * This is a wrapper function that chooses the proper
-	 * resize function based on the protocol specified
-	 *
-	 * @return	bool
-	 */
-	public function resize()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Image Resize
+  //
+  //This is a wrapper function that chooses the proper
+  //resize function based on the protocol specified
+  //
+  //@return	bool
+  
+  public function resize(): bool
+  {
 		$protocol = ($this->image_library === 'gd2') ? 'image_process_gd' : 'image_process_'.$this->image_library;
 		return $this->$protocol('resize');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Image Crop
-	 *
-	 * This is a wrapper function that chooses the proper
-	 * cropping function based on the protocol specified
-	 *
-	 * @return	bool
-	 */
-	public function crop()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Image Crop
+  //
+  //This is a wrapper function that chooses the proper
+  //cropping function based on the protocol specified
+  //
+  //@return	bool
+  
+  public function crop(): bool
+  {
 		$protocol = ($this->image_library === 'gd2') ? 'image_process_gd' : 'image_process_'.$this->image_library;
 		return $this->$protocol('crop');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Image Rotate
-	 *
-	 * This is a wrapper function that chooses the proper
-	 * rotation function based on the protocol specified
-	 *
-	 * @return	bool
-	 */
-	public function rotate()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Image Rotate
+  //
+  //This is a wrapper function that chooses the proper
+  //rotation function based on the protocol specified
+  //
+  //@return	bool
+  
+  public function rotate(): bool
+  {
 		// Allowed rotation values
 		$degs = array(90, 180, 270, 'vrt', 'hor');
 
@@ -737,20 +729,19 @@ class CI_Image_lib {
 		return ($this->rotation_angle === 'hor' OR $this->rotation_angle === 'vrt')
 			? $this->image_mirror_gd()
 			: $this->image_rotate_gd();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Image Process Using GD/GD2
-	 *
-	 * This function will resize or crop
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function image_process_gd($action = 'resize')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Image Process Using GD/GD2
+  //
+  //This function will resize or crop
+  //
+  //@param	string
+  //@return	bool
+  
+  public function image_process_gd($action = 'resize'): bool
+  {
 		$v2_override = FALSE;
 
 		// If the target width/height match the source, AND if the new file name is not equal to the old file name
@@ -841,20 +832,19 @@ class CI_Image_lib {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Image Process Using ImageMagick
-	 *
-	 * This function will resize, crop or rotate
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function image_process_imagemagick($action = 'resize')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Image Process Using ImageMagick
+  //
+  //This function will resize, crop or rotate
+  //
+  //@param	string
+  //@return	bool
+  
+  public function image_process_imagemagick($action = 'resize'): bool
+  {
 		// Do we have a vaild library path?
 		if ($this->library_path === '')
 		{
@@ -911,20 +901,19 @@ class CI_Image_lib {
 		chmod($this->full_dst_path, $this->file_permissions);
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Image Process Using NetPBM
-	 *
-	 * This function will resize, crop or rotate
-	 *
-	 * @param	string
-	 * @return	bool
-	 */
-	public function image_process_netpbm($action = 'resize')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Image Process Using NetPBM
+  //
+  //This function will resize, crop or rotate
+  //
+  //@param	string
+  //@return	bool
+  
+  public function image_process_netpbm($action = 'resize'): bool
+  {
 		if ($this->library_path === '')
 		{
 			$this->set_error('imglib_libpath_invalid');
@@ -999,17 +988,16 @@ class CI_Image_lib {
 		chmod($this->full_dst_path, $this->file_permissions);
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Image Rotate Using GD
-	 *
-	 * @return	bool
-	 */
-	public function image_rotate_gd()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Image Rotate Using GD
+  //
+  //@return	bool
+  
+  public function image_rotate_gd(): bool
+  {
 		// Create the image handle
 		if ( ! ($src_img = $this->image_create_gd()))
 		{
@@ -1043,19 +1031,18 @@ class CI_Image_lib {
 		chmod($this->full_dst_path, $this->file_permissions);
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Create Mirror Image using GD
-	 *
-	 * This function will flip horizontal or vertical
-	 *
-	 * @return	bool
-	 */
-	public function image_mirror_gd()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Create Mirror Image using GD
+  //
+  //This function will flip horizontal or vertical
+  //
+  //@return	bool
+  
+  public function image_mirror_gd(): bool
+  {
 		if ( ! $src_img = $this->image_create_gd())
 		{
 			return FALSE;
@@ -1121,32 +1108,30 @@ class CI_Image_lib {
 		chmod($this->full_dst_path, $this->file_permissions);
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Image Watermark
-	 *
-	 * This is a wrapper function that chooses the type
-	 * of watermarking based on the specified preference.
-	 *
-	 * @return	bool
-	 */
-	public function watermark()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Image Watermark
+  //
+  //This is a wrapper function that chooses the type
+  //of watermarking based on the specified preference.
+  //
+  //@return	bool
+  
+  public function watermark(): bool
+  {
 		return ($this->wm_type === 'overlay') ? $this->overlay_watermark() : $this->text_watermark();
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Watermark - Graphic Version
-	 *
-	 * @return	bool
-	 */
-	public function overlay_watermark()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Watermark - Graphic Version
+  //
+  //@return	bool
+  
+  public function overlay_watermark(): bool
+  {
 		if ( ! function_exists('imagecolortransparent'))
 		{
 			$this->set_error('imglib_gd_required');
@@ -1250,17 +1235,16 @@ class CI_Image_lib {
 		imagedestroy($wm_img);
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Watermark - Text Version
-	 *
-	 * @return	bool
-	 */
-	public function text_watermark()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Watermark - Text Version
+  //
+  //@return	bool
+  
+  public function text_watermark(): bool
+  {
 		if ( ! ($src_img = $this->image_create_gd()))
 		{
 			return FALSE;
@@ -1420,22 +1404,21 @@ class CI_Image_lib {
 		imagedestroy($src_img);
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Create Image - GD
-	 *
-	 * This simply creates an image resource handle
-	 * based on the type of image being processed
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	resource
-	 */
-	public function image_create_gd($path = '', $image_type = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Create Image - GD
+  //
+  //This simply creates an image resource handle
+  //based on the type of image being processed
+  //
+  //@param	string
+  //@param	string
+  //@return	resource
+  
+  public function image_create_gd($path = '', $image_type = ''): resource
+  {
 		if ($path === '')
 		{
 			$path = $this->full_src_path;
@@ -1476,21 +1459,20 @@ class CI_Image_lib {
 				$this->set_error(array('imglib_unsupported_imagecreate'));
 				return FALSE;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Write image file to disk - GD
-	 *
-	 * Takes an image resource as input and writes the file
-	 * to the specified destination
-	 *
-	 * @param	resource
-	 * @return	bool
-	 */
-	public function image_save_gd($resource)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Write image file to disk - GD
+  //
+  //Takes an image resource as input and writes the file
+  //to the specified destination
+  //
+  //@param	resource
+  //@return	bool
+  
+  public function image_save_gd($resource): bool
+  {
 		switch ($this->image_type)
 		{
 			case 1:
@@ -1539,18 +1521,17 @@ class CI_Image_lib {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Dynamically outputs an image
-	 *
-	 * @param	resource
-	 * @return	void
-	 */
-	public function image_display_gd($resource)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Dynamically outputs an image
+  //
+  //@param	resource
+  //@return	void
+  
+  public function image_display_gd($resource)
+  {
 		header('Content-Disposition: filename='.$this->source_image.';');
 		header('Content-Type: '.$this->mime_type);
 		header('Content-Transfer-Encoding: binary');
@@ -1567,24 +1548,23 @@ class CI_Image_lib {
 			default:	echo 'Unable to display the image';
 				break;
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Re-proportion Image Width/Height
-	 *
-	 * When creating thumbs, the desired width/height
-	 * can end up warping the image due to an incorrect
-	 * ratio between the full-sized image and the thumb.
-	 *
-	 * This function lets us re-proportion the width/height
-	 * if users choose to maintain the aspect ratio when resizing.
-	 *
-	 * @return	void
-	 */
-	public function image_reproportion()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Re-proportion Image Width/Height
+  //
+  //When creating thumbs, the desired width/height
+  //can end up warping the image due to an incorrect
+  //ratio between the full-sized image and the thumb.
+  //
+  //This function lets us re-proportion the width/height
+  //if users choose to maintain the aspect ratio when resizing.
+  //
+  //@return	void
+  
+  public function image_reproportion()
+  {
 		if (($this->width === 0 && $this->height === 0) OR $this->orig_width === 0 OR $this->orig_height === 0
 			OR ( ! ctype_digit((string) $this->width) && ! ctype_digit((string) $this->height))
 			OR ! ctype_digit((string) $this->orig_width) OR ! ctype_digit((string) $this->orig_height))
@@ -1622,21 +1602,20 @@ class CI_Image_lib {
 		{
 			$this->width = (int) ceil($this->orig_width*$this->height/$this->orig_height);
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get image properties
-	 *
-	 * A helper function that gets info about the file
-	 *
-	 * @param	string
-	 * @param	bool
-	 * @return	mixed
-	 */
-	public function get_image_properties($path = '', $return = FALSE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get image properties
+  //
+  //A helper function that gets info about the file
+  //
+  //@param	string
+  //@param	bool
+  //@return	mixed
+  
+  public function get_image_properties($path = '', $return = FALSE): mixed
+  {
 		// For now we require GD but we should
 		// find a way to determine this using IM or NetPBM
 
@@ -1679,29 +1658,28 @@ class CI_Image_lib {
 		$this->mime_type   = $mime;
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Size calculator
-	 *
-	 * This function takes a known width x height and
-	 * recalculates it to a new size. Only one
-	 * new variable needs to be known
-	 *
-	 *	$props = array(
-	 *			'width'		=> $width,
-	 *			'height'	=> $height,
-	 *			'new_width'	=> 40,
-	 *			'new_height'	=> ''
-	 *		);
-	 *
-	 * @param	array
-	 * @return	array
-	 */
-	public function size_calculator($vals)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Size calculator
+  //
+  //This function takes a known width x height and
+  //recalculates it to a new size. Only one
+  //new variable needs to be known
+  //
+  //	$props = array(
+  //			'width'		=> $width,
+  //			'height'	=> $height,
+  //			'new_width'	=> 40,
+  //			'new_height'	=> ''
+  //		);
+  //
+  //@param	array
+  //@return	array
+  
+  public function size_calculator($vals): array
+  {
 		if ( ! is_array($vals))
 		{
 			return;
@@ -1732,40 +1710,38 @@ class CI_Image_lib {
 		}
 
 		return $vals;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Explode source_image
-	 *
-	 * This is a helper function that extracts the extension
-	 * from the source_image.  This function lets us deal with
-	 * source_images with multiple periods, like: my.cool.jpg
-	 * It returns an associative array with two elements:
-	 * $array['ext']  = '.jpg';
-	 * $array['name'] = 'my.cool';
-	 *
-	 * @param	array
-	 * @return	array
-	 */
-	public function explode_name($source_image)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Explode source_image
+  //
+  //This is a helper function that extracts the extension
+  //from the source_image.  This function lets us deal with
+  //source_images with multiple periods, like: my.cool.jpg
+  //It returns an associative array with two elements:
+  //$array['ext']  = '.jpg';
+  //$array['name'] = 'my.cool';
+  //
+  //@param	array
+  //@return	array
+  
+  public function explode_name($source_image): array
+  {
 		$ext = strrchr($source_image, '.');
 		$name = ($ext === FALSE) ? $source_image : substr($source_image, 0, -strlen($ext));
 
 		return array('ext' => $ext, 'name' => $name);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Is GD Installed?
-	 *
-	 * @return	bool
-	 */
-	public function gd_loaded()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Is GD Installed?
+  //
+  //@return	bool
+  
+  public function gd_loaded(): bool
+  {
 		if ( ! extension_loaded('gd'))
 		{
 			/* As it is stated in the PHP manual, dl() is not always available
@@ -1775,17 +1751,16 @@ class CI_Image_lib {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get GD version
-	 *
-	 * @return	mixed
-	 */
-	public function gd_version()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get GD version
+  //
+  //@return	mixed
+  
+  public function gd_version(): mixed
+  {
 		if (function_exists('gd_info'))
 		{
 			$gd_version = @gd_info();
@@ -1793,18 +1768,17 @@ class CI_Image_lib {
 		}
 
 		return FALSE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set error message
-	 *
-	 * @param	string
-	 * @return	void
-	 */
-	public function set_error($msg)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set error message
+  //
+  //@param	string
+  //@return	void
+  
+  public function set_error($msg)
+  {
 		$CI =& get_instance();
 		$CI->lang->load('imglib');
 
@@ -1823,20 +1797,20 @@ class CI_Image_lib {
 			$this->error_msg[] = $msg;
 			log_message('error', $msg);
 		}
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Show error messages
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
-	 */
-	public function display_errors($open = '<p>', $close = '</p>')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Show error messages
+  //
+  //@param	string
+  //@param	string
+  //@return	string
+  
+  public function display_errors($open = '<p>', $close = '</p>'): string
+  {
 		return (count($this->error_msg) > 0) ? $open.implode($close.$open, $this->error_msg).$close : '';
-	}
+  }
 
 }
+

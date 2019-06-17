@@ -37,118 +37,114 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * CodeIgniter Calendar Class
- *
- * This class enables the creation of calendars
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/calendar.html
- */
+//
+//CodeIgniter Calendar Class
+//
+//This class enables the creation of calendars
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Libraries
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/calendar.html
+
 class CI_Calendar {
+  //
+  //Calendar layout template
+  //
+  //@var mixed
+  
+  public $template =  '';
 
-	/**
-	 * Calendar layout template
-	 *
-	 * @var mixed
-	 */
-	public $template = '';
+  //
+  //Replacements array for template
+  //
+  //@var array
+  
+  public $replacements =  array();
 
-	/**
-	 * Replacements array for template
-	 *
-	 * @var array
-	 */
-	public $replacements = array();
+  //
+  //Day of the week to start the calendar on
+  //
+  //@var string
+  
+  public $start_day =  'sunday';
 
-	/**
-	 * Day of the week to start the calendar on
-	 *
-	 * @var string
-	 */
-	public $start_day = 'sunday';
+  //
+  //How to display months
+  //
+  //@var string
+  
+  public $month_type =  'long';
 
-	/**
-	 * How to display months
-	 *
-	 * @var string
-	 */
-	public $month_type = 'long';
+  //
+  //How to display names of days
+  //
+  //@var string
+  
+  public $day_type =  'abr';
 
-	/**
-	 * How to display names of days
-	 *
-	 * @var string
-	 */
-	public $day_type = 'abr';
+  //
+  //Whether to show next/prev month links
+  //
+  //@var bool
+  
+  public $show_next_prev =  FALSE;
 
-	/**
-	 * Whether to show next/prev month links
-	 *
-	 * @var bool
-	 */
-	public $show_next_prev = FALSE;
+  //
+  //Url base to use for next/prev month links
+  //
+  //@var bool
+  
+  public $next_prev_url =  '';
 
-	/**
-	 * Url base to use for next/prev month links
-	 *
-	 * @var bool
-	 */
-	public $next_prev_url = '';
+  //
+  //Show days of other months
+  //
+  //@var bool
+  
+  public $show_other_days =  FALSE;
 
-	/**
-	 * Show days of other months
-	 *
-	 * @var bool
-	 */
-	public $show_other_days = FALSE;
+  // --------------------------------------------------------------------
+  //
+  //CI Singleton
+  //
+  //@var object
+  
+  protected $CI;
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * CI Singleton
-	 *
-	 * @var object
-	 */
-	protected $CI;
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Class constructor
-	 *
-	 * Loads the calendar language file and sets the default time reference.
-	 *
-	 * @uses	CI_Lang::$is_loaded
-	 *
-	 * @param	array	$config	Calendar options
-	 * @return	void
-	 */
-	public function __construct($config = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Class constructor
+  //
+  //Loads the calendar language file and sets the default time reference.
+  //
+  //@uses	CI_Lang::$is_loaded
+  //
+  //@param	array	$config	Calendar options
+  //@return	void
+  
+  public function __construct($config = array())
+  {
 		$this->CI =& get_instance();
 		$this->CI->lang->load('calendar');
 
 		empty($config) OR $this->initialize($config);
 
 		log_message('info', 'Calendar Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Initialize the user preferences
-	 *
-	 * Accepts an associative array as input, containing display preferences
-	 *
-	 * @param	array	config preferences
-	 * @return	CI_Calendar
-	 */
-	public function initialize($config = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Initialize the user preferences
+  //
+  //Accepts an associative array as input, containing display preferences
+  //
+  //@param	array	config preferences
+  //@return	CI_Calendar
+  
+  public function initialize($config = array()): CI_Calendar
+  {
 		foreach ($config as $key => $val)
 		{
 			if (isset($this->$key))
@@ -164,20 +160,19 @@ class CI_Calendar {
 		}
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Generate the calendar
-	 *
-	 * @param	int	the year
-	 * @param	int	the month
-	 * @param	array	the data to be shown in the calendar cells
-	 * @return	string
-	 */
-	public function generate($year = '', $month = '', $data = array())
-	{
+  // --------------------------------------------------------------------
+  //
+  //Generate the calendar
+  //
+  //@param	int	the year
+  //@param	int	the month
+  //@param	array	the data to be shown in the calendar cells
+  //@return	string
+  
+  public function generate($year = '', $month = '', $data = array()): string
+  {
 		$local_time = time();
 
 		// Set and validate the supplied month/year
@@ -337,21 +332,20 @@ class CI_Calendar {
 		}
 
 		return $out .= "\n".$this->replacements['table_close'];
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Month Name
-	 *
-	 * Generates a textual month name based on the numeric
-	 * month provided.
-	 *
-	 * @param	int	the month
-	 * @return	string
-	 */
-	public function get_month_name($month)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Month Name
+  //
+  //Generates a textual month name based on the numeric
+  //month provided.
+  //
+  //@param	int	the month
+  //@return	string
+  
+  public function get_month_name($month): string
+  {
 		if ($this->month_type === 'short')
 		{
 			$month_names = array('01' => 'cal_jan', '02' => 'cal_feb', '03' => 'cal_mar', '04' => 'cal_apr', '05' => 'cal_may', '06' => 'cal_jun', '07' => 'cal_jul', '08' => 'cal_aug', '09' => 'cal_sep', '10' => 'cal_oct', '11' => 'cal_nov', '12' => 'cal_dec');
@@ -364,21 +358,20 @@ class CI_Calendar {
 		return ($this->CI->lang->line($month_names[$month]) === FALSE)
 			? ucfirst(substr($month_names[$month], 4))
 			: $this->CI->lang->line($month_names[$month]);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Day Names
-	 *
-	 * Returns an array of day names (Sunday, Monday, etc.) based
-	 * on the type. Options: long, short, abr
-	 *
-	 * @param	string
-	 * @return	array
-	 */
-	public function get_day_names($day_type = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Day Names
+  //
+  //Returns an array of day names (Sunday, Monday, etc.) based
+  //on the type. Options: long, short, abr
+  //
+  //@param	string
+  //@return	array
+  
+  public function get_day_names($day_type = ''): array
+  {
 		if ($day_type !== '')
 		{
 			$this->day_type = $day_type;
@@ -404,23 +397,22 @@ class CI_Calendar {
 		}
 
 		return $days;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Adjust Date
-	 *
-	 * This function makes sure that we have a valid month/year.
-	 * For example, if you submit 13 as the month, the year will
-	 * increment and the month will become January.
-	 *
-	 * @param	int	the month
-	 * @param	int	the year
-	 * @return	array
-	 */
-	public function adjust_date($month, $year)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Adjust Date
+  //
+  //This function makes sure that we have a valid month/year.
+  //For example, if you submit 13 as the month, the year will
+  //increment and the month will become January.
+  //
+  //@param	int	the month
+  //@param	int	the year
+  //@return	array
+  
+  public function adjust_date($month, $year): array
+  {
 		$date = array();
 
 		$date['month']	= $month;
@@ -444,34 +436,32 @@ class CI_Calendar {
 		}
 
 		return $date;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Total days in a given month
-	 *
-	 * @param	int	the month
-	 * @param	int	the year
-	 * @return	int
-	 */
-	public function get_total_days($month, $year)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Total days in a given month
+  //
+  //@param	int	the month
+  //@param	int	the year
+  //@return	int
+  
+  public function get_total_days($month, $year): int
+  {
 		$this->CI->load->helper('date');
 		return days_in_month($month, $year);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Default Template Data
-	 *
-	 * This is used in the event that the user has not created their own template
-	 *
-	 * @return	array
-	 */
-	public function default_template()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Default Template Data
+  //
+  //This is used in the event that the user has not created their own template
+  //
+  //@return	array
+  
+  public function default_template(): array
+  {
 		return array(
 			'table_open'				=> '<table border="0" cellpadding="4" cellspacing="0">',
 			'heading_row_start'			=> '<tr>',
@@ -498,20 +488,19 @@ class CI_Calendar {
 			'cal_row_end'				=> '</tr>',
 			'table_close'				=> '</table>'
 		);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Parse Template
-	 *
-	 * Harvests the data within the template {pseudo-variables}
-	 * used to display the calendar
-	 *
-	 * @return	CI_Calendar
-	 */
-	public function parse_template()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Parse Template
+  //
+  //Harvests the data within the template {pseudo-variables}
+  //used to display the calendar
+  //
+  //@return	CI_Calendar
+  
+  public function parse_template(): CI_Calendar
+  {
 		$this->replacements = $this->default_template();
 
 		if (empty($this->template))
@@ -541,6 +530,7 @@ class CI_Calendar {
 		}
 
 		return $this;
-	}
+  }
 
 }
+

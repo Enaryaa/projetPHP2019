@@ -1,24 +1,23 @@
 <?php
-
 class User extends CI_Controller {
-
-	public function __construct(){
+  public function __construct()
+  {
 		parent::__construct();
 		$this->load->model('user_model');
 		$this->load->helper('url');
 		$this->load->helper('url_helper');
        	$this->load->library('session');
-	}
+  }
 
-	/**
-	 * pour créer une session $this-session->set_userdata(name, array)
-	 * pour vérifier on fait $this->session->has_userdata(name)
-	 * pour récupérer $this->session->userdata(name)
-	 * pour supprimer la session on fait $this->session->unset_userdata(name)
-	 *
-	 */
-
-	public function index() {
+  //
+  //pour créer une session $this-session->set_userdata(name, array)
+  //pour vérifier on fait $this->session->has_userdata(name)
+  //pour récupérer $this->session->userdata(name)
+  //pour supprimer la session on fait $this->session->unset_userdata(name)
+  //
+  
+  public function index()
+  {
 		//ici vérifier si il y a une session
 		if ($this->session->has_userdata('user_session')) {
 			redirect('compte');
@@ -48,9 +47,10 @@ class User extends CI_Controller {
 				$this->load->view('footer',$data);
 			}
 		}
-	}
+  }
 
-	public function connexion() {
+  public function connexion()
+  {
 		//ici vérifier si il y a une session
 		if ($this->session->has_userdata('user_session')) {
 			redirect('compte');
@@ -79,10 +79,10 @@ class User extends CI_Controller {
 				$this->load->view('footer',$data); 
 			}
 		}
-	}
+  }
 
-
-	public function compte() {
+  public function compte()
+  {
 		if (!$this->session->has_userdata('user_session')) {
 			redirect('connexion');
 		}	
@@ -108,9 +108,10 @@ class User extends CI_Controller {
 			$this->load->view('footer', $data); 
 		}
 		
-	}
+  }
 
-	public function delete(){
+  public function delete()
+  {
 		if (!$this->session->has_userdata('user_session')) {
 			redirect('connexion');
 		}	
@@ -118,9 +119,10 @@ class User extends CI_Controller {
 		$this->session->unset_userdata('user_session');
 		$this->session->set_userdata('delete', true);
 		redirect('home');
-	}
+  }
 
-	public function home(){
+  public function home()
+  {
 		if ($this->session->has_userdata('delete')) {
 			$data['delete'] = 'L\'utilisateur a été supprimé';
 			$this->session->unset_userdata('delete');
@@ -137,13 +139,15 @@ class User extends CI_Controller {
 		$this->load->view('header', $data);
 		$this->load->view('user/home', $data);
 		$this->load->view('footer', $data);
-	}
+  }
 
-	public function deco(){
+  public function deco()
+  {
 		if ($this->session->has_userdata('user_session')) {
 			$this->session->unset_userdata('user_session');
 		}
 		redirect('home');
-	}
- 
+  }
+
 }
+

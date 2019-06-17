@@ -11,22 +11,3 @@
 <div class="col-4"></div>
 <div class="col-4">
 <?php echo form_open('inscription'); ?>
-		<div class="form-group">
-			<label for="inputEmail">Adresse Mail</label>
-			<input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Email">
-			<small id="emailHelp" class="form-text text-muted"></small>
-		</div>
-		<div class="form-group">
-			<label for="inputPseudo">Pseudo</label>
-			<input type="text" name="pseudo" class="form-control" id="inputPseudo" aria-describedby="pseudoHelp" placeholder="Pseudo">
-			<small id="pseudoHelp" class="form-text text-muted"></small>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword1">Mot de Passe</label>
-			<input type="password" name="password" class="form-control" id="inputPassword1" placeholder="Mot de passe">
-		</div>
-		<button type="submit" name="submit"  method="post" class="btn btn-warning">Inscription</button>
-	</form>
-</div>
-<div class="col-4"></div>
-</div>

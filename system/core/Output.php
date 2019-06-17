@@ -37,107 +37,106 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Output Class
- *
- * Responsible for sending final output to the browser.
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Output
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/output.html
- */
+//
+//Output Class
+//
+//Responsible for sending final output to the browser.
+//
+//@package		CodeIgniter
+//@subpackage	Libraries
+//@category	Output
+//@author		EllisLab Dev Team
+//@link		https://codeigniter.com/user_guide/libraries/output.html
+
 class CI_Output {
+  //
+  //Final output string
+  //
+  //@var	string
+  
+  public $final_output;
 
-	/**
-	 * Final output string
-	 *
-	 * @var	string
-	 */
-	public $final_output;
+  //
+  //Cache expiration time
+  //
+  //@var	int
+  
+  public $cache_expiration =  0;
 
-	/**
-	 * Cache expiration time
-	 *
-	 * @var	int
-	 */
-	public $cache_expiration = 0;
+  //
+  //List of server headers
+  //
+  //@var	array
+  
+  public $headers =  array();
 
-	/**
-	 * List of server headers
-	 *
-	 * @var	array
-	 */
-	public $headers = array();
+  //
+  //List of mime types
+  //
+  //@var	array
+  
+  public $mimes = 	array();
 
-	/**
-	 * List of mime types
-	 *
-	 * @var	array
-	 */
-	public $mimes =	array();
+  //
+  //Mime-type for the current page
+  //
+  //@var	string
+  
+  protected $mime_type =  'text/html';
 
-	/**
-	 * Mime-type for the current page
-	 *
-	 * @var	string
-	 */
-	protected $mime_type = 'text/html';
+  //
+  //Enable Profiler flag
+  //
+  //@var	bool
+  
+  public $enable_profiler =  FALSE;
 
-	/**
-	 * Enable Profiler flag
-	 *
-	 * @var	bool
-	 */
-	public $enable_profiler = FALSE;
+  //
+  //php.ini zlib.output_compression flag
+  //
+  //@var	bool
+  
+  protected $_zlib_oc =  FALSE;
 
-	/**
-	 * php.ini zlib.output_compression flag
-	 *
-	 * @var	bool
-	 */
-	protected $_zlib_oc = FALSE;
+  //
+  //CI output compression flag
+  //
+  //@var	bool
+  
+  protected $_compress_output =  FALSE;
 
-	/**
-	 * CI output compression flag
-	 *
-	 * @var	bool
-	 */
-	protected $_compress_output = FALSE;
+  //
+  //List of profiler sections
+  //
+  //@var	array
+  
+  protected $_profiler_sections = 	array();
 
-	/**
-	 * List of profiler sections
-	 *
-	 * @var	array
-	 */
-	protected $_profiler_sections =	array();
+  //
+  //Parse markers flag
+  //
+  //Whether or not to parse variables like {elapsed_time} and {memory_usage}.
+  //
+  //@var	bool
+  
+  public $parse_exec_vars =  TRUE;
 
-	/**
-	 * Parse markers flag
-	 *
-	 * Whether or not to parse variables like {elapsed_time} and {memory_usage}.
-	 *
-	 * @var	bool
-	 */
-	public $parse_exec_vars = TRUE;
+  //
+  //mbstring.func_overload flag
+  //
+  //@var	bool
+  
+  protected static $func_overload;
 
-	/**
-	 * mbstring.func_overload flag
-	 *
-	 * @var	bool
-	 */
-	protected static $func_overload;
-
-	/**
-	 * Class constructor
-	 *
-	 * Determines whether zLib output compression will be used.
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
+  //
+  //Class constructor
+  //
+  //Determines whether zLib output compression will be used.
+  //
+  //@return	void
+  
+  public function __construct()
+  {
 		$this->_zlib_oc = (bool) ini_get('zlib.output_compression');
 		$this->_compress_output = (
 			$this->_zlib_oc === FALSE
@@ -151,70 +150,66 @@ class CI_Output {
 		$this->mimes =& get_mimes();
 
 		log_message('info', 'Output Class Initialized');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Output
-	 *
-	 * Returns the current output string.
-	 *
-	 * @return	string
-	 */
-	public function get_output()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Output
+  //
+  //Returns the current output string.
+  //
+  //@return	string
+  
+  public function get_output(): string
+  {
 		return $this->final_output;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Output
-	 *
-	 * Sets the output string.
-	 *
-	 * @param	string	$output	Output data
-	 * @return	CI_Output
-	 */
-	public function set_output($output)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Output
+  //
+  //Sets the output string.
+  //
+  //@param	string	$output	Output data
+  //@return	CI_Output
+  
+  public function set_output($output): CI_Output
+  {
 		$this->final_output = $output;
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Append Output
-	 *
-	 * Appends data onto the output string.
-	 *
-	 * @param	string	$output	Data to append
-	 * @return	CI_Output
-	 */
-	public function append_output($output)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Append Output
+  //
+  //Appends data onto the output string.
+  //
+  //@param	string	$output	Data to append
+  //@return	CI_Output
+  
+  public function append_output($output): CI_Output
+  {
 		$this->final_output .= $output;
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Header
-	 *
-	 * Lets you set a server header which will be sent with the final output.
-	 *
-	 * Note: If a file is cached, headers will not be sent.
-	 * @todo	We need to figure out how to permit headers to be cached.
-	 *
-	 * @param	string	$header		Header
-	 * @param	bool	$replace	Whether to replace the old header value, if already set
-	 * @return	CI_Output
-	 */
-	public function set_header($header, $replace = TRUE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Header
+  //
+  //Lets you set a server header which will be sent with the final output.
+  //
+  //Note: If a file is cached, headers will not be sent.
+  //@todo	We need to figure out how to permit headers to be cached.
+  //
+  //@param	string	$header		Header
+  //@param	bool	$replace	Whether to replace the old header value, if already set
+  //@return	CI_Output
+  
+  public function set_header($header, $replace = TRUE): CI_Output
+  {
 		// If zlib.output_compression is enabled it will compress the output,
 		// but it will not modify the content-length header to compensate for
 		// the reduction, causing the browser to hang waiting for more data.
@@ -226,19 +221,18 @@ class CI_Output {
 
 		$this->headers[] = array($header, $replace);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Content-Type Header
-	 *
-	 * @param	string	$mime_type	Extension of the file we're outputting
-	 * @param	string	$charset	Character set (default: NULL)
-	 * @return	CI_Output
-	 */
-	public function set_content_type($mime_type, $charset = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Content-Type Header
+  //
+  //@param	string	$mime_type	Extension of the file we're outputting
+  //@param	string	$charset	Character set (default: NULL)
+  //@return	CI_Output
+  
+  public function set_content_type($mime_type, $charset = NULL): CI_Output
+  {
 		if (strpos($mime_type, '/') === FALSE)
 		{
 			$extension = ltrim($mime_type, '.');
@@ -267,17 +261,16 @@ class CI_Output {
 
 		$this->headers[] = array($header, TRUE);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Current Content-Type Header
-	 *
-	 * @return	string	'text/html', if not already set
-	 */
-	public function get_content_type()
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Current Content-Type Header
+  //
+  //@return	string	'text/html', if not already set
+  
+  public function get_content_type(): string
+  {
 		for ($i = 0, $c = count($this->headers); $i < $c; $i++)
 		{
 			if (sscanf($this->headers[$i][0], 'Content-Type: %[^;]', $content_type) === 1)
@@ -287,18 +280,17 @@ class CI_Output {
 		}
 
 		return 'text/html';
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get Header
-	 *
-	 * @param	string	$header
-	 * @return	string
-	 */
-	public function get_header($header)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Get Header
+  //
+  //@param	string	$header
+  //@return	string
+  
+  public function get_header($header): string
+  {
 		// Combine headers already sent with our batched headers
 		$headers = array_merge(
 			// We only need [x][0] from our multi-dimensional array
@@ -321,53 +313,50 @@ class CI_Output {
 		}
 
 		return NULL;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set HTTP Status Header
-	 *
-	 * As of version 1.7.2, this is an alias for common function
-	 * set_status_header().
-	 *
-	 * @param	int	$code	Status code (default: 200)
-	 * @param	string	$text	Optional message
-	 * @return	CI_Output
-	 */
-	public function set_status_header($code = 200, $text = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set HTTP Status Header
+  //
+  //As of version 1.7.2, this is an alias for common function
+  //set_status_header().
+  //
+  //@param	int	$code	Status code (default: 200)
+  //@param	string	$text	Optional message
+  //@return	CI_Output
+  
+  public function set_status_header($code = 200, $text = ''): CI_Output
+  {
 		set_status_header($code, $text);
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Enable/disable Profiler
-	 *
-	 * @param	bool	$val	TRUE to enable or FALSE to disable
-	 * @return	CI_Output
-	 */
-	public function enable_profiler($val = TRUE)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Enable/disable Profiler
+  //
+  //@param	bool	$val	TRUE to enable or FALSE to disable
+  //@return	CI_Output
+  
+  public function enable_profiler($val = TRUE): CI_Output
+  {
 		$this->enable_profiler = is_bool($val) ? $val : TRUE;
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Profiler Sections
-	 *
-	 * Allows override of default/config settings for
-	 * Profiler section display.
-	 *
-	 * @param	array	$sections	Profiler sections
-	 * @return	CI_Output
-	 */
-	public function set_profiler_sections($sections)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Profiler Sections
+  //
+  //Allows override of default/config settings for
+  //Profiler section display.
+  //
+  //@param	array	$sections	Profiler sections
+  //@return	CI_Output
+  
+  public function set_profiler_sections($sections): CI_Output
+  {
 		if (isset($sections['query_toggle_count']))
 		{
 			$this->_profiler_sections['query_toggle_count'] = (int) $sections['query_toggle_count'];
@@ -380,40 +369,38 @@ class CI_Output {
 		}
 
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Cache
-	 *
-	 * @param	int	$time	Cache expiration time in minutes
-	 * @return	CI_Output
-	 */
-	public function cache($time)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Cache
+  //
+  //@param	int	$time	Cache expiration time in minutes
+  //@return	CI_Output
+  
+  public function cache($time): CI_Output
+  {
 		$this->cache_expiration = is_numeric($time) ? $time : 0;
 		return $this;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Display Output
-	 *
-	 * Processes and sends finalized output data to the browser along
-	 * with any server headers and profile data. It also stops benchmark
-	 * timers so the page rendering speed and memory usage can be shown.
-	 *
-	 * Note: All "view" data is automatically put into $this->final_output
-	 *	 by controller class.
-	 *
-	 * @uses	CI_Output::$final_output
-	 * @param	string	$output	Output data override
-	 * @return	void
-	 */
-	public function _display($output = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Display Output
+  //
+  //Processes and sends finalized output data to the browser along
+  //with any server headers and profile data. It also stops benchmark
+  //timers so the page rendering speed and memory usage can be shown.
+  //
+  //Note: All "view" data is automatically put into $this->final_output
+  //	 by controller class.
+  //
+  //@uses	CI_Output::$final_output
+  //@param	string	$output	Output data override
+  //@return	void
+  
+  public function _display($output = '')
+  {
 		// Note:  We use load_class() because we can't use $CI =& get_instance()
 		// since this function is sometimes called by the caching mechanism,
 		// which happens before the CI super object is available.
@@ -540,18 +527,17 @@ class CI_Output {
 
 		log_message('info', 'Final output sent to browser');
 		log_message('debug', 'Total execution time: '.$elapsed);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Write Cache
-	 *
-	 * @param	string	$output	Output data to cache
-	 * @return	void
-	 */
-	public function _write_cache($output)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Write Cache
+  //
+  //@param	string	$output	Output data to cache
+  //@return	void
+  
+  public function _write_cache($output)
+  {
 		$CI =& get_instance();
 		$path = $CI->config->item('cache_path');
 		$cache_path = ($path === '') ? APPPATH.'cache/' : $path;
@@ -639,22 +625,21 @@ class CI_Output {
 
 		// Send HTTP cache-control headers to browser to match file cache settings.
 		$this->set_cache_header($_SERVER['REQUEST_TIME'], $expire);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Update/serve cached output
-	 *
-	 * @uses	CI_Config
-	 * @uses	CI_URI
-	 *
-	 * @param	object	&$CFG	CI_Config class instance
-	 * @param	object	&$URI	CI_URI class instance
-	 * @return	bool	TRUE on success or FALSE on failure
-	 */
-	public function _display_cache(&$CFG, &$URI)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Update/serve cached output
+  //
+  //@uses	CI_Config
+  //@uses	CI_URI
+  //
+  //@param	object	&$CFG	CI_Config class instance
+  //@param	object	&$URI	CI_URI class instance
+  //@return	bool	TRUE on success or FALSE on failure
+  
+  public function _display_cache(& $CFG, & $URI): bool
+  {
 		$cache_path = ($CFG->item('cache_path') === '') ? APPPATH.'cache/' : $CFG->item('cache_path');
 
 		// Build the file path. The file name is an MD5 hash of the full URI
@@ -719,18 +704,17 @@ class CI_Output {
 		$this->_display(self::substr($cache, self::strlen($match[0])));
 		log_message('debug', 'Cache file is current. Sending it to browser.');
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Delete cache
-	 *
-	 * @param	string	$uri	URI string
-	 * @return	bool
-	 */
-	public function delete_cache($uri = '')
-	{
+  // --------------------------------------------------------------------
+  //
+  //Delete cache
+  //
+  //@param	string	$uri	URI string
+  //@return	bool
+  
+  public function delete_cache($uri = ''): bool
+  {
 		$CI =& get_instance();
 		$cache_path = $CI->config->item('cache_path');
 		if ($cache_path === '')
@@ -770,22 +754,21 @@ class CI_Output {
 		}
 
 		return TRUE;
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set Cache Header
-	 *
-	 * Set the HTTP headers to match the server-side file cache settings
-	 * in order to reduce bandwidth.
-	 *
-	 * @param	int	$last_modified	Timestamp of when the page was last modified
-	 * @param	int	$expiration	Timestamp of when should the requested page expire from cache
-	 * @return	void
-	 */
-	public function set_cache_header($last_modified, $expiration)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Set Cache Header
+  //
+  //Set the HTTP headers to match the server-side file cache settings
+  //in order to reduce bandwidth.
+  //
+  //@param	int	$last_modified	Timestamp of when the page was last modified
+  //@param	int	$expiration	Timestamp of when should the requested page expire from cache
+  //@return	void
+  
+  public function set_cache_header($last_modified, $expiration)
+  {
 		$max_age = $expiration - $_SERVER['REQUEST_TIME'];
 
 		if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $last_modified <= strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']))
@@ -798,35 +781,33 @@ class CI_Output {
 		header('Cache-Control: max-age='.$max_age.', public');
 		header('Expires: '.gmdate('D, d M Y H:i:s', $expiration).' GMT');
 		header('Last-modified: '.gmdate('D, d M Y H:i:s', $last_modified).' GMT');
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Byte-safe strlen()
-	 *
-	 * @param	string	$str
-	 * @return	int
-	 */
-	protected static function strlen($str)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Byte-safe strlen()
+  //
+  //@param	string	$str
+  //@return	int
+  
+  protected static function strlen($str): int
+  {
 		return (self::$func_overload)
 			? mb_strlen($str, '8bit')
 			: strlen($str);
-	}
+  }
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Byte-safe substr()
-	 *
-	 * @param	string	$str
-	 * @param	int	$start
-	 * @param	int	$length
-	 * @return	string
-	 */
-	protected static function substr($str, $start, $length = NULL)
-	{
+  // --------------------------------------------------------------------
+  //
+  //Byte-safe substr()
+  //
+  //@param	string	$str
+  //@param	int	$start
+  //@param	int	$length
+  //@return	string
+  
+  protected static function substr($str, $start, $length = NULL): string
+  {
 		if (self::$func_overload)
 		{
 			// mb_substr($str, $start, null, '8bit') returns an empty
@@ -838,5 +819,7 @@ class CI_Output {
 		return isset($length)
 			? substr($str, $start, $length)
 			: substr($str, $start);
-	}
+  }
+
 }
+
