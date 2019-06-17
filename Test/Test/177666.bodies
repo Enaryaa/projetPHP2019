@@ -1,4 +1,0 @@
-class CI_DB_mssql_utility
-!!!583810.php!!!	_backup(in params : array = array()) : bool
-		// Currently unsupported
-		return $this->db->display_error('db_unsupported_feature');

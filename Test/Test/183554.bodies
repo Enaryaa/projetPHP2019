@@ -1,4 +1,0 @@
-class CI_DB_postgre_utility
-!!!625666.php!!!	_backup(in params : array = array()) : mixed
-		// Currently unsupported
-		return $this->db->display_error('db_unsupported_feature');

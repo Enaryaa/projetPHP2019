@@ -1,3 +1,0 @@
-class CI_DB_pdo_odbc_forge
-!!!213506.php!!!	_attr_auto_increment(inout attributes : array, inout field : array) : void
-		// Not supported (in most databases at least)

@@ -1,8 +1,0 @@
-class CI_DB_pdo_pgsql_forge
-!!!419458.php!!!	__construct(inout db : object) : void
-		parent::__construct($db);
-
-		if (version_compare($this->db->version(), '9.0', '>'))
-		{
-			$this->create_table_if = 'CREATE TABLE IF NOT EXISTS';
-		}
