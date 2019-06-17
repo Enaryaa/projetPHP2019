@@ -1,0 +1,20 @@
+class contact
+!!!723330.php!!!	__construct(in id :  = null, in nom :  = "", in prenom :  = "", in email :  = "")
+		// A COMPLETER
+!!!723458.php!!!	__toString()
+		// A COMPLETER
+!!!723586.php!!!	save()
+		$db = Database::getInstance();
+		if ($this->id == null){
+			// A COMPLETER
+			// id null => INSERTION
+		}else{
+			// A COMPLETER
+			// UPDATE
+		}
+!!!723714.php!!!	getList()
+		$db = Database::getInstance();
+		// A COMPETER
+!!!723842.php!!!	getFromId(in id : )
+		$db = Database::getInstance();
+		//  A COMPLETER

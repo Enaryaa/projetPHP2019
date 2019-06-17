@@ -1,0 +1,79 @@
+class CI_Parser
+!!!276354.php!!!	__construct() : void
+		$this->CI =& get_instance();
+		log_message('info', 'Parser Class Initialized');
+!!!276482.php!!!	parse(in template : string, in data : array, in return : bool = FALSE) : string
+		$template = $this->CI->load->view($template, $data, TRUE);
+
+		return $this->_parse($template, $data, $return);
+!!!276610.php!!!	parse_string(in template : string, in data : array, in return : bool = FALSE) : string
+		return $this->_parse($template, $data, $return);
+!!!276738.php!!!	_parse(in template : string, in data : array, in return : bool = FALSE) : string
+		if ($template === '')
+		{
+			return FALSE;
+		}
+
+		$replace = array();
+		foreach ($data as $key => $val)
+		{
+			$replace = array_merge(
+				$replace,
+				is_array($val)
+					? $this->_parse_pair($key, $val, $template)
+					: $this->_parse_single($key, (string) $val, $template)
+			);
+		}
+
+		unset($data);
+		$template = strtr($template, $replace);
+
+		if ($return === FALSE)
+		{
+			$this->CI->output->append_output($template);
+		}
+
+		return $template;
+!!!276866.php!!!	set_delimiters(in l : string = '{', in r : string = '}') : void
+		$this->l_delim = $l;
+		$this->r_delim = $r;
+!!!276994.php!!!	_parse_single(in key : string, in val : string, in string : string) : string
+		return array($this->l_delim.$key.$this->r_delim => (string) $val);
+!!!277122.php!!!	_parse_pair(in variable : string, in data : array, in string : string) : string
+		$replace = array();
+		preg_match_all(
+			'#'.preg_quote($this->l_delim.$variable.$this->r_delim).'(.+?)'.preg_quote($this->l_delim.'/'.$variable.$this->r_delim).'#s',
+			$string,
+			$matches,
+			PREG_SET_ORDER
+		);
+
+		foreach ($matches as $match)
+		{
+			$str = '';
+			foreach ($data as $row)
+			{
+				$temp = array();
+				foreach ($row as $key => $val)
+				{
+					if (is_array($val))
+					{
+						$pair = $this->_parse_pair($key, $val, $match[1]);
+						if ( ! empty($pair))
+						{
+							$temp = array_merge($temp, $pair);
+						}
+
+						continue;
+					}
+
+					$temp[$this->l_delim.$key.$this->r_delim] = $val;
+				}
+
+				$str .= strtr($match[1], $temp);
+			}
+
+			$replace[$match[0]] = $str;
+		}
+
+		return $replace;

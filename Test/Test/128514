@@ -1,0 +1,43 @@
+format 221
+"system" // PROJETPHP::system
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "/home/lechartier/01Programmation/PROJETS/PROJETPHP/system/"
+  package_ref 128642 // core
+
+  package_ref 130050 // database
+
+  package_ref 133634 // helpers
+
+  package_ref 133762 // language
+
+  package_ref 134018 // libraries
+end

@@ -1,0 +1,1497 @@
+format 221
+"drivers" // application::Test::01Programmation::PROJETS::PROJETPHP::system::libraries::Session::drivers
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/PROJETS/PROJETPHP/system/libraries/Session/drivers/"
+  deploymentview 144514 "drivers"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 194306 "Session_database_driver"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 3.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 173186 // CI_Session_database_driver
+      end
+    end
+
+    artifact 194434 "Session_files_driver"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 3.0.0
+ * @filesource
+*/
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 173570 // CI_Session_files_driver
+      end
+    end
+
+    artifact 194562 "Session_memcached_driver"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 3.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 173698 // CI_Session_memcached_driver
+      end
+    end
+
+    artifact 194690 "Session_redis_driver"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 3.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 173826 // CI_Session_redis_driver
+      end
+    end
+  end
+
+  classview 141058 "drivers"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 173186 "CI_Session_database_driver"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter Session Database Driver
+
+@package	CodeIgniter
+@subpackage	Libraries
+@category	Sessions
+@author	Andrey Andreev
+@link	https://codeigniter.com/user_guide/libraries/sessions.html"
+      classrelation 161026 // <generalisation>
+	relation 161026 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161026 // <generalisation>
+	  b parent class_ref 173314 // CI_Session_driver
+      end
+
+      classrelation 161154 // <realization>
+	relation 161154 -_-|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161154 // <realization>
+	  b parent class_ref 173442 // SessionHandlerInterface
+      end
+
+      attribute 320514 "_db"
+	protected explicit_type "object"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "DB object
+
+@var	${type}"
+      end
+
+      attribute 320642 "_row_exists"
+	protected explicit_type "bool"
+	init_value "  FALSE"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Row exists flag
+
+@var	${type}"
+      end
+
+      attribute 320770 "_platform"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Lock \"driver\" flag
+
+@var	${type}"
+      end
+
+      operation 518530 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "params" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Class constructor
+
+@param	${t0}	${p0}	Configuration parameters
+@return	${type}"
+      end
+
+      operation 518658 "open"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "save_path" explicit_type "string"
+	  param in name "name" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Open
+
+Initializes the database connection
+
+@param	${t0}	${p0}	Table name
+@param	${t1}	${p1}		Session cookie name, unused
+@return	${type}"
+      end
+
+      operation 518786 "read"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Read
+
+Reads session data and acquires a lock
+
+@param	${t0}	${p0}	Session ID
+@return	${type}	Serialized session data"
+      end
+
+      operation 518914 "write"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "session_id" explicit_type "string"
+	  param in name "session_data" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Write
+
+Writes (create / update) session data
+
+@param	${t0}	${p0}	Session ID
+@param	${t1}	${p1}	Serialized session data
+@return	${type}"
+      end
+
+      operation 519042 "close"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Close
+
+Releases locks
+
+@return	${type}"
+      end
+
+      operation 519170 "destroy"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Destroy
+
+Destroys the current session.
+
+@param	${t0}	${p0}	Session ID
+@return	${type}"
+      end
+
+      operation 519298 "gc"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "maxlifetime" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Garbage Collector
+
+Deletes expired sessions
+
+@param	${t0} 	${p0}	Maximum lifetime of sessions
+@return	${type}"
+      end
+
+      operation 519426 "validateSessionId"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Validate ID
+
+Checks whether a session ID record exists server-side,
+to enforce session.use_strict_mode.
+
+@param	${t0}	${p0}
+@return	${type}"
+      end
+
+      operation 519554 "_get_lock"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get lock
+
+Acquires a lock, depending on the underlying platform.
+
+@param	${t0}	${p0}	Session ID
+@return	${type}"
+      end
+
+      operation 519682 "_release_lock"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Release lock
+
+Releases a previously acquired lock
+
+@return	${type}"
+      end
+    end
+
+    class 173570 "CI_Session_files_driver"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter Session Files Driver
+
+@package	CodeIgniter
+@subpackage	Libraries
+@category	Sessions
+@author	Andrey Andreev
+@link	https://codeigniter.com/user_guide/libraries/sessions.html"
+      classrelation 161282 // <generalisation>
+	relation 161282 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161282 // <generalisation>
+	  b parent class_ref 173314 // CI_Session_driver
+      end
+
+      classrelation 161410 // <realization>
+	relation 161410 -_-|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161410 // <realization>
+	  b parent class_ref 173442 // SessionHandlerInterface
+      end
+
+      attribute 320898 "_save_path"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Save path
+
+@var	${type}"
+      end
+
+      attribute 321026 "_file_handle"
+	protected explicit_type "resource"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "File handle
+
+@var	${type}"
+      end
+
+      attribute 321154 "_file_path"
+	protected explicit_type "resource"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "File name
+
+@var	${type}"
+      end
+
+      attribute 321282 "_file_new"
+	protected explicit_type "bool"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "File new flag
+
+@var	${type}"
+      end
+
+      attribute 321410 "_sid_regexp"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Validate SID regular expression
+
+@var	${type}"
+      end
+
+      attribute 321538 "func_overload"
+	class_attribute protected explicit_type "bool"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "mbstring.func_overload flag
+
+@var	${type}"
+      end
+
+      operation 519810 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "params" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Class constructor
+
+@param	${t0}	${p0}	Configuration parameters
+@return	${type}"
+      end
+
+      operation 519938 "open"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "save_path" explicit_type "string"
+	  param in name "name" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Open
+
+Sanitizes the save_path directory.
+
+@param	${t0}	${p0}	Path to session files' directory
+@param	${t1}	${p1}		Session cookie name
+@return	${type}"
+      end
+
+      operation 520066 "read"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Read
+
+Reads session data and acquires a lock
+
+@param	${t0}	${p0}	Session ID
+@return	${type}	Serialized session data"
+      end
+
+      operation 520194 "write"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "session_id" explicit_type "string"
+	  param in name "session_data" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Write
+
+Writes (create / update) session data
+
+@param	${t0}	${p0}	Session ID
+@param	${t1}	${p1}	Serialized session data
+@return	${type}"
+      end
+
+      operation 520322 "close"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Close
+
+Releases locks and closes file descriptor.
+
+@return	${type}"
+      end
+
+      operation 520450 "destroy"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Destroy
+
+Destroys the current session.
+
+@param	${t0}	${p0}	Session ID
+@return	${type}"
+      end
+
+      operation 520578 "gc"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "maxlifetime" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Garbage Collector
+
+Deletes expired sessions
+
+@param	${t0} 	${p0}	Maximum lifetime of sessions
+@return	${type}"
+      end
+
+      operation 520706 "validateSessionId"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Validate ID
+
+Checks whether a session ID record exists server-side,
+to enforce session.use_strict_mode.
+
+@param	${t0}	${p0}
+@return	${type}"
+      end
+
+      operation 520834 "strlen"
+	class_operation protected explicit_return_type "int"
+	nparams 1
+	  param in name "str" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Byte-safe strlen()
+
+@param	${t0}	${p0}
+@return	${type}"
+      end
+    end
+
+    class 173698 "CI_Session_memcached_driver"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter Session Memcached Driver
+
+@package	CodeIgniter
+@subpackage	Libraries
+@category	Sessions
+@author	Andrey Andreev
+@link	https://codeigniter.com/user_guide/libraries/sessions.html"
+      classrelation 161538 // <generalisation>
+	relation 161538 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161538 // <generalisation>
+	  b parent class_ref 173314 // CI_Session_driver
+      end
+
+      classrelation 161666 // <realization>
+	relation 161666 -_-|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161666 // <realization>
+	  b parent class_ref 173442 // SessionHandlerInterface
+      end
+
+      attribute 321666 "_memcached"
+	protected explicit_type "Memcached"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Memcached instance
+
+@var	${type}"
+      end
+
+      attribute 321794 "_key_prefix"
+	protected explicit_type "string"
+	init_value "  'ci_session:'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Key prefix
+
+@var	${type}"
+      end
+
+      attribute 321922 "_lock_key"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Lock key
+
+@var	${type}"
+      end
+
+      operation 520962 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "params" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Class constructor
+
+@param	${t0}	${p0}	Configuration parameters
+@return	${type}"
+      end
+
+      operation 521090 "open"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "save_path" explicit_type "string"
+	  param in name "name" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Open
+
+Sanitizes save_path and initializes connections.
+
+@param	${t0}	${p0}	Server path(s)
+@param	${t1}	${p1}		Session cookie name, unused
+@return	${type}"
+      end
+
+      operation 521218 "read"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Read
+
+Reads session data and acquires a lock
+
+@param	${t0}	${p0}	Session ID
+@return	${type}	Serialized session data"
+      end
+
+      operation 521346 "write"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "session_id" explicit_type "string"
+	  param in name "session_data" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Write
+
+Writes (create / update) session data
+
+@param	${t0}	${p0}	Session ID
+@param	${t1}	${p1}	Serialized session data
+@return	${type}"
+      end
+
+      operation 521474 "close"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Close
+
+Releases locks and closes connection.
+
+@return	${type}"
+      end
+
+      operation 521602 "destroy"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Destroy
+
+Destroys the current session.
+
+@param	${t0}	${p0}	Session ID
+@return	${type}"
+      end
+
+      operation 521730 "gc"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "maxlifetime" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Garbage Collector
+
+Deletes expired sessions
+
+@param	${t0} 	${p0}	Maximum lifetime of sessions
+@return	${type}"
+      end
+
+      operation 521858 "validateSessionId"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Validate ID
+
+Checks whether a session ID record exists server-side,
+to enforce session.use_strict_mode.
+
+@param	${t0}	${p0}
+@return	${type}"
+      end
+
+      operation 521986 "_get_lock"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get lock
+
+Acquires an (emulated) lock.
+
+@param	${t0}	${p0}	Session ID
+@return	${type}"
+      end
+
+      operation 522114 "_release_lock"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Release lock
+
+Releases a previously acquired lock
+
+@return	${type}"
+      end
+    end
+
+    class 173826 "CI_Session_redis_driver"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter Session Redis Driver
+
+@package	CodeIgniter
+@subpackage	Libraries
+@category	Sessions
+@author	Andrey Andreev
+@link	https://codeigniter.com/user_guide/libraries/sessions.html"
+      classrelation 161794 // <generalisation>
+	relation 161794 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161794 // <generalisation>
+	  b parent class_ref 173314 // CI_Session_driver
+      end
+
+      classrelation 161922 // <realization>
+	relation 161922 -_-|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161922 // <realization>
+	  b parent class_ref 173442 // SessionHandlerInterface
+      end
+
+      attribute 322050 "_redis"
+	protected explicit_type "Redis"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "phpRedis instance
+
+@var	${type}"
+      end
+
+      attribute 322178 "_key_prefix"
+	protected explicit_type "string"
+	init_value "  'ci_session:'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Key prefix
+
+@var	${type}"
+      end
+
+      attribute 322306 "_lock_key"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Lock key
+
+@var	${type}"
+      end
+
+      attribute 322434 "_key_exists"
+	protected explicit_type "bool"
+	init_value "  FALSE"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Key exists flag
+
+@var ${type}"
+      end
+
+      operation 522242 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "params" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Class constructor
+
+@param	${t0}	${p0}	Configuration parameters
+@return	${type}"
+      end
+
+      operation 522370 "open"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "save_path" explicit_type "string"
+	  param in name "name" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Open
+
+Sanitizes save_path and initializes connection.
+
+@param	${t0}	${p0}	Server path
+@param	${t1}	${p1}		Session cookie name, unused
+@return	${type}"
+      end
+
+      operation 522498 "read"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Read
+
+Reads session data and acquires a lock
+
+@param	${t0}	${p0}	Session ID
+@return	${type}	Serialized session data"
+      end
+
+      operation 522626 "write"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "session_id" explicit_type "string"
+	  param in name "session_data" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Write
+
+Writes (create / update) session data
+
+@param	${t0}	${p0}	Session ID
+@param	${t1}	${p1}	Serialized session data
+@return	${type}"
+      end
+
+      operation 522754 "close"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Close
+
+Releases locks and closes connection.
+
+@return	${type}"
+      end
+
+      operation 522882 "destroy"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Destroy
+
+Destroys the current session.
+
+@param	${t0}	${p0}	Session ID
+@return	${type}"
+      end
+
+      operation 523010 "gc"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "maxlifetime" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Garbage Collector
+
+Deletes expired sessions
+
+@param	${t0} 	${p0}	Maximum lifetime of sessions
+@return	${type}"
+      end
+
+      operation 523138 "validateSessionId"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Validate ID
+
+Checks whether a session ID record exists server-side,
+to enforce session.use_strict_mode.
+
+@param	${t0}	${p0}
+@return	${type}"
+      end
+
+      operation 523266 "_get_lock"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param in name "session_id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get lock
+
+Acquires an (emulated) lock.
+
+@param	${t0}	${p0}	Session ID
+@return	${type}"
+      end
+
+      operation 523394 "_release_lock"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Release lock
+
+Releases a previously acquired lock
+
+@return	${type}"
+      end
+    end
+  end
+end

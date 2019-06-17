@@ -1,0 +1,54 @@
+class CI_DB_pdo_4d_forge
+!!!603266.php!!!	_alter_table(in alter_type : string, in table : string, in field : mixed) : string|string[]
+		if (in_array($alter_type, array('ADD', 'DROP'), TRUE))
+		{
+			return parent::_alter_table($alter_type, $table, $field);
+		}
+
+		// No method of modifying columns is supported
+		return FALSE;
+!!!603394.php!!!	_process_column(in field : array) : string
+		return $this->db->escape_identifiers($field['name'])
+			.' '.$field['type'].$field['length']
+			.$field['null']
+			.$field['unique']
+			.$field['auto_increment'];
+!!!603522.php!!!	_attr_type(inout attributes : array) : void
+		switch (strtoupper($attributes['TYPE']))
+		{
+			case 'TINYINT':
+				$attributes['TYPE'] = 'SMALLINT';
+				$attributes['UNSIGNED'] = FALSE;
+				return;
+			case 'MEDIUMINT':
+				$attributes['TYPE'] = 'INTEGER';
+				$attributes['UNSIGNED'] = FALSE;
+				return;
+			case 'INTEGER':
+				$attributes['TYPE'] = 'INT';
+				return;
+			case 'BIGINT':
+				$attributes['TYPE'] = 'INT64';
+				return;
+			default: return;
+		}
+!!!603650.php!!!	_attr_unique(inout attributes : array, inout field : array) : void
+		if ( ! empty($attributes['UNIQUE']) && $attributes['UNIQUE'] === TRUE)
+		{
+			$field['unique'] = ' UNIQUE';
+
+			// UNIQUE must be used with NOT NULL
+			$field['null'] = ' NOT NULL';
+		}
+!!!603778.php!!!	_attr_auto_increment(inout attributes : array, inout field : array) : void
+		if ( ! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === TRUE)
+		{
+			if (stripos($field['type'], 'int') !== FALSE)
+			{
+				$field['auto_increment'] = ' AUTO_INCREMENT';
+			}
+			elseif (strcasecmp($field['type'], 'UUID') === 0)
+			{
+				$field['auto_increment'] = ' AUTO_GENERATE';
+			}
+		}

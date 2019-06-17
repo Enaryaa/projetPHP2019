@@ -1,0 +1,35 @@
+format 221
+"WIM" // application::Test::01Programmation::WIM
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/"
+  package_ref 141570 // WIM2.1
+end

@@ -1,0 +1,110 @@
+format 221
+"views" // application::Test::01Programmation::WIM::WIM2.1::gcontacts::application::views
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/gcontacts/application/views/"
+  deploymentview 145154 "views"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 197122 "ajouter_contact"
+      stereotype "source"
+      php_src "<div grid>
+	<div column=\"+3 5\">
+		<?php echo validation_errors(); ?>
+		<?php echo form_open('contacts/create',array()); ?>"
+      associated_elems
+      end
+    end
+
+    artifact 197250 "ajouter_success"
+      stereotype "source"
+      php_src "<div class=\"alert-box -success\">
+	<?=$nom?> <?=$prenom?> ajouté avec succès !
+</div>
+"
+      associated_elems
+      end
+    end
+
+    artifact 197378 "liste_contact"
+      stereotype "source"
+      php_src "<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+echo form_open('contacts/create',array('method'=>'get','style'=>'text-align:right'));
+echo form_submit('','Ajouter');
+echo form_close();
+
+$this->table->set_heading(array('Nom', 'Prénom', 'Email',''));
+
+$template = array(
+	'table_open' => '<table class=\"contacts\">'
+);
+
+$this->table->set_template($template);
+
+foreach ($contacts as $contact){
+	$this->table->add_row(
+		$contact->nom,
+		$contact->prenom,
+		$contact->email,
+		array(
+			'data'=>anchor('contacts/delete/'.$contact->id,
+			'<i class=\"fa fa-times\"></i>',
+			array('class'=>'btn btn-danger')).\" \".
+			anchor('contacts/edit/'.$contact->id,
+				'<i class=\"fa fa-search\"></i>',
+				array('class'=>'btn btn-info')),
+			'style'=>\"text-align:right\")
+		);
+}
+
+echo $this->table->generate();
+?>"
+      associated_elems
+      end
+    end
+
+    artifact 197506 "welcome_message"
+      stereotype "source"
+      php_src "<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>"
+      associated_elems
+      end
+    end
+  end
+
+  package_ref 148610 // errors
+
+  package_ref 148994 // templates
+end

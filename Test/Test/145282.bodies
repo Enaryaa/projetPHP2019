@@ -1,0 +1,139 @@
+class XML_RPC_Values
+!!!295682.php!!!	__construct(in val : mixed = -1, in type : string = '') : void
+		parent::__construct();
+
+		if ($val !== -1 OR $type !== '')
+		{
+			$type = $type === '' ? 'string' : $type;
+
+			if ($this->xmlrpcTypes[$type] == 1)
+			{
+				$this->addScalar($val, $type);
+			}
+			elseif ($this->xmlrpcTypes[$type] == 2)
+			{
+				$this->addArray($val);
+			}
+			elseif ($this->xmlrpcTypes[$type] == 3)
+			{
+				$this->addStruct($val);
+			}
+		}
+!!!295810.php!!!	addScalar(in val : scalar, in type : string = 'string') : int
+		$typeof = $this->xmlrpcTypes[$type];
+
+		if ($this->mytype === 1)
+		{
+			echo '<strong>XML_RPC_Values</strong>: scalar can have only one value<br />';
+			return 0;
+		}
+
+		if ($typeof != 1)
+		{
+			echo '<strong>XML_RPC_Values</strong>: not a scalar type (${typeof})<br />';
+			return 0;
+		}
+
+		if ($type === $this->xmlrpcBoolean)
+		{
+			$val = (int) (strcasecmp($val, 'true') === 0 OR $val === 1 OR ($val === TRUE && strcasecmp($val, 'false')));
+		}
+
+		if ($this->mytype === 2)
+		{
+			// adding to an array here
+			$ar = $this->me['array'];
+			$ar[] = new XML_RPC_Values($val, $type);
+			$this->me['array'] = $ar;
+		}
+		else
+		{
+			// a scalar, so set the value and remember we're scalar
+			$this->me[$type] = $val;
+			$this->mytype = $typeof;
+		}
+
+		return 1;
+!!!295938.php!!!	addArray(in vals : array) : int
+		if ($this->mytype !== 0)
+		{
+			echo '<strong>XML_RPC_Values</strong>: already initialized as a ['.$this->kindOf().']<br />';
+			return 0;
+		}
+
+		$this->mytype = $this->xmlrpcTypes['array'];
+		$this->me['array'] = $vals;
+		return 1;
+!!!296066.php!!!	addStruct(in vals : object) : int
+		if ($this->mytype !== 0)
+		{
+			echo '<strong>XML_RPC_Values</strong>: already initialized as a ['.$this->kindOf().']<br />';
+			return 0;
+		}
+		$this->mytype = $this->xmlrpcTypes['struct'];
+		$this->me['struct'] = $vals;
+		return 1;
+!!!296194.php!!!	kindOf() : string
+		switch ($this->mytype)
+		{
+			case 3: return 'struct';
+			case 2: return 'array';
+			case 1: return 'scalar';
+			default: return 'undef';
+		}
+!!!296322.php!!!	serializedata(in typ : string, in val : mixed) : string
+		$rs = '';
+
+		switch ($this->xmlrpcTypes[$typ])
+		{
+			case 3:
+				// struct
+				$rs .= "<struct>\n";
+				reset($val);
+				foreach ($val as $key2 => &$val2)
+				{
+					$rs .= "<member>\n<name>{$key2}</name>\n".$this->serializeval($val2)."</member>\n";
+				}
+				$rs .= '</struct>';
+				break;
+			case 2:
+				// array
+				$rs .= "<array>\n<data>\n";
+				for ($i = 0, $c = count($val); $i < $c; $i++)
+				{
+					$rs .= $this->serializeval($val[$i]);
+				}
+				$rs .= "</data>\n</array>\n";
+				break;
+			case 1:
+				// others
+				switch ($typ)
+				{
+					case $this->xmlrpcBase64:
+						$rs .= '<'.$typ.'>'.base64_encode( (string) $val).'</'.$typ.">\n";
+						break;
+					case $this->xmlrpcBoolean:
+						$rs .= '<'.$typ.'>'.( (bool) $val ? '1' : '0').'</'.$typ.">\n";
+						break;
+					case $this->xmlrpcString:
+						$rs .= '<'.$typ.'>'.htmlspecialchars( (string) $val).'</'.$typ.">\n";
+						break;
+					default:
+						$rs .= '<'.$typ.'>'.$val.'</'.$typ.">\n";
+						break;
+				}
+			default:
+				break;
+		}
+
+		return $rs;
+!!!296450.php!!!	serialize_class() : string
+		return $this->serializeval($this);
+!!!296578.php!!!	serializeval(in o : object) : string
+		$array = $o->me;
+		list($value, $type) = array(reset($array), key($array));
+		return "<value>\n".$this->serializedata($type, $value)."</value>\n";
+!!!296706.php!!!	scalarval() : mixed
+		return reset($this->me);
+!!!296834.php!!!	iso8601_encode(in time : int, in utc : bool = FALSE) : string
+		return ($utc) ? strftime('%Y%m%dT%H:%i:%s', $time) : gmstrftime('%Y%m%dT%H:%i:%s', $time);

@@ -1,0 +1,5 @@
+class personne
+!!!723074.php!!!	__construct(in id :  = null, in nom :  = "", in prenom :  = "")
+		// A COMPLETER
+!!!723202.php!!!	__toString()
+		//A COMPLETER

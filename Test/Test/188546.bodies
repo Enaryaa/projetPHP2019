@@ -1,0 +1,54 @@
+class CI_Cache_apc
+!!!699650.php!!!	__construct() : void
+		if ( ! $this->is_supported())
+		{
+			log_message('error', 'Cache: Failed to initialize APC; extension not loaded/enabled?');
+		}
+!!!699778.php!!!	get(in id : string) : mixed
+		$success = FALSE;
+		$data = apc_fetch($id, $success);
+
+		if ($success === TRUE)
+		{
+			return is_array($data)
+				? unserialize($data[0])
+				: $data;
+		}
+
+		return FALSE;
+!!!699906.php!!!	save(in id : string, in data : mixed, in ttl : int = 60, in raw : bool = FALSE) : bool
+		$ttl = (int) $ttl;
+
+		return apc_store(
+			$id,
+			($raw === TRUE ? $data : array(serialize($data), time(), $ttl)),
+			$ttl
+		);
+!!!700034.php!!!	delete(in id : mixed) : bool
+		return apc_delete($id);
+!!!700162.php!!!	increment(in id : string, in offset : int = 1) : mixed
+		return apc_inc($id, $offset);
+!!!700290.php!!!	decrement(in id : string, in offset : int = 1) : mixed
+		return apc_dec($id, $offset);
+!!!700418.php!!!	clean() : bool
+		return apc_clear_cache('user');
+!!!700546.php!!!	cache_info(in type : string = NULL) : mixed
+		 return apc_cache_info($type);
+!!!700674.php!!!	get_metadata(in id : mixed) : mixed
+		$success = FALSE;
+		$stored = apc_fetch($id, $success);
+
+		if ($success === FALSE OR count($stored) !== 3)
+		{
+			return FALSE;
+		}
+
+		list($data, $time, $ttl) = $stored;
+
+		return array(
+			'expire'	=> $time + $ttl,
+			'mtime'		=> $time,
+			'data'		=> unserialize($data)
+		);
+!!!700802.php!!!	is_supported() : bool
+		return (extension_loaded('apc') && ini_get('apc.enabled'));

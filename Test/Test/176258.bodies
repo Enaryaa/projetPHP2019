@@ -1,0 +1,131 @@
+class CI_DB_cubrid_driver
+!!!571778.php!!!	__construct(in params : array) : void
+		parent::__construct($params);
+
+		if (preg_match('/^CUBRID:[^:]+(:[0-9][1-9]{0,4})?:[^:]+:[^:]*:[^:]*:(\?.+)?$/', $this->dsn, $matches))
+		{
+			if (stripos($matches[2], 'autocommit=off') !== FALSE)
+			{
+				$this->auto_commit = FALSE;
+			}
+		}
+		else
+		{
+			// If no port is defined by the user, use the default value
+			empty($this->port) OR $this->port = 33000;
+		}
+!!!571906.php!!!	db_connect(in persistent : bool = FALSE) : resource
+		if (preg_match('/^CUBRID:[^:]+(:[0-9][1-9]{0,4})?:[^:]+:([^:]*):([^:]*):(\?.+)?$/', $this->dsn, $matches))
+		{
+			$func = ($persistent !== TRUE) ? 'cubrid_connect_with_url' : 'cubrid_pconnect_with_url';
+			return ($matches[2] === '' && $matches[3] === '' && $this->username !== '' && $this->password !== '')
+				? $func($this->dsn, $this->username, $this->password)
+				: $func($this->dsn);
+		}
+
+		$func = ($persistent !== TRUE) ? 'cubrid_connect' : 'cubrid_pconnect';
+		return ($this->username !== '')
+			? $func($this->hostname, $this->port, $this->database, $this->username, $this->password)
+			: $func($this->hostname, $this->port, $this->database);
+!!!572034.php!!!	reconnect() : void
+		if (cubrid_ping($this->conn_id) === FALSE)
+		{
+			$this->conn_id = FALSE;
+		}
+!!!572162.php!!!	version() : string
+		if (isset($this->data_cache['version']))
+		{
+			return $this->data_cache['version'];
+		}
+
+		return ( ! $this->conn_id OR ($version = cubrid_get_server_info($this->conn_id)) === FALSE)
+			? FALSE
+			: $this->data_cache['version'] = $version;
+!!!572290.php!!!	_execute(in sql : string) : resource
+		return cubrid_query($sql, $this->conn_id);
+!!!572418.php!!!	_trans_begin() : bool
+		if (($autocommit = cubrid_get_autocommit($this->conn_id)) === NULL)
+		{
+			return FALSE;
+		}
+		elseif ($autocommit === TRUE)
+		{
+			return cubrid_set_autocommit($this->conn_id, CUBRID_AUTOCOMMIT_FALSE);
+		}
+
+		return TRUE;
+!!!572546.php!!!	_trans_commit() : bool
+		if ( ! cubrid_commit($this->conn_id))
+		{
+			return FALSE;
+		}
+
+		if ($this->auto_commit && ! cubrid_get_autocommit($this->conn_id))
+		{
+			return cubrid_set_autocommit($this->conn_id, CUBRID_AUTOCOMMIT_TRUE);
+		}
+
+		return TRUE;
+!!!572674.php!!!	_trans_rollback() : bool
+		if ( ! cubrid_rollback($this->conn_id))
+		{
+			return FALSE;
+		}
+
+		if ($this->auto_commit && ! cubrid_get_autocommit($this->conn_id))
+		{
+			cubrid_set_autocommit($this->conn_id, CUBRID_AUTOCOMMIT_TRUE);
+		}
+
+		return TRUE;
+!!!572802.php!!!	_escape_str(in str : string) : string
+		return cubrid_real_escape_string($str, $this->conn_id);
+!!!572930.php!!!	affected_rows() : int
+		return cubrid_affected_rows();
+!!!573058.php!!!	insert_id() : int
+		return cubrid_insert_id($this->conn_id);
+!!!573186.php!!!	_list_tables(in prefix_limit : bool = FALSE) : string
+		$sql = 'SHOW TABLES';
+
+		if ($prefix_limit !== FALSE && $this->dbprefix !== '')
+		{
+			return $sql." LIKE '".$this->escape_like_str($this->dbprefix)."%'";
+		}
+
+		return $sql;
+!!!573314.php!!!	_list_columns(in table : string = '') : string
+		return 'SHOW COLUMNS FROM '.$this->protect_identifiers($table, TRUE, NULL, FALSE);
+!!!573442.php!!!	field_data(in table : string) : array
+		if (($query = $this->query('SHOW COLUMNS FROM '.$this->protect_identifiers($table, TRUE, NULL, FALSE))) === FALSE)
+		{
+			return FALSE;
+		}
+		$query = $query->result_object();
+
+		$retval = array();
+		for ($i = 0, $c = count($query); $i < $c; $i++)
+		{
+			$retval[$i]			= new stdClass();
+			$retval[$i]->name		= $query[$i]->Field;
+
+			sscanf($query[$i]->Type, '%[a-z](%d)',
+				$retval[$i]->type,
+				$retval[$i]->max_length
+			);
+
+			$retval[$i]->default		= $query[$i]->Default;
+			$retval[$i]->primary_key	= (int) ($query[$i]->Key === 'PRI');
+		}
+
+		return $retval;
+!!!573570.php!!!	error() : array
+		return array('code' => cubrid_errno($this->conn_id), 'message' => cubrid_error($this->conn_id));
+!!!573698.php!!!	_from_tables() : string
+		if ( ! empty($this->qb_join) && count($this->qb_from) > 1)
+		{
+			return '('.implode(', ', $this->qb_from).')';
+		}
+
+		return implode(', ', $this->qb_from);
+!!!573826.php!!!	_close() : void
+		cubrid_close($this->conn_id);

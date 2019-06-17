@@ -1,0 +1,82 @@
+format 221
+"tp5" // application::Test::01Programmation::WIM::WIM2.1::tp5
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/tp5/"
+  deploymentview 151554 "tp5"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 224642 "liste"
+      stereotype "source"
+      php_src "<?php
+include './include/contact.php';
+$liste = contact::getListe();
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=\"utf-8\"/>
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-utils/concise-utils.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-ui/concise-ui.min.css\">
+		<link href=\"./css/style.css\" rel=\"stylesheet\" />
+		<title>Contacts</title>
+	</head>
+	<body container>
+		<h3 class=\"_bb1\">Gestion de contacts</h3>
+		<table class=\"contacts\">
+			<thead>
+				<tr>
+					<th>Prénom</th><th>Nom</th><th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($liste as $contact) : ?>
+				<tr>
+					<td>
+						<?php echo $contact->prenom;?>
+					</td>
+					<td>
+						<?php echo $contact->nom;?>
+					</td>
+					<td>
+						<?php echo $contact->email;?>
+					</td>
+				</tr>
+				<?php endforeach;?>"
+      associated_elems
+      end
+    end
+  end
+
+  package_ref 155138 // include
+end

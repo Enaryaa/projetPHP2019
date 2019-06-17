@@ -1,0 +1,134 @@
+format 221
+"tp3" // application::Test::01Programmation::WIM::WIM2.1::tp3
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/tp3/"
+  deploymentview 150914 "tp3"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 223874 "fiche"
+      stereotype "source"
+      php_src "<!DOCTYPE html>
+<html lang=\"fr\">
+	<head>
+		<meta charset=\"UTF-8\" />
+		<title></title>
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-utils/concise-utils.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-ui/concise-ui.min.css\">
+		<link rel=\"stylesheet\" href=\"./css/style.css\">
+
+
+	</head>
+	<body container>
+<?php
+$idFilm=intval($_GET['film']);
+include './include/connexion.php';
+
+/* 
+ * il faut définir $film et $roles 
+ * 
+ * */
+
+?>
+
+		<h2 class=\"_bb1 _mts _mbs\"><?php echo $film['titre'];?></h2>
+		<div grid>
+			<div column>
+				<img src=\"<?php echo $film['urlImage'];?>\" alt=\"\">
+			</div>
+			<div column>
+				<dl>
+					<dt>Année</dt>
+					<dd><?php echo $film['annee'];?></dd>
+					<dt>Genre</dt>
+					<dd><?php echo $film['genre'];?></dd>
+					<dt>Langue</dt>
+					<dd><?php echo $film['langue'];?></dd>
+					<dt>Réalisateur</dt>
+					<dd><?php echo $film['prenom'].\" \".$film['nom'];?></dd>
+					<dt>Résumé</dt>
+					<dd style=\"text-align:justify\"><?php echo $film['resume'];?></dd>
+					<dt>Acteurs</dt>
+					<dd>
+<?php
+foreach ($roles as $acteur)
+{
+	echo $acteur['prenom'].\" \".$acteur['nom'];
+}
+?>"
+      associated_elems
+      end
+    end
+
+    artifact 224002 "film"
+      stereotype "source"
+      php_src "<!DOCTYPE html>
+<html lang=\"fr\">
+	<head>
+		<meta charset=\"UTF-8\" />
+		<title>Films</title>
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-utils/concise-utils.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-ui/concise-ui.min.css\">
+		<link rel=\"stylesheet\" href=\"./css/style.css\">
+	</head>
+	<body container>
+		<h2 class=\"_bb1 _mts\">Films</h2>
+<?php
+/* 2 variables 
+ * mes => filtre le metteur en scène
+ * page => filtre la page du tableau 
+ * */
+$filtreMes=filter_var($mes,FILTER_SANITIZE_STRING);
+$filtrePage=filter_var($page,FILTER_SANITIZE_NUMBER_INT);
+
+/*if (isset($_GET['mes'])){      
+	$filtreMes=intval($_GET['mes']);
+}else{
+	$filtreMes=-1;
+}
+if (isset($_GET['page'])){
+	$page = intval($_GET['page']);
+}else{
+	$page=1;
+}*/
+
+include './include/connexion.php';
+?>"
+      associated_elems
+      end
+    end
+  end
+
+  package_ref 154370 // include
+end

@@ -1,0 +1,51 @@
+format 221
+"ex1" // application::Test::01Programmation::WIM::WIM2.1::tp1::ex1
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/tp1/ex1/"
+  deploymentview 148994 "ex1"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 221954 "hello-world"
+      stereotype "source"
+      php_src "<!DOCTYPE html>
+<html>
+	<body>
+	<?php 
+		echo \"<h1>hello world !!!</h1>\";
+		phpinfo();
+	?>"
+      associated_elems
+      end
+    end
+  end
+end

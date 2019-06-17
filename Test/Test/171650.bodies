@@ -1,0 +1,50 @@
+class CI_Cache_apc
+!!!499458.php!!!	__construct() : void
+		if ( ! $this->is_supported())
+		{
+			log_message('error', 'Cache: Failed to initialize APC; extension not loaded/enabled?');
+		}
+!!!499586.php!!!	get(in id : string) : mixed
+		$success = FALSE;
+		$data = apc_fetch($id, $success);
+
+		return ($success === TRUE) ? $data : FALSE;
+!!!499714.php!!!	save(in id : string, in data : mixed, in ttl : int = 60, in raw : bool = FALSE) : bool
+		return apc_store($id, $data, (int) $ttl);
+!!!499842.php!!!	delete(in id : mixed) : bool
+		return apc_delete($id);
+!!!499970.php!!!	increment(in id : string, in offset : int = 1) : mixed
+		return apc_inc($id, $offset);
+!!!500098.php!!!	decrement(in id : string, in offset : int = 1) : mixed
+		return apc_dec($id, $offset);
+!!!500226.php!!!	clean() : bool
+		return apc_clear_cache('user');
+!!!500354.php!!!	cache_info(in type : string = NULL) : mixed
+		 return apc_cache_info($type);
+!!!500482.php!!!	get_metadata(in id : mixed) : mixed
+		$cache_info = apc_cache_info('user', FALSE);
+		if (empty($cache_info) OR empty($cache_info['cache_list']))
+		{
+			return FALSE;
+		}
+
+		foreach ($cache_info['cache_list'] as &$entry)
+		{
+			if ($entry['info'] !== $id)
+			{
+				continue;
+			}
+
+			$success  = FALSE;
+			$metadata = array(
+				'expire' => ($entry['ttl'] ? $entry['mtime'] + $entry['ttl'] : 0),
+				'mtime'  => $entry['ttl'],
+				'data'   => apc_fetch($id, $success)
+			);
+
+			return ($success === TRUE) ? $metadata : FALSE;
+		}
+
+		return FALSE;
+!!!500610.php!!!	is_supported() : bool
+		return (extension_loaded('apc') && ini_get('apc.enabled'));

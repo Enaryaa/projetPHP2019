@@ -1,0 +1,3 @@
+class Welcome
+!!!524162.php!!!	index()
+		$this->load->view('welcome_message');

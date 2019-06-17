@@ -1,0 +1,188 @@
+class CI_Config
+!!!525570.php!!!	__construct() : void
+		$this->config =& get_config();
+
+		// Set the base_url automatically if none was provided
+		if (empty($this->config['base_url']))
+		{
+			if (isset($_SERVER['SERVER_ADDR']))
+			{
+				if (strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE)
+				{
+					$server_addr = '['.$_SERVER['SERVER_ADDR'].']';
+				}
+				else
+				{
+					$server_addr = $_SERVER['SERVER_ADDR'];
+				}
+
+				$base_url = (is_https() ? 'https' : 'http').'://'.$server_addr
+					.substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
+			}
+			else
+			{
+				$base_url = 'http://localhost/';
+			}
+
+			$this->set_item('base_url', $base_url);
+		}
+
+		log_message('info', 'Config Class Initialized');
+!!!525698.php!!!	load(in file : string = '', in use_sections : bool = FALSE, in fail_gracefully : bool = FALSE) : bool
+		$file = ($file === '') ? 'config' : str_replace('.php', '', $file);
+		$loaded = FALSE;
+
+		foreach ($this->_config_paths as $path)
+		{
+			foreach (array($file, ENVIRONMENT.DIRECTORY_SEPARATOR.$file) as $location)
+			{
+				$file_path = $path.'config/'.$location.'.php';
+				if (in_array($file_path, $this->is_loaded, TRUE))
+				{
+					return TRUE;
+				}
+
+				if ( ! file_exists($file_path))
+				{
+					continue;
+				}
+
+				include($file_path);
+
+				if ( ! isset($config) OR ! is_array($config))
+				{
+					if ($fail_gracefully === TRUE)
+					{
+						return FALSE;
+					}
+
+					show_error('Your '.$file_path.' file does not appear to contain a valid configuration array.');
+				}
+
+				if ($use_sections === TRUE)
+				{
+					$this->config[$file] = isset($this->config[$file])
+						? array_merge($this->config[$file], $config)
+						: $config;
+				}
+				else
+				{
+					$this->config = array_merge($this->config, $config);
+				}
+
+				$this->is_loaded[] = $file_path;
+				$config = NULL;
+				$loaded = TRUE;
+				log_message('debug', 'Config file loaded: '.$file_path);
+			}
+		}
+
+		if ($loaded === TRUE)
+		{
+			return TRUE;
+		}
+		elseif ($fail_gracefully === TRUE)
+		{
+			return FALSE;
+		}
+
+		show_error('The configuration file '.$file.'.php does not exist.');
+!!!525826.php!!!	item(in item : string, in index : string = '') : string|null
+		if ($index == '')
+		{
+			return isset($this->config[$item]) ? $this->config[$item] : NULL;
+		}
+
+		return isset($this->config[$index], $this->config[$index][$item]) ? $this->config[$index][$item] : NULL;
+!!!525954.php!!!	slash_item(in item : string) : string|null
+		if ( ! isset($this->config[$item]))
+		{
+			return NULL;
+		}
+		elseif (trim($this->config[$item]) === '')
+		{
+			return '';
+		}
+
+		return rtrim($this->config[$item], '/').'/';
+!!!526082.php!!!	site_url(in uri : string|string[] = '', in protocol : string = NULL) : string
+		$base_url = $this->slash_item('base_url');
+
+		if (isset($protocol))
+		{
+			// For protocol-relative links
+			if ($protocol === '')
+			{
+				$base_url = substr($base_url, strpos($base_url, '//'));
+			}
+			else
+			{
+				$base_url = $protocol.substr($base_url, strpos($base_url, '://'));
+			}
+		}
+
+		if (empty($uri))
+		{
+			return $base_url.$this->item('index_page');
+		}
+
+		$uri = $this->_uri_string($uri);
+
+		if ($this->item('enable_query_strings') === FALSE)
+		{
+			$suffix = isset($this->config['url_suffix']) ? $this->config['url_suffix'] : '';
+
+			if ($suffix !== '')
+			{
+				if (($offset = strpos($uri, '?')) !== FALSE)
+				{
+					$uri = substr($uri, 0, $offset).$suffix.substr($uri, $offset);
+				}
+				else
+				{
+					$uri .= $suffix;
+				}
+			}
+
+			return $base_url.$this->slash_item('index_page').$uri;
+		}
+		elseif (strpos($uri, '?') === FALSE)
+		{
+			$uri = '?'.$uri;
+		}
+
+		return $base_url.$this->item('index_page').$uri;
+!!!526210.php!!!	base_url(in uri : string|string[] = '', in protocol : string = NULL) : string
+		$base_url = $this->slash_item('base_url');
+
+		if (isset($protocol))
+		{
+			// For protocol-relative links
+			if ($protocol === '')
+			{
+				$base_url = substr($base_url, strpos($base_url, '//'));
+			}
+			else
+			{
+				$base_url = $protocol.substr($base_url, strpos($base_url, '://'));
+			}
+		}
+
+		return $base_url.$this->_uri_string($uri);
+!!!526338.php!!!	_uri_string(in uri : string|string[]) : string
+		if ($this->item('enable_query_strings') === FALSE)
+		{
+			is_array($uri) && $uri = implode('/', $uri);
+			return ltrim($uri, '/');
+		}
+		elseif (is_array($uri))
+		{
+			return http_build_query($uri);
+		}
+
+		return $uri;
+!!!526466.php!!!	system_url() : string
+		$x = explode('/', preg_replace('|/*(.+?)/*$|', '\\1', BASEPATH));
+		return $this->slash_item('base_url').end($x).'/';
+!!!526594.php!!!	set_item(in item : string, in value : string) : void
+		$this->config[$item] = $value;

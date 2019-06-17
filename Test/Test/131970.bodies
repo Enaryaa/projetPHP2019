@@ -1,0 +1,35 @@
+class CI_DB_cubrid_result
+!!!176642.php!!!	num_rows() : int
+		return is_int($this->num_rows)
+			? $this->num_rows
+			: $this->num_rows = cubrid_num_rows($this->result_id);
+!!!176770.php!!!	num_fields() : int
+		return cubrid_num_fields($this->result_id);
+!!!176898.php!!!	list_fields() : array
+		return cubrid_column_names($this->result_id);
+!!!177026.php!!!	field_data() : array
+		$retval = array();
+
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		{
+			$retval[$i]			= new stdClass();
+			$retval[$i]->name		= cubrid_field_name($this->result_id, $i);
+			$retval[$i]->type		= cubrid_field_type($this->result_id, $i);
+			$retval[$i]->max_length		= cubrid_field_len($this->result_id, $i);
+			$retval[$i]->primary_key	= (int) (strpos(cubrid_field_flags($this->result_id, $i), 'primary_key') !== FALSE);
+		}
+
+		return $retval;
+!!!177154.php!!!	free_result() : void
+		if (is_resource($this->result_id) OR
+			(get_resource_type($this->result_id) === 'Unknown' && preg_match('/Resource id #/', strval($this->result_id))))
+		{
+			cubrid_close_request($this->result_id);
+			$this->result_id = FALSE;
+		}
+!!!177282.php!!!	data_seek(in n : int = 0) : bool
+		return cubrid_data_seek($this->result_id, $n);
+!!!177410.php!!!	_fetch_assoc() : array
+		return cubrid_fetch_assoc($this->result_id);
+!!!177538.php!!!	_fetch_object(in class_name : string = 'stdClass') : object
+		return cubrid_fetch_object($this->result_id, $class_name);

@@ -1,0 +1,3 @@
+class CI_Lang
+!!!342402.php!!!	__construct() : void
+		log_message('info', 'Language Class Initialized');

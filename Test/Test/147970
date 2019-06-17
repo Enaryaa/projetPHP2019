@@ -1,0 +1,41 @@
+format 221
+"application" // application::Test::01Programmation::WIM::WIM2.1::gcontacts::application
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/gcontacts/application/"
+  package_ref 148098 // config
+
+  package_ref 148226 // controllers
+
+  package_ref 148354 // models
+
+  package_ref 148482 // views
+end

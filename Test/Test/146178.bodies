@@ -1,0 +1,116 @@
+class CI_Cache_memcached
+!!!305538.php!!!	__construct() : void
+		// Try to load memcached server info from the config file.
+		$CI =& get_instance();
+		$defaults = $this->_config['default'];
+
+		if ($CI->config->load('memcached', TRUE, TRUE))
+		{
+			$this->_config = $CI->config->config['memcached'];
+		}
+
+		if (class_exists('Memcached', FALSE))
+		{
+			$this->_memcached = new Memcached();
+		}
+		elseif (class_exists('Memcache', FALSE))
+		{
+			$this->_memcached = new Memcache();
+		}
+		else
+		{
+			log_message('error', 'Cache: Failed to create Memcache(d) object; extension not loaded?');
+			return;
+		}
+
+		foreach ($this->_config as $cache_server)
+		{
+			isset($cache_server['hostname']) OR $cache_server['hostname'] = $defaults['host'];
+			isset($cache_server['port']) OR $cache_server['port'] = $defaults['port'];
+			isset($cache_server['weight']) OR $cache_server['weight'] = $defaults['weight'];
+
+			if ($this->_memcached instanceof Memcache)
+			{
+				// Third parameter is persistence and defaults to TRUE.
+				$this->_memcached->addServer(
+					$cache_server['hostname'],
+					$cache_server['port'],
+					TRUE,
+					$cache_server['weight']
+				);
+			}
+			elseif ($this->_memcached instanceof Memcached)
+			{
+				$this->_memcached->addServer(
+					$cache_server['hostname'],
+					$cache_server['port'],
+					$cache_server['weight']
+				);
+			}
+		}
+!!!305666.php!!!	get(in id : string) : mixed
+		$data = $this->_memcached->get($id);
+
+		return is_array($data) ? $data[0] : $data;
+!!!305794.php!!!	save(in id : string, in data : mixed, in ttl : int = 60, in raw : bool = FALSE) : bool
+		if ($raw !== TRUE)
+		{
+			$data = array($data, time(), $ttl);
+		}
+
+		if ($this->_memcached instanceof Memcached)
+		{
+			return $this->_memcached->set($id, $data, $ttl);
+		}
+		elseif ($this->_memcached instanceof Memcache)
+		{
+			return $this->_memcached->set($id, $data, 0, $ttl);
+		}
+
+		return FALSE;
+!!!305922.php!!!	delete(in id : mixed) : bool
+		return $this->_memcached->delete($id);
+!!!306050.php!!!	increment(in id : string, in offset : int = 1) : mixed
+		if (($result = $this->_memcached->increment($id, $offset)) === FALSE)
+		{
+			return $this->_memcached->add($id, $offset) ? $offset : FALSE;
+		}
+
+		return $result;
+!!!306178.php!!!	decrement(in id : string, in offset : int = 1) : mixed
+		if (($result = $this->_memcached->decrement($id, $offset)) === FALSE)
+		{
+			return $this->_memcached->add($id, 0) ? 0 : FALSE;
+		}
+
+		return $result;
+!!!306306.php!!!	clean() : bool
+		return $this->_memcached->flush();
+!!!306434.php!!!	cache_info() : mixed
+		return $this->_memcached->getStats();
+!!!306562.php!!!	get_metadata(in id : mixed) : mixed
+		$stored = $this->_memcached->get($id);
+
+		if (count($stored) !== 3)
+		{
+			return FALSE;
+		}
+
+		list($data, $time, $ttl) = $stored;
+
+		return array(
+			'expire'	=> $time + $ttl,
+			'mtime'		=> $time,
+			'data'		=> $data
+		);
+!!!306690.php!!!	is_supported() : bool
+		return (extension_loaded('memcached') OR extension_loaded('memcache'));
+!!!306818.php!!!	__destruct() : void
+		if ($this->_memcached instanceof Memcache)
+		{
+			$this->_memcached->close();
+		}
+		elseif ($this->_memcached instanceof Memcached && method_exists($this->_memcached, 'quit'))
+		{
+			$this->_memcached->quit();
+		}

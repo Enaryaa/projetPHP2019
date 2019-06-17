@@ -1,0 +1,465 @@
+format 221
+"Cache" // application::Test::01Programmation::WIM::WIM2.1::gcontacts::system::libraries::Cache
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/gcontacts/system/libraries/Cache/"
+  deploymentview 148098 "Cache"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 219266 "Cache"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 188418 // CI_Cache
+      end
+    end
+  end
+
+  classview 143106 "Cache"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 188418 "CI_Cache"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+CodeIgniter Caching Class
+
+@package		CodeIgniter
+@subpackage	Libraries
+@category	Core
+@author		EllisLab Dev Team
+@link
+"
+      classrelation 172290 // <generalisation>
+	relation 172290 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 172290 // <generalisation>
+	  b parent class_ref 171522 // CI_Driver_Library
+      end
+
+      attribute 411010 "valid_drivers"
+	protected explicit_type "array"
+	init_value " array(
+		'apc',
+		'dummy',
+		'file',
+		'memcached',
+		'redis',
+		'wincache'
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Valid cache drivers
+
+@var ${type}
+"
+      end
+
+      attribute 411138 "_cache_path"
+	protected explicit_type "string"
+	init_value " NULL"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Path of cache files (if file-based cache)
+
+@var ${type}
+"
+      end
+
+      attribute 411266 "_adapter"
+	protected explicit_type "mixed"
+	init_value " 'dummy'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Reference to the driver
+
+@var ${type}
+"
+      end
+
+      attribute 411394 "_backup_driver"
+	protected explicit_type "string"
+	init_value " 'dummy'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Fallback driver
+
+@var ${type}
+"
+      end
+
+      attribute 411522 "key_prefix"
+	public explicit_type "string"
+	init_value " ''"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Cache key prefix
+
+@var	${type}
+"
+      end
+
+      operation 698370 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "config" explicit_type "array"
+	    defaultvalue "array()"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Constructor
+
+Initialize class properties based on the configuration array.
+
+@param	${t0}	${p0} = array()
+@return	${type}
+"
+      end
+
+      operation 698498 "get"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get
+
+Look for a value in the cache. If it exists, return the data
+if not, return FALSE
+
+@param	${t0}	${p0}
+@return	${type}	value matching $id or FALSE on failure
+"
+      end
+
+      operation 698626 "save"
+	public explicit_return_type "bool"
+	nparams 4
+	  param in name "id" explicit_type "string"
+	  param in name "data" explicit_type "mixed"
+	  param in name "ttl" explicit_type "int"
+	    defaultvalue "60"
+	  param in name "raw" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Save
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Data to store
+@param	${t2}	${p2}	Cache TTL (in seconds)
+@param	${t3}	${p3}	Whether to store the raw value
+@return	${type}	TRUE on success, FALSE on failure
+"
+      end
+
+      operation 698754 "delete"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Delete from Cache
+
+@param	${t0}	${p0}	Cache ID
+@return	${type}	TRUE on success, FALSE on failure
+"
+      end
+
+      operation 698882 "increment"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Increment a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to add
+@return	${type}	New value on success or FALSE on failure
+"
+      end
+
+      operation 699010 "decrement"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Decrement a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to reduce by
+@return	${type}	New value on success or FALSE on failure
+"
+      end
+
+      operation 699138 "clean"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Clean the cache
+
+@return	${type}	TRUE on success, FALSE on failure
+"
+      end
+
+      operation 699266 "cache_info"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "type" explicit_type "string"
+	    defaultvalue "'user'"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Info
+
+@param	${t0}	${p0} = 'user'	user/filehits
+@return	${type}	array containing cache info on success OR FALSE on failure
+"
+      end
+
+      operation 699394 "get_metadata"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get Cache Metadata
+
+@param	${t0}	${p0}	key to get cache metadata on
+@return	${type}	cache item metadata
+"
+      end
+
+      operation 699522 "is_supported"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "driver" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Is the requested driver supported in this environment?
+
+@param	${t0}	${p0}	The driver to test
+@return	${type}
+"
+      end
+    end
+  end
+
+  package_ref 151298 // drivers
+end

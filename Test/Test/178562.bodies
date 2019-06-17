@@ -1,0 +1,42 @@
+class CI_DB_mysqli_result
+!!!591234.php!!!	num_rows() : int
+		return is_int($this->num_rows)
+			? $this->num_rows
+			: $this->num_rows = $this->result_id->num_rows;
+!!!591362.php!!!	num_fields() : int
+		return $this->result_id->field_count;
+!!!591490.php!!!	list_fields() : array
+		$field_names = array();
+		$this->result_id->field_seek(0);
+		while ($field = $this->result_id->fetch_field())
+		{
+			$field_names[] = $field->name;
+		}
+
+		return $field_names;
+!!!591618.php!!!	field_data() : array
+		$retval = array();
+		$field_data = $this->result_id->fetch_fields();
+		for ($i = 0, $c = count($field_data); $i < $c; $i++)
+		{
+			$retval[$i]			= new stdClass();
+			$retval[$i]->name		= $field_data[$i]->name;
+			$retval[$i]->type		= $field_data[$i]->type;
+			$retval[$i]->max_length		= $field_data[$i]->max_length;
+			$retval[$i]->primary_key	= (int) ($field_data[$i]->flags & 2);
+			$retval[$i]->default		= $field_data[$i]->def;
+		}
+
+		return $retval;
+!!!591746.php!!!	free_result() : void
+		if (is_object($this->result_id))
+		{
+			$this->result_id->free();
+			$this->result_id = FALSE;
+		}
+!!!591874.php!!!	data_seek(in n : int = 0) : bool
+		return $this->result_id->data_seek($n);
+!!!592002.php!!!	_fetch_assoc() : array
+		return $this->result_id->fetch_assoc();
+!!!592130.php!!!	_fetch_object(in class_name : string = 'stdClass') : object
+		return $this->result_id->fetch_object($class_name);

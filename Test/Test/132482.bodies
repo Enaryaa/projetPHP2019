@@ -1,0 +1,44 @@
+class CI_DB_ibase_result
+!!!180482.php!!!	num_fields() : int
+		return ibase_num_fields($this->result_id);
+!!!180610.php!!!	list_fields() : array
+		$field_names = array();
+		for ($i = 0, $num_fields = $this->num_fields(); $i < $num_fields; $i++)
+		{
+			$info = ibase_field_info($this->result_id, $i);
+			$field_names[] = $info['name'];
+		}
+
+		return $field_names;
+!!!180738.php!!!	field_data() : array
+		$retval = array();
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		{
+			$info = ibase_field_info($this->result_id, $i);
+
+			$retval[$i]			= new stdClass();
+			$retval[$i]->name		= $info['name'];
+			$retval[$i]->type		= $info['type'];
+			$retval[$i]->max_length		= $info['length'];
+		}
+
+		return $retval;
+!!!180866.php!!!	free_result() : void
+		ibase_free_result($this->result_id);
+!!!180994.php!!!	_fetch_assoc() : array
+		return ibase_fetch_assoc($this->result_id, IBASE_FETCH_BLOBS);
+!!!181122.php!!!	_fetch_object(in class_name : string = 'stdClass') : object
+		$row = ibase_fetch_object($this->result_id, IBASE_FETCH_BLOBS);
+
+		if ($class_name === 'stdClass' OR ! $row)
+		{
+			return $row;
+		}
+
+		$class_name = new $class_name();
+		foreach ($row as $key => $value)
+		{
+			$class_name->$key = $value;
+		}
+
+		return $class_name;

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Bouml (http://bouml.free.fr/) -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="1067" height="560" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<g>
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="822" y="51" width="3" height="191" />
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="684" y="239" width="141" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="680" y="47" width="142" height="192" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="751" y="60">User_model</text>
+	<line stroke="black" stroke-opacity="1" x1="680" y1="69" x2="822" y2="69" />
+	<line stroke="black" stroke-opacity="1" x1="680" y1="77" x2="822" y2="77" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="684" y="90">__construct()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="684" y="110">get_user()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="684" y="130">create_user()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="684" y="150">update_password()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="684" y="170">get_user_by_email()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="684" y="190">delete_user()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="684" y="210">set_session_user()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="684" y="230">connect()</text>
+</g>
+<g>
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="401" y="348" width="3" height="131" />
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="311" y="476" width="93" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="307" y="344" width="94" height="132" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="354" y="357">Reponse</text>
+	<line stroke="black" stroke-opacity="1" x1="307" y1="366" x2="401" y2="366" />
+	<line stroke="black" stroke-opacity="1" x1="307" y1="374" x2="401" y2="374" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="311" y="387">__construct()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="311" y="407">recherche()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="311" y="427">show()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="311" y="447">send()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="311" y="467">stats()</text>
+</g>
+<g>
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="605" y="59" width="3" height="171" />
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="515" y="227" width="93" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="511" y="55" width="94" height="172" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="558" y="68">User</text>
+	<line stroke="black" stroke-opacity="1" x1="511" y1="77" x2="605" y2="77" />
+	<line stroke="black" stroke-opacity="1" x1="511" y1="85" x2="605" y2="85" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="515" y="98">__construct()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="515" y="118">index()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="515" y="138">connexion()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="515" y="158">compte()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="515" y="178">delete()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="515" y="198">home()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="515" y="218">deco()</text>
+</g>
+<g>
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="437" y="19" width="3" height="251" />
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="269" y="267" width="171" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="265" y="15" width="172" height="252" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="351" y="28">Formulaire</text>
+	<line stroke="black" stroke-opacity="1" x1="265" y1="37" x2="437" y2="37" />
+	<line stroke="black" stroke-opacity="1" x1="265" y1="45" x2="437" y2="45" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="58">__construct()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="78">index()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="98">modifier_active()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="118">gerer()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="138">questionRep()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="158">questionMulti()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="178">questionDate()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="198">getCptQuestion()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="218">removeCptQuestion()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="238">incrementeCptQuestion()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="269" y="258">decrementCptQuestion()</text>
+</g>
+<g>
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="253" y="349" width="3" height="131" />
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="51" y="477" width="205" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="47" y="345" width="206" height="132" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="150" y="358">Reponse_model</text>
+	<line stroke="black" stroke-opacity="1" x1="47" y1="367" x2="253" y2="367" />
+	<line stroke="black" stroke-opacity="1" x1="47" y1="375" x2="253" y2="375" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="51" y="388">__construct()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="51" y="408">save_reponse()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="51" y="428">getStats()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="51" y="448">getDistinctParticipantByForm()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="51" y="468">getReponseMultiForStat()</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="609" y1="143" x2="679" y2="143" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="441" y1="143" x2="510" y2="143" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="441,143 447,137 453,143 447,149" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="353" y1="271" x2="354" y2="343" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="353,271 359,276 353,282 347,277" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="306" y1="412" x2="257" y2="412" />
+</g>
+<g>
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="197" y="19" width="3" height="251" />
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="19" y="267" width="181" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="15" y="15" width="182" height="252" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="106" y="28">Formulaire_model</text>
+	<line stroke="black" stroke-opacity="1" x1="15" y1="37" x2="197" y2="37" />
+	<line stroke="black" stroke-opacity="1" x1="15" y1="45" x2="197" y2="45" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="58">__construct()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="78">create_form()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="98">modifier_active()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="118">get_form()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="138">get_total_form()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="158">get_forms_by_user()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="178">random_key()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="198">add_reponse()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="218">add_question()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="238">get_question_by_form_id()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="19" y="258">get_reponse_by_form_id()</text>
+</g>
+<g>
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="732" y="317" width="3" height="91" />
+	<rect fill="#cbcbcb" stroke="none" stroke-opacity="1" x="602" y="405" width="133" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="598" y="313" width="134" height="92" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="665" y="326">Participant_model</text>
+	<line stroke="black" stroke-opacity="1" x1="598" y1="335" x2="732" y2="335" />
+	<line stroke="black" stroke-opacity="1" x1="598" y1="343" x2="732" y2="343" />
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="602" y="356">__construct()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="602" y="376">create_participant()</text>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="602" y="396">getLastParticipant()</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="441" y1="203" x2="598" y2="312" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="441,203 449,201 450,209 442,211" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="264" y1="143" x2="201" y2="143" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="335" y="291">1</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="288" y="432">1</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="211" y="163">1</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="246" y="163">1</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="661" y="163">1</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="582" y="338">*</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="338" y="330">*</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="619" y="163">1</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="451" y="163">*</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="451" y="229">1</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="267" y="432">1</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="11" fill="#000000" xml:space="preserve" x="492" y="163">1</text>
+</g>
+</svg>

@@ -1,0 +1,224 @@
+format 221
+"controllers" // application::Test::01Programmation::WIM::WIM2.1::gcontacts::application::controllers
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/gcontacts/application/controllers/"
+  deploymentview 144898 "controllers"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 196738 "Contacts"
+      stereotype "source"
+      php_src "<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 173954 // Contacts
+      end
+    end
+
+    artifact 196866 "Welcome"
+      stereotype "source"
+      php_src "<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 174082 // Welcome
+      end
+    end
+  end
+
+  classview 141314 "controllers"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 173954 "Contacts"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 162050 // <generalisation>
+	relation 162050 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 162050 // <generalisation>
+	  b parent class_ref 153986 // CI_Controller
+      end
+
+      operation 523522 "view"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type ""
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 523650 "edit"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 523778 "create"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 523906 "delete"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 524034 "index"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+    end
+
+    class 174082 "Welcome"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 162178 // <generalisation>
+	relation 162178 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 162178 // <generalisation>
+	  b parent class_ref 153986 // CI_Controller
+      end
+
+      operation 524162 "index"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Index Page for this controller.
+
+Maps to the following URL
+		http://example.com/index.php/welcome
+	- or -
+		http://example.com/index.php/welcome/index
+	- or -
+Since this controller is set as the default controller in
+config/routes.php, it's displayed at http://example.com/
+
+So any other public methods not prefixed with an underscore will
+map to /index.php/welcome/<method_name>
+@see https://codeigniter.com/user_guide/general/urls.html
+"
+      end
+    end
+  end
+end

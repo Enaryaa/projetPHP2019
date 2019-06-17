@@ -1,0 +1,122 @@
+class User
+!!!130050.php!!!	__construct() : void
+		parent::__construct();
+		$this->load->model('user_model');
+		$this->load->helper('url');
+		$this->load->helper('url_helper');
+       	$this->load->library('session');
+!!!130178.php!!!	index() : void
+		//ici vérifier si il y a une session
+		if ($this->session->has_userdata('user_session')) {
+			redirect('compte');
+		}		
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		$data['title'] = 'Inscription';
+
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('pseudo', 'Pseudo', 'required|is_unique[user.pseudo]');
+
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('header',$data);
+			$this->load->view('user/inscription', $data); 
+			$this->load->view('footer',$data);
+
+		} else {
+			if ($this->user_model->create_user()) {
+				$this->user_model->set_session_user();
+				redirect('compte');
+			} else {
+				$data['error'] = 'Email ou mot de passe incorrect';
+				$this->load->view('header',$data);
+				$this->load->view('user/inscription', $data); 
+				$this->load->view('footer',$data);
+			}
+		}
+!!!130306.php!!!	connexion() : void
+		//ici vérifier si il y a une session
+		if ($this->session->has_userdata('user_session')) {
+			redirect('compte');
+		}	
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		$data['title'] = 'Connexion';
+		
+
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('header',$data);
+			$this->load->view('user/connexion', $data); 
+			$this->load->view('footer',$data);
+		} else {
+			if ($this->user_model->connect()) {
+				$this->user_model->set_session_user();
+				redirect('compte');
+			} else {
+				$data['error'] = 'Email ou mot de passe incorrect';
+				$this->load->view('header',$data);
+				$this->load->view('user/connexion', $data); 
+				$this->load->view('footer',$data); 
+			}
+		}
+!!!130434.php!!!	compte() : void
+		if (!$this->session->has_userdata('user_session')) {
+			redirect('connexion');
+		}	
+		$data['title'] = 'Compte';
+		
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('passwordConf', 'Password Confirmation', 'required|matches[password]' );
+
+		$data['user'] = $this->session->userdata('user_session');
+
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('header', $data);
+			$this->load->view('user/compte', $data);
+			$this->load->view('footer', $data); 
+		} else {
+			$this->user_model->update_password();
+			$data['succes'] = 'mot de passe modifié';
+			$this->load->view('header', $data);
+			$this->load->view('user/compte', $data);
+			$this->load->view('footer', $data); 
+		}
+		
+!!!130562.php!!!	delete() : void
+		if (!$this->session->has_userdata('user_session')) {
+			redirect('connexion');
+		}	
+		$this->user_model->delete_user();
+		$this->session->unset_userdata('user_session');
+		$this->session->set_userdata('delete', true);
+		redirect('home');
+!!!130690.php!!!	home() : void
+		if ($this->session->has_userdata('delete')) {
+			$data['delete'] = 'L\'utilisateur a été supprimé';
+			$this->session->unset_userdata('delete');
+		}		
+		$data['title'] = 'Home';
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		if ($this->session->has_userdata('user_session')) {
+			$data['user'] = $this->session->userdata('user_session');
+		}	
+
+		$this->load->view('header', $data);
+		$this->load->view('user/home', $data);
+		$this->load->view('footer', $data);
+!!!130818.php!!!	deco() : void
+		if ($this->session->has_userdata('user_session')) {
+			$this->session->unset_userdata('user_session');
+		}
+		redirect('home');

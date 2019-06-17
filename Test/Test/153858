@@ -1,0 +1,107 @@
+format 221
+"chifoumi" // application::Test::01Programmation::WIM::WIM2.1::tp2bis::chifoumi
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/tp2bis/chifoumi/"
+  deploymentview 150530 "chifoumi"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 223490 "index"
+      stereotype "source"
+      php_src "<!DOCTYPE html>
+<html lang=\"fr\">
+	<head>
+		<meta charset=\"UTF-8\" />
+		<meta charset=\"UTF-8\" />
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-utils/concise-utils.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-ui/concise-ui.min.css\">
+		<link rel=\"stylesheet\" href=\"./css/style.css\">
+
+		<title></title>
+	</head>
+	<body container>
+		<h4 class=\"_bb1 _ms\">Pierre, Feuille, Ciseaux</h4>
+		<div class=\"_text-center\">
+			<p class=\"_c-base-primary\">Choississez votre coup </p>
+			<a href=\"?coup=0\"><img width=\"50px\" src=\"./images/pierre.png\"></a>
+			<a href=\"?coup=1\"><img width=\"50px\" src=\"./images/feuille.png\"></a>
+			<a href=\"?coup=2\"><img width=\"50px\" src=\"./images/ciseaux.png\"></a>
+		</div>
+		<?php
+			if (isset($_GET['coup'])):
+				$coup_joueur = $_GET['coup'];
+			/* A completer */
+			$coup_joueur = filter_var($coup_joueur, FILTER_SANITIZE_STRING);
+			$coup_aleatoire = rand(0,2);
+			$arr=array(\"pierre.png\",\"feuille.png\",\"ciseaux.png\");
+			$image_coup_joueur = \"pierre.png\";
+			$image_coup_aleatoire = \"pierre.png\";
+			$resultat = \"égalité !\";
+			foreach (range(0,2) as $value)
+			{
+				if ($coup_joueur == $value)
+				{
+					$image_coup_joueur = $arr[$value];
+				}
+
+				if ($coup_aleatoire == $value)
+				{
+					$image_coup_aleatoire = $arr[$value];
+				}
+			}
+			if ($coup_joueur == $coup_aleatoire)
+			{
+				$resultat = \"égalité !\";
+			}
+			else if ($coup_joueur == 0 && $coup_aleatoire == 2)
+			{
+				$resultat = \"Gagné !\";
+			}
+			else if ($coup_joueur == 2 && $coup_aleatoire == 1)
+			{
+				$resultat = \"Gagné !\";
+			}
+			else if ($coup_joueur == 1 && $coup_aleatoire == 0)
+			{
+				$resultat = \"Gagné !\";
+			}
+			else
+			{
+				$resultat = \"Perdu !\";
+			}
+		?>"
+      associated_elems
+      end
+    end
+  end
+end

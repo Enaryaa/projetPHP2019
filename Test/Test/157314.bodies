@@ -1,0 +1,334 @@
+class CI_DB_forge
+!!!362242.php!!!	__construct(inout db : object) : void
+		$this->db =& $db;
+		log_message('info', 'Database Forge Class Initialized');
+!!!362370.php!!!	create_database(in db_name : string) : bool
+		if ($this->_create_database === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+		}
+		elseif ( ! $this->db->query(sprintf($this->_create_database, $this->db->escape_identifiers($db_name), $this->db->char_set, $this->db->dbcollat)))
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unable_to_drop') : FALSE;
+		}
+
+		if ( ! empty($this->db->data_cache['db_names']))
+		{
+			$this->db->data_cache['db_names'][] = $db_name;
+		}
+
+		return TRUE;
+!!!362498.php!!!	drop_database(in db_name : string) : bool
+		if ($this->_drop_database === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+		}
+		elseif ( ! $this->db->query(sprintf($this->_drop_database, $this->db->escape_identifiers($db_name))))
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unable_to_drop') : FALSE;
+		}
+
+		if ( ! empty($this->db->data_cache['db_names']))
+		{
+			$key = array_search(strtolower($db_name), array_map('strtolower', $this->db->data_cache['db_names']), TRUE);
+			if ($key !== FALSE)
+			{
+				unset($this->db->data_cache['db_names'][$key]);
+			}
+		}
+
+		return TRUE;
+!!!362626.php!!!	add_key(in key : string, in primary : bool = FALSE) : CI_DB_forge
+		// DO NOT change this! This condition is only applicable
+		// for PRIMARY keys because you can only have one such,
+		// and therefore all fields you add to it will be included
+		// in the same, composite PRIMARY KEY.
+		//
+		// It's not the same for regular indexes.
+		if ($primary === TRUE && is_array($key))
+		{
+			foreach ($key as $one)
+			{
+				$this->add_key($one, $primary);
+			}
+
+			return $this;
+		}
+
+		if ($primary === TRUE)
+		{
+			$this->primary_keys[] = $key;
+		}
+		else
+		{
+			$this->keys[] = $key;
+		}
+
+		return $this;
+!!!362754.php!!!	add_field(in field : array) : CI_DB_forge
+		if (is_string($field))
+		{
+			if ($field === 'id')
+			{
+				$this->add_field(array(
+					'id' => array(
+						'type' => 'INT',
+						'constraint' => 9,
+						'auto_increment' => TRUE
+					)
+				));
+				$this->add_key('id', TRUE);
+			}
+			else
+			{
+				if (strpos($field, ' ') === FALSE)
+				{
+					show_error('Field information is required for that operation.');
+				}
+
+				$this->fields[] = $field;
+			}
+		}
+
+		if (is_array($field))
+		{
+			$this->fields = array_merge($this->fields, $field);
+		}
+
+		return $this;
+!!!362882.php!!!	create_table(in table : string, in if_not_exists : bool = FALSE, in attributes : array = array()) : bool
+		if ($table === '')
+		{
+			show_error('A table name is required for that operation.');
+		}
+		else
+		{
+			$table = $this->db->dbprefix.$table;
+		}
+
+		if (count($this->fields) === 0)
+		{
+			show_error('Field information is required.');
+		}
+
+		$sql = $this->_create_table($table, $if_not_exists, $attributes);
+
+		if (is_bool($sql))
+		{
+			$this->_reset();
+			if ($sql === FALSE)
+			{
+				return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+			}
+		}
+
+		if (($result = $this->db->query($sql)) !== FALSE)
+		{
+			if (isset($this->db->data_cache['table_names']))
+			{
+				$this->db->data_cache['table_names'][] = $table;
+			}
+
+			// Most databases don't support creating indexes from within the CREATE TABLE statement
+			if ( ! empty($this->keys))
+			{
+				for ($i = 0, $sqls = $this->_process_indexes($table), $c = count($sqls); $i < $c; $i++)
+				{
+					$this->db->query($sqls[$i]);
+				}
+			}
+		}
+
+		$this->_reset();
+		return $result;
+!!!363010.php!!!	_create_table(in table : string, in if_not_exists : bool, in attributes : array) : mixed
+		if ($if_not_exists === TRUE && $this->_create_table_if === FALSE)
+		{
+			if ($this->db->table_exists($table))
+			{
+				return TRUE;
+			}
+
+			$if_not_exists = FALSE;
+		}
+
+		$sql = ($if_not_exists)
+			? sprintf($this->_create_table_if, $this->db->escape_identifiers($table))
+			: 'CREATE TABLE';
+
+		$columns = $this->_process_fields(TRUE);
+		for ($i = 0, $c = count($columns); $i < $c; $i++)
+		{
+			$columns[$i] = ($columns[$i]['_literal'] !== FALSE)
+					? "\n\t".$columns[$i]['_literal']
+					: "\n\t".$this->_process_column($columns[$i]);
+		}
+
+		$columns = implode(',', $columns)
+				.$this->_process_primary_keys($table);
+
+		// Are indexes created from within the CREATE TABLE statement? (e.g. in MySQL)
+		if ($this->_create_table_keys === TRUE)
+		{
+			$columns .= $this->_process_indexes($table);
+		}
+
+		// _create_table will usually have the following format: "%s %s (%s\n)"
+		$sql = sprintf($this->_create_table.'%s',
+			$sql,
+			$this->db->escape_identifiers($table),
+			$columns,
+			$this->_create_table_attr($attributes)
+		);
+
+		return $sql;
+!!!363138.php!!!	_create_table_attr(in attributes : array) : string
+		$sql = '';
+
+		foreach (array_keys($attributes) as $key)
+		{
+			if (is_string($key))
+			{
+				$sql .= ' '.strtoupper($key).' '.$attributes[$key];
+			}
+		}
+
+		return $sql;
+!!!363266.php!!!	drop_table(in table_name : string, in if_exists : bool = FALSE) : bool
+		if ($table_name === '')
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_table_name_required') : FALSE;
+		}
+
+		if (($query = $this->_drop_table($this->db->dbprefix.$table_name, $if_exists)) === TRUE)
+		{
+			return TRUE;
+		}
+
+		$query = $this->db->query($query);
+
+		// Update table list cache
+		if ($query && ! empty($this->db->data_cache['table_names']))
+		{
+			$key = array_search(strtolower($this->db->dbprefix.$table_name), array_map('strtolower', $this->db->data_cache['table_names']), TRUE);
+			if ($key !== FALSE)
+			{
+				unset($this->db->data_cache['table_names'][$key]);
+			}
+		}
+
+		return $query;
+!!!363394.php!!!	_drop_table(in table : string, in if_exists : bool) : mixed
+		$sql = 'DROP TABLE';
+
+		if ($if_exists)
+		{
+			if ($this->_drop_table_if === FALSE)
+			{
+				if ( ! $this->db->table_exists($table))
+				{
+					return TRUE;
+				}
+			}
+			else
+			{
+				$sql = sprintf($this->_drop_table_if, $this->db->escape_identifiers($table));
+			}
+		}
+
+		return $sql.' '.$this->db->escape_identifiers($table);
+!!!363522.php!!!	rename_table(in table_name : string, in new_table_name : string) : bool
+		if ($table_name === '' OR $new_table_name === '')
+		{
+			show_error('A table name is required for that operation.');
+			return FALSE;
+		}
+		elseif ($this->_rename_table === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+		}
+
+		$result = $this->db->query(sprintf($this->_rename_table,
+						$this->db->escape_identifiers($this->db->dbprefix.$table_name),
+						$this->db->escape_identifiers($this->db->dbprefix.$new_table_name))
+					);
+
+		if ($result && ! empty($this->db->data_cache['table_names']))
+		{
+			$key = array_search(strtolower($this->db->dbprefix.$table_name), array_map('strtolower', $this->db->data_cache['table_names']), TRUE);
+			if ($key !== FALSE)
+			{
+				$this->db->data_cache['table_names'][$key] = $this->db->dbprefix.$new_table_name;
+			}
+		}
+
+		return $result;
+!!!363650.php!!!	add_column(in table : string, in field : array, in _after : string = NULL) : bool
+		// Work-around for literal column definitions
+		is_array($field) OR $field = array($field);
+
+		foreach (array_keys($field) as $k)
+		{
+			// Backwards-compatibility work-around for MySQL/CUBRID AFTER clause (remove in 3.1+)
+			if ($_after !== NULL && is_array($field[$k]) && ! isset($field[$k]['after']))
+			{
+				$field[$k]['after'] = $_after;
+			}
+
+			$this->add_field(array($k => $field[$k]));
+		}
+
+		$sqls = $this->_alter_table('ADD', $this->db->dbprefix.$table, $this->_process_fields());
+		$this->_reset();
+		if ($sqls === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+		}
+
+		for ($i = 0, $c = count($sqls); $i < $c; $i++)
+		{
+			if ($this->db->query($sqls[$i]) === FALSE)
+			{
+				return FALSE;
+			}
+		}
+
+		return TRUE;
+!!!363778.php!!!	drop_column(in table : string, in column_name : string) : bool
+		$sql = $this->_alter_table('DROP', $this->db->dbprefix.$table, $column_name);
+		if ($sql === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+		}
+
+		return $this->db->query($sql);
+!!!363906.php!!!	modify_column(in table : string, in field : string) : bool
+		// Work-around for literal column definitions
+		is_array($field) OR $field = array($field);
+
+		foreach (array_keys($field) as $k)
+		{
+			$this->add_field(array($k => $field[$k]));
+		}
+
+		if (count($this->fields) === 0)
+		{
+			show_error('Field information is required.');
+		}
+
+		$sqls = $this->_alter_table('CHANGE', $this->db->dbprefix.$table, $this->_process_fields());
+		$this->_reset();
+		if ($sqls === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+		}
+
+		for ($i = 0, $c = count($sqls); $i < $c; $i++)
+		{
+			if ($this->db->query($sqls[$i]) === FALSE)
+			{
+				return FALSE;
+			}
+		}
+
+		return TRUE;

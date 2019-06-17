@@ -1,0 +1,1262 @@
+format 221
+"sqlsrv" // application::Test::01Programmation::WIM::WIM2.1::gcontacts::system::database::drivers::sqlsrv
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/gcontacts/system/database/drivers/sqlsrv/"
+  deploymentview 147586 "sqlsrv"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 211458 "sqlsrv_driver"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0.3
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 184706 // CI_DB_sqlsrv_driver
+      end
+    end
+
+    artifact 211586 "sqlsrv_forge"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0.3
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 184834 // CI_DB_sqlsrv_forge
+      end
+    end
+
+    artifact 211714 "sqlsrv_result"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0.3
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 184962 // CI_DB_sqlsrv_result
+      end
+    end
+
+    artifact 211842 "sqlsrv_utility"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0.3
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 185090 // CI_DB_sqlsrv_utility
+      end
+    end
+  end
+
+  classview 142978 "sqlsrv"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 184706 "CI_DB_sqlsrv_driver"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+SQLSRV Database Adapter Class
+
+Note: _DB is an extender class that the app controller
+creates dynamically based on whether the query builder
+class is being used or not.
+
+@package		CodeIgniter
+@subpackage	Drivers
+@category	Database
+@author		EllisLab Dev Team
+@link		https://codeigniter.com/user_guide/database/
+"
+      classrelation 171266 // <generalisation>
+	relation 171266 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 171266 // <generalisation>
+	  b parent class_ref 131714 // CI_DB
+      end
+
+      attribute 367746 "dbdriver"
+	public explicit_type "string"
+	init_value " 'sqlsrv'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Database driver
+
+@var	${type}
+"
+      end
+
+      attribute 367874 "scrollable"
+	public explicit_type "mixed"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Scrollable flag
+
+Determines what cursor type to use when executing queries.
+
+FALSE or SQLSRV_CURSOR_FORWARD would increase performance,
+but would disable num_rows() (and possibly insert_id())
+
+@var	${type}
+"
+      end
+
+      attribute 368002 "_random_keyword"
+	protected explicit_type "array"
+	init_value " array('NEWID()', 'RAND(%d)')"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " --------------------------------------------------------------------
+
+ORDER BY random keyword
+
+@var	${type}
+"
+      end
+
+      attribute 368130 "_quoted_identifier"
+	protected explicit_type "bool"
+	init_value " TRUE"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Quoted identifier flag
+
+Whether to use SQL-92 standard quoted identifier
+(double quotes) or brackets for identifier escaping.
+
+@var	${type}
+"
+      end
+
+      operation 633602 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "params" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Class constructor
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+
+      operation 633730 "db_connect"
+	public explicit_return_type "resource"
+	nparams 1
+	  param in name "pooling" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Database connection
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+
+      operation 633858 "db_select"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "database" explicit_type "string"
+	    defaultvalue "''"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Select the database
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+
+      operation 633986 "_execute"
+	protected explicit_return_type "resource"
+	nparams 1
+	  param in name "sql" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Execute the query
+
+@param	${t0}	${p0}	an SQL query
+@return	${type}
+"
+      end
+
+      operation 634114 "_trans_begin"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Begin Transaction
+
+@return	${type}
+"
+      end
+
+      operation 634242 "_trans_commit"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Commit Transaction
+
+@return	${type}
+"
+      end
+
+      operation 634370 "_trans_rollback"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Rollback Transaction
+
+@return	${type}
+"
+      end
+
+      operation 634498 "affected_rows"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Affected Rows
+
+@return	${type}
+"
+      end
+
+      operation 634626 "insert_id"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Insert ID
+
+Returns the last id created in the Identity column.
+
+@return	${type}
+"
+      end
+
+      operation 634754 "version"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Database version number
+
+@return	${type}
+"
+      end
+
+      operation 634882 "_list_tables"
+	protected explicit_return_type "string"
+	nparams 1
+	  param in name "prefix_limit" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+List table query
+
+Generates a platform-specific query string so that the table names can be fetched
+
+@param	${t0}
+@return	${type}	$prefix_limit
+"
+      end
+
+      operation 635010 "_list_columns"
+	protected explicit_return_type "string"
+	nparams 1
+	  param in name "table" explicit_type "string"
+	    defaultvalue "''"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+List column query
+
+Generates a platform-specific query string so that the column names can be fetched
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+
+      operation 635138 "field_data"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "table" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Returns an object with field data
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+
+      operation 635266 "error"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Error
+
+Returns an array containing code and message of the last
+database error that has occurred.
+
+@return	${type}
+"
+      end
+
+      operation 635394 "_update"
+	protected explicit_return_type "string"
+	nparams 2
+	  param in name "table" explicit_type "string"
+	  param in name "values" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Update statement
+
+Generates a platform-specific update string from the supplied data
+
+@param	${t0}	${p0}
+@param	${t1}	${p1}
+@return	${type}
+"
+      end
+
+      operation 635522 "_truncate"
+	protected explicit_return_type "string"
+	nparams 1
+	  param in name "table" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Truncate statement
+
+Generates a platform-specific truncate string from the supplied data
+
+If the database does not support the TRUNCATE statement,
+then this method maps to 'DELETE FROM table'
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+
+      operation 635650 "_delete"
+	protected explicit_return_type "string"
+	nparams 1
+	  param in name "table" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Delete statement
+
+Generates a platform-specific delete string from the supplied data
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+
+      operation 635778 "_limit"
+	protected explicit_return_type "string"
+	nparams 1
+	  param in name "sql" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+LIMIT
+
+Generates a platform-specific LIMIT clause
+
+@param	${t0}	${p0}	SQL Query
+@return	${type}
+"
+      end
+
+      operation 635906 "_insert_batch"
+	protected explicit_return_type "string|bool"
+	nparams 3
+	  param in name "table" explicit_type "string"
+	  param in name "keys" explicit_type "array"
+	  param in name "values" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Insert batch statement
+
+Generates a platform-specific insert string from the supplied data.
+
+@param	${t0}	${p0}	Table name
+@param	${t1}	${p1}	INSERT keys
+@param	${t2}	${p2}	INSERT values
+@return	${type}
+"
+      end
+
+      operation 636034 "_close"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Close DB Connection
+
+@return	${type}
+"
+      end
+    end
+
+    class 184834 "CI_DB_sqlsrv_forge"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+SQLSRV Forge Class
+
+@category	Database
+@author		EllisLab Dev Team
+@link		https://codeigniter.com/user_guide/database/
+"
+      classrelation 171394 // <generalisation>
+	relation 171394 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 171394 // <generalisation>
+	  b parent class_ref 158082 // CI_DB_forge
+      end
+
+      attribute 368258 "_create_table_if"
+	protected explicit_type "string"
+	init_value " \"IF NOT EXISTS (SELECT * FROM sysobjects WHERE ID = object_id(N'%s') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)\\nCREATE TABLE\""
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+CREATE TABLE IF statement
+
+@var	${type}
+"
+      end
+
+      attribute 368386 "_drop_table_if"
+	protected explicit_type "string"
+	init_value " \"IF EXISTS (SELECT * FROM sysobjects WHERE ID = object_id(N'%s') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)\\nDROP TABLE\""
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+DROP TABLE IF statement
+
+@var	${type}
+"
+      end
+
+      attribute 368514 "_unsigned"
+	protected explicit_type "array"
+	init_value " array(
+		'TINYINT'	=> 'SMALLINT',
+		'SMALLINT'	=> 'INT',
+		'INT'		=> 'BIGINT',
+		'REAL'		=> 'FLOAT'
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+UNSIGNED support
+
+@var	${type}
+"
+      end
+
+      operation 636162 "_alter_table"
+	protected explicit_return_type "string|string[]"
+	nparams 3
+	  param in name "alter_type" explicit_type "string"
+	  param in name "table" explicit_type "string"
+	  param in name "field" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+ALTER TABLE
+
+@param	${t0}	${p0}	ALTER type
+@param	${t1}	${p1}		Table name
+@param	${t2}	${p2}		Column definition
+@return	${type}
+"
+      end
+
+      operation 636290 "_attr_type"
+	protected explicit_return_type "void"
+	nparams 1
+	  param inout name "attributes" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Field attribute TYPE
+
+Performs a data type mapping between different databases.
+
+@param	${t0}	&$attributes
+@return	${type}
+"
+      end
+
+      operation 636418 "_attr_auto_increment"
+	protected explicit_return_type "void"
+	nparams 2
+	  param inout name "attributes" explicit_type "array"
+	  param inout name "field" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}, & ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Field attribute AUTO_INCREMENT
+
+@param	${t0}	&$attributes
+@param	${t1}	&$field
+@return	${type}
+"
+      end
+    end
+
+    class 184962 "CI_DB_sqlsrv_result"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+SQLSRV Result Class
+
+This class extends the parent result class: CI_DB_result
+
+@category	Database
+@author		EllisLab Dev Team
+@link		https://codeigniter.com/user_guide/database/
+"
+      classrelation 171522 // <generalisation>
+	relation 171522 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 171522 // <generalisation>
+	  b parent class_ref 158338 // CI_DB_result
+      end
+
+      attribute 368642 "scrollable"
+	public explicit_type "mixed"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Scrollable flag
+
+@var	${type}
+"
+      end
+
+      operation 636546 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "driver_object" explicit_type "object"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Constructor
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+
+      operation 636674 "num_rows"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Number of rows in the result set
+
+@return	${type}
+"
+      end
+
+      operation 636802 "num_fields"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Number of fields in the result set
+
+@return	${type}
+"
+      end
+
+      operation 636930 "list_fields"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Fetch Field Names
+
+Generates an array of column names
+
+@return	${type}
+"
+      end
+
+      operation 637058 "field_data"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Field data
+
+Generates an array of objects containing field meta-data
+
+@return	${type}
+"
+      end
+
+      operation 637186 "free_result"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Free the result
+
+@return	${type}
+"
+      end
+
+      operation 637314 "_fetch_assoc"
+	protected explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Result - associative array
+
+Returns the result set as an array
+
+@return	${type}
+"
+      end
+
+      operation 637442 "_fetch_object"
+	protected explicit_return_type "object"
+	nparams 1
+	  param in name "class_name" explicit_type "string"
+	    defaultvalue "'stdClass'"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Result - object
+
+Returns the result set as an object
+
+@param	${t0}	${p0}
+@return	${type}
+"
+      end
+    end
+
+    class 185090 "CI_DB_sqlsrv_utility"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+SQLSRV Utility Class
+
+@category	Database
+@author		EllisLab Dev Team
+@link		https://codeigniter.com/user_guide/database/
+"
+      classrelation 171650 // <generalisation>
+	relation 171650 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 171650 // <generalisation>
+	  b parent class_ref 158594 // CI_DB_utility
+      end
+
+      attribute 368770 "_list_databases"
+	protected explicit_type "string"
+	init_value " 'EXEC sp_helpdb'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+List databases statement
+
+@var	${type}
+"
+      end
+
+      attribute 368898 "_optimize_table"
+	protected explicit_type "string"
+	init_value " 'ALTER INDEX all ON %s REORGANIZE'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Can also be: EXEC sp_databases
+
+OPTIMIZE TABLE statement
+
+@var	${type}
+"
+      end
+
+      operation 637570 "_backup"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param in name "params" explicit_type "array"
+	    defaultvalue "array()"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " --------------------------------------------------------------------
+
+Export
+
+@param	${t0}	${p0}	Preferences
+@return	${type}
+"
+      end
+    end
+  end
+end

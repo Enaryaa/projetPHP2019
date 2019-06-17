@@ -1,0 +1,54 @@
+class CI_DB_mssql_result
+!!!388226.php!!!	num_rows() : int
+		return is_int($this->num_rows)
+			? $this->num_rows
+			: $this->num_rows = mssql_num_rows($this->result_id);
+!!!388354.php!!!	num_fields() : int
+		return mssql_num_fields($this->result_id);
+!!!388482.php!!!	list_fields() : array
+		$field_names = array();
+		mssql_field_seek($this->result_id, 0);
+		while ($field = mssql_fetch_field($this->result_id))
+		{
+			$field_names[] = $field->name;
+		}
+
+		return $field_names;
+!!!388610.php!!!	field_data() : array
+		$retval = array();
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		{
+			$field = mssql_fetch_field($this->result_id, $i);
+
+			$retval[$i]		= new stdClass();
+			$retval[$i]->name	= $field->name;
+			$retval[$i]->type	= $field->type;
+			$retval[$i]->max_length	= $field->max_length;
+		}
+
+		return $retval;
+!!!388738.php!!!	free_result() : void
+		if (is_resource($this->result_id))
+		{
+			mssql_free_result($this->result_id);
+			$this->result_id = FALSE;
+		}
+!!!388866.php!!!	data_seek(in n : int = 0) : bool
+		return mssql_data_seek($this->result_id, $n);
+!!!388994.php!!!	_fetch_assoc() : array
+		return mssql_fetch_assoc($this->result_id);
+!!!389122.php!!!	_fetch_object(in class_name : string = 'stdClass') : object
+		$row = mssql_fetch_object($this->result_id);
+
+		if ($class_name === 'stdClass' OR ! $row)
+		{
+			return $row;
+		}
+
+		$class_name = new $class_name();
+		foreach ($row as $key => $value)
+		{
+			$class_name->$key = $value;
+		}
+
+		return $class_name;

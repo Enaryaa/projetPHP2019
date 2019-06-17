@@ -1,0 +1,74 @@
+format 221
+"templates" // application::Test::01Programmation::WIM::WIM2.1::gcontacts::application::views::templates
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/gcontacts/application/views/templates/"
+  deploymentview 145538 "templates"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 198914 "footer"
+      stereotype "source"
+      php_src "<hr>
+<p class=\"pull-left\">
+	<?=anchor(\"/\",'<i class=\"fa fa-home fa-2x\"></i>',array())?>
+</p>
+<p class=\"pull-right\">
+	<a href=\"#\" class=\"btn btn-normal\"><i class=\"fa fa-arrow-circle-o-up fa-2x\"></i></a>
+</p>
+</body>
+</html>
+"
+      associated_elems
+      end
+    end
+
+    artifact 199042 "header"
+      stereotype "source"
+      php_src "<!DOCTYPE html>
+<html lang=\"fr\">
+	<head>
+		<meta charset=\"UTF-8\" />
+		<title>Gestion de contacts avec Code igniter</title>
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-utils/concise-utils.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-ui/concise-ui.min.css\">
+		<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\">
+		<?=link_tag('assets/css/style.css')?>
+	</head>
+	<body container>
+		<h1 class=\"_bb1 _mbxs\">Gestion des contacts</h1>
+"
+      associated_elems
+      end
+    end
+  end
+end

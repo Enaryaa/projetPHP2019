@@ -1,0 +1,6321 @@
+format 221
+"helpers" // PROJETPHP::system::helpers
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "/home/lechartier/01Programmation/PROJETS/PROJETPHP/system/helpers/"
+  deploymentview 132738 "helpers"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 151298 "array_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Array Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/array_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('element'))
+{
+	/**
+	 * Element
+	 *
+	 * Lets you determine whether an array index is set and whether it has a value.
+	 * If the element is empty it returns NULL (or whatever you specify as the default value.)
+	 *
+	 * @param	string
+	 * @param	array
+	 * @param	mixed
+	 * @return	mixed	depends on what the array contains
+	 */
+	function element($item, array $array, $default = NULL)
+	{
+		return array_key_exists($item, $array) ? $array[$item] : $default;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('random_element'))
+{
+	/**
+	 * Random Element - Takes an array as input and returns a random element
+	 *
+	 * @param	array
+	 * @return	mixed	depends on what the array contains
+	 */
+	function random_element($array)
+	{
+		return is_array($array) ? $array[array_rand($array)] : $array;
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('elements'))
+{
+	/**
+	 * Elements
+	 *
+	 * Returns only the array items specified. Will return a default value if
+	 * it is not set.
+	 *
+	 * @param	array
+	 * @param	array
+	 * @param	mixed
+	 * @return	mixed	depends on what the array contains
+	 */
+	function elements($items, array $array, $default = NULL)
+	{
+		$return = array();
+
+		is_array($items) OR $items = array($items);
+
+		foreach ($items as $item)
+		{
+			$return[$item] = array_key_exists($item, $array) ? $array[$item] : $default;
+		}
+
+		return $return;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 151554 "captcha_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter CAPTCHA Helper
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/captcha_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('create_captcha'))
+{
+	/**
+	 * Create CAPTCHA
+	 *
+	 * @param	array	$data		Data for the CAPTCHA
+	 * @param	string	$img_path	Path to create the image in (deprecated)
+	 * @param	string	$img_url	URL to the CAPTCHA image folder (deprecated)
+	 * @param	string	$font_path	Server path to font (deprecated)
+	 * @return	string
+	 */
+	function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = '')
+	{
+		$defaults = array(
+			'word'		=> '',
+			'img_path'	=> '',
+			'img_url'	=> '',
+			'img_width'	=> '150',
+			'img_height'	=> '30',
+			'font_path'	=> '',
+			'expiration'	=> 7200,
+			'word_length'	=> 8,
+			'font_size'	=> 16,
+			'img_id'	=> '',
+			'pool'		=> '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+			'colors'	=> array(
+				'background'	=> array(255,255,255),
+				'border'	=> array(153,102,102),
+				'text'		=> array(204,153,153),
+				'grid'		=> array(255,182,182)
+			)
+		);
+
+		foreach ($defaults as $key => $val)
+		{
+			if ( ! is_array($data) && empty($$key))
+			{
+				$$key = $val;
+			}
+			else
+			{
+				$$key = isset($data[$key]) ? $data[$key] : $val;
+			}
+		}
+
+		if ($img_path === '' OR $img_url === ''
+			OR ! is_dir($img_path) OR ! is_really_writable($img_path)
+			OR ! extension_loaded('gd'))
+		{
+			return FALSE;
+		}
+
+		// -----------------------------------
+		// Remove old images
+		// -----------------------------------
+
+		$now = microtime(TRUE);
+
+		$current_dir = @opendir($img_path);
+		while ($filename = @readdir($current_dir))
+		{
+			if (in_array(substr($filename, -4), array('.jpg', '.png'))
+				&& (str_replace(array('.jpg', '.png'), '', $filename) + $expiration) < $now)
+			{
+				@unlink($img_path.$filename);
+			}
+		}
+
+		@closedir($current_dir);
+
+		// -----------------------------------
+		// Do we have a \"word\" yet?
+		// -----------------------------------
+
+		if (empty($word))
+		{
+			$word = '';
+			$pool_length = strlen($pool);
+			$rand_max = $pool_length - 1;
+
+			// PHP7 or a suitable polyfill
+			if (function_exists('random_int'))
+			{
+				try
+				{
+					for ($i = 0; $i < $word_length; $i++)
+					{
+						$word .= $pool[random_int(0, $rand_max)];
+					}
+				}
+				catch (Exception $e)
+				{
+					// This means fallback to the next possible
+					// alternative to random_int()
+					$word = '';
+				}
+			}
+		}
+
+		if (empty($word))
+		{
+			// Nobody will have a larger character pool than
+			// 256 characters, but let's handle it just in case ...
+			//
+			// No, I do not care that the fallback to mt_rand() can
+			// handle it; if you trigger this, you're very obviously
+			// trying to break it. -- Narf
+			if ($pool_length > 256)
+			{
+				return FALSE;
+			}
+
+			// We'll try using the operating system's PRNG first,
+			// which we can access through CI_Security::get_random_bytes()
+			$security = get_instance()->security;
+
+			// To avoid numerous get_random_bytes() calls, we'll
+			// just try fetching as much bytes as we need at once.
+			if (($bytes = $security->get_random_bytes($pool_length)) !== FALSE)
+			{
+				$byte_index = $word_index = 0;
+				while ($word_index < $word_length)
+				{
+					// Do we have more random data to use?
+					// It could be exhausted by previous iterations
+					// ignoring bytes higher than $rand_max.
+					if ($byte_index === $pool_length)
+					{
+						// No failures should be possible if the
+						// first get_random_bytes() call didn't
+						// return FALSE, but still ...
+						for ($i = 0; $i < 5; $i++)
+						{
+							if (($bytes = $security->get_random_bytes($pool_length)) === FALSE)
+							{
+								continue;
+							}
+
+							$byte_index = 0;
+							break;
+						}
+
+						if ($bytes === FALSE)
+						{
+							// Sadly, this means fallback to mt_rand()
+							$word = '';
+							break;
+						}
+					}
+
+					list(, $rand_index) = unpack('C', $bytes[$byte_index++]);
+					if ($rand_index > $rand_max)
+					{
+						continue;
+					}
+
+					$word .= $pool[$rand_index];
+					$word_index++;
+				}
+			}
+		}
+
+		if (empty($word))
+		{
+			for ($i = 0; $i < $word_length; $i++)
+			{
+				$word .= $pool[mt_rand(0, $rand_max)];
+			}
+		}
+		elseif ( ! is_string($word))
+		{
+			$word = (string) $word;
+		}
+
+		// -----------------------------------
+		// Determine angle and position
+		// -----------------------------------
+		$length	= strlen($word);
+		$angle	= ($length >= 6) ? mt_rand(-($length-6), ($length-6)) : 0;
+		$x_axis	= mt_rand(6, (360/$length)-16);
+		$y_axis = ($angle >= 0) ? mt_rand($img_height, $img_width) : mt_rand(6, $img_height);
+
+		// Create image
+		// PHP.net recommends imagecreatetruecolor(), but it isn't always available
+		$im = function_exists('imagecreatetruecolor')
+			? imagecreatetruecolor($img_width, $img_height)
+			: imagecreate($img_width, $img_height);
+
+		// -----------------------------------
+		//  Assign colors
+		// ----------------------------------
+
+		is_array($colors) OR $colors = $defaults['colors'];
+
+		foreach (array_keys($defaults['colors']) as $key)
+		{
+			// Check for a possible missing value
+			is_array($colors[$key]) OR $colors[$key] = $defaults['colors'][$key];
+			$colors[$key] = imagecolorallocate($im, $colors[$key][0], $colors[$key][1], $colors[$key][2]);
+		}
+
+		// Create the rectangle
+		ImageFilledRectangle($im, 0, 0, $img_width, $img_height, $colors['background']);
+
+		// -----------------------------------
+		//  Create the spiral pattern
+		// -----------------------------------
+		$theta		= 1;
+		$thetac		= 7;
+		$radius		= 16;
+		$circles	= 20;
+		$points		= 32;
+
+		for ($i = 0, $cp = ($circles * $points) - 1; $i < $cp; $i++)
+		{
+			$theta += $thetac;
+			$rad = $radius * ($i / $points);
+			$x = ($rad * cos($theta)) + $x_axis;
+			$y = ($rad * sin($theta)) + $y_axis;
+			$theta += $thetac;
+			$rad1 = $radius * (($i + 1) / $points);
+			$x1 = ($rad1 * cos($theta)) + $x_axis;
+			$y1 = ($rad1 * sin($theta)) + $y_axis;
+			imageline($im, $x, $y, $x1, $y1, $colors['grid']);
+			$theta -= $thetac;
+		}
+
+		// -----------------------------------
+		//  Write the text
+		// -----------------------------------
+
+		$use_font = ($font_path !== '' && file_exists($font_path) && function_exists('imagettftext'));
+		if ($use_font === FALSE)
+		{
+			($font_size > 5) && $font_size = 5;
+			$x = mt_rand(0, $img_width / ($length / 3));
+			$y = 0;
+		}
+		else
+		{
+			($font_size > 30) && $font_size = 30;
+			$x = mt_rand(0, $img_width / ($length / 1.5));
+			$y = $font_size + 2;
+		}
+
+		for ($i = 0; $i < $length; $i++)
+		{
+			if ($use_font === FALSE)
+			{
+				$y = mt_rand(0 , $img_height / 2);
+				imagestring($im, $font_size, $x, $y, $word[$i], $colors['text']);
+				$x += ($font_size * 2);
+			}
+			else
+			{
+				$y = mt_rand($img_height / 2, $img_height - 3);
+				imagettftext($im, $font_size, $angle, $x, $y, $colors['text'], $font_path, $word[$i]);
+				$x += $font_size;
+			}
+		}
+
+		// Create the border
+		imagerectangle($im, 0, 0, $img_width - 1, $img_height - 1, $colors['border']);
+
+		// -----------------------------------
+		//  Generate the image
+		// -----------------------------------
+		$img_url = rtrim($img_url, '/').'/';
+
+		if (function_exists('imagejpeg'))
+		{
+			$img_filename = $now.'.jpg';
+			imagejpeg($im, $img_path.$img_filename);
+		}
+		elseif (function_exists('imagepng'))
+		{
+			$img_filename = $now.'.png';
+			imagepng($im, $img_path.$img_filename);
+		}
+		else
+		{
+			return FALSE;
+		}
+
+		$img = '<img '.($img_id === '' ? '' : 'id=\"'.$img_id.'\"').' src=\"'.$img_url.$img_filename.'\" style=\"width: '.$img_width.'px; height: '.$img_height .'px; border: 0;\" alt=\" \" />';
+		ImageDestroy($im);
+
+		return array('word' => $word, 'time' => $now, 'image' => $img, 'filename' => $img_filename);
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 151810 "cookie_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Cookie Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/cookie_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('set_cookie'))
+{
+	/**
+	 * Set cookie
+	 *
+	 * Accepts seven parameters, or you can submit an associative
+	 * array in the first parameter containing all the values.
+	 *
+	 * @param	mixed
+	 * @param	string	the value of the cookie
+	 * @param	string	the number of seconds until expiration
+	 * @param	string	the cookie domain.  Usually:  .yourdomain.com
+	 * @param	string	the cookie path
+	 * @param	string	the cookie prefix
+	 * @param	bool	true makes the cookie secure
+	 * @param	bool	true makes the cookie accessible via http(s) only (no javascript)
+	 * @return	void
+	 */
+	function set_cookie($name, $value = '', $expire = '', $domain = '', $path = '/', $prefix = '', $secure = NULL, $httponly = NULL)
+	{
+		// Set the config file options
+		get_instance()->input->set_cookie($name, $value, $expire, $domain, $path, $prefix, $secure, $httponly);
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('get_cookie'))
+{
+	/**
+	 * Fetch an item from the COOKIE array
+	 *
+	 * @param	string
+	 * @param	bool
+	 * @return	mixed
+	 */
+	function get_cookie($index, $xss_clean = NULL)
+	{
+		is_bool($xss_clean) OR $xss_clean = (config_item('global_xss_filtering') === TRUE);
+		$prefix = isset($_COOKIE[$index]) ? '' : config_item('cookie_prefix');
+		return get_instance()->input->cookie($prefix.$index, $xss_clean);
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('delete_cookie'))
+{
+	/**
+	 * Delete a COOKIE
+	 *
+	 * @param	mixed
+	 * @param	string	the cookie domain. Usually: .yourdomain.com
+	 * @param	string	the cookie path
+	 * @param	string	the cookie prefix
+	 * @return	void
+	 */
+	function delete_cookie($name, $domain = '', $path = '/', $prefix = '')
+	{
+		set_cookie($name, '', '', $domain, $path, $prefix);
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 152066 "date_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Date Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/date_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('now'))
+{
+	/**
+	 * Get \"now\" time
+	 *
+	 * Returns time() based on the timezone parameter or on the
+	 * \"time_reference\" setting
+	 *
+	 * @param	string
+	 * @return	int
+	 */
+	function now($timezone = NULL)
+	{
+		if (empty($timezone))
+		{
+			$timezone = config_item('time_reference');
+		}
+
+		if ($timezone === 'local' OR $timezone === date_default_timezone_get())
+		{
+			return time();
+		}
+
+		$datetime = new DateTime('now', new DateTimeZone($timezone));
+		sscanf($datetime->format('j-n-Y G:i:s'), '%d-%d-%d %d:%d:%d', $day, $month, $year, $hour, $minute, $second);
+
+		return mktime($hour, $minute, $second, $month, $day, $year);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('mdate'))
+{
+	/**
+	 * Convert MySQL Style Datecodes
+	 *
+	 * This function is identical to PHPs date() function,
+	 * except that it allows date codes to be formatted using
+	 * the MySQL style, where each code letter is preceded
+	 * with a percent sign:  %Y %m %d etc...
+	 *
+	 * The benefit of doing dates this way is that you don't
+	 * have to worry about escaping your text letters that
+	 * match the date codes.
+	 *
+	 * @param	string
+	 * @param	int
+	 * @return	int
+	 */
+	function mdate($datestr = '', $time = '')
+	{
+		if ($datestr === '')
+		{
+			return '';
+		}
+		elseif (empty($time))
+		{
+			$time = now();
+		}
+
+		$datestr = str_replace(
+			'%\\\\',
+			'',
+			preg_replace('/([a-z]+?){1}/i', '\\\\\\\\\\\\1', $datestr)
+		);
+
+		return date($datestr, $time);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('standard_date'))
+{
+	/**
+	 * Standard Date
+	 *
+	 * Returns a date formatted according to the submitted standard.
+	 *
+	 * As of PHP 5.2, the DateTime extension provides constants that
+	 * serve for the exact same purpose and are used with date().
+	 *
+	 * @todo	Remove in version 3.1+.
+	 * @deprecated	3.0.0	Use PHP's native date() instead.
+	 * @link	http://www.php.net/manual/en/class.datetime.php#datetime.constants.types
+	 *
+	 * @example	date(DATE_RFC822, now()); // default
+	 * @example	date(DATE_W3C, $time); // a different format and time
+	 *
+	 * @param	string	$fmt = 'DATE_RFC822'	the chosen format
+	 * @param	int	$time = NULL		Unix timestamp
+	 * @return	string
+	 */
+	function standard_date($fmt = 'DATE_RFC822', $time = NULL)
+	{
+		if (empty($time))
+		{
+			$time = now();
+		}
+
+		// Procedural style pre-defined constants from the DateTime extension
+		if (strpos($fmt, 'DATE_') !== 0 OR defined($fmt) === FALSE)
+		{
+			return FALSE;
+		}
+
+		return date(constant($fmt), $time);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('timespan'))
+{
+	/**
+	 * Timespan
+	 *
+	 * Returns a span of seconds in this format:
+	 *	10 days 14 hours 36 minutes 47 seconds
+	 *
+	 * @param	int	a number of seconds
+	 * @param	int	Unix timestamp
+	 * @param	int	a number of display units
+	 * @return	string
+	 */
+	function timespan($seconds = 1, $time = '', $units = 7)
+	{
+		$CI =& get_instance();
+		$CI->lang->load('date');
+
+		is_numeric($seconds) OR $seconds = 1;
+		is_numeric($time) OR $time = time();
+		is_numeric($units) OR $units = 7;
+
+		$seconds = ($time <= $seconds) ? 1 : $time - $seconds;
+
+		$str = array();
+		$years = floor($seconds / 31557600);
+
+		if ($years > 0)
+		{
+			$str[] = $years.' '.$CI->lang->line($years > 1 ? 'date_years' : 'date_year');
+		}
+
+		$seconds -= $years * 31557600;
+		$months = floor($seconds / 2629743);
+
+		if (count($str) < $units && ($years > 0 OR $months > 0))
+		{
+			if ($months > 0)
+			{
+				$str[] = $months.' '.$CI->lang->line($months > 1 ? 'date_months' : 'date_month');
+			}
+
+			$seconds -= $months * 2629743;
+		}
+
+		$weeks = floor($seconds / 604800);
+
+		if (count($str) < $units && ($years > 0 OR $months > 0 OR $weeks > 0))
+		{
+			if ($weeks > 0)
+			{
+				$str[] = $weeks.' '.$CI->lang->line($weeks > 1 ? 'date_weeks' : 'date_week');
+			}
+
+			$seconds -= $weeks * 604800;
+		}
+
+		$days = floor($seconds / 86400);
+
+		if (count($str) < $units && ($months > 0 OR $weeks > 0 OR $days > 0))
+		{
+			if ($days > 0)
+			{
+				$str[] = $days.' '.$CI->lang->line($days > 1 ? 'date_days' : 'date_day');
+			}
+
+			$seconds -= $days * 86400;
+		}
+
+		$hours = floor($seconds / 3600);
+
+		if (count($str) < $units && ($days > 0 OR $hours > 0))
+		{
+			if ($hours > 0)
+			{
+				$str[] = $hours.' '.$CI->lang->line($hours > 1 ? 'date_hours' : 'date_hour');
+			}
+
+			$seconds -= $hours * 3600;
+		}
+
+		$minutes = floor($seconds / 60);
+
+		if (count($str) < $units && ($days > 0 OR $hours > 0 OR $minutes > 0))
+		{
+			if ($minutes > 0)
+			{
+				$str[] = $minutes.' '.$CI->lang->line($minutes > 1 ? 'date_minutes' : 'date_minute');
+			}
+
+			$seconds -= $minutes * 60;
+		}
+
+		if (count($str) === 0)
+		{
+			$str[] = $seconds.' '.$CI->lang->line($seconds > 1 ? 'date_seconds' : 'date_second');
+		}
+
+		return implode(', ', $str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('days_in_month'))
+{
+	/**
+	 * Number of days in a month
+	 *
+	 * Takes a month/year as input and returns the number of days
+	 * for the given month/year. Takes leap years into consideration.
+	 *
+	 * @param	int	a numeric month
+	 * @param	int	a numeric year
+	 * @return	int
+	 */
+	function days_in_month($month = 0, $year = '')
+	{
+		if ($month < 1 OR $month > 12)
+		{
+			return 0;
+		}
+		elseif ( ! is_numeric($year) OR strlen($year) !== 4)
+		{
+			$year = date('Y');
+		}
+
+		if (defined('CAL_GREGORIAN'))
+		{
+			return cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		}
+
+		if ($year >= 1970)
+		{
+			return (int) date('t', mktime(12, 0, 0, $month, 1, $year));
+		}
+
+		if ($month == 2)
+		{
+			if ($year % 400 === 0 OR ($year % 4 === 0 && $year % 100 !== 0))
+			{
+				return 29;
+			}
+		}
+
+		$days_in_month	= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+		return $days_in_month[$month - 1];
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('local_to_gmt'))
+{
+	/**
+	 * Converts a local Unix timestamp to GMT
+	 *
+	 * @param	int	Unix timestamp
+	 * @return	int
+	 */
+	function local_to_gmt($time = '')
+	{
+		if ($time === '')
+		{
+			$time = time();
+		}
+
+		return mktime(
+			gmdate('G', $time),
+			gmdate('i', $time),
+			gmdate('s', $time),
+			gmdate('n', $time),
+			gmdate('j', $time),
+			gmdate('Y', $time)
+		);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('gmt_to_local'))
+{
+	/**
+	 * Converts GMT time to a localized value
+	 *
+	 * Takes a Unix timestamp (in GMT) as input, and returns
+	 * at the local value based on the timezone and DST setting
+	 * submitted
+	 *
+	 * @param	int	Unix timestamp
+	 * @param	string	timezone
+	 * @param	bool	whether DST is active
+	 * @return	int
+	 */
+	function gmt_to_local($time = '', $timezone = 'UTC', $dst = FALSE)
+	{
+		if ($time === '')
+		{
+			return now();
+		}
+
+		$time += timezones($timezone) * 3600;
+
+		return ($dst === TRUE) ? $time + 3600 : $time;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('mysql_to_unix'))
+{
+	/**
+	 * Converts a MySQL Timestamp to Unix
+	 *
+	 * @param	int	MySQL timestamp YYYY-MM-DD HH:MM:SS
+	 * @return	int	Unix timstamp
+	 */
+	function mysql_to_unix($time = '')
+	{
+		// We'll remove certain characters for backward compatibility
+		// since the formatting changed with MySQL 4.1
+		// YYYY-MM-DD HH:MM:SS
+
+		$time = str_replace(array('-', ':', ' '), '', $time);
+
+		// YYYYMMDDHHMMSS
+		return mktime(
+			substr($time, 8, 2),
+			substr($time, 10, 2),
+			substr($time, 12, 2),
+			substr($time, 4, 2),
+			substr($time, 6, 2),
+			substr($time, 0, 4)
+		);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('unix_to_human'))
+{
+	/**
+	 * Unix to \"Human\"
+	 *
+	 * Formats Unix timestamp to the following prototype: 2006-08-21 11:35 PM
+	 *
+	 * @param	int	Unix timestamp
+	 * @param	bool	whether to show seconds
+	 * @param	string	format: us or euro
+	 * @return	string
+	 */
+	function unix_to_human($time = '', $seconds = FALSE, $fmt = 'us')
+	{
+		$r = date('Y', $time).'-'.date('m', $time).'-'.date('d', $time).' ';
+
+		if ($fmt === 'us')
+		{
+			$r .= date('h', $time).':'.date('i', $time);
+		}
+		else
+		{
+			$r .= date('H', $time).':'.date('i', $time);
+		}
+
+		if ($seconds)
+		{
+			$r .= ':'.date('s', $time);
+		}
+
+		if ($fmt === 'us')
+		{
+			return $r.' '.date('A', $time);
+		}
+
+		return $r;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('human_to_unix'))
+{
+	/**
+	 * Convert \"human\" date to GMT
+	 *
+	 * Reverses the above process
+	 *
+	 * @param	string	format: us or euro
+	 * @return	int
+	 */
+	function human_to_unix($datestr = '')
+	{
+		if ($datestr === '')
+		{
+			return FALSE;
+		}
+
+		$datestr = preg_replace('/\\040+/', ' ', trim($datestr));
+
+		if ( ! preg_match('/^(\\d{2}|\\d{4})\\-[0-9]{1,2}\\-[0-9]{1,2}\\s[0-9]{1,2}:[0-9]{1,2}(?::[0-9]{1,2})?(?:\\s[AP]M)?$/i', $datestr))
+		{
+			return FALSE;
+		}
+
+		sscanf($datestr, '%d-%d-%d %s %s', $year, $month, $day, $time, $ampm);
+		sscanf($time, '%d:%d:%d', $hour, $min, $sec);
+		isset($sec) OR $sec = 0;
+
+		if (isset($ampm))
+		{
+			$ampm = strtolower($ampm);
+
+			if ($ampm[0] === 'p' && $hour < 12)
+			{
+				$hour += 12;
+			}
+			elseif ($ampm[0] === 'a' && $hour === 12)
+			{
+				$hour = 0;
+			}
+		}
+
+		return mktime($hour, $min, $sec, $month, $day, $year);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('nice_date'))
+{
+	/**
+	 * Turns many \"reasonably-date-like\" strings into something
+	 * that is actually useful. This only works for dates after unix epoch.
+	 *
+	 * @deprecated	3.1.3	Use DateTime::createFromFormat($input_format, $input)->format($output_format);
+	 * @param	string	The terribly formatted date-like string
+	 * @param	string	Date format to return (same as php date function)
+	 * @return	string
+	 */
+	function nice_date($bad_date = '', $format = FALSE)
+	{
+		if (empty($bad_date))
+		{
+			return 'Unknown';
+		}
+		elseif (empty($format))
+		{
+			$format = 'U';
+		}
+
+		// Date like: YYYYMM
+		if (preg_match('/^\\d{6}$/i', $bad_date))
+		{
+			if (in_array(substr($bad_date, 0, 2), array('19', '20')))
+			{
+				$year  = substr($bad_date, 0, 4);
+				$month = substr($bad_date, 4, 2);
+			}
+			else
+			{
+				$month  = substr($bad_date, 0, 2);
+				$year   = substr($bad_date, 2, 4);
+			}
+
+			return date($format, strtotime($year.'-'.$month.'-01'));
+		}
+
+		// Date Like: YYYYMMDD
+		if (preg_match('/^\\d{8}$/i', $bad_date, $matches))
+		{
+			return DateTime::createFromFormat('Ymd', $bad_date)->format($format);
+		}
+
+		// Date Like: MM-DD-YYYY __or__ M-D-YYYY (or anything in between)
+		if (preg_match('/^(\\d{1,2})-(\\d{1,2})-(\\d{4})$/i', $bad_date, $matches))
+		{
+			return date($format, strtotime($matches[3].'-'.$matches[1].'-'.$matches[2]));
+		}
+
+		// Any other kind of string, when converted into UNIX time,
+		// produces \"0 seconds after epoc...\" is probably bad...
+		// return \"Invalid Date\".
+		if (date('U', strtotime($bad_date)) === '0')
+		{
+			return 'Invalid Date';
+		}
+
+		// It's probably a valid-ish date format already
+		return date($format, strtotime($bad_date));
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('timezone_menu'))
+{
+	/**
+	 * Timezone Menu
+	 *
+	 * Generates a drop-down menu of timezones.
+	 *
+	 * @param	string	timezone
+	 * @param	string	classname
+	 * @param	string	menu name
+	 * @param	mixed	attributes
+	 * @return	string
+	 */
+	function timezone_menu($default = 'UTC', $class = '', $name = 'timezones', $attributes = '')
+	{
+		$CI =& get_instance();
+		$CI->lang->load('date');
+
+		$default = ($default === 'GMT') ? 'UTC' : $default;
+
+		$menu = '<select name=\"'.$name.'\"';
+
+		if ($class !== '')
+		{
+			$menu .= ' class=\"'.$class.'\"';
+		}
+
+		$menu .= _stringify_attributes($attributes).\">\\n\";
+
+		foreach (timezones() as $key => $val)
+		{
+			$selected = ($default === $key) ? ' selected=\"selected\"' : '';
+			$menu .= '<option value=\"'.$key.'\"'.$selected.'>'.$CI->lang->line($key).\"</option>\\n\";
+		}
+
+		return $menu.'</select>';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('timezones'))
+{
+	/**
+	 * Timezones
+	 *
+	 * Returns an array of timezones. This is a helper function
+	 * for various other ones in this library
+	 *
+	 * @param	string	timezone
+	 * @return	string
+	 */
+	function timezones($tz = '')
+	{
+		// Note: Don't change the order of these even though
+		// some items appear to be in the wrong order
+
+		$zones = array(
+			'UM12'		=> -12,
+			'UM11'		=> -11,
+			'UM10'		=> -10,
+			'UM95'		=> -9.5,
+			'UM9'		=> -9,
+			'UM8'		=> -8,
+			'UM7'		=> -7,
+			'UM6'		=> -6,
+			'UM5'		=> -5,
+			'UM45'		=> -4.5,
+			'UM4'		=> -4,
+			'UM35'		=> -3.5,
+			'UM3'		=> -3,
+			'UM2'		=> -2,
+			'UM1'		=> -1,
+			'UTC'		=> 0,
+			'UP1'		=> +1,
+			'UP2'		=> +2,
+			'UP3'		=> +3,
+			'UP35'		=> +3.5,
+			'UP4'		=> +4,
+			'UP45'		=> +4.5,
+			'UP5'		=> +5,
+			'UP55'		=> +5.5,
+			'UP575'		=> +5.75,
+			'UP6'		=> +6,
+			'UP65'		=> +6.5,
+			'UP7'		=> +7,
+			'UP8'		=> +8,
+			'UP875'		=> +8.75,
+			'UP9'		=> +9,
+			'UP95'		=> +9.5,
+			'UP10'		=> +10,
+			'UP105'		=> +10.5,
+			'UP11'		=> +11,
+			'UP115'		=> +11.5,
+			'UP12'		=> +12,
+			'UP1275'	=> +12.75,
+			'UP13'		=> +13,
+			'UP14'		=> +14
+		);
+
+		if ($tz === '')
+		{
+			return $zones;
+		}
+
+		return isset($zones[$tz]) ? $zones[$tz] : 0;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('date_range'))
+{
+	/**
+	 * Date range
+	 *
+	 * Returns a list of dates within a specified period.
+	 *
+	 * @param	int	unix_start	UNIX timestamp of period start date
+	 * @param	int	unix_end|days	UNIX timestamp of period end date
+	 *					or interval in days.
+	 * @param	mixed	is_unix		Specifies whether the second parameter
+	 *					is a UNIX timestamp or a day interval
+	 *					 - TRUE or 'unix' for a timestamp
+	 *					 - FALSE or 'days' for an interval
+	 * @param	string  date_format	Output date format, same as in date()
+	 * @return	array
+	 */
+	function date_range($unix_start = '', $mixed = '', $is_unix = TRUE, $format = 'Y-m-d')
+	{
+		if ($unix_start == '' OR $mixed == '' OR $format == '')
+		{
+			return FALSE;
+		}
+
+		$is_unix = ! ( ! $is_unix OR $is_unix === 'days');
+
+		// Validate input and try strtotime() on invalid timestamps/intervals, just in case
+		if ( ( ! ctype_digit((string) $unix_start) && ($unix_start = @strtotime($unix_start)) === FALSE)
+			OR ( ! ctype_digit((string) $mixed) && ($is_unix === FALSE OR ($mixed = @strtotime($mixed)) === FALSE))
+			OR ($is_unix === TRUE && $mixed < $unix_start))
+		{
+			return FALSE;
+		}
+
+		if ($is_unix && ($unix_start == $mixed OR date($format, $unix_start) === date($format, $mixed)))
+		{
+			return array(date($format, $unix_start));
+		}
+
+		$range = array();
+
+		$from = new DateTime();
+		$from->setTimestamp($unix_start);
+
+		if ($is_unix)
+		{
+			$arg = new DateTime();
+			$arg->setTimestamp($mixed);
+		}
+		else
+		{
+			$arg = (int) $mixed;
+		}
+
+		$period = new DatePeriod($from, new DateInterval('P1D'), $arg);
+		foreach ($period as $date)
+		{
+			$range[] = $date->format($format);
+		}
+
+		/* If a period end date was passed to the DatePeriod constructor, it might not
+		 * be in our results. Not sure if this is a bug or it's just possible because
+		 * the end date might actually be less than 24 hours away from the previously
+		 * generated DateTime object, but either way - we have to append it manually.
+		 */
+		if ( ! is_int($arg) && $range[count($range) - 1] !== $arg->format($format))
+		{
+			$range[] = $arg->format($format);
+		}
+
+		return $range;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 152194 "directory_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Directory Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/directory_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('directory_map'))
+{
+	/**
+	 * Create a Directory Map
+	 *
+	 * Reads the specified directory and builds an array
+	 * representation of it. Sub-folders contained with the
+	 * directory will be mapped as well.
+	 *
+	 * @param	string	$source_dir		Path to source
+	 * @param	int	$directory_depth	Depth of directories to traverse
+	 *						(0 = fully recursive, 1 = current dir, etc)
+	 * @param	bool	$hidden			Whether to show hidden files
+	 * @return	array
+	 */
+	function directory_map($source_dir, $directory_depth = 0, $hidden = FALSE)
+	{
+		if ($fp = @opendir($source_dir))
+		{
+			$filedata	= array();
+			$new_depth	= $directory_depth - 1;
+			$source_dir	= rtrim($source_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+
+			while (FALSE !== ($file = readdir($fp)))
+			{
+				// Remove '.', '..', and hidden files [optional]
+				if ($file === '.' OR $file === '..' OR ($hidden === FALSE && $file[0] === '.'))
+				{
+					continue;
+				}
+
+				is_dir($source_dir.$file) && $file .= DIRECTORY_SEPARATOR;
+
+				if (($directory_depth < 1 OR $new_depth > 0) && is_dir($source_dir.$file))
+				{
+					$filedata[$file] = directory_map($source_dir.$file, $new_depth, $hidden);
+				}
+				else
+				{
+					$filedata[] = $file;
+				}
+			}
+
+			closedir($fp);
+			return $filedata;
+		}
+
+		return FALSE;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 152322 "download_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Download Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/download_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('force_download'))
+{
+	/**
+	 * Force Download
+	 *
+	 * Generates headers that force a download to happen
+	 *
+	 * @param	string	filename
+	 * @param	mixed	the data to be downloaded
+	 * @param	bool	whether to try and send the actual file MIME type
+	 * @return	void
+	 */
+	function force_download($filename = '', $data = '', $set_mime = FALSE)
+	{
+		if ($filename === '' OR $data === '')
+		{
+			return;
+		}
+		elseif ($data === NULL)
+		{
+			if ( ! @is_file($filename) OR ($filesize = @filesize($filename)) === FALSE)
+			{
+				return;
+			}
+
+			$filepath = $filename;
+			$filename = explode('/', str_replace(DIRECTORY_SEPARATOR, '/', $filename));
+			$filename = end($filename);
+		}
+		else
+		{
+			$filesize = strlen($data);
+		}
+
+		// Set the default MIME type to send
+		$mime = 'application/octet-stream';
+
+		$x = explode('.', $filename);
+		$extension = end($x);
+
+		if ($set_mime === TRUE)
+		{
+			if (count($x) === 1 OR $extension === '')
+			{
+				/* If we're going to detect the MIME type,
+				 * we'll need a file extension.
+				 */
+				return;
+			}
+
+			// Load the mime types
+			$mimes =& get_mimes();
+
+			// Only change the default MIME if we can find one
+			if (isset($mimes[$extension]))
+			{
+				$mime = is_array($mimes[$extension]) ? $mimes[$extension][0] : $mimes[$extension];
+			}
+		}
+
+		/* It was reported that browsers on Android 2.1 (and possibly older as well)
+		 * need to have the filename extension upper-cased in order to be able to
+		 * download it.
+		 *
+		 * Reference: http://digiblog.de/2011/04/19/android-and-the-download-file-headers/
+		 */
+		if (count($x) !== 1 && isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/Android\\s(1|2\\.[01])/', $_SERVER['HTTP_USER_AGENT']))
+		{
+			$x[count($x) - 1] = strtoupper($extension);
+			$filename = implode('.', $x);
+		}
+
+		if ($data === NULL && ($fp = @fopen($filepath, 'rb')) === FALSE)
+		{
+			return;
+		}
+
+		// Clean output buffer
+		if (ob_get_level() !== 0 && @ob_end_clean() === FALSE)
+		{
+			@ob_clean();
+		}
+
+		// Generate the server headers
+		header('Content-Type: '.$mime);
+		header('Content-Disposition: attachment; filename=\"'.$filename.'\"');
+		header('Expires: 0');
+		header('Content-Transfer-Encoding: binary');
+		header('Content-Length: '.$filesize);
+		header('Cache-Control: private, no-transform, no-store, must-revalidate');
+
+		// If we have raw data - just dump it
+		if ($data !== NULL)
+		{
+			exit($data);
+		}
+
+		// Flush 1MB chunks of data
+		while ( ! feof($fp) && ($data = fread($fp, 1048576)) !== FALSE)
+		{
+			echo $data;
+		}
+
+		fclose($fp);
+		exit;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 152450 "email_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Email Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/email_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('valid_email'))
+{
+	/**
+	 * Validate email address
+	 *
+	 * @deprecated	3.0.0	Use PHP's filter_var() instead
+	 * @param	string	$email
+	 * @return	bool
+	 */
+	function valid_email($email)
+	{
+		return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('send_email'))
+{
+	/**
+	 * Send an email
+	 *
+	 * @deprecated	3.0.0	Use PHP's mail() instead
+	 * @param	string	$recipient
+	 * @param	string	$subject
+	 * @param	string	$message
+	 * @return	bool
+	 */
+	function send_email($recipient, $subject, $message)
+	{
+		return mail($recipient, $subject, $message);
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 152578 "file_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter File Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/file_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('read_file'))
+{
+	/**
+	 * Read File
+	 *
+	 * Opens the file specified in the path and returns it as a string.
+	 *
+	 * @todo	Remove in version 3.1+.
+	 * @deprecated	3.0.0	It is now just an alias for PHP's native file_get_contents().
+	 * @param	string	$file	Path to file
+	 * @return	string	File contents
+	 */
+	function read_file($file)
+	{
+		return @file_get_contents($file);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('write_file'))
+{
+	/**
+	 * Write File
+	 *
+	 * Writes data to the file specified in the path.
+	 * Creates a new file if non-existent.
+	 *
+	 * @param	string	$path	File path
+	 * @param	string	$data	Data to write
+	 * @param	string	$mode	fopen() mode (default: 'wb')
+	 * @return	bool
+	 */
+	function write_file($path, $data, $mode = 'wb')
+	{
+		if ( ! $fp = @fopen($path, $mode))
+		{
+			return FALSE;
+		}
+
+		flock($fp, LOCK_EX);
+
+		for ($result = $written = 0, $length = strlen($data); $written < $length; $written += $result)
+		{
+			if (($result = fwrite($fp, substr($data, $written))) === FALSE)
+			{
+				break;
+			}
+		}
+
+		flock($fp, LOCK_UN);
+		fclose($fp);
+
+		return is_int($result);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('delete_files'))
+{
+	/**
+	 * Delete Files
+	 *
+	 * Deletes all files contained in the supplied directory path.
+	 * Files must be writable or owned by the system in order to be deleted.
+	 * If the second parameter is set to TRUE, any directories contained
+	 * within the supplied base directory will be nuked as well.
+	 *
+	 * @param	string	$path		File path
+	 * @param	bool	$del_dir	Whether to delete any directories found in the path
+	 * @param	bool	$htdocs		Whether to skip deleting .htaccess and index page files
+	 * @param	int	$_level		Current directory depth level (default: 0; internal use only)
+	 * @return	bool
+	 */
+	function delete_files($path, $del_dir = FALSE, $htdocs = FALSE, $_level = 0)
+	{
+		// Trim the trailing slash
+		$path = rtrim($path, '/\\\\');
+
+		if ( ! $current_dir = @opendir($path))
+		{
+			return FALSE;
+		}
+
+		while (FALSE !== ($filename = @readdir($current_dir)))
+		{
+			if ($filename !== '.' && $filename !== '..')
+			{
+				$filepath = $path.DIRECTORY_SEPARATOR.$filename;
+
+				if (is_dir($filepath) && $filename[0] !== '.' && ! is_link($filepath))
+				{
+					delete_files($filepath, $del_dir, $htdocs, $_level + 1);
+				}
+				elseif ($htdocs !== TRUE OR ! preg_match('/^(\\.htaccess|index\\.(html|htm|php)|web\\.config)$/i', $filename))
+				{
+					@unlink($filepath);
+				}
+			}
+		}
+
+		closedir($current_dir);
+
+		return ($del_dir === TRUE && $_level > 0)
+			? @rmdir($path)
+			: TRUE;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('get_filenames'))
+{
+	/**
+	 * Get Filenames
+	 *
+	 * Reads the specified directory and builds an array containing the filenames.
+	 * Any sub-folders contained within the specified path are read as well.
+	 *
+	 * @param	string	path to source
+	 * @param	bool	whether to include the path as part of the filename
+	 * @param	bool	internal variable to determine recursion status - do not use in calls
+	 * @return	array
+	 */
+	function get_filenames($source_dir, $include_path = FALSE, $_recursion = FALSE)
+	{
+		static $_filedata = array();
+
+		if ($fp = @opendir($source_dir))
+		{
+			// reset the array and make sure $source_dir has a trailing slash on the initial call
+			if ($_recursion === FALSE)
+			{
+				$_filedata = array();
+				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+			}
+
+			while (FALSE !== ($file = readdir($fp)))
+			{
+				if (is_dir($source_dir.$file) && $file[0] !== '.')
+				{
+					get_filenames($source_dir.$file.DIRECTORY_SEPARATOR, $include_path, TRUE);
+				}
+				elseif ($file[0] !== '.')
+				{
+					$_filedata[] = ($include_path === TRUE) ? $source_dir.$file : $file;
+				}
+			}
+
+			closedir($fp);
+			return $_filedata;
+		}
+
+		return FALSE;
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('get_dir_file_info'))
+{
+	/**
+	 * Get Directory File Information
+	 *
+	 * Reads the specified directory and builds an array containing the filenames,
+	 * filesize, dates, and permissions
+	 *
+	 * Any sub-folders contained within the specified path are read as well.
+	 *
+	 * @param	string	path to source
+	 * @param	bool	Look only at the top level directory specified?
+	 * @param	bool	internal variable to determine recursion status - do not use in calls
+	 * @return	array
+	 */
+	function get_dir_file_info($source_dir, $top_level_only = TRUE, $_recursion = FALSE)
+	{
+		static $_filedata = array();
+		$relative_path = $source_dir;
+
+		if ($fp = @opendir($source_dir))
+		{
+			// reset the array and make sure $source_dir has a trailing slash on the initial call
+			if ($_recursion === FALSE)
+			{
+				$_filedata = array();
+				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+			}
+
+			// Used to be foreach (scandir($source_dir, 1) as $file), but scandir() is simply not as fast
+			while (FALSE !== ($file = readdir($fp)))
+			{
+				if (is_dir($source_dir.$file) && $file[0] !== '.' && $top_level_only === FALSE)
+				{
+					get_dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, TRUE);
+				}
+				elseif ($file[0] !== '.')
+				{
+					$_filedata[$file] = get_file_info($source_dir.$file);
+					$_filedata[$file]['relative_path'] = $relative_path;
+				}
+			}
+
+			closedir($fp);
+			return $_filedata;
+		}
+
+		return FALSE;
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('get_file_info'))
+{
+	/**
+	 * Get File Info
+	 *
+	 * Given a file and path, returns the name, path, size, date modified
+	 * Second parameter allows you to explicitly declare what information you want returned
+	 * Options are: name, server_path, size, date, readable, writable, executable, fileperms
+	 * Returns FALSE if the file cannot be found.
+	 *
+	 * @param	string	path to file
+	 * @param	mixed	array or comma separated string of information returned
+	 * @return	array
+	 */
+	function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date'))
+	{
+		if ( ! file_exists($file))
+		{
+			return FALSE;
+		}
+
+		if (is_string($returned_values))
+		{
+			$returned_values = explode(',', $returned_values);
+		}
+
+		foreach ($returned_values as $key)
+		{
+			switch ($key)
+			{
+				case 'name':
+					$fileinfo['name'] = basename($file);
+					break;
+				case 'server_path':
+					$fileinfo['server_path'] = $file;
+					break;
+				case 'size':
+					$fileinfo['size'] = filesize($file);
+					break;
+				case 'date':
+					$fileinfo['date'] = filemtime($file);
+					break;
+				case 'readable':
+					$fileinfo['readable'] = is_readable($file);
+					break;
+				case 'writable':
+					$fileinfo['writable'] = is_really_writable($file);
+					break;
+				case 'executable':
+					$fileinfo['executable'] = is_executable($file);
+					break;
+				case 'fileperms':
+					$fileinfo['fileperms'] = fileperms($file);
+					break;
+			}
+		}
+
+		return $fileinfo;
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('get_mime_by_extension'))
+{
+	/**
+	 * Get Mime by Extension
+	 *
+	 * Translates a file extension into a mime type based on config/mimes.php.
+	 * Returns FALSE if it can't determine the type, or open the mime config file
+	 *
+	 * Note: this is NOT an accurate way of determining file mime types, and is here strictly as a convenience
+	 * It should NOT be trusted, and should certainly NOT be used for security
+	 *
+	 * @param	string	$filename	File name
+	 * @return	string
+	 */
+	function get_mime_by_extension($filename)
+	{
+		static $mimes;
+
+		if ( ! is_array($mimes))
+		{
+			$mimes = get_mimes();
+
+			if (empty($mimes))
+			{
+				return FALSE;
+			}
+		}
+
+		$extension = strtolower(substr(strrchr($filename, '.'), 1));
+
+		if (isset($mimes[$extension]))
+		{
+			return is_array($mimes[$extension])
+				? current($mimes[$extension]) // Multiple mime types, just give the first one
+				: $mimes[$extension];
+		}
+
+		return FALSE;
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('symbolic_permissions'))
+{
+	/**
+	 * Symbolic Permissions
+	 *
+	 * Takes a numeric value representing a file's permissions and returns
+	 * standard symbolic notation representing that value
+	 *
+	 * @param	int	$perms	Permissions
+	 * @return	string
+	 */
+	function symbolic_permissions($perms)
+	{
+		if (($perms & 0xC000) === 0xC000)
+		{
+			$symbolic = 's'; // Socket
+		}
+		elseif (($perms & 0xA000) === 0xA000)
+		{
+			$symbolic = 'l'; // Symbolic Link
+		}
+		elseif (($perms & 0x8000) === 0x8000)
+		{
+			$symbolic = '-'; // Regular
+		}
+		elseif (($perms & 0x6000) === 0x6000)
+		{
+			$symbolic = 'b'; // Block special
+		}
+		elseif (($perms & 0x4000) === 0x4000)
+		{
+			$symbolic = 'd'; // Directory
+		}
+		elseif (($perms & 0x2000) === 0x2000)
+		{
+			$symbolic = 'c'; // Character special
+		}
+		elseif (($perms & 0x1000) === 0x1000)
+		{
+			$symbolic = 'p'; // FIFO pipe
+		}
+		else
+		{
+			$symbolic = 'u'; // Unknown
+		}
+
+		// Owner
+		$symbolic .= (($perms & 0x0100) ? 'r' : '-')
+			.(($perms & 0x0080) ? 'w' : '-')
+			.(($perms & 0x0040) ? (($perms & 0x0800) ? 's' : 'x' ) : (($perms & 0x0800) ? 'S' : '-'));
+
+		// Group
+		$symbolic .= (($perms & 0x0020) ? 'r' : '-')
+			.(($perms & 0x0010) ? 'w' : '-')
+			.(($perms & 0x0008) ? (($perms & 0x0400) ? 's' : 'x' ) : (($perms & 0x0400) ? 'S' : '-'));
+
+		// World
+		$symbolic .= (($perms & 0x0004) ? 'r' : '-')
+			.(($perms & 0x0002) ? 'w' : '-')
+			.(($perms & 0x0001) ? (($perms & 0x0200) ? 't' : 'x' ) : (($perms & 0x0200) ? 'T' : '-'));
+
+		return $symbolic;
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('octal_permissions'))
+{
+	/**
+	 * Octal Permissions
+	 *
+	 * Takes a numeric value representing a file's permissions and returns
+	 * a three character string representing the file's octal permissions
+	 *
+	 * @param	int	$perms	Permissions
+	 * @return	string
+	 */
+	function octal_permissions($perms)
+	{
+		return substr(sprintf('%o', $perms), -3);
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 152706 "form_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Form Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/form_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_open'))
+{
+	/**
+	 * Form Declaration
+	 *
+	 * Creates the opening portion of the form.
+	 *
+	 * @param	string	the URI segments of the form destination
+	 * @param	array	a key/value pair of attributes
+	 * @param	array	a key/value pair hidden data
+	 * @return	string
+	 */
+	function form_open($action = '', $attributes = array(), $hidden = array())
+	{
+		$CI =& get_instance();
+
+		// If no action is provided then set to the current url
+		if ( ! $action)
+		{
+			$action = $CI->config->site_url($CI->uri->uri_string());
+		}
+		// If an action is not a full URL then turn it into one
+		elseif (strpos($action, '://') === FALSE)
+		{
+			$action = $CI->config->site_url($action);
+		}
+
+		$attributes = _attributes_to_string($attributes);
+
+		if (stripos($attributes, 'method=') === FALSE)
+		{
+			$attributes .= ' method=\"post\"';
+		}
+
+		if (stripos($attributes, 'accept-charset=') === FALSE)
+		{
+			$attributes .= ' accept-charset=\"'.strtolower(config_item('charset')).'\"';
+		}
+
+		$form = '<form action=\"'.$action.'\"'.$attributes.\">\\n\";
+
+		if (is_array($hidden))
+		{
+			foreach ($hidden as $name => $value)
+			{
+				$form .= '<input type=\"hidden\" name=\"'.$name.'\" value=\"'.html_escape($value).'\" />'.\"\\n\";
+			}
+		}
+
+		// Add CSRF field if enabled, but leave it out for GET requests and requests to external websites
+		if ($CI->config->item('csrf_protection') === TRUE && strpos($action, $CI->config->base_url()) !== FALSE && ! stripos($form, 'method=\"get\"'))
+		{
+			// Prepend/append random-length \"white noise\" around the CSRF
+			// token input, as a form of protection against BREACH attacks
+			if (FALSE !== ($noise = $CI->security->get_random_bytes(1)))
+			{
+				list(, $noise) = unpack('c', $noise);
+			}
+			else
+			{
+				$noise = mt_rand(-128, 127);
+			}
+
+			// Prepend if $noise has a negative value, append if positive, do nothing for zero
+			$prepend = $append = '';
+			if ($noise < 0)
+			{
+				$prepend = str_repeat(\" \", abs($noise));
+			}
+			elseif ($noise > 0)
+			{
+				$append  = str_repeat(\" \", $noise);
+			}
+
+			$form .= sprintf(
+				'%s<input type=\"hidden\" name=\"%s\" value=\"%s\" />%s%s',
+				$prepend,
+				$CI->security->get_csrf_token_name(),
+				$CI->security->get_csrf_hash(),
+				$append,
+				\"\\n\"
+			);
+		}
+
+		return $form;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_open_multipart'))
+{
+	/**
+	 * Form Declaration - Multipart type
+	 *
+	 * Creates the opening portion of the form, but with \"multipart/form-data\".
+	 *
+	 * @param	string	the URI segments of the form destination
+	 * @param	array	a key/value pair of attributes
+	 * @param	array	a key/value pair hidden data
+	 * @return	string
+	 */
+	function form_open_multipart($action = '', $attributes = array(), $hidden = array())
+	{
+		if (is_string($attributes))
+		{
+			$attributes .= ' enctype=\"multipart/form-data\"';
+		}
+		else
+		{
+			$attributes['enctype'] = 'multipart/form-data';
+		}
+
+		return form_open($action, $attributes, $hidden);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_hidden'))
+{
+	/**
+	 * Hidden Input Field
+	 *
+	 * Generates hidden fields. You can pass a simple key/value string or
+	 * an associative array with multiple values.
+	 *
+	 * @param	mixed	$name		Field name
+	 * @param	string	$value		Field value
+	 * @param	bool	$recursing
+	 * @return	string
+	 */
+	function form_hidden($name, $value = '', $recursing = FALSE)
+	{
+		static $form;
+
+		if ($recursing === FALSE)
+		{
+			$form = \"\\n\";
+		}
+
+		if (is_array($name))
+		{
+			foreach ($name as $key => $val)
+			{
+				form_hidden($key, $val, TRUE);
+			}
+
+			return $form;
+		}
+
+		if ( ! is_array($value))
+		{
+			$form .= '<input type=\"hidden\" name=\"'.$name.'\" value=\"'.html_escape($value).\"\\\" />\\n\";
+		}
+		else
+		{
+			foreach ($value as $k => $v)
+			{
+				$k = is_int($k) ? '' : $k;
+				form_hidden($name.'['.$k.']', $v, TRUE);
+			}
+		}
+
+		return $form;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_input'))
+{
+	/**
+	 * Text Input Field
+	 *
+	 * @param	mixed
+	 * @param	string
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_input($data = '', $value = '', $extra = '')
+	{
+		$defaults = array(
+			'type' => 'text',
+			'name' => is_array($data) ? '' : $data,
+			'value' => $value
+		);
+
+		return '<input '._parse_form_attributes($data, $defaults)._attributes_to_string($extra).\" />\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_password'))
+{
+	/**
+	 * Password Field
+	 *
+	 * Identical to the input function but adds the \"password\" type
+	 *
+	 * @param	mixed
+	 * @param	string
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_password($data = '', $value = '', $extra = '')
+	{
+		is_array($data) OR $data = array('name' => $data);
+		$data['type'] = 'password';
+		return form_input($data, $value, $extra);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_upload'))
+{
+	/**
+	 * Upload Field
+	 *
+	 * Identical to the input function but adds the \"file\" type
+	 *
+	 * @param	mixed
+	 * @param	string
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_upload($data = '', $value = '', $extra = '')
+	{
+		$defaults = array('type' => 'file', 'name' => '');
+		is_array($data) OR $data = array('name' => $data);
+		$data['type'] = 'file';
+
+		return '<input '._parse_form_attributes($data, $defaults)._attributes_to_string($extra).\" />\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_textarea'))
+{
+	/**
+	 * Textarea field
+	 *
+	 * @param	mixed	$data
+	 * @param	string	$value
+	 * @param	mixed	$extra
+	 * @return	string
+	 */
+	function form_textarea($data = '', $value = '', $extra = '')
+	{
+		$defaults = array(
+			'name' => is_array($data) ? '' : $data,
+			'cols' => '40',
+			'rows' => '10'
+		);
+
+		if ( ! is_array($data) OR ! isset($data['value']))
+		{
+			$val = $value;
+		}
+		else
+		{
+			$val = $data['value'];
+			unset($data['value']); // textareas don't use the value attribute
+		}
+
+		return '<textarea '._parse_form_attributes($data, $defaults)._attributes_to_string($extra).'>'
+			.html_escape($val)
+			.\"</textarea>\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_multiselect'))
+{
+	/**
+	 * Multi-select menu
+	 *
+	 * @param	string
+	 * @param	array
+	 * @param	mixed
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_multiselect($name = '', $options = array(), $selected = array(), $extra = '')
+	{
+		$extra = _attributes_to_string($extra);
+		if (stripos($extra, 'multiple') === FALSE)
+		{
+			$extra .= ' multiple=\"multiple\"';
+		}
+
+		return form_dropdown($name, $options, $selected, $extra);
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('form_dropdown'))
+{
+	/**
+	 * Drop-down Menu
+	 *
+	 * @param	mixed	$data
+	 * @param	mixed	$options
+	 * @param	mixed	$selected
+	 * @param	mixed	$extra
+	 * @return	string
+	 */
+	function form_dropdown($data = '', $options = array(), $selected = array(), $extra = '')
+	{
+		$defaults = array();
+
+		if (is_array($data))
+		{
+			if (isset($data['selected']))
+			{
+				$selected = $data['selected'];
+				unset($data['selected']); // select tags don't have a selected attribute
+			}
+
+			if (isset($data['options']))
+			{
+				$options = $data['options'];
+				unset($data['options']); // select tags don't use an options attribute
+			}
+		}
+		else
+		{
+			$defaults = array('name' => $data);
+		}
+
+		is_array($selected) OR $selected = array($selected);
+		is_array($options) OR $options = array($options);
+
+		// If no selected state was submitted we will attempt to set it automatically
+		if (empty($selected))
+		{
+			if (is_array($data))
+			{
+				if (isset($data['name'], $_POST[$data['name']]))
+				{
+					$selected = array($_POST[$data['name']]);
+				}
+			}
+			elseif (isset($_POST[$data]))
+			{
+				$selected = array($_POST[$data]);
+			}
+		}
+
+		$extra = _attributes_to_string($extra);
+
+		$multiple = (count($selected) > 1 && stripos($extra, 'multiple') === FALSE) ? ' multiple=\"multiple\"' : '';
+
+		$form = '<select '.rtrim(_parse_form_attributes($data, $defaults)).$extra.$multiple.\">\\n\";
+
+		foreach ($options as $key => $val)
+		{
+			$key = (string) $key;
+
+			if (is_array($val))
+			{
+				if (empty($val))
+				{
+					continue;
+				}
+
+				$form .= '<optgroup label=\"'.$key.\"\\\">\\n\";
+
+				foreach ($val as $optgroup_key => $optgroup_val)
+				{
+					$sel = in_array($optgroup_key, $selected) ? ' selected=\"selected\"' : '';
+					$form .= '<option value=\"'.html_escape($optgroup_key).'\"'.$sel.'>'
+						.(string) $optgroup_val.\"</option>\\n\";
+				}
+
+				$form .= \"</optgroup>\\n\";
+			}
+			else
+			{
+				$form .= '<option value=\"'.html_escape($key).'\"'
+					.(in_array($key, $selected) ? ' selected=\"selected\"' : '').'>'
+					.(string) $val.\"</option>\\n\";
+			}
+		}
+
+		return $form.\"</select>\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_checkbox'))
+{
+	/**
+	 * Checkbox Field
+	 *
+	 * @param	mixed
+	 * @param	string
+	 * @param	bool
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_checkbox($data = '', $value = '', $checked = FALSE, $extra = '')
+	{
+		$defaults = array('type' => 'checkbox', 'name' => ( ! is_array($data) ? $data : ''), 'value' => $value);
+
+		if (is_array($data) && array_key_exists('checked', $data))
+		{
+			$checked = $data['checked'];
+
+			if ($checked == FALSE)
+			{
+				unset($data['checked']);
+			}
+			else
+			{
+				$data['checked'] = 'checked';
+			}
+		}
+
+		if ($checked == TRUE)
+		{
+			$defaults['checked'] = 'checked';
+		}
+		else
+		{
+			unset($defaults['checked']);
+		}
+
+		return '<input '._parse_form_attributes($data, $defaults)._attributes_to_string($extra).\" />\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_radio'))
+{
+	/**
+	 * Radio Button
+	 *
+	 * @param	mixed
+	 * @param	string
+	 * @param	bool
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_radio($data = '', $value = '', $checked = FALSE, $extra = '')
+	{
+		is_array($data) OR $data = array('name' => $data);
+		$data['type'] = 'radio';
+
+		return form_checkbox($data, $value, $checked, $extra);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_submit'))
+{
+	/**
+	 * Submit Button
+	 *
+	 * @param	mixed
+	 * @param	string
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_submit($data = '', $value = '', $extra = '')
+	{
+		$defaults = array(
+			'type' => 'submit',
+			'name' => is_array($data) ? '' : $data,
+			'value' => $value
+		);
+
+		return '<input '._parse_form_attributes($data, $defaults)._attributes_to_string($extra).\" />\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_reset'))
+{
+	/**
+	 * Reset Button
+	 *
+	 * @param	mixed
+	 * @param	string
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_reset($data = '', $value = '', $extra = '')
+	{
+		$defaults = array(
+			'type' => 'reset',
+			'name' => is_array($data) ? '' : $data,
+			'value' => $value
+		);
+
+		return '<input '._parse_form_attributes($data, $defaults)._attributes_to_string($extra).\" />\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_button'))
+{
+	/**
+	 * Form Button
+	 *
+	 * @param	mixed
+	 * @param	string
+	 * @param	mixed
+	 * @return	string
+	 */
+	function form_button($data = '', $content = '', $extra = '')
+	{
+		$defaults = array(
+			'name' => is_array($data) ? '' : $data,
+			'type' => 'button'
+		);
+
+		if (is_array($data) && isset($data['content']))
+		{
+			$content = $data['content'];
+			unset($data['content']); // content is not an attribute
+		}
+
+		return '<button '._parse_form_attributes($data, $defaults)._attributes_to_string($extra).'>'
+			.$content
+			.\"</button>\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_label'))
+{
+	/**
+	 * Form Label Tag
+	 *
+	 * @param	string	The text to appear onscreen
+	 * @param	string	The id the label applies to
+	 * @param	mixed	Additional attributes
+	 * @return	string
+	 */
+	function form_label($label_text = '', $id = '', $attributes = array())
+	{
+
+		$label = '<label';
+
+		if ($id !== '')
+		{
+			$label .= ' for=\"'.$id.'\"';
+		}
+
+		$label .= _attributes_to_string($attributes);
+
+		return $label.'>'.$label_text.'</label>';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_fieldset'))
+{
+	/**
+	 * Fieldset Tag
+	 *
+	 * Used to produce <fieldset><legend>text</legend>.  To close fieldset
+	 * use form_fieldset_close()
+	 *
+	 * @param	string	The legend text
+	 * @param	array	Additional attributes
+	 * @return	string
+	 */
+	function form_fieldset($legend_text = '', $attributes = array())
+	{
+		$fieldset = '<fieldset'._attributes_to_string($attributes).\">\\n\";
+		if ($legend_text !== '')
+		{
+			return $fieldset.'<legend>'.$legend_text.\"</legend>\\n\";
+		}
+
+		return $fieldset;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_fieldset_close'))
+{
+	/**
+	 * Fieldset Close Tag
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function form_fieldset_close($extra = '')
+	{
+		return '</fieldset>'.$extra;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_close'))
+{
+	/**
+	 * Form Close Tag
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function form_close($extra = '')
+	{
+		return '</form>'.$extra;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_prep'))
+{
+	/**
+	 * Form Prep
+	 *
+	 * Formats text so that it can be safely placed in a form field in the event it has HTML tags.
+	 *
+	 * @deprecated	3.0.0	An alias for html_escape()
+	 * @param	string|string[]	$str		Value to escape
+	 * @return	string|string[]	Escaped values
+	 */
+	function form_prep($str)
+	{
+		return html_escape($str, TRUE);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('set_value'))
+{
+	/**
+	 * Form Value
+	 *
+	 * Grabs a value from the POST array for the specified field so you can
+	 * re-populate an input field or textarea. If Form Validation
+	 * is active it retrieves the info from the validation class
+	 *
+	 * @param	string	$field		Field name
+	 * @param	string	$default	Default value
+	 * @param	bool	$html_escape	Whether to escape HTML special characters or not
+	 * @return	string
+	 */
+	function set_value($field, $default = '', $html_escape = TRUE)
+	{
+		$CI =& get_instance();
+
+		$value = (isset($CI->form_validation) && is_object($CI->form_validation) && $CI->form_validation->has_rule($field))
+			? $CI->form_validation->set_value($field, $default)
+			: $CI->input->post($field, FALSE);
+
+		isset($value) OR $value = $default;
+		return ($html_escape) ? html_escape($value) : $value;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('set_select'))
+{
+	/**
+	 * Set Select
+	 *
+	 * Let's you set the selected value of a <select> menu via data in the POST array.
+	 * If Form Validation is active it retrieves the info from the validation class
+	 *
+	 * @param	string
+	 * @param	string
+	 * @param	bool
+	 * @return	string
+	 */
+	function set_select($field, $value = '', $default = FALSE)
+	{
+		$CI =& get_instance();
+
+		if (isset($CI->form_validation) && is_object($CI->form_validation) && $CI->form_validation->has_rule($field))
+		{
+			return $CI->form_validation->set_select($field, $value, $default);
+		}
+		elseif (($input = $CI->input->post($field, FALSE)) === NULL)
+		{
+			return ($default === TRUE) ? ' selected=\"selected\"' : '';
+		}
+
+		$value = (string) $value;
+		if (is_array($input))
+		{
+			// Note: in_array('', array(0)) returns TRUE, do not use it
+			foreach ($input as &$v)
+			{
+				if ($value === $v)
+				{
+					return ' selected=\"selected\"';
+				}
+			}
+
+			return '';
+		}
+
+		return ($input === $value) ? ' selected=\"selected\"' : '';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('set_checkbox'))
+{
+	/**
+	 * Set Checkbox
+	 *
+	 * Let's you set the selected value of a checkbox via the value in the POST array.
+	 * If Form Validation is active it retrieves the info from the validation class
+	 *
+	 * @param	string
+	 * @param	string
+	 * @param	bool
+	 * @return	string
+	 */
+	function set_checkbox($field, $value = '', $default = FALSE)
+	{
+		$CI =& get_instance();
+
+		if (isset($CI->form_validation) && is_object($CI->form_validation) && $CI->form_validation->has_rule($field))
+		{
+			return $CI->form_validation->set_checkbox($field, $value, $default);
+		}
+
+		// Form inputs are always strings ...
+		$value = (string) $value;
+		$input = $CI->input->post($field, FALSE);
+
+		if (is_array($input))
+		{
+			// Note: in_array('', array(0)) returns TRUE, do not use it
+			foreach ($input as &$v)
+			{
+				if ($value === $v)
+				{
+					return ' checked=\"checked\"';
+				}
+			}
+
+			return '';
+		}
+
+		// Unchecked checkbox and radio inputs are not even submitted by browsers ...
+		if ($CI->input->method() === 'post')
+		{
+			return ($input === $value) ? ' checked=\"checked\"' : '';
+		}
+
+		return ($default === TRUE) ? ' checked=\"checked\"' : '';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('set_radio'))
+{
+	/**
+	 * Set Radio
+	 *
+	 * Let's you set the selected value of a radio field via info in the POST array.
+	 * If Form Validation is active it retrieves the info from the validation class
+	 *
+	 * @param	string	$field
+	 * @param	string	$value
+	 * @param	bool	$default
+	 * @return	string
+	 */
+	function set_radio($field, $value = '', $default = FALSE)
+	{
+		$CI =& get_instance();
+
+		if (isset($CI->form_validation) && is_object($CI->form_validation) && $CI->form_validation->has_rule($field))
+		{
+			return $CI->form_validation->set_radio($field, $value, $default);
+		}
+
+		// Form inputs are always strings ...
+		$value = (string) $value;
+		$input = $CI->input->post($field, FALSE);
+
+		if (is_array($input))
+		{
+			// Note: in_array('', array(0)) returns TRUE, do not use it
+			foreach ($input as &$v)
+			{
+				if ($value === $v)
+				{
+					return ' checked=\"checked\"';
+				}
+			}
+
+			return '';
+		}
+
+		// Unchecked checkbox and radio inputs are not even submitted by browsers ...
+		if ($CI->input->method() === 'post')
+		{
+			return ($input === $value) ? ' checked=\"checked\"' : '';
+		}
+
+		return ($default === TRUE) ? ' checked=\"checked\"' : '';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('form_error'))
+{
+	/**
+	 * Form Error
+	 *
+	 * Returns the error for a specific form field. This is a helper for the
+	 * form validation class.
+	 *
+	 * @param	string
+	 * @param	string
+	 * @param	string
+	 * @return	string
+	 */
+	function form_error($field = '', $prefix = '', $suffix = '')
+	{
+		if (FALSE === ($OBJ =& _get_validation_object()))
+		{
+			return '';
+		}
+
+		return $OBJ->error($field, $prefix, $suffix);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('validation_errors'))
+{
+	/**
+	 * Validation Error String
+	 *
+	 * Returns all the errors associated with a form submission. This is a helper
+	 * function for the form validation class.
+	 *
+	 * @param	string
+	 * @param	string
+	 * @return	string
+	 */
+	function validation_errors($prefix = '', $suffix = '')
+	{
+		if (FALSE === ($OBJ =& _get_validation_object()))
+		{
+			return '';
+		}
+
+		return $OBJ->error_string($prefix, $suffix);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('_parse_form_attributes'))
+{
+	/**
+	 * Parse the form attributes
+	 *
+	 * Helper function used by some of the form helpers
+	 *
+	 * @param	array	$attributes	List of attributes
+	 * @param	array	$default	Default values
+	 * @return	string
+	 */
+	function _parse_form_attributes($attributes, $default)
+	{
+		if (is_array($attributes))
+		{
+			foreach ($default as $key => $val)
+			{
+				if (isset($attributes[$key]))
+				{
+					$default[$key] = $attributes[$key];
+					unset($attributes[$key]);
+				}
+			}
+
+			if (count($attributes) > 0)
+			{
+				$default = array_merge($default, $attributes);
+			}
+		}
+
+		$att = '';
+
+		foreach ($default as $key => $val)
+		{
+			if ($key === 'value')
+			{
+				$val = html_escape($val);
+			}
+			elseif ($key === 'name' && ! strlen($default['name']))
+			{
+				continue;
+			}
+
+			$att .= $key.'=\"'.$val.'\" ';
+		}
+
+		return $att;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('_attributes_to_string'))
+{
+	/**
+	 * Attributes To String
+	 *
+	 * Helper function used by some of the form helpers
+	 *
+	 * @param	mixed
+	 * @return	string
+	 */
+	function _attributes_to_string($attributes)
+	{
+		if (empty($attributes))
+		{
+			return '';
+		}
+
+		if (is_object($attributes))
+		{
+			$attributes = (array) $attributes;
+		}
+
+		if (is_array($attributes))
+		{
+			$atts = '';
+
+			foreach ($attributes as $key => $val)
+			{
+				$atts .= ' '.$key.'=\"'.$val.'\"';
+			}
+
+			return $atts;
+		}
+
+		if (is_string($attributes))
+		{
+			return ' '.$attributes;
+		}
+
+		return FALSE;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('_get_validation_object'))
+{
+	/**
+	 * Validation Object
+	 *
+	 * Determines what the form validation class was instantiated as, fetches
+	 * the object and returns it.
+	 *
+	 * @return	mixed
+	 */
+	function &_get_validation_object()
+	{
+		$CI =& get_instance();
+
+		// We set this as a variable since we're returning by reference.
+		$return = FALSE;
+
+		if (FALSE !== ($object = $CI->load->is_loaded('Form_validation')))
+		{
+			if ( ! isset($CI->$object) OR ! is_object($CI->$object))
+			{
+				return $return;
+			}
+
+			return $CI->$object;
+		}
+
+		return $return;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 152834 "html_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter HTML Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/html_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('heading'))
+{
+	/**
+	 * Heading
+	 *
+	 * Generates an HTML heading tag.
+	 *
+	 * @param	string	content
+	 * @param	int	heading level
+	 * @param	string
+	 * @return	string
+	 */
+	function heading($data = '', $h = '1', $attributes = '')
+	{
+		return '<h'.$h._stringify_attributes($attributes).'>'.$data.'</h'.$h.'>';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('ul'))
+{
+	/**
+	 * Unordered List
+	 *
+	 * Generates an HTML unordered list from an single or multi-dimensional array.
+	 *
+	 * @param	array
+	 * @param	mixed
+	 * @return	string
+	 */
+	function ul($list, $attributes = '')
+	{
+		return _list('ul', $list, $attributes);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('ol'))
+{
+	/**
+	 * Ordered List
+	 *
+	 * Generates an HTML ordered list from an single or multi-dimensional array.
+	 *
+	 * @param	array
+	 * @param	mixed
+	 * @return	string
+	 */
+	function ol($list, $attributes = '')
+	{
+		return _list('ol', $list, $attributes);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('_list'))
+{
+	/**
+	 * Generates the list
+	 *
+	 * Generates an HTML ordered list from an single or multi-dimensional array.
+	 *
+	 * @param	string
+	 * @param	mixed
+	 * @param	mixed
+	 * @param	int
+	 * @return	string
+	 */
+	function _list($type = 'ul', $list = array(), $attributes = '', $depth = 0)
+	{
+		// If an array wasn't submitted there's nothing to do...
+		if ( ! is_array($list))
+		{
+			return $list;
+		}
+
+		// Set the indentation based on the depth
+		$out = str_repeat(' ', $depth)
+			// Write the opening list tag
+			.'<'.$type._stringify_attributes($attributes).\">\\n\";
+
+
+		// Cycle through the list elements.  If an array is
+		// encountered we will recursively call _list()
+
+		static $_last_list_item = '';
+		foreach ($list as $key => $val)
+		{
+			$_last_list_item = $key;
+
+			$out .= str_repeat(' ', $depth + 2).'<li>';
+
+			if ( ! is_array($val))
+			{
+				$out .= $val;
+			}
+			else
+			{
+				$out .= $_last_list_item.\"\\n\"._list($type, $val, '', $depth + 4).str_repeat(' ', $depth + 2);
+			}
+
+			$out .= \"</li>\\n\";
+		}
+
+		// Set the indentation for the closing tag and apply it
+		return $out.str_repeat(' ', $depth).'</'.$type.\">\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('img'))
+{
+	/**
+	 * Image
+	 *
+	 * Generates an <img /> element
+	 *
+	 * @param	mixed
+	 * @param	bool
+	 * @param	mixed
+	 * @return	string
+	 */
+	function img($src = '', $index_page = FALSE, $attributes = '')
+	{
+		if ( ! is_array($src) )
+		{
+			$src = array('src' => $src);
+		}
+
+		// If there is no alt attribute defined, set it to an empty string
+		if ( ! isset($src['alt']))
+		{
+			$src['alt'] = '';
+		}
+
+		$img = '<img';
+
+		foreach ($src as $k => $v)
+		{
+			if ($k === 'src' && ! preg_match('#^(data:[a-z,;])|(([a-z]+:)?(?<!data:)//)#i', $v))
+			{
+				if ($index_page === TRUE)
+				{
+					$img .= ' src=\"'.get_instance()->config->site_url($v).'\"';
+				}
+				else
+				{
+					$img .= ' src=\"'.get_instance()->config->base_url($v).'\"';
+				}
+			}
+			else
+			{
+				$img .= ' '.$k.'=\"'.$v.'\"';
+			}
+		}
+
+		return $img._stringify_attributes($attributes).' />';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('doctype'))
+{
+	/**
+	 * Doctype
+	 *
+	 * Generates a page document type declaration
+	 *
+	 * Examples of valid options: html5, xhtml-11, xhtml-strict, xhtml-trans,
+	 * xhtml-frame, html4-strict, html4-trans, and html4-frame.
+	 * All values are saved in the doctypes config file.
+	 *
+	 * @param	string	type	The doctype to be generated
+	 * @return	string
+	 */
+	function doctype($type = 'xhtml1-strict')
+	{
+		static $doctypes;
+
+		if ( ! is_array($doctypes))
+		{
+			if (file_exists(APPPATH.'config/doctypes.php'))
+			{
+				include(APPPATH.'config/doctypes.php');
+			}
+
+			if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/doctypes.php'))
+			{
+				include(APPPATH.'config/'.ENVIRONMENT.'/doctypes.php');
+			}
+
+			if (empty($_doctypes) OR ! is_array($_doctypes))
+			{
+				$doctypes = array();
+				return FALSE;
+			}
+
+			$doctypes = $_doctypes;
+		}
+
+		return isset($doctypes[$type]) ? $doctypes[$type] : FALSE;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('link_tag'))
+{
+	/**
+	 * Link
+	 *
+	 * Generates link to a CSS file
+	 *
+	 * @param	mixed	stylesheet hrefs or an array
+	 * @param	string	rel
+	 * @param	string	type
+	 * @param	string	title
+	 * @param	string	media
+	 * @param	bool	should index_page be added to the css path
+	 * @return	string
+	 */
+	function link_tag($href = '', $rel = 'stylesheet', $type = 'text/css', $title = '', $media = '', $index_page = FALSE)
+	{
+		$CI =& get_instance();
+		$link = '<link ';
+
+		if (is_array($href))
+		{
+			foreach ($href as $k => $v)
+			{
+				if ($k === 'href' && ! preg_match('#^([a-z]+:)?//#i', $v))
+				{
+					if ($index_page === TRUE)
+					{
+						$link .= 'href=\"'.$CI->config->site_url($v).'\" ';
+					}
+					else
+					{
+						$link .= 'href=\"'.$CI->config->base_url($v).'\" ';
+					}
+				}
+				else
+				{
+					$link .= $k.'=\"'.$v.'\" ';
+				}
+			}
+		}
+		else
+		{
+			if (preg_match('#^([a-z]+:)?//#i', $href))
+			{
+				$link .= 'href=\"'.$href.'\" ';
+			}
+			elseif ($index_page === TRUE)
+			{
+				$link .= 'href=\"'.$CI->config->site_url($href).'\" ';
+			}
+			else
+			{
+				$link .= 'href=\"'.$CI->config->base_url($href).'\" ';
+			}
+
+			$link .= 'rel=\"'.$rel.'\" type=\"'.$type.'\" ';
+
+			if ($media !== '')
+			{
+				$link .= 'media=\"'.$media.'\" ';
+			}
+
+			if ($title !== '')
+			{
+				$link .= 'title=\"'.$title.'\" ';
+			}
+		}
+
+		return $link.\"/>\\n\";
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('meta'))
+{
+	/**
+	 * Generates meta tags from an array of key/values
+	 *
+	 * @param	array
+	 * @param	string
+	 * @param	string
+	 * @param	string
+	 * @return	string
+	 */
+	function meta($name = '', $content = '', $type = 'name', $newline = \"\\n\")
+	{
+		// Since we allow the data to be passes as a string, a simple array
+		// or a multidimensional one, we need to do a little prepping.
+		if ( ! is_array($name))
+		{
+			$name = array(array('name' => $name, 'content' => $content, 'type' => $type, 'newline' => $newline));
+		}
+		elseif (isset($name['name']))
+		{
+			// Turn single array into multidimensional
+			$name = array($name);
+		}
+
+		$str = '';
+		foreach ($name as $meta)
+		{
+			$type		= (isset($meta['type']) && $meta['type'] !== 'name')	? 'http-equiv' : 'name';
+			$name		= isset($meta['name'])					? $meta['name'] : '';
+			$content	= isset($meta['content'])				? $meta['content'] : '';
+			$newline	= isset($meta['newline'])				? $meta['newline'] : \"\\n\";
+
+			$str .= '<meta '.$type.'=\"'.$name.'\" content=\"'.$content.'\" />'.$newline;
+		}
+
+		return $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('br'))
+{
+	/**
+	 * Generates HTML BR tags based on number supplied
+	 *
+	 * @deprecated	3.0.0	Use str_repeat() instead
+	 * @param	int	$count	Number of times to repeat the tag
+	 * @return	string
+	 */
+	function br($count = 1)
+	{
+		return str_repeat('<br />', $count);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('nbs'))
+{
+	/**
+	 * Generates non-breaking space entities based on number supplied
+	 *
+	 * @deprecated	3.0.0	Use str_repeat() instead
+	 * @param	int
+	 * @return	string
+	 */
+	function nbs($num = 1)
+	{
+		return str_repeat('&nbsp;', $num);
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 152962 "inflector_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Inflector Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/inflector_helper.html
+ */
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('singular'))
+{
+	/**
+	 * Singular
+	 *
+	 * Takes a plural word and makes it singular
+	 *
+	 * @param	string	$str	Input string
+	 * @return	string
+	 */
+	function singular($str)
+	{
+		$result = strval($str);
+
+		if ( ! word_is_countable($result))
+		{
+			return $result;
+		}
+
+		$singular_rules = array(
+			'/(matr)ices$/'		=> '\\1ix',
+			'/(vert|ind)ices$/'	=> '\\1ex',
+			'/^(ox)en/'		=> '\\1',
+			'/(alias)es$/'		=> '\\1',
+			'/([octop|vir])i$/'	=> '\\1us',
+			'/(cris|ax|test)es$/'	=> '\\1is',
+			'/(shoe)s$/'		=> '\\1',
+			'/(o)es$/'		=> '\\1',
+			'/(bus|campus)es$/'	=> '\\1',
+			'/([m|l])ice$/'		=> '\\1ouse',
+			'/(x|ch|ss|sh)es$/'	=> '\\1',
+			'/(m)ovies$/'		=> '\\1\\2ovie',
+			'/(s)eries$/'		=> '\\1\\2eries',
+			'/([^aeiouy]|qu)ies$/'	=> '\\1y',
+			'/([lr])ves$/'		=> '\\1f',
+			'/(tive)s$/'		=> '\\1',
+			'/(hive)s$/'		=> '\\1',
+			'/([^f])ves$/'		=> '\\1fe',
+			'/(^analy)ses$/'	=> '\\1sis',
+			'/((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$/' => '\\1\\2sis',
+			'/([ti])a$/'		=> '\\1um',
+			'/(p)eople$/'		=> '\\1\\2erson',
+			'/(m)en$/'		=> '\\1an',
+			'/(s)tatuses$/'		=> '\\1\\2tatus',
+			'/(c)hildren$/'		=> '\\1\\2hild',
+			'/(n)ews$/'		=> '\\1\\2ews',
+			'/(quiz)zes$/'		=> '\\1',
+			'/([^us])s$/'		=> '\\1'
+		);
+
+		foreach ($singular_rules as $rule => $replacement)
+		{
+			if (preg_match($rule, $result))
+			{
+				$result = preg_replace($rule, $replacement, $result);
+				break;
+			}
+		}
+
+		return $result;
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('plural'))
+{
+	/**
+	 * Plural
+	 *
+	 * Takes a singular word and makes it plural
+	 *
+	 * @param	string	$str	Input string
+	 * @return	string
+	 */
+	function plural($str)
+	{
+		$result = strval($str);
+
+		if ( ! word_is_countable($result))
+		{
+			return $result;
+		}
+
+		$plural_rules = array(
+			'/(quiz)$/'                => '\\1zes',      // quizzes
+			'/^(ox)$/'                 => '\\1\\2en',     // ox
+			'/([m|l])ouse$/'           => '\\1ice',      // mouse, louse
+			'/(matr|vert|ind)ix|ex$/'  => '\\1ices',     // matrix, vertex, index
+			'/(x|ch|ss|sh)$/'          => '\\1es',       // search, switch, fix, box, process, address
+			'/([^aeiouy]|qu)y$/'       => '\\1ies',      // query, ability, agency
+			'/(hive)$/'                => '\\1s',        // archive, hive
+			'/(?:([^f])fe|([lr])f)$/'  => '\\1\\2ves',    // half, safe, wife
+			'/sis$/'                   => 'ses',        // basis, diagnosis
+			'/([ti])um$/'              => '\\1a',        // datum, medium
+			'/(p)erson$/'              => '\\1eople',    // person, salesperson
+			'/(m)an$/'                 => '\\1en',       // man, woman, spokesman
+			'/(c)hild$/'               => '\\1hildren',  // child
+			'/(buffal|tomat)o$/'       => '\\1\\2oes',    // buffalo, tomato
+			'/(bu|campu)s$/'           => '\\1\\2ses',    // bus, campus
+			'/(alias|status|virus)$/'  => '\\1es',       // alias
+			'/(octop)us$/'             => '\\1i',        // octopus
+			'/(ax|cris|test)is$/'      => '\\1es',       // axis, crisis
+			'/s$/'                     => 's',          // no change (compatibility)
+			'/$/'                      => 's',
+		);
+
+		foreach ($plural_rules as $rule => $replacement)
+		{
+			if (preg_match($rule, $result))
+			{
+				$result = preg_replace($rule, $replacement, $result);
+				break;
+			}
+		}
+
+		return $result;
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('camelize'))
+{
+	/**
+	 * Camelize
+	 *
+	 * Takes multiple words separated by spaces or underscores and camelizes them
+	 *
+	 * @param	string	$str	Input string
+	 * @return	string
+	 */
+	function camelize($str)
+	{
+		return strtolower($str[0]).substr(str_replace(' ', '', ucwords(preg_replace('/[\\s_]+/', ' ', $str))), 1);
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('underscore'))
+{
+	/**
+	 * Underscore
+	 *
+	 * Takes multiple words separated by spaces and underscores them
+	 *
+	 * @param	string	$str	Input string
+	 * @return	string
+	 */
+	function underscore($str)
+	{
+		return preg_replace('/[\\s]+/', '_', trim(MB_ENABLED ? mb_strtolower($str) : strtolower($str)));
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('humanize'))
+{
+	/**
+	 * Humanize
+	 *
+	 * Takes multiple words separated by the separator and changes them to spaces
+	 *
+	 * @param	string	$str		Input string
+	 * @param 	string	$separator	Input separator
+	 * @return	string
+	 */
+	function humanize($str, $separator = '_')
+	{
+		return ucwords(preg_replace('/['.preg_quote($separator).']+/', ' ', trim(MB_ENABLED ? mb_strtolower($str) : strtolower($str))));
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('word_is_countable'))
+{
+	/**
+	 * Checks if the given word has a plural version.
+	 *
+	 * @param	string	$word	Word to check
+	 * @return	bool
+	 */
+	function word_is_countable($word)
+	{
+		return ! in_array(
+			strtolower($word),
+			array(
+				'audio',
+				'bison',
+				'chassis',
+				'compensation',
+				'coreopsis',
+				'data',
+				'deer',
+				'education',
+				'emoji',
+				'equipment',
+				'fish',
+				'furniture',
+				'gold',
+				'information',
+				'knowledge',
+				'love',
+				'rain',
+				'money',
+				'moose',
+				'nutrition',
+				'offspring',
+				'plankton',
+				'pokemon',
+				'police',
+				'rice',
+				'series',
+				'sheep',
+				'species',
+				'swine',
+				'traffic',
+				'wheat'
+			)
+		);
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('is_countable'))
+{
+	function is_countable($word)
+	{
+		trigger_error('is_countable() is a native PHP function since version 7.3.0; use word_is_countable() instead', E_USER_WARNING);
+		return word_is_countable($word);
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 153090 "language_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Language Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/language_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('lang'))
+{
+	/**
+	 * Lang
+	 *
+	 * Fetches a language variable and optionally outputs a form label
+	 *
+	 * @param	string	$line		The language line
+	 * @param	string	$for		The \"for\" value (id of the form element)
+	 * @param	array	$attributes	Any additional HTML attributes
+	 * @return	string
+	 */
+	function lang($line, $for = '', $attributes = array())
+	{
+		$line = get_instance()->lang->line($line);
+
+		if ($for !== '')
+		{
+			$line = '<label for=\"'.$for.'\"'._stringify_attributes($attributes).'>'.$line.'</label>';
+		}
+
+		return $line;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 153218 "number_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Number Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/number_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('byte_format'))
+{
+	/**
+	 * Formats a numbers as bytes, based on size, and adds the appropriate suffix
+	 *
+	 * @param	mixed	will be cast as int
+	 * @param	int
+	 * @return	string
+	 */
+	function byte_format($num, $precision = 1)
+	{
+		$CI =& get_instance();
+		$CI->lang->load('number');
+
+		if ($num >= 1000000000000)
+		{
+			$num = round($num / 1099511627776, $precision);
+			$unit = $CI->lang->line('terabyte_abbr');
+		}
+		elseif ($num >= 1000000000)
+		{
+			$num = round($num / 1073741824, $precision);
+			$unit = $CI->lang->line('gigabyte_abbr');
+		}
+		elseif ($num >= 1000000)
+		{
+			$num = round($num / 1048576, $precision);
+			$unit = $CI->lang->line('megabyte_abbr');
+		}
+		elseif ($num >= 1000)
+		{
+			$num = round($num / 1024, $precision);
+			$unit = $CI->lang->line('kilobyte_abbr');
+		}
+		else
+		{
+			$unit = $CI->lang->line('bytes');
+			return number_format($num).' '.$unit;
+		}
+
+		return number_format($num, $precision).' '.$unit;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 153346 "path_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Path Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/path_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('set_realpath'))
+{
+	/**
+	 * Set Realpath
+	 *
+	 * @param	string
+	 * @param	bool	checks to see if the path exists
+	 * @return	string
+	 */
+	function set_realpath($path, $check_existance = FALSE)
+	{
+		// Security check to make sure the path is NOT a URL. No remote file inclusion!
+		if (preg_match('#^(http:\\/\\/|https:\\/\\/|www\\.|ftp|php:\\/\\/)#i', $path) OR filter_var($path, FILTER_VALIDATE_IP) === $path)
+		{
+			show_error('The path you submitted must be a local server path, not a URL');
+		}
+
+		// Resolve the path
+		if (realpath($path) !== FALSE)
+		{
+			$path = realpath($path);
+		}
+		elseif ($check_existance && ! is_dir($path) && ! is_file($path))
+		{
+			show_error('Not a valid path: '.$path);
+		}
+
+		// Add a trailing slash, if this is a directory
+		return is_dir($path) ? rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR : $path;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 153474 "security_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Security Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/security_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('xss_clean'))
+{
+	/**
+	 * XSS Filtering
+	 *
+	 * @param	string
+	 * @param	bool	whether or not the content is an image file
+	 * @return	string
+	 */
+	function xss_clean($str, $is_image = FALSE)
+	{
+		return get_instance()->security->xss_clean($str, $is_image);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('sanitize_filename'))
+{
+	/**
+	 * Sanitize Filename
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function sanitize_filename($filename)
+	{
+		return get_instance()->security->sanitize_filename($filename);
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('do_hash'))
+{
+	/**
+	 * Hash encode a string
+	 *
+	 * @todo	Remove in version 3.1+.
+	 * @deprecated	3.0.0	Use PHP's native hash() instead.
+	 * @param	string	$str
+	 * @param	string	$type = 'sha1'
+	 * @return	string
+	 */
+	function do_hash($str, $type = 'sha1')
+	{
+		if ( ! in_array(strtolower($type), hash_algos()))
+		{
+			$type = 'md5';
+		}
+
+		return hash($type, $str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('strip_image_tags'))
+{
+	/**
+	 * Strip Image Tags
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function strip_image_tags($str)
+	{
+		return get_instance()->security->strip_image_tags($str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('encode_php_tags'))
+{
+	/**
+	 * Convert PHP tags to entities
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function encode_php_tags($str)
+	{
+		return str_replace(array('<?', '?>'), array('&lt;?', '?&gt;'), $str);
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 153602 "smiley_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Smiley Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/smiley_helper.html
+ * @deprecated	3.0.0	This helper is too specific for CI.
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('smiley_js'))
+{
+	/**
+	 * Smiley Javascript
+	 *
+	 * Returns the javascript required for the smiley insertion.  Optionally takes
+	 * an array of aliases to loosely couple the smiley array to the view.
+	 *
+	 * @param	mixed	alias name or array of alias->field_id pairs
+	 * @param	string	field_id if alias name was passed in
+	 * @param	bool
+	 * @return	array
+	 */
+	function smiley_js($alias = '', $field_id = '', $inline = TRUE)
+	{
+		static $do_setup = TRUE;
+		$r = '';
+
+		if ($alias !== '' && ! is_array($alias))
+		{
+			$alias = array($alias => $field_id);
+		}
+
+		if ($do_setup === TRUE)
+		{
+			$do_setup = FALSE;
+			$m = array();
+
+			if (is_array($alias))
+			{
+				foreach ($alias as $name => $id)
+				{
+					$m[] = '\"'.$name.'\" : \"'.$id.'\"';
+				}
+			}
+
+			$m = '{'.implode(',', $m).'}';
+
+			$r .= <<<EOF
+			var smiley_map = {$m};
+
+			function insert_smiley(smiley, field_id) {
+				var el = document.getElementById(field_id), newStart;
+
+				if ( ! el && smiley_map[field_id]) {
+					el = document.getElementById(smiley_map[field_id]);
+
+					if ( ! el)
+						return false;
+				}
+
+				el.focus();
+				smiley = \" \" + smiley;
+
+				if ('selectionStart' in el) {
+					newStart = el.selectionStart + smiley.length;
+
+					el.value = el.value.substr(0, el.selectionStart) +
+									smiley +
+									el.value.substr(el.selectionEnd, el.value.length);
+					el.setSelectionRange(newStart, newStart);
+				}
+				else if (document.selection) {
+					document.selection.createRange().text = smiley;
+				}
+			}
+EOF;
+		}
+		elseif (is_array($alias))
+		{
+			foreach ($alias as $name => $id)
+			{
+				$r .= 'smiley_map[\"'.$name.'\"] = \"'.$id.\"\\\";\\n\";
+			}
+		}
+
+		return ($inline)
+			? '<script type=\"text/javascript\" charset=\"utf-8\">/*<![CDATA[ */'.$r.'// ]]></script>'
+			: $r;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('get_clickable_smileys'))
+{
+	/**
+	 * Get Clickable Smileys
+	 *
+	 * Returns an array of image tag links that can be clicked to be inserted
+	 * into a form field.
+	 *
+	 * @param	string	the URL to the folder containing the smiley images
+	 * @param	array
+	 * @return	array
+	 */
+	function get_clickable_smileys($image_url, $alias = '')
+	{
+		// For backward compatibility with js_insert_smiley
+		if (is_array($alias))
+		{
+			$smileys = $alias;
+		}
+		elseif (FALSE === ($smileys = _get_smiley_array()))
+		{
+			return FALSE;
+		}
+
+		// Add a trailing slash to the file path if needed
+		$image_url = rtrim($image_url, '/').'/';
+
+		$used = array();
+		foreach ($smileys as $key => $val)
+		{
+			// Keep duplicates from being used, which can happen if the
+			// mapping array contains multiple identical replacements. For example:
+			// :-) and :) might be replaced with the same image so both smileys
+			// will be in the array.
+			if (isset($used[$smileys[$key][0]]))
+			{
+				continue;
+			}
+
+			$link[] = '<a href=\"javascript:void(0);\" onclick=\"insert_smiley(\\''.$key.'\\', \\''.$alias.'\\')\"><img src=\"'.$image_url.$smileys[$key][0].'\" alt=\"'.$smileys[$key][3].'\" style=\"width: '.$smileys[$key][1].'; height: '.$smileys[$key][2].'; border: 0;\" /></a>';
+			$used[$smileys[$key][0]] = TRUE;
+		}
+
+		return $link;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('parse_smileys'))
+{
+	/**
+	 * Parse Smileys
+	 *
+	 * Takes a string as input and swaps any contained smileys for the actual image
+	 *
+	 * @param	string	the text to be parsed
+	 * @param	string	the URL to the folder containing the smiley images
+	 * @param	array
+	 * @return	string
+	 */
+	function parse_smileys($str = '', $image_url = '', $smileys = NULL)
+	{
+		if ($image_url === '' OR ( ! is_array($smileys) && FALSE === ($smileys = _get_smiley_array())))
+		{
+			return $str;
+		}
+
+		// Add a trailing slash to the file path if needed
+		$image_url = rtrim($image_url, '/').'/';
+
+		foreach ($smileys as $key => $val)
+		{
+			$str = str_replace($key, '<img src=\"'.$image_url.$smileys[$key][0].'\" alt=\"'.$smileys[$key][3].'\" style=\"width: '.$smileys[$key][1].'; height: '.$smileys[$key][2].'; border: 0;\" />', $str);
+		}
+
+		return $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('_get_smiley_array'))
+{
+	/**
+	 * Get Smiley Array
+	 *
+	 * Fetches the config/smiley.php file
+	 *
+	 * @return	mixed
+	 */
+	function _get_smiley_array()
+	{
+		static $_smileys;
+
+		if ( ! is_array($_smileys))
+		{
+			if (file_exists(APPPATH.'config/smileys.php'))
+			{
+				include(APPPATH.'config/smileys.php');
+			}
+
+			if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/smileys.php'))
+			{
+				include(APPPATH.'config/'.ENVIRONMENT.'/smileys.php');
+			}
+
+			if (empty($smileys) OR ! is_array($smileys))
+			{
+				$_smileys = array();
+				return FALSE;
+			}
+
+			$_smileys = $smileys;
+		}
+
+		return $_smileys;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 153730 "string_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter String Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/string_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('trim_slashes'))
+{
+	/**
+	 * Trim Slashes
+	 *
+	 * Removes any leading/trailing slashes from a string:
+	 *
+	 * /this/that/theother/
+	 *
+	 * becomes:
+	 *
+	 * this/that/theother
+	 *
+	 * @todo	Remove in version 3.1+.
+	 * @deprecated	3.0.0	This is just an alias for PHP's native trim()
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function trim_slashes($str)
+	{
+		return trim($str, '/');
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('strip_slashes'))
+{
+	/**
+	 * Strip Slashes
+	 *
+	 * Removes slashes contained in a string or in an array
+	 *
+	 * @param	mixed	string or array
+	 * @return	mixed	string or array
+	 */
+	function strip_slashes($str)
+	{
+		if ( ! is_array($str))
+		{
+			return stripslashes($str);
+		}
+
+		foreach ($str as $key => $val)
+		{
+			$str[$key] = strip_slashes($val);
+		}
+
+		return $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('strip_quotes'))
+{
+	/**
+	 * Strip Quotes
+	 *
+	 * Removes single and double quotes from a string
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function strip_quotes($str)
+	{
+		return str_replace(array('\"', \"'\"), '', $str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('quotes_to_entities'))
+{
+	/**
+	 * Quotes to Entities
+	 *
+	 * Converts single and double quotes to entities
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function quotes_to_entities($str)
+	{
+		return str_replace(array(\"\\'\",\"\\\"\",\"'\",'\"'), array(\"&#39;\",\"&quot;\",\"&#39;\",\"&quot;\"), $str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('reduce_double_slashes'))
+{
+	/**
+	 * Reduce Double Slashes
+	 *
+	 * Converts double slashes in a string to a single slash,
+	 * except those found in http://
+	 *
+	 * http://www.some-site.com//index.php
+	 *
+	 * becomes:
+	 *
+	 * http://www.some-site.com/index.php
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function reduce_double_slashes($str)
+	{
+		return preg_replace('#(^|[^:])//+#', '\\\\1/', $str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('reduce_multiples'))
+{
+	/**
+	 * Reduce Multiples
+	 *
+	 * Reduces multiple instances of a particular character.  Example:
+	 *
+	 * Fred, Bill,, Joe, Jimmy
+	 *
+	 * becomes:
+	 *
+	 * Fred, Bill, Joe, Jimmy
+	 *
+	 * @param	string
+	 * @param	string	the character you wish to reduce
+	 * @param	bool	TRUE/FALSE - whether to trim the character from the beginning/end
+	 * @return	string
+	 */
+	function reduce_multiples($str, $character = ',', $trim = FALSE)
+	{
+		$str = preg_replace('#'.preg_quote($character, '#').'{2,}#', $character, $str);
+		return ($trim === TRUE) ? trim($str, $character) : $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('random_string'))
+{
+	/**
+	 * Create a \"Random\" String
+	 *
+	 * @param	string	type of random string.  basic, alpha, alnum, numeric, nozero, unique, md5, encrypt and sha1
+	 * @param	int	number of characters
+	 * @return	string
+	 */
+	function random_string($type = 'alnum', $len = 8)
+	{
+		switch ($type)
+		{
+			case 'basic':
+				return mt_rand();
+			case 'alnum':
+			case 'numeric':
+			case 'nozero':
+			case 'alpha':
+				switch ($type)
+				{
+					case 'alpha':
+						$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+						break;
+					case 'alnum':
+						$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+						break;
+					case 'numeric':
+						$pool = '0123456789';
+						break;
+					case 'nozero':
+						$pool = '123456789';
+						break;
+				}
+				return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
+			case 'unique': // todo: remove in 3.1+
+			case 'md5':
+				return md5(uniqid(mt_rand()));
+			case 'encrypt': // todo: remove in 3.1+
+			case 'sha1':
+				return sha1(uniqid(mt_rand(), TRUE));
+		}
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('increment_string'))
+{
+	/**
+	 * Add's _1 to a string or increment the ending number to allow _2, _3, etc
+	 *
+	 * @param	string	required
+	 * @param	string	What should the duplicate number be appended with
+	 * @param	string	Which number should be used for the first dupe increment
+	 * @return	string
+	 */
+	function increment_string($str, $separator = '_', $first = 1)
+	{
+		preg_match('/(.+)'.preg_quote($separator, '/').'([0-9]+)$/', $str, $match);
+		return isset($match[2]) ? $match[1].$separator.($match[2] + 1) : $str.$separator.$first;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('alternator'))
+{
+	/**
+	 * Alternator
+	 *
+	 * Allows strings to be alternated. See docs...
+	 *
+	 * @param	string (as many parameters as needed)
+	 * @return	string
+	 */
+	function alternator()
+	{
+		static $i;
+
+		if (func_num_args() === 0)
+		{
+			$i = 0;
+			return '';
+		}
+
+		$args = func_get_args();
+		return $args[($i++ % count($args))];
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('repeater'))
+{
+	/**
+	 * Repeater function
+	 *
+	 * @todo	Remove in version 3.1+.
+	 * @deprecated	3.0.0	This is just an alias for PHP's native str_repeat()
+	 *
+	 * @param	string	$data	String to repeat
+	 * @param	int	$num	Number of repeats
+	 * @return	string
+	 */
+	function repeater($data, $num = 1)
+	{
+		return ($num > 0) ? str_repeat($data, $num) : '';
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 153858 "text_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Text Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/text_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('word_limiter'))
+{
+	/**
+	 * Word Limiter
+	 *
+	 * Limits a string to X number of words.
+	 *
+	 * @param	string
+	 * @param	int
+	 * @param	string	the end character. Usually an ellipsis
+	 * @return	string
+	 */
+	function word_limiter($str, $limit = 100, $end_char = '&#8230;')
+	{
+		if (trim($str) === '')
+		{
+			return $str;
+		}
+
+		preg_match('/^\\s*+(?:\\S++\\s*+){1,'.(int) $limit.'}/', $str, $matches);
+
+		if (strlen($str) === strlen($matches[0]))
+		{
+			$end_char = '';
+		}
+
+		return rtrim($matches[0]).$end_char;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('character_limiter'))
+{
+	/**
+	 * Character Limiter
+	 *
+	 * Limits the string based on the character count.  Preserves complete words
+	 * so the character count may not be exactly as specified.
+	 *
+	 * @param	string
+	 * @param	int
+	 * @param	string	the end character. Usually an ellipsis
+	 * @return	string
+	 */
+	function character_limiter($str, $n = 500, $end_char = '&#8230;')
+	{
+		if (mb_strlen($str) < $n)
+		{
+			return $str;
+		}
+
+		// a bit complicated, but faster than preg_replace with \\s+
+		$str = preg_replace('/ {2,}/', ' ', str_replace(array(\"\\r\", \"\\n\", \"\\t\", \"\\v\", \"\\f\"), ' ', $str));
+
+		if (mb_strlen($str) <= $n)
+		{
+			return $str;
+		}
+
+		$out = '';
+		foreach (explode(' ', trim($str)) as $val)
+		{
+			$out .= $val.' ';
+
+			if (mb_strlen($out) >= $n)
+			{
+				$out = trim($out);
+				return (mb_strlen($out) === mb_strlen($str)) ? $out : $out.$end_char;
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('ascii_to_entities'))
+{
+	/**
+	 * High ASCII to Entities
+	 *
+	 * Converts high ASCII text and MS Word special characters to character entities
+	 *
+	 * @param	string	$str
+	 * @return	string
+	 */
+	function ascii_to_entities($str)
+	{
+		$out = '';
+		$length = defined('MB_OVERLOAD_STRING')
+			? mb_strlen($str, '8bit') - 1
+			: strlen($str) - 1;
+		for ($i = 0, $count = 1, $temp = array(); $i <= $length; $i++)
+		{
+			$ordinal = ord($str[$i]);
+
+			if ($ordinal < 128)
+			{
+				/*
+					If the $temp array has a value but we have moved on, then it seems only
+					fair that we output that entity and restart $temp before continuing. -Paul
+				*/
+				if (count($temp) === 1)
+				{
+					$out .= '&#'.array_shift($temp).';';
+					$count = 1;
+				}
+
+				$out .= $str[$i];
+			}
+			else
+			{
+				if (count($temp) === 0)
+				{
+					$count = ($ordinal < 224) ? 2 : 3;
+				}
+
+				$temp[] = $ordinal;
+
+				if (count($temp) === $count)
+				{
+					$number = ($count === 3)
+						? (($temp[0] % 16) * 4096) + (($temp[1] % 64) * 64) + ($temp[2] % 64)
+						: (($temp[0] % 32) * 64) + ($temp[1] % 64);
+
+					$out .= '&#'.$number.';';
+					$count = 1;
+					$temp = array();
+				}
+				// If this is the last iteration, just output whatever we have
+				elseif ($i === $length)
+				{
+					$out .= '&#'.implode(';', $temp).';';
+				}
+			}
+		}
+
+		return $out;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('entities_to_ascii'))
+{
+	/**
+	 * Entities to ASCII
+	 *
+	 * Converts character entities back to ASCII
+	 *
+	 * @param	string
+	 * @param	bool
+	 * @return	string
+	 */
+	function entities_to_ascii($str, $all = TRUE)
+	{
+		if (preg_match_all('/\\&#(\\d+)\\;/', $str, $matches))
+		{
+			for ($i = 0, $s = count($matches[0]); $i < $s; $i++)
+			{
+				$digits = $matches[1][$i];
+				$out = '';
+
+				if ($digits < 128)
+				{
+					$out .= chr($digits);
+
+				}
+				elseif ($digits < 2048)
+				{
+					$out .= chr(192 + (($digits - ($digits % 64)) / 64)).chr(128 + ($digits % 64));
+				}
+				else
+				{
+					$out .= chr(224 + (($digits - ($digits % 4096)) / 4096))
+						.chr(128 + ((($digits % 4096) - ($digits % 64)) / 64))
+						.chr(128 + ($digits % 64));
+				}
+
+				$str = str_replace($matches[0][$i], $out, $str);
+			}
+		}
+
+		if ($all)
+		{
+			return str_replace(
+				array('&amp;', '&lt;', '&gt;', '&quot;', '&apos;', '&#45;'),
+				array('&', '<', '>', '\"', \"'\", '-'),
+				$str
+			);
+		}
+
+		return $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('word_censor'))
+{
+	/**
+	 * Word Censoring Function
+	 *
+	 * Supply a string and an array of disallowed words and any
+	 * matched words will be converted to #### or to the replacement
+	 * word you've submitted.
+	 *
+	 * @param	string	the text string
+	 * @param	string	the array of censored words
+	 * @param	string	the optional replacement value
+	 * @return	string
+	 */
+	function word_censor($str, $censored, $replacement = '')
+	{
+		if ( ! is_array($censored))
+		{
+			return $str;
+		}
+
+		$str = ' '.$str.' ';
+
+		// \\w, \\b and a few others do not match on a unicode character
+		// set for performance reasons. As a result words like über
+		// will not match on a word boundary. Instead, we'll assume that
+		// a bad word will be bookeneded by any of these characters.
+		$delim = '[-_\\'\\\"`(){}<>\\[\\]|!?@#%&,.:;^~*+=\\/ 0-9\\n\\r\\t]';
+
+		foreach ($censored as $badword)
+		{
+			$badword = str_replace('\\*', '\\w*?', preg_quote($badword, '/'));
+			if ($replacement !== '')
+			{
+				$str = preg_replace(
+					\"/({$delim})(\".$badword.\")({$delim})/i\",
+					\"\\\\1{$replacement}\\\\3\",
+					$str
+				);
+			}
+			elseif (preg_match_all(\"/{$delim}(\".$badword.\"){$delim}/i\", $str, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE))
+			{
+				$matches = $matches[1];
+				for ($i = count($matches) - 1; $i >= 0; $i--)
+				{
+					$length = strlen($matches[$i][0]);
+					$str = substr_replace(
+						$str,
+						str_repeat('#', $length),
+						$matches[$i][1],
+						$length
+					);
+				}
+			}
+		}
+
+		return trim($str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('highlight_code'))
+{
+	/**
+	 * Code Highlighter
+	 *
+	 * Colorizes code strings
+	 *
+	 * @param	string	the text string
+	 * @return	string
+	 */
+	function highlight_code($str)
+	{
+		/* The highlight string function encodes and highlights
+		 * brackets so we need them to start raw.
+		 *
+		 * Also replace any existing PHP tags to temporary markers
+		 * so they don't accidentally break the string out of PHP,
+		 * and thus, thwart the highlighting.
+		 */
+		$str = str_replace(
+			array('&lt;', '&gt;', '<?', '?>', '<%', '%>', '\\\\', '</script>'),
+			array('<', '>', 'phptagopen', 'phptagclose', 'asptagopen', 'asptagclose', 'backslashtmp', 'scriptclose'),
+			$str
+		);
+
+		// The highlight_string function requires that the text be surrounded
+		// by PHP tags, which we will remove later
+		$str = highlight_string('<?php '.$str.' ?>', TRUE);
+
+		// Remove our artificially added PHP, and the syntax highlighting that came with it
+		$str = preg_replace(
+			array(
+				'/<span style=\"color: #([A-Z0-9]+)\">&lt;\\?php(&nbsp;| )/i',
+				'/(<span style=\"color: #[A-Z0-9]+\">.*?)\\?&gt;<\\/span>\\n<\\/span>\\n<\\/code>/is',
+				'/<span style=\"color: #[A-Z0-9]+\"\\><\\/span>/i'
+			),
+			array(
+				'<span style=\"color: #$1\">',
+				\"$1</span>\\n</span>\\n</code>\",
+				''
+			),
+			$str
+		);
+
+		// Replace our markers back to PHP tags.
+		return str_replace(
+			array('phptagopen', 'phptagclose', 'asptagopen', 'asptagclose', 'backslashtmp', 'scriptclose'),
+			array('&lt;?', '?&gt;', '&lt;%', '%&gt;', '\\\\', '&lt;/script&gt;'),
+			$str
+		);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('highlight_phrase'))
+{
+	/**
+	 * Phrase Highlighter
+	 *
+	 * Highlights a phrase within a text string
+	 *
+	 * @param	string	$str		the text string
+	 * @param	string	$phrase		the phrase you'd like to highlight
+	 * @param	string	$tag_open	the openging tag to precede the phrase with
+	 * @param	string	$tag_close	the closing tag to end the phrase with
+	 * @return	string
+	 */
+	function highlight_phrase($str, $phrase, $tag_open = '<mark>', $tag_close = '</mark>')
+	{
+		return ($str !== '' && $phrase !== '')
+			? preg_replace('/('.preg_quote($phrase, '/').')/i'.(UTF8_ENABLED ? 'u' : ''), $tag_open.'\\\\1'.$tag_close, $str)
+			: $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('convert_accented_characters'))
+{
+	/**
+	 * Convert Accented Foreign Characters to ASCII
+	 *
+	 * @param	string	$str	Input string
+	 * @return	string
+	 */
+	function convert_accented_characters($str)
+	{
+		static $array_from, $array_to;
+
+		if ( ! is_array($array_from))
+		{
+			if (file_exists(APPPATH.'config/foreign_chars.php'))
+			{
+				include(APPPATH.'config/foreign_chars.php');
+			}
+
+			if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php'))
+			{
+				include(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php');
+			}
+
+			if (empty($foreign_characters) OR ! is_array($foreign_characters))
+			{
+				$array_from = array();
+				$array_to = array();
+
+				return $str;
+			}
+
+			$array_from = array_keys($foreign_characters);
+			$array_to = array_values($foreign_characters);
+		}
+
+		return preg_replace($array_from, $array_to, $str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('word_wrap'))
+{
+	/**
+	 * Word Wrap
+	 *
+	 * Wraps text at the specified character. Maintains the integrity of words.
+	 * Anything placed between {unwrap}{/unwrap} will not be word wrapped, nor
+	 * will URLs.
+	 *
+	 * @param	string	$str		the text string
+	 * @param	int	$charlim = 76	the number of characters to wrap at
+	 * @return	string
+	 */
+	function word_wrap($str, $charlim = 76)
+	{
+		// Set the character limit
+		is_numeric($charlim) OR $charlim = 76;
+
+		// Reduce multiple spaces
+		$str = preg_replace('| +|', ' ', $str);
+
+		// Standardize newlines
+		if (strpos($str, \"\\r\") !== FALSE)
+		{
+			$str = str_replace(array(\"\\r\\n\", \"\\r\"), \"\\n\", $str);
+		}
+
+		// If the current word is surrounded by {unwrap} tags we'll
+		// strip the entire chunk and replace it with a marker.
+		$unwrap = array();
+		if (preg_match_all('|\\{unwrap\\}(.+?)\\{/unwrap\\}|s', $str, $matches))
+		{
+			for ($i = 0, $c = count($matches[0]); $i < $c; $i++)
+			{
+				$unwrap[] = $matches[1][$i];
+				$str = str_replace($matches[0][$i], '{{unwrapped'.$i.'}}', $str);
+			}
+		}
+
+		// Use PHP's native function to do the initial wordwrap.
+		// We set the cut flag to FALSE so that any individual words that are
+		// too long get left alone. In the next step we'll deal with them.
+		$str = wordwrap($str, $charlim, \"\\n\", FALSE);
+
+		// Split the string into individual lines of text and cycle through them
+		$output = '';
+		foreach (explode(\"\\n\", $str) as $line)
+		{
+			// Is the line within the allowed character count?
+			// If so we'll join it to the output and continue
+			if (mb_strlen($line) <= $charlim)
+			{
+				$output .= $line.\"\\n\";
+				continue;
+			}
+
+			$temp = '';
+			while (mb_strlen($line) > $charlim)
+			{
+				// If the over-length word is a URL we won't wrap it
+				if (preg_match('!\\[url.+\\]|://|www\\.!', $line))
+				{
+					break;
+				}
+
+				// Trim the word down
+				$temp .= mb_substr($line, 0, $charlim - 1);
+				$line = mb_substr($line, $charlim - 1);
+			}
+
+			// If $temp contains data it means we had to split up an over-length
+			// word into smaller chunks so we'll add it back to our current line
+			if ($temp !== '')
+			{
+				$output .= $temp.\"\\n\".$line.\"\\n\";
+			}
+			else
+			{
+				$output .= $line.\"\\n\";
+			}
+		}
+
+		// Put our markers back
+		if (count($unwrap) > 0)
+		{
+			foreach ($unwrap as $key => $val)
+			{
+				$output = str_replace('{{unwrapped'.$key.'}}', $val, $output);
+			}
+		}
+
+		return $output;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('ellipsize'))
+{
+	/**
+	 * Ellipsize String
+	 *
+	 * This function will strip tags from a string, split it at its max_length and ellipsize
+	 *
+	 * @param	string	string to ellipsize
+	 * @param	int	max length of string
+	 * @param	mixed	int (1|0) or float, .5, .2, etc for position to split
+	 * @param	string	ellipsis ; Default '...'
+	 * @return	string	ellipsized string
+	 */
+	function ellipsize($str, $max_length, $position = 1, $ellipsis = '&hellip;')
+	{
+		// Strip tags
+		$str = trim(strip_tags($str));
+
+		// Is the string long enough to ellipsize?
+		if (mb_strlen($str) <= $max_length)
+		{
+			return $str;
+		}
+
+		$beg = mb_substr($str, 0, floor($max_length * $position));
+		$position = ($position > 1) ? 1 : $position;
+
+		if ($position === 1)
+		{
+			$end = mb_substr($str, 0, -($max_length - mb_strlen($beg)));
+		}
+		else
+		{
+			$end = mb_substr($str, -($max_length - mb_strlen($beg)));
+		}
+
+		return $beg.$ellipsis.$end;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 153986 "typography_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter Typography Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/typography_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('nl2br_except_pre'))
+{
+	/**
+	 * Convert newlines to HTML line breaks except within PRE tags
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	function nl2br_except_pre($str)
+	{
+		$CI =& get_instance();
+		$CI->load->library('typography');
+		return $CI->typography->nl2br_except_pre($str);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('auto_typography'))
+{
+	/**
+	 * Auto Typography Wrapper Function
+	 *
+	 * @param	string	$str
+	 * @param	bool	$reduce_linebreaks = FALSE	whether to reduce multiple instances of double newlines to two
+	 * @return	string
+	 */
+	function auto_typography($str, $reduce_linebreaks = FALSE)
+	{
+		$CI =& get_instance();
+		$CI->load->library('typography');
+		return $CI->typography->auto_typography($str, $reduce_linebreaks);
+	}
+}
+
+// --------------------------------------------------------------------
+
+if ( ! function_exists('entity_decode'))
+{
+	/**
+	 * HTML Entities Decode
+	 *
+	 * This function is a replacement for html_entity_decode()
+	 *
+	 * @param	string
+	 * @param	string
+	 * @return	string
+	 */
+	function entity_decode($str, $charset = NULL)
+	{
+		return get_instance()->security->entity_decode($str, $charset);
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 154114 "url_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter URL Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/url_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('site_url'))
+{
+	/**
+	 * Site URL
+	 *
+	 * Create a local URL based on your basepath. Segments can be passed via the
+	 * first parameter either as a string or an array.
+	 *
+	 * @param	string	$uri
+	 * @param	string	$protocol
+	 * @return	string
+	 */
+	function site_url($uri = '', $protocol = NULL)
+	{
+		return get_instance()->config->site_url($uri, $protocol);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('base_url'))
+{
+	/**
+	 * Base URL
+	 *
+	 * Create a local URL based on your basepath.
+	 * Segments can be passed in as a string or an array, same as site_url
+	 * or a URL to a file can be passed in, e.g. to an image file.
+	 *
+	 * @param	string	$uri
+	 * @param	string	$protocol
+	 * @return	string
+	 */
+	function base_url($uri = '', $protocol = NULL)
+	{
+		return get_instance()->config->base_url($uri, $protocol);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('current_url'))
+{
+	/**
+	 * Current URL
+	 *
+	 * Returns the full URL (including segments) of the page where this
+	 * function is placed
+	 *
+	 * @return	string
+	 */
+	function current_url()
+	{
+		$CI =& get_instance();
+		return $CI->config->site_url($CI->uri->uri_string());
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('uri_string'))
+{
+	/**
+	 * URL String
+	 *
+	 * Returns the URI segments.
+	 *
+	 * @return	string
+	 */
+	function uri_string()
+	{
+		return get_instance()->uri->uri_string();
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('index_page'))
+{
+	/**
+	 * Index page
+	 *
+	 * Returns the \"index_page\" from your config file
+	 *
+	 * @return	string
+	 */
+	function index_page()
+	{
+		return get_instance()->config->item('index_page');
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('anchor'))
+{
+	/**
+	 * Anchor Link
+	 *
+	 * Creates an anchor based on the local URL.
+	 *
+	 * @param	string	the URL
+	 * @param	string	the link title
+	 * @param	mixed	any attributes
+	 * @return	string
+	 */
+	function anchor($uri = '', $title = '', $attributes = '')
+	{
+		$title = (string) $title;
+
+		$site_url = is_array($uri)
+			? site_url($uri)
+			: (preg_match('#^(\\w+:)?//#i', $uri) ? $uri : site_url($uri));
+
+		if ($title === '')
+		{
+			$title = $site_url;
+		}
+
+		if ($attributes !== '')
+		{
+			$attributes = _stringify_attributes($attributes);
+		}
+
+		return '<a href=\"'.$site_url.'\"'.$attributes.'>'.$title.'</a>';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('anchor_popup'))
+{
+	/**
+	 * Anchor Link - Pop-up version
+	 *
+	 * Creates an anchor based on the local URL. The link
+	 * opens a new window based on the attributes specified.
+	 *
+	 * @param	string	the URL
+	 * @param	string	the link title
+	 * @param	mixed	any attributes
+	 * @return	string
+	 */
+	function anchor_popup($uri = '', $title = '', $attributes = FALSE)
+	{
+		$title = (string) $title;
+		$site_url = preg_match('#^(\\w+:)?//#i', $uri) ? $uri : site_url($uri);
+
+		if ($title === '')
+		{
+			$title = $site_url;
+		}
+
+		if ($attributes === FALSE)
+		{
+			return '<a href=\"'.$site_url.'\" onclick=\"window.open(\\''.$site_url.\"', '_blank'); return false;\\\">\".$title.'</a>';
+		}
+
+		if ( ! is_array($attributes))
+		{
+			$attributes = array($attributes);
+
+			// Ref: http://www.w3schools.com/jsref/met_win_open.asp
+			$window_name = '_blank';
+		}
+		elseif ( ! empty($attributes['window_name']))
+		{
+			$window_name = $attributes['window_name'];
+			unset($attributes['window_name']);
+		}
+		else
+		{
+			$window_name = '_blank';
+		}
+
+		foreach (array('width' => '800', 'height' => '600', 'scrollbars' => 'yes', 'menubar' => 'no', 'status' => 'yes', 'resizable' => 'yes', 'screenx' => '0', 'screeny' => '0') as $key => $val)
+		{
+			$atts[$key] = isset($attributes[$key]) ? $attributes[$key] : $val;
+			unset($attributes[$key]);
+		}
+
+		$attributes = _stringify_attributes($attributes);
+
+		return '<a href=\"'.$site_url
+			.'\" onclick=\"window.open(\\''.$site_url.\"', '\".$window_name.\"', '\"._stringify_attributes($atts, TRUE).\"'); return false;\\\"\"
+			.$attributes.'>'.$title.'</a>';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('mailto'))
+{
+	/**
+	 * Mailto Link
+	 *
+	 * @param	string	the email address
+	 * @param	string	the link title
+	 * @param	mixed	any attributes
+	 * @return	string
+	 */
+	function mailto($email, $title = '', $attributes = '')
+	{
+		$title = (string) $title;
+
+		if ($title === '')
+		{
+			$title = $email;
+		}
+
+		return '<a href=\"mailto:'.$email.'\"'._stringify_attributes($attributes).'>'.$title.'</a>';
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('safe_mailto'))
+{
+	/**
+	 * Encoded Mailto Link
+	 *
+	 * Create a spam-protected mailto link written in Javascript
+	 *
+	 * @param	string	the email address
+	 * @param	string	the link title
+	 * @param	mixed	any attributes
+	 * @return	string
+	 */
+	function safe_mailto($email, $title = '', $attributes = '')
+	{
+		$title = (string) $title;
+
+		if ($title === '')
+		{
+			$title = $email;
+		}
+
+		$x = str_split('<a href=\"mailto:', 1);
+
+		for ($i = 0, $l = strlen($email); $i < $l; $i++)
+		{
+			$x[] = '|'.ord($email[$i]);
+		}
+
+		$x[] = '\"';
+
+		if ($attributes !== '')
+		{
+			if (is_array($attributes))
+			{
+				foreach ($attributes as $key => $val)
+				{
+					$x[] = ' '.$key.'=\"';
+					for ($i = 0, $l = strlen($val); $i < $l; $i++)
+					{
+						$x[] = '|'.ord($val[$i]);
+					}
+					$x[] = '\"';
+				}
+			}
+			else
+			{
+				for ($i = 0, $l = strlen($attributes); $i < $l; $i++)
+				{
+					$x[] = $attributes[$i];
+				}
+			}
+		}
+
+		$x[] = '>';
+
+		$temp = array();
+		for ($i = 0, $l = strlen($title); $i < $l; $i++)
+		{
+			$ordinal = ord($title[$i]);
+
+			if ($ordinal < 128)
+			{
+				$x[] = '|'.$ordinal;
+			}
+			else
+			{
+				if (count($temp) === 0)
+				{
+					$count = ($ordinal < 224) ? 2 : 3;
+				}
+
+				$temp[] = $ordinal;
+				if (count($temp) === $count)
+				{
+					$number = ($count === 3)
+							? (($temp[0] % 16) * 4096) + (($temp[1] % 64) * 64) + ($temp[2] % 64)
+							: (($temp[0] % 32) * 64) + ($temp[1] % 64);
+					$x[] = '|'.$number;
+					$count = 1;
+					$temp = array();
+				}
+			}
+		}
+
+		$x[] = '<'; $x[] = '/'; $x[] = 'a'; $x[] = '>';
+
+		$x = array_reverse($x);
+
+		$output = \"<script type=\\\"text/javascript\\\">\\n\"
+			.\"\\t//<![CDATA[\\n\"
+			.\"\\tvar l=new Array();\\n\";
+
+		for ($i = 0, $c = count($x); $i < $c; $i++)
+		{
+			$output .= \"\\tl[\".$i.\"] = '\".$x[$i].\"';\\n\";
+		}
+
+		$output .= \"\\n\\tfor (var i = l.length-1; i >= 0; i=i-1) {\\n\"
+			.\"\\t\\tif (l[i].substring(0, 1) === '|') document.write(\\\"&#\\\"+unescape(l[i].substring(1))+\\\";\\\");\\n\"
+			.\"\\t\\telse document.write(unescape(l[i]));\\n\"
+			.\"\\t}\\n\"
+			.\"\\t//]]>\\n\"
+			.'</script>';
+
+		return $output;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('auto_link'))
+{
+	/**
+	 * Auto-linker
+	 *
+	 * Automatically links URL and Email addresses.
+	 * Note: There's a bit of extra code here to deal with
+	 * URLs or emails that end in a period. We'll strip these
+	 * off and add them after the link.
+	 *
+	 * @param	string	the string
+	 * @param	string	the type: email, url, or both
+	 * @param	bool	whether to create pop-up links
+	 * @return	string
+	 */
+	function auto_link($str, $type = 'both', $popup = FALSE)
+	{
+		// Find and replace any URLs.
+		if ($type !== 'email' && preg_match_all('#(\\w*://|www\\.)[a-z0-9]+(-+[a-z0-9]+)*(\\.[a-z0-9]+(-+[a-z0-9]+)*)+(/([^\\s()<>;]+\\w)?/?)?#i', $str, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER))
+		{
+			// Set our target HTML if using popup links.
+			$target = ($popup) ? ' target=\"_blank\" rel=\"noopener\"' : '';
+
+			// We process the links in reverse order (last -> first) so that
+			// the returned string offsets from preg_match_all() are not
+			// moved as we add more HTML.
+			foreach (array_reverse($matches) as $match)
+			{
+				// $match[0] is the matched string/link
+				// $match[1] is either a protocol prefix or 'www.'
+				//
+				// With PREG_OFFSET_CAPTURE, both of the above is an array,
+				// where the actual value is held in [0] and its offset at the [1] index.
+				$a = '<a href=\"'.(strpos($match[1][0], '/') ? '' : 'http://').$match[0][0].'\"'.$target.'>'.$match[0][0].'</a>';
+				$str = substr_replace($str, $a, $match[0][1], strlen($match[0][0]));
+			}
+		}
+
+		// Find and replace any emails.
+		if ($type !== 'url' && preg_match_all('#([\\w\\.\\-\\+]+@[a-z0-9\\-]+\\.[a-z0-9\\-\\.]+[^[:punct:]\\s])#i', $str, $matches, PREG_OFFSET_CAPTURE))
+		{
+			foreach (array_reverse($matches[0]) as $match)
+			{
+				if (filter_var($match[0], FILTER_VALIDATE_EMAIL) !== FALSE)
+				{
+					$str = substr_replace($str, safe_mailto($match[0]), $match[1], strlen($match[0]));
+				}
+			}
+		}
+
+		return $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('prep_url'))
+{
+	/**
+	 * Prep URL
+	 *
+	 * Simply adds the http:// part if no scheme is included
+	 *
+	 * @param	string	the URL
+	 * @return	string
+	 */
+	function prep_url($str = '')
+	{
+		if ($str === 'http://' OR $str === '')
+		{
+			return '';
+		}
+
+		$url = parse_url($str);
+
+		if ( ! $url OR ! isset($url['scheme']))
+		{
+			return 'http://'.$str;
+		}
+
+		return $str;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('url_title'))
+{
+	/**
+	 * Create URL Title
+	 *
+	 * Takes a \"title\" string as input and creates a
+	 * human-friendly URL string with a \"separator\" string
+	 * as the word separator.
+	 *
+	 * @todo	Remove old 'dash' and 'underscore' usage in 3.1+.
+	 * @param	string	$str		Input string
+	 * @param	string	$separator	Word separator
+	 *			(usually '-' or '_')
+	 * @param	bool	$lowercase	Whether to transform the output string to lowercase
+	 * @return	string
+	 */
+	function url_title($str, $separator = '-', $lowercase = FALSE)
+	{
+		if ($separator === 'dash')
+		{
+			$separator = '-';
+		}
+		elseif ($separator === 'underscore')
+		{
+			$separator = '_';
+		}
+
+		$q_separator = preg_quote($separator, '#');
+
+		$trans = array(
+			'&.+?;'			=> '',
+			'[^\\w\\d _-]'		=> '',
+			'\\s+'			=> $separator,
+			'('.$q_separator.')+'	=> $separator
+		);
+
+		$str = strip_tags($str);
+		foreach ($trans as $key => $val)
+		{
+			$str = preg_replace('#'.$key.'#i'.(UTF8_ENABLED ? 'u' : ''), $val, $str);
+		}
+
+		if ($lowercase === TRUE)
+		{
+			$str = strtolower($str);
+		}
+
+		return trim(trim($str, $separator));
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('redirect'))
+{
+	/**
+	 * Header Redirect
+	 *
+	 * Header redirect in two flavors
+	 * For very fine grained control over headers, you could use the Output
+	 * Library's set_header() function.
+	 *
+	 * @param	string	$uri	URL
+	 * @param	string	$method	Redirect method
+	 *			'auto', 'location' or 'refresh'
+	 * @param	int	$code	HTTP Response status code
+	 * @return	void
+	 */
+	function redirect($uri = '', $method = 'auto', $code = NULL)
+	{
+		if ( ! preg_match('#^(\\w+:)?//#i', $uri))
+		{
+			$uri = site_url($uri);
+		}
+
+		// IIS environment likely? Use 'refresh' for better compatibility
+		if ($method === 'auto' && isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== FALSE)
+		{
+			$method = 'refresh';
+		}
+		elseif ($method !== 'refresh' && (empty($code) OR ! is_numeric($code)))
+		{
+			if (isset($_SERVER['SERVER_PROTOCOL'], $_SERVER['REQUEST_METHOD']) && $_SERVER['SERVER_PROTOCOL'] === 'HTTP/1.1')
+			{
+				$code = ($_SERVER['REQUEST_METHOD'] !== 'GET')
+					? 303	// reference: http://en.wikipedia.org/wiki/Post/Redirect/Get
+					: 307;
+			}
+			else
+			{
+				$code = 302;
+			}
+		}
+
+		switch ($method)
+		{
+			case 'refresh':
+				header('Refresh:0;url='.$uri);
+				break;
+			default:
+				header('Location: '.$uri, TRUE, $code);
+				break;
+		}
+		exit;
+	}
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 154242 "xml_helper"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * CodeIgniter XML Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		EllisLab Dev Team
+ * @link		https://codeigniter.com/user_guide/helpers/xml_helper.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('xml_convert'))
+{
+	/**
+	 * Convert Reserved XML characters to Entities
+	 *
+	 * @param	string
+	 * @param	bool
+	 * @return	string
+	 */
+	function xml_convert($str, $protect_all = FALSE)
+	{
+		$temp = '__TEMP_AMPERSANDS__';
+
+		// Replace entities to temporary markers so that
+		// ampersands won't get messed up
+		$str = preg_replace('/&#(\\d+);/', $temp.'\\\\1;', $str);
+
+		if ($protect_all === TRUE)
+		{
+			$str = preg_replace('/&(\\w+);/', $temp.'\\\\1;', $str);
+		}
+
+		$str = str_replace(
+			array('&', '<', '>', '\"', \"'\", '-'),
+			array('&amp;', '&lt;', '&gt;', '&quot;', '&apos;', '&#45;'),
+			$str
+		);
+
+		// Decode the temp markers back to entities
+		$str = preg_replace('/'.$temp.'(\\d+);/', '&#\\\\1;', $str);
+
+		if ($protect_all === TRUE)
+		{
+			return preg_replace('/'.$temp.'(\\w+);/', '&\\\\1;', $str);
+		}
+
+		return $str;
+	}
+}
+"
+      associated_elems
+      end
+    end
+  end
+end

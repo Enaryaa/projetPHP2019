@@ -1,0 +1,4 @@
+class CI_DB_odbc_utility
+!!!599554.php!!!	_backup(in params : array = array()) : mixed
+		// Currently unsupported
+		return $this->db->display_error('db_unsupported_feature');

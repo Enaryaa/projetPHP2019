@@ -1,0 +1,49 @@
+format 221
+"WIM2.1" // application::Test::01Programmation::WIM::WIM2.1
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/"
+  package_ref 141698 // gcontacts
+
+  package_ref 151682 // securite
+
+  package_ref 151938 // tp1
+
+  package_ref 153090 // tp2
+
+  package_ref 153730 // tp2bis
+
+  package_ref 154242 // tp3
+
+  package_ref 154498 // tp4
+
+  package_ref 155010 // tp5
+end

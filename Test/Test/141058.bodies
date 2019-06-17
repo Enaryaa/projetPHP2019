@@ -1,0 +1,56 @@
+class User_model
+!!!231554.php!!!	__construct()
+		$this->load->database();
+       	$this->load->library('session');
+!!!231810.php!!!	get_user()
+		$query = $this->db->get('user');
+		return $query->result_array();
+!!!232066.php!!!	create_user()
+		$this->load->helper('url');
+		$data = [
+			'email' => $this->input->post('email'),
+			'pseudo' => $this->input->post('pseudo'),
+			'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT)
+		];
+
+		return $this->db->insert('user', $data);
+!!!232194.php!!!	update_password()
+		$this->load->helper('url');
+		$user = $this->session->userdata('user_session');
+		$password = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
+		$sql = "UPDATE user SET password = ? WHERE email = ?";
+
+		return $this->db->query($sql, array($password, $user['email']));
+!!!232450.php!!!	get_user_by_email(in email : )
+		$sql = "SELECT * FROM user WHERE email = ?";
+		$query = $this->db->query($sql, $email);
+
+		return $query->row_array();
+!!!232706.php!!!	delete_user()
+		$user = $this->session->userdata('user_session');
+		$sql = "DELETE from user WHERE email = ?";
+		return $this->db->query($sql, $user['email']);
+!!!232962.php!!!	set_session_user()
+		$this->load->helper('url');
+
+		$email = $this->input->post('email');
+
+		$result = $this->get_user_by_email($email);
+
+		if (isset($result)) {
+			$this->session->set_userdata('user_session', $result);
+		}
+!!!233218.php!!!	connect()
+		$this->load->helper('url');
+
+		$data = [
+			'email' => $this->input->post('email'),
+			'password' => $this->input->post('password')
+		];
+
+		$result = $this->get_user_by_email($data['email']);
+		if (isset($result)) {
+			return password_verify($data['password'], $result['password']);
+		}
+
+		return false;

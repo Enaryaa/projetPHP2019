@@ -1,0 +1,31 @@
+window_sizes 1299 713 207 1086 596 64
+cleanlooks_style
+diagrams
+  active  classdiagram_ref 128002 // Test
+    1086 596 100 A4 0 0
+end
+show_stereotypes
+selected 
+  package_ref 133378 // reponse
+open
+  classview_ref 143746 // Coucou
+  class_ref 139266 // Formulaire
+  class_ref 139778 // Reponse
+  class_ref 139906 // User
+  class_ref 140162 // Formulaire_model
+  class_ref 140546 // Participant_model
+  class_ref 140674 // Reponse_model
+  class_ref 141058 // User_model
+  deploymentview_ref 131714 // views
+  
+  package_ref 132738 // cli
+  
+  package_ref 132866 // html
+  deploymentview_ref 132226 // formulaire
+  
+  package_ref 133250 // template
+  deploymentview_ref 132482 // reponse
+  artifact_ref 151426 // connexion
+  classview_ref 137730 // core
+end
+end

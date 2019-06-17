@@ -1,0 +1,4 @@
+class CI_DB_sqlite3_utility
+!!!235906.php!!!	_backup(in params : array = array()) : mixed
+		// Not supported
+		return $this->db->display_error('db_unsupported_feature');

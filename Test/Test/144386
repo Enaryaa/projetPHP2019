@@ -1,0 +1,57 @@
+format 221
+"drivers" // application::Test::01Programmation::PROJETS::PROJETPHP::system::database::drivers
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/PROJETS/PROJETPHP/system/database/drivers/"
+  package_ref 144514 // cubrid
+
+  package_ref 144770 // ibase
+
+  package_ref 144898 // mssql
+
+  package_ref 145026 // mysql
+
+  package_ref 145154 // mysqli
+
+  package_ref 145282 // oci8
+
+  package_ref 145410 // odbc
+
+  package_ref 145538 // pdo
+
+  package_ref 146050 // postgre
+
+  package_ref 146178 // sqlite
+
+  package_ref 146306 // sqlite3
+
+  package_ref 146434 // sqlsrv
+end

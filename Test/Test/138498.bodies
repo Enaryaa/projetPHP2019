@@ -1,0 +1,36 @@
+class CI_DB_pdo_sqlite_forge
+!!!216322.php!!!	__construct(inout db : object) : void
+		parent::__construct($db);
+
+		if (version_compare($this->db->version(), '3.3', '<'))
+		{
+			$this->_create_table_if = FALSE;
+			$this->_drop_table_if   = FALSE;
+		}
+!!!216450.php!!!	create_database(in db_name : string) : bool
+		// In SQLite, a database is created when you connect to the database.
+		// We'll return TRUE so that an error isn't generated
+		return TRUE;
+!!!216578.php!!!	drop_database(in db_name : string) : bool
+		// In SQLite, a database is dropped when we delete a file
+		if (file_exists($this->db->database))
+		{
+			// We need to close the pseudo-connection first
+			$this->db->close();
+			if ( ! @unlink($this->db->database))
+			{
+				return $this->db->db_debug ? $this->db->display_error('db_unable_to_drop') : FALSE;
+			}
+			elseif ( ! empty($this->db->data_cache['db_names']))
+			{
+				$key = array_search(strtolower($this->db->database), array_map('strtolower', $this->db->data_cache['db_names']), TRUE);
+				if ($key !== FALSE)
+				{
+					unset($this->db->data_cache['db_names'][$key]);
+				}
+			}
+
+			return TRUE;
+		}
+
+		return $this->db->db_debug ? $this->db->display_error('db_unable_to_drop') : FALSE;

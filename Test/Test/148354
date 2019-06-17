@@ -1,0 +1,191 @@
+format 221
+"models" // application::Test::01Programmation::WIM::WIM2.1::gcontacts::application::models
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/gcontacts/application/models/"
+  deploymentview 145026 "models"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 196994 "Model_contact"
+      stereotype "source"
+      php_src "<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 174210 // Model_contact
+      end
+    end
+  end
+
+  classview 141442 "models"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 174210 "Model_contact"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 162306 // <generalisation>
+	relation 162306 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 162306 // <generalisation>
+	  b parent class_ref 154114 // CI_Model
+      end
+
+      operation 524290 "__construct"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 524418 "set_contact"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "contact" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 524546 "get_contact_page"
+	public explicit_return_type ""
+	nparams 2
+	  param in name "page" explicit_type ""
+	  param in name "total" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 524674 "get_contact"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type ""
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 524802 "create_contact"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "data" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 524930 "delete_contact"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 525058 "check_email"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "email" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+    end
+  end
+end

@@ -1,0 +1,47 @@
+class CI_Cache
+!!!498178.php!!!	__construct(in config : array = array()) : void
+		isset($config['adapter']) && $this->_adapter = $config['adapter'];
+		isset($config['backup']) && $this->_backup_driver = $config['backup'];
+		isset($config['key_prefix']) && $this->key_prefix = $config['key_prefix'];
+
+		// If the specified adapter isn't available, check the backup.
+		if ( ! $this->is_supported($this->_adapter))
+		{
+			if ( ! $this->is_supported($this->_backup_driver))
+			{
+				// Backup isn't supported either. Default to 'Dummy' driver.
+				log_message('error', 'Cache adapter "'.$this->_adapter.'" and backup "'.$this->_backup_driver.'" are both unavailable. Cache is now using "Dummy" adapter.');
+				$this->_adapter = 'dummy';
+			}
+			else
+			{
+				// Backup is supported. Set it to primary.
+				log_message('debug', 'Cache adapter "'.$this->_adapter.'" is unavailable. Falling back to "'.$this->_backup_driver.'" backup adapter.');
+				$this->_adapter = $this->_backup_driver;
+			}
+		}
+!!!498306.php!!!	get(in id : string) : mixed
+		return $this->{$this->_adapter}->get($this->key_prefix.$id);
+!!!498434.php!!!	save(in id : string, in data : mixed, in ttl : int = 60, in raw : bool = FALSE) : bool
+		return $this->{$this->_adapter}->save($this->key_prefix.$id, $data, $ttl, $raw);
+!!!498562.php!!!	delete(in id : string) : bool
+		return $this->{$this->_adapter}->delete($this->key_prefix.$id);
+!!!498690.php!!!	increment(in id : string, in offset : int = 1) : mixed
+		return $this->{$this->_adapter}->increment($this->key_prefix.$id, $offset);
+!!!498818.php!!!	decrement(in id : string, in offset : int = 1) : mixed
+		return $this->{$this->_adapter}->decrement($this->key_prefix.$id, $offset);
+!!!498946.php!!!	clean() : bool
+		return $this->{$this->_adapter}->clean();
+!!!499074.php!!!	cache_info(in type : string = 'user') : mixed
+		return $this->{$this->_adapter}->cache_info($type);
+!!!499202.php!!!	get_metadata(in id : string) : mixed
+		return $this->{$this->_adapter}->get_metadata($this->key_prefix.$id);
+!!!499330.php!!!	is_supported(in driver : string) : array
+		static $support;
+
+		if ( ! isset($support, $support[$driver]))
+		{
+			$support[$driver] = $this->{$driver}->is_supported();
+		}
+
+		return $support[$driver];

@@ -1,0 +1,43 @@
+format 221
+"tp1" // application::Test::01Programmation::WIM::WIM2.1::tp1
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/tp1/"
+  package_ref 152066 // ex1
+
+  package_ref 152194 // ex2
+
+  package_ref 152322 // ex3
+
+  package_ref 152578 // ex4
+
+  package_ref 152834 // ex5
+end

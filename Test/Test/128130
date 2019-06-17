@@ -1,0 +1,41 @@
+format 221
+"application" // PROJETPHP::application
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "/home/lechartier/01Programmation/PROJETS/PROJETPHP/application/"
+  package_ref 128258 // config
+
+  package_ref 128386 // controllers
+
+  package_ref 128770 // models
+
+  package_ref 128898 // views
+end

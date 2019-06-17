@@ -1,0 +1,53 @@
+format 221
+"ex5" // application::Test::01Programmation::WIM::WIM2.1::tp2::ex5
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/tp2/ex5/"
+  deploymentview 150402 "ex5"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 223362 "conjuguer"
+      stereotype "source"
+      php_src "<?php
+$terminaisons = array(
+\"present\" => array(\"e\",\"es\",\"e\",\"ons\",\"ez\",\"ent\"),
+\"futur\" => array(\"erai\",\"eras\",\"era\",\"erons\",\"erez\",\"eront\"),
+\"imparfait\" => array(\"ais\",\"ais\",\"ait\",\"ions\",\"iez\",\"aient\")
+);
+$pronoms=array(\"je\",\"tu\",\"il\",\"nous\",\"vous\",\"ils\");
+if (isset($_POST['verbe'])) $verbe = $_POST['verbe'];
+?>"
+      associated_elems
+      end
+    end
+  end
+end

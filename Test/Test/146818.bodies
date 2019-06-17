@@ -1,0 +1,42 @@
+class CI_Session_driver
+!!!319234.php!!!	__construct(inout params : array) : void
+		$this->_config =& $params;
+
+		if (is_php('7'))
+		{
+			$this->_success = TRUE;
+			$this->_failure = FALSE;
+		}
+		else
+		{
+			$this->_success = 0;
+			$this->_failure = -1;
+		}
+!!!319362.php!!!	php5_validate_id() : void
+		if (isset($_COOKIE[$this->_config['cookie_name']]) && ! $this->validateSessionId($_COOKIE[$this->_config['cookie_name']]))
+		{
+			unset($_COOKIE[$this->_config['cookie_name']]);
+		}
+!!!319490.php!!!	_cookie_destroy() : bool
+		return setcookie(
+			$this->_config['cookie_name'],
+			NULL,
+			1,
+			$this->_config['cookie_path'],
+			$this->_config['cookie_domain'],
+			$this->_config['cookie_secure'],
+			TRUE
+		);
+!!!319618.php!!!	_get_lock(in session_id : string) : bool
+		$this->_lock = TRUE;
+		return TRUE;
+!!!319746.php!!!	_release_lock() : bool
+		if ($this->_lock)
+		{
+			$this->_lock = FALSE;
+		}
+
+		return TRUE;
+!!!319874.php!!!	_fail() : mixed
+		ini_set('session.save_path', config_item('sess_save_path'));
+		return $this->_failure;

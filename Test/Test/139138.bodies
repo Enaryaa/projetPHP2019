@@ -1,0 +1,38 @@
+class CI_DB_postgre_result
+!!!221442.php!!!	num_rows() : int
+		return is_int($this->num_rows)
+			? $this->num_rows
+			: $this->num_rows = pg_num_rows($this->result_id);
+!!!221570.php!!!	num_fields() : int
+		return pg_num_fields($this->result_id);
+!!!221698.php!!!	list_fields() : array
+		$field_names = array();
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		{
+			$field_names[] = pg_field_name($this->result_id, $i);
+		}
+
+		return $field_names;
+!!!221826.php!!!	field_data() : array
+		$retval = array();
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		{
+			$retval[$i]			= new stdClass();
+			$retval[$i]->name		= pg_field_name($this->result_id, $i);
+			$retval[$i]->type		= pg_field_type($this->result_id, $i);
+			$retval[$i]->max_length		= pg_field_size($this->result_id, $i);
+		}
+
+		return $retval;
+!!!221954.php!!!	free_result() : void
+		if (is_resource($this->result_id))
+		{
+			pg_free_result($this->result_id);
+			$this->result_id = FALSE;
+		}
+!!!222082.php!!!	data_seek(in n : int = 0) : bool
+		return pg_result_seek($this->result_id, $n);
+!!!222210.php!!!	_fetch_assoc() : array
+		return pg_fetch_assoc($this->result_id);
+!!!222338.php!!!	_fetch_object(in class_name : string = 'stdClass') : object
+		return pg_fetch_object($this->result_id, NULL, $class_name);

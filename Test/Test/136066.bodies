@@ -1,0 +1,55 @@
+class CI_DB_pdo_cubrid_driver
+!!!204162.php!!!	__construct(in params : array) : void
+		parent::__construct($params);
+
+		if (empty($this->dsn))
+		{
+			$this->dsn = 'cubrid:host='.(empty($this->hostname) ? '127.0.0.1' : $this->hostname);
+
+			empty($this->port) OR $this->dsn .= ';port='.$this->port;
+			empty($this->database) OR $this->dsn .= ';dbname='.$this->database;
+			empty($this->char_set) OR $this->dsn .= ';charset='.$this->char_set;
+		}
+!!!204290.php!!!	_list_tables(in prefix_limit : bool = FALSE) : string
+		$sql = 'SHOW TABLES';
+
+		if ($prefix_limit === TRUE && $this->dbprefix !== '')
+		{
+			return $sql." LIKE '".$this->escape_like_str($this->dbprefix)."%'";
+		}
+
+		return $sql;
+!!!204418.php!!!	_list_columns(in table : string = '') : string
+		return 'SHOW COLUMNS FROM '.$this->protect_identifiers($table, TRUE, NULL, FALSE);
+!!!204546.php!!!	field_data(in table : string) : array
+		if (($query = $this->query('SHOW COLUMNS FROM '.$this->protect_identifiers($table, TRUE, NULL, FALSE))) === FALSE)
+		{
+			return FALSE;
+		}
+		$query = $query->result_object();
+
+		$retval = array();
+		for ($i = 0, $c = count($query); $i < $c; $i++)
+		{
+			$retval[$i]			= new stdClass();
+			$retval[$i]->name		= $query[$i]->Field;
+
+			sscanf($query[$i]->Type, '%[a-z](%d)',
+				$retval[$i]->type,
+				$retval[$i]->max_length
+			);
+
+			$retval[$i]->default		= $query[$i]->Default;
+			$retval[$i]->primary_key	= (int) ($query[$i]->Key === 'PRI');
+		}
+
+		return $retval;
+!!!204674.php!!!	_truncate(in table : string) : string
+		return 'TRUNCATE '.$table;
+!!!204802.php!!!	_from_tables() : string
+		if ( ! empty($this->qb_join) && count($this->qb_from) > 1)
+		{
+			return '('.implode(', ', $this->qb_from).')';
+		}
+
+		return implode(', ', $this->qb_from);

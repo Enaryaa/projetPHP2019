@@ -1,0 +1,73 @@
+format 221
+"ex4" // application::Test::01Programmation::WIM::WIM2.1::tp1::ex4
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "01Programmation/WIM/WIM2.1/tp1/ex4/"
+  deploymentview 149506 "ex4"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 222466 "index"
+      stereotype "source"
+      php_src "<?php
+include './include/favoris.inc.php';
+?>
+<!DOCTYPE html>
+<html lang=\"fr\">
+	<head>
+		<meta charset=\"UTF-8\">
+		<title>tp1 - ex4</title>
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-utils/concise-utils.min.css\">
+		<link rel=\"stylesheet\" href=\"http://www.iut-fbleau.fr/css/concise-ui/concise-ui.min.css\">
+		<link rel=\"stylesheet\" href=\"./css/style.css\">
+	</head>
+	<body container>
+		<h2 class=\"_bb1  _c-base-primary\">
+			Exercice 4 : Favoris 
+		</h2>
+
+			<?php
+				foreach ($favoris as $rubrique => $tableau)
+				{
+					foreach ($tableau as $sites)
+					{
+						echo \"<p> coucou </p>\";
+					}
+				}
+			?>"
+      associated_elems
+      end
+    end
+  end
+
+  package_ref 152706 // include
+end

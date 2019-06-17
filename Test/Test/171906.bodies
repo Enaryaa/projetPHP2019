@@ -1,0 +1,19 @@
+class CI_Cache_dummy
+!!!500738.php!!!	get(in id : string) : bool
+		return FALSE;
+!!!500866.php!!!	save(in id : string, in data : mixed, in ttl : int = 60, in raw : bool = FALSE) : bool
+		return TRUE;
+!!!500994.php!!!	delete(in id : mixed) : bool
+		return TRUE;
+!!!501122.php!!!	increment(in id : string, in offset : int = 1) : mixed
+		return TRUE;
+!!!501250.php!!!	decrement(in id : string, in offset : int = 1) : mixed
+		return TRUE;
+!!!501378.php!!!	clean() : bool
+		return TRUE;
+!!!501506.php!!!	cache_info(in type : string = NULL) : bool
+		 return FALSE;
+!!!501634.php!!!	get_metadata(in id : mixed) : bool
+		return FALSE;
+!!!501762.php!!!	is_supported() : bool
+		return TRUE;

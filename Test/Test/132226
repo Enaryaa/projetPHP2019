@@ -1,0 +1,596 @@
+format 221
+"models" // application::models
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "/home/lechartier/01Programmation/PROJETS/PROJETPHP/application/models/"
+  deploymentview 131458 "models"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 147202 "Formulaire_model"
+      stereotype "source"
+      php_src "<?php
+${definition}
+
+"
+      associated_elems
+	class_ref 140162 // Formulaire_model
+      end
+    end
+
+    artifact 147458 "Participant_model"
+      stereotype "source"
+      php_src "<?php
+${definition}
+
+"
+      associated_elems
+	class_ref 140546 // Participant_model
+      end
+    end
+
+    artifact 147586 "Reponse_model"
+      stereotype "source"
+      php_src "<?php
+${definition}
+
+"
+      associated_elems
+	class_ref 140674 // Reponse_model
+      end
+    end
+
+    artifact 147970 "User_model"
+      stereotype "source"
+      php_src "<?php
+${definition}
+
+"
+      associated_elems
+	class_ref 141058 // User_model
+      end
+    end
+  end
+
+  classview 130178 "models"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 140162 "Formulaire_model"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 148610 // <generalisation>
+	relation 148610 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 148610 // <generalisation>
+	  b parent class_ref 154114 // CI_Model
+      end
+
+      operation 227842 "__construct"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 228098 "create_form"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 228226 "modifier_active"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 228354 "get_form"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "key" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 228482 "get_total_form"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "key" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 228610 "get_forms_by_user"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "user_id" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 228738 "random_key"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "length" explicit_type ""
+	    defaultvalue "20"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 228866 "add_reponse"
+	public explicit_return_type ""
+	nparams 3
+	  param in name "responses" explicit_type ""
+	  param in name "questions" explicit_type ""
+	  param in name "form" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 228994 "add_question"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "form" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 229122 "get_question_by_form_id"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 229250 "get_reponse_by_form_id"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      classrelation 174722 // <association>
+	relation_ref 174594 // <association>
+      end
+    end
+
+    class 140546 "Participant_model"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 148738 // <generalisation>
+	relation 148738 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 148738 // <generalisation>
+	  b parent class_ref 154114 // CI_Model
+      end
+
+      operation 229762 "__construct"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 230146 "create_participant"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 230274 "getLastParticipant"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      classrelation 176386 // <association>
+	relation 175490 ----
+	  a role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 176386 // <association>
+	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 176514 // <association>
+      end
+
+      classrelation 176514 // <association>
+	relation_ref 175490 // <association>
+      end
+
+      classrelation 176642 // <association>
+	relation 175618 ----
+	  a role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 176642 // <association>
+	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 176770 // <association>
+      end
+
+      classrelation 177026 // <composition>
+	relation_ref 175746 // <composition>
+      end
+    end
+
+    class 140674 "Reponse_model"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 148866 // <generalisation>
+	relation 148866 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 148866 // <generalisation>
+	  b parent class_ref 154114 // CI_Model
+      end
+
+      operation 230658 "__construct"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 230914 "save_reponse"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 231042 "getStats"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 231170 "getDistinctParticipantByForm"
+	private explicit_return_type ""
+	nparams 1
+	  param in name "form_id" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 231298 "getReponseMultiForStat"
+	private explicit_return_type ""
+	nparams 1
+	  param in name "form_id" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      classrelation 176258 // <association>
+	relation_ref 175362 // <association>
+      end
+    end
+
+    class 141058 "User_model"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 148994 // <generalisation>
+	relation 148994 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 148994 // <generalisation>
+	  b parent class_ref 154114 // CI_Model
+      end
+
+      operation 231554 "__construct"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 231810 "get_user"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 232066 "create_user"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 232194 "update_password"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 232450 "get_user_by_email"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "email" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 232706 "delete_user"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 232962 "set_session_user"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 233218 "connect"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      classrelation 176002 // <association>
+	relation_ref 175234 // <association>
+      end
+    end
+  end
+end

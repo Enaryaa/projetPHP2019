@@ -1,0 +1,76 @@
+class CI_DB_sqlite_driver
+!!!426754.php!!!	db_connect(in persistent : bool = FALSE) : resource
+		$error = NULL;
+		$conn_id = ($persistent === TRUE)
+			? sqlite_popen($this->database, 0666, $error)
+			: sqlite_open($this->database, 0666, $error);
+
+		isset($error) && log_message('error', $error);
+
+		return $conn_id;
+!!!426882.php!!!	version() : string
+		return isset($this->data_cache['version'])
+			? $this->data_cache['version']
+			: $this->data_cache['version'] = sqlite_libversion();
+!!!427010.php!!!	_execute(in sql : string) : resource
+		return $this->is_write_type($sql)
+			? sqlite_exec($this->conn_id, $sql)
+			: sqlite_query($this->conn_id, $sql);
+!!!427138.php!!!	_trans_begin() : bool
+		return $this->simple_query('BEGIN TRANSACTION');
+!!!427266.php!!!	_trans_commit() : bool
+		return $this->simple_query('COMMIT');
+!!!427394.php!!!	_trans_rollback() : bool
+		return $this->simple_query('ROLLBACK');
+!!!427522.php!!!	_escape_str(in str : string) : string
+		return sqlite_escape_string($str);
+!!!427650.php!!!	affected_rows() : int
+		return sqlite_changes($this->conn_id);
+!!!427778.php!!!	insert_id() : int
+		return sqlite_last_insert_rowid($this->conn_id);
+!!!427906.php!!!	_list_tables(in prefix_limit : bool = FALSE) : string
+		$sql = "SELECT name FROM sqlite_master WHERE type='table'";
+
+		if ($prefix_limit !== FALSE && $this->dbprefix != '')
+		{
+			return $sql." AND 'name' LIKE '".$this->escape_like_str($this->dbprefix)."%' ".sprintf($this->_like_escape_str, $this->_like_escape_chr);
+		}
+
+		return $sql;
+!!!428034.php!!!	_list_columns(in table : string = '') : bool
+		// Not supported
+		return FALSE;
+!!!428162.php!!!	field_data(in table : string) : array
+		if (($query = $this->query('PRAGMA TABLE_INFO('.$this->protect_identifiers($table, TRUE, NULL, FALSE).')')) === FALSE)
+		{
+			return FALSE;
+		}
+
+		$query = $query->result_array();
+		if (empty($query))
+		{
+			return FALSE;
+		}
+
+		$retval = array();
+		for ($i = 0, $c = count($query); $i < $c; $i++)
+		{
+			$retval[$i]			= new stdClass();
+			$retval[$i]->name		= $query[$i]['name'];
+			$retval[$i]->type		= $query[$i]['type'];
+			$retval[$i]->max_length		= NULL;
+			$retval[$i]->default		= $query[$i]['dflt_value'];
+			$retval[$i]->primary_key	= isset($query[$i]['pk']) ? (int) $query[$i]['pk'] : 0;
+		}
+
+		return $retval;
+!!!428290.php!!!	error() : array
+		$error = array('code' => sqlite_last_error($this->conn_id));
+		$error['message'] = sqlite_error_string($error['code']);
+		return $error;
+!!!428418.php!!!	_replace(in table : string, in keys : array, in values : array) : string
+		return 'INSERT OR '.parent::_replace($table, $keys, $values);
+!!!428546.php!!!	_truncate(in table : string) : string
+		return 'DELETE FROM '.$table;
+!!!428674.php!!!	_close() : void
+		sqlite_close($this->conn_id);

@@ -1,0 +1,11 @@
+class Participant_model
+!!!229762.php!!!	__construct()
+		$this->load->database();
+!!!230146.php!!!	create_participant()
+		$sql = "INSERT INTO participant (id_participant) VALUES (NULL)";
+		return $this->db->query($sql);
+!!!230274.php!!!	getLastParticipant()
+		$sql = "SELECT * FROM participant ORDER BY id_participant DESC LIMIT 1";
+		$query = $this->db->query($sql);
+		$participant = $query->row_array();
+		return $participant['id_participant'];

@@ -1,0 +1,48 @@
+class CI_Cache_wincache
+!!!706306.php!!!	__construct() : void
+		if ( ! $this->is_supported())
+		{
+			log_message('error', 'Cache: Failed to initialize Wincache; extension not loaded/enabled?');
+		}
+!!!706434.php!!!	get(in id : string) : mixed
+		$success = FALSE;
+		$data = wincache_ucache_get($id, $success);
+
+		// Success returned by reference from wincache_ucache_get()
+		return ($success) ? $data : FALSE;
+!!!706562.php!!!	save(in id : string, in data : mixed, in ttl : int = 60, in raw : bool = FALSE) : bool
+		return wincache_ucache_set($id, $data, $ttl);
+!!!706690.php!!!	delete(in id : mixed) : bool
+		return wincache_ucache_delete($id);
+!!!706818.php!!!	increment(in id : string, in offset : int = 1) : mixed
+		$success = FALSE;
+		$value = wincache_ucache_inc($id, $offset, $success);
+
+		return ($success === TRUE) ? $value : FALSE;
+!!!706946.php!!!	decrement(in id : string, in offset : int = 1) : mixed
+		$success = FALSE;
+		$value = wincache_ucache_dec($id, $offset, $success);
+
+		return ($success === TRUE) ? $value : FALSE;
+!!!707074.php!!!	clean() : bool
+		return wincache_ucache_clear();
+!!!707202.php!!!	cache_info() : mixed
+		 return wincache_ucache_info(TRUE);
+!!!707330.php!!!	get_metadata(in id : mixed) : mixed
+		if ($stored = wincache_ucache_info(FALSE, $id))
+		{
+			$age = $stored['ucache_entries'][1]['age_seconds'];
+			$ttl = $stored['ucache_entries'][1]['ttl_seconds'];
+			$hitcount = $stored['ucache_entries'][1]['hitcount'];
+
+			return array(
+				'expire'	=> $ttl - $age,
+				'hitcount'	=> $hitcount,
+				'age'		=> $age,
+				'ttl'		=> $ttl
+			);
+		}
+
+		return FALSE;
+!!!707458.php!!!	is_supported() : bool
+		return (extension_loaded('wincache') && ini_get('wincache.ucenabled'));

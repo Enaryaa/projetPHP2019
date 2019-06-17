@@ -1,0 +1,138 @@
+class Formulaire_model
+!!!130946.php!!!	__construct() : void
+		$this->load->database();
+       	$this->load->library('session');
+!!!131074.php!!!	create_form() : void
+		$this->load->helper('url');
+		$this->load->helper('date');
+		$now = date('Y-m-d H:i:s');
+		$user = $this->session->userdata('user_session');
+		$data = [
+			'titre' => $this->input->post('titre'),
+			'description' => $this->input->post('description'),
+			'date' => $now,
+			'user_id' => $user['user_id'],
+			'form_key' => $this->random_key(20),
+			'active' => 1
+		];
+		$result = $this->db->insert('formulaire', $data);
+		if ($result) {
+			$form = $this->get_form($data['form_key']);
+			return $this->add_question($form); 
+		} else {
+			return false;
+		}
+!!!131202.php!!!	modifier_active() : void
+		$key = $this->input->get('cle');
+		$form = $this->get_form($key);
+		if (empty($form)) {
+			return;
+		}
+		if (intval($form['active'])) {
+			$form['active'] = 0;
+		}
+		else {
+			$form['active'] = 1;
+		}
+		
+		$sql = "UPDATE formulaire SET active = ? WHERE form_key = ?";
+		return $this->db->query($sql, array($form['active'], $form['form_key']));
+!!!131330.php!!!	get_form(in key : ) : void
+		$sql = "SELECT * FROM formulaire WHERE form_key = ?";
+		$query = $this->db->query($sql, $key);
+
+		return $query->row_array();
+!!!131458.php!!!	get_total_form(in key : ) : void
+		$form = $this->get_form($key);
+		if (!empty($form) && intval($form['active']) == 1) {
+			$question = $this->get_question_by_form_id($form['form_id']);
+			if (!empty($question)) {
+				$form['question'] = $question;
+			} else {
+				$form['question'] = []; 
+				// pour avoir quand meme la clé dans le tableau au cas ou
+			}
+			$reponse = $this->get_reponse_by_form_id($form['form_id']);
+			if (!empty($reponse)) {
+				$form['reponse'] = $reponse;
+			} else {
+				$form['reponse'] = [];
+				// pour avoir quand meme la clé dans le tableau au cas ou
+			}
+		} else {
+			return [];
+		}
+
+		return $form;
+!!!131586.php!!!	get_forms_by_user(in user_id : ) : void
+		$sql = "SELECT * FROM formulaire WHERE user_id = ?";
+		$query = $this->db->query($sql, $user_id);
+
+		return $query->result_array();
+!!!131714.php!!!	random_key(in length :  = 20) : void
+	    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $string = '';
+	    for($i=0; $i<$length; $i++){
+	        $string .= $chars[rand(0, strlen($chars)-1)];
+	    }
+	    return $string;
+!!!131842.php!!!	add_reponse(in responses : , in questions : , in form : ) : void
+		$repForInsert = [];
+		foreach ($responses as $key => $reponseGroup) {
+			foreach ($reponseGroup as $reponse) {
+				$repForInsert[] = [
+					'form_id' => $form['form_id'],
+					'quest_id' => $questions[$key]['quest_id'],
+					'text_reponse' => $reponse
+				];
+			}
+		}
+		return $this->db->insert_batch('reponse_possible', $repForInsert);
+!!!131970.php!!!	add_question(in form : ) : void
+		$this->load->helper('url');
+
+		$data = $this->input->post('question');
+		if (empty($data)) {
+			return true;
+		}
+		//pour créer un formulaire vide
+
+		$responses = [];
+
+		foreach ($data as $key => $question) {
+			$data[$key]['form_id'] = intval($form['form_id']);
+			if (isset($question['requis'])) {
+				$data[$key]['requis'] = 1;
+			} else {
+				$data[$key]['requis'] = 0;
+			}
+
+			if (isset($question['text_reponse'])) {
+				$responses[$key] = $question['text_reponse'];
+				unset($data[$key]['text_reponse']);
+			}
+
+		}
+
+		$result = $this->db->insert_batch('question',$data);
+		if ($result) {
+			$questions = $this->get_question_by_form_id($form['form_id']);
+			if (empty($responses)) {
+				return true;
+			}
+			return $this->add_reponse($responses, $questions, $form);			
+		} else {
+			return false;
+		}
+!!!132098.php!!!	get_question_by_form_id(in id : ) : void
+		$sql = "SELECT * FROM question WHERE form_id = ?";
+		$query = $this->db->query($sql, $id);
+
+		return json_decode(json_encode($query->result()), true); 
+		//ici on a un StrObject, c'est un hack pour le changer en array
+!!!132226.php!!!	get_reponse_by_form_id(in id : ) : void
+		$sql = "SELECT * FROM reponse_possible WHERE form_id = ?";
+		$query = $this->db->query($sql, $id);
+
+		return json_decode(json_encode($query->result()), true); 
+		//ici on a un StrObject, c'est un hack pour le changer en array

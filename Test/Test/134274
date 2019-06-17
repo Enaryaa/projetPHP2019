@@ -1,0 +1,1952 @@
+format 221
+"drivers" // PROJETPHP::system::libraries::Cache::drivers
+  revision 1
+  modified_by 2 "lechartier"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "/home/lechartier/01Programmation/PROJETS/PROJETPHP/system/libraries/Cache/drivers/"
+  deploymentview 133250 "drivers"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 159106 "Cache_apc"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 145794 // CI_Cache_apc
+      end
+    end
+
+    artifact 159234 "Cache_dummy"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 145922 // CI_Cache_dummy
+      end
+    end
+
+    artifact 159362 "Cache_file"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 146050 // CI_Cache_file
+      end
+    end
+
+    artifact 159490 "Cache_memcached"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 146178 // CI_Cache_memcached
+      end
+    end
+
+    artifact 159618 "Cache_redis"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 3.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 146306 // CI_Cache_redis
+      end
+    end
+
+    artifact 159746 "Cache_wincache"
+      stereotype "source"
+      php_src "<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 3.0.0
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+${definition}
+
+"
+      associated_elems
+	class_ref 146434 // CI_Cache_wincache
+      end
+    end
+  end
+
+  classview 130818 "drivers"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 145794 "CI_Cache_apc"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter APC Caching Class
+
+@package		CodeIgniter
+@subpackage	Libraries
+@category	Core
+@author		EllisLab Dev Team
+@link"
+      classrelation 139778 // <generalisation>
+	relation 139778 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 139778 // <generalisation>
+	  b parent class_ref 142466 // CI_Driver
+      end
+
+      operation 301698 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Class constructor
+
+Only present so that an error message is logged
+if APC is not available.
+
+@return	${type}"
+      end
+
+      operation 301826 "get"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get
+
+Look for a value in the cache. If it exists, return the data
+if not, return FALSE
+
+@param	${t0}
+@return	${type}	value that is stored/FALSE on failure"
+      end
+
+      operation 301954 "save"
+	public explicit_return_type "bool"
+	nparams 4
+	  param in name "id" explicit_type "string"
+	  param in name "data" explicit_type "mixed"
+	  param in name "ttl" explicit_type "int"
+	    defaultvalue "60"
+	  param in name "raw" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Save
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Data to store
+@param	${t2}	${p2}	Length of time (in seconds) to cache the data
+@param	${t3}	${p3}	Whether to store the raw value (unused)
+@return	${type}	TRUE on success, FALSE on failure"
+      end
+
+      operation 302082 "delete"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Delete from Cache
+
+@param	${t0}	unique identifier of the item in the cache
+@return	${type}	true on success/false on failure"
+      end
+
+      operation 302210 "increment"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Increment a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to add
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 302338 "decrement"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Decrement a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to reduce by
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 302466 "clean"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Clean the cache
+
+@return	${type}	false on failure/true on success"
+      end
+
+      operation 302594 "cache_info"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "type" explicit_type "string"
+	    defaultvalue "NULL"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Info
+
+@param	${t0}	user/filehits
+@return	${type}	array on success, false on failure"
+      end
+
+      operation 302722 "get_metadata"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get Cache Metadata
+
+@param	${t0}	key to get cache metadata on
+@return	${type}	array on success/false on failure"
+      end
+
+      operation 302850 "is_supported"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+is_supported()
+
+Check to see if APC is available on this system, bail if it isn't.
+
+@return	${type}"
+      end
+    end
+
+    class 145922 "CI_Cache_dummy"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter Dummy Caching Class
+
+@package		CodeIgniter
+@subpackage	Libraries
+@category	Core
+@author		EllisLab Dev Team
+@link"
+      classrelation 139906 // <generalisation>
+	relation 139906 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 139906 // <generalisation>
+	  b parent class_ref 142466 // CI_Driver
+      end
+
+      operation 302978 "get"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Get
+
+Since this is the dummy class, it's always going to return FALSE.
+
+@param	${t0}
+@return	${type}	FALSE"
+      end
+
+      operation 303106 "save"
+	public explicit_return_type "bool"
+	nparams 4
+	  param in name "id" explicit_type "string"
+	  param in name "data" explicit_type "mixed"
+	  param in name "ttl" explicit_type "int"
+	    defaultvalue "60"
+	  param in name "raw" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Save
+
+@param	${t0}	Unique Key
+@param	${t1}	Data to store
+@param	${t2}	Length of time (in seconds) to cache the data
+@param	${t3}	Whether to store the raw value
+@return	${type}	TRUE, Simulating success"
+      end
+
+      operation 303234 "delete"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Delete from Cache
+
+@param	${t0}	unique identifier of the item in the cache
+@return	${type}	TRUE, simulating success"
+      end
+
+      operation 303362 "increment"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Increment a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to add
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 303490 "decrement"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Decrement a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to reduce by
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 303618 "clean"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Clean the cache
+
+@return	${type}	TRUE, simulating success"
+      end
+
+      operation 303746 "cache_info"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "type" explicit_type "string"
+	    defaultvalue "NULL"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Info
+
+@param	${t0}	user/filehits
+@return	${type}	FALSE"
+      end
+
+      operation 303874 "get_metadata"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get Cache Metadata
+
+@param	${t0}	key to get cache metadata on
+@return	${type}	FALSE"
+      end
+
+      operation 304002 "is_supported"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Is this caching driver supported on the system?
+Of course this one is.
+
+@return	${type}	TRUE"
+      end
+    end
+
+    class 146050 "CI_Cache_file"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter File Caching Class
+
+@package		CodeIgniter
+@subpackage	Libraries
+@category	Core
+@author		EllisLab Dev Team
+@link"
+      classrelation 140034 // <generalisation>
+	relation 140034 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 140034 // <generalisation>
+	  b parent class_ref 142466 // CI_Driver
+      end
+
+      attribute 217090 "_cache_path"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Directory in which to save cache files
+
+@var ${type}"
+      end
+
+      operation 304130 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Initialize file-based cache
+
+@return	${type}"
+      end
+
+      operation 304258 "get"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Fetch from cache
+
+@param	${t0}	${p0}	Cache ID
+@return	${type}	Data on success, FALSE on failure"
+      end
+
+      operation 304386 "save"
+	public explicit_return_type "bool"
+	nparams 4
+	  param in name "id" explicit_type "string"
+	  param in name "data" explicit_type "mixed"
+	  param in name "ttl" explicit_type "int"
+	    defaultvalue "60"
+	  param in name "raw" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Save into cache
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Data to store
+@param	${t2}	${p2}	Time to live in seconds
+@param	${t3}	${p3}	Whether to store the raw value (unused)
+@return	${type}	TRUE on success, FALSE on failure"
+      end
+
+      operation 304514 "delete"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Delete from Cache
+
+@param	${t0}	unique identifier of item in cache
+@return	${type}	true on success/false on failure"
+      end
+
+      operation 304642 "increment"
+	public explicit_return_type "New"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Increment a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to add
+@return	${type} value on success, FALSE on failure"
+      end
+
+      operation 304770 "decrement"
+	public explicit_return_type "New"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Decrement a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to reduce by
+@return	${type} value on success, FALSE on failure"
+      end
+
+      operation 304898 "clean"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Clean the Cache
+
+@return	${type}	false on failure/true on success"
+      end
+
+      operation 305026 "cache_info"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "type" explicit_type "string"
+	    defaultvalue "NULL"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Info
+
+Not supported by file-based caching
+
+@param	${t0}	user/filehits
+@return	${type}	FALSE"
+      end
+
+      operation 305154 "get_metadata"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get Cache Metadata
+
+@param	${t0}	key to get cache metadata on
+@return	${type}	FALSE on failure, array on success."
+      end
+
+      operation 305282 "is_supported"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Is supported
+
+In the file driver, check to see that the cache directory is indeed writable
+
+@return	${type}"
+      end
+
+      operation 305410 "_get"
+	protected explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get all data
+
+Internal method to get all the relevant data about a cache item
+
+@param	${t0}	${p0}	Cache ID
+@return	${type}	Data array on success or FALSE on failure"
+      end
+    end
+
+    class 146178 "CI_Cache_memcached"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter Memcached Caching Class
+
+@package		CodeIgniter
+@subpackage	Libraries
+@category	Core
+@author		EllisLab Dev Team
+@link"
+      classrelation 140162 // <generalisation>
+	relation 140162 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 140162 // <generalisation>
+	  b parent class_ref 142466 // CI_Driver
+      end
+
+      attribute 217218 "_memcached"
+	protected explicit_type "object"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Holds the memcached object
+
+@var ${type}"
+      end
+
+      attribute 217346 "_config"
+	protected explicit_type "array"
+	init_value "  array(
+		'default' => array(
+			'host'		=> '127.0.0.1',
+			'port'		=> 11211,
+			'weight'	=> 1
+		)
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Memcached configuration
+
+@var ${type}"
+      end
+
+      operation 305538 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Class constructor
+
+Setup Memcache(d)
+
+@return	${type}"
+      end
+
+      operation 305666 "get"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Fetch from cache
+
+@param	${t0}	${p0}	Cache ID
+@return	${type}	Data on success, FALSE on failure"
+      end
+
+      operation 305794 "save"
+	public explicit_return_type "bool"
+	nparams 4
+	  param in name "id" explicit_type "string"
+	  param in name "data" explicit_type "mixed"
+	  param in name "ttl" explicit_type "int"
+	    defaultvalue "60"
+	  param in name "raw" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Save
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Data being cached
+@param	${t2}	${p2}	Time to live
+@param	${t3}	${p3}	Whether to store the raw value
+@return	${type}	TRUE on success, FALSE on failure"
+      end
+
+      operation 305922 "delete"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Delete from Cache
+
+@param	${t0}	${p0}	key to be deleted.
+@return	${type}	true on success, false on failure"
+      end
+
+      operation 306050 "increment"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Increment a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to add
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 306178 "decrement"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Decrement a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to reduce by
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 306306 "clean"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Clean the Cache
+
+@return	${type}	false on failure/true on success"
+      end
+
+      operation 306434 "cache_info"
+	public explicit_return_type "mixed"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Info
+
+@return	${type}	array on success, false on failure"
+      end
+
+      operation 306562 "get_metadata"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get Cache Metadata
+
+@param	${t0}	${p0}	key to get cache metadata on
+@return	${type}	FALSE on failure, array on success."
+      end
+
+      operation 306690 "is_supported"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Is supported
+
+Returns FALSE if memcached is not supported on the system.
+If it is, we setup the memcached object & return TRUE
+
+@return	${type}"
+      end
+
+      operation 306818 "__destruct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Class destructor
+
+Closes the connection to Memcache(d) if present.
+
+@return	${type}"
+      end
+    end
+
+    class 146306 "CI_Cache_redis"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter Redis Caching Class
+
+@package	   CodeIgniter
+@subpackage Libraries
+@category   Core
+@author	   Anton Lindqvist <anton@qvister.se>
+@link"
+      classrelation 140290 // <generalisation>
+	relation 140290 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 140290 // <generalisation>
+	  b parent class_ref 142466 // CI_Driver
+      end
+
+      attribute 217474 "_default_config"
+	class_attribute protected explicit_type "array"
+	init_value "  array(
+		'socket_type' => 'tcp',
+		'host' => '127.0.0.1',
+		'password' => NULL,
+		'port' => 6379,
+		'timeout' => 0
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Default config
+
+@static
+@var	${type}"
+      end
+
+      attribute 217602 "_redis"
+	protected explicit_type "Redis"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "Redis connection
+
+@var	${type}"
+      end
+
+      attribute 217730 "_serialized"
+	protected explicit_type "array"
+	init_value "  array()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "An internal cache for storing keys of serialized values.
+
+@var	${type}"
+      end
+
+      operation 306946 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Class constructor
+
+Setup Redis
+
+Loads Redis config file if present. Will halt execution
+if a Redis connection can't be established.
+
+@return	${type}
+@see		Redis::connect()"
+      end
+
+      operation 307074 "get"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "key" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get cache
+
+@param	${t0}	${p0}	Cache ID
+@return	${type}"
+      end
+
+      operation 307202 "save"
+	public explicit_return_type "bool"
+	nparams 4
+	  param in name "id" explicit_type "string"
+	  param in name "data" explicit_type "mixed"
+	  param in name "ttl" explicit_type "int"
+	    defaultvalue "60"
+	  param in name "raw" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Save cache
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Data to save
+@param	${t2}	${p2}	Time to live in seconds
+@param	${t3}	${p3}	Whether to store the raw value (unused)
+@return	${type}	TRUE on success, FALSE on failure"
+      end
+
+      operation 307330 "delete"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "key" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Delete from cache
+
+@param	${t0}	${p0}	Cache key
+@return	${type}"
+      end
+
+      operation 307458 "increment"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Increment a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to add
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 307586 "decrement"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Decrement a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to reduce by
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 307714 "clean"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Clean cache
+
+@return	${type}
+@see		Redis::flushDB()"
+      end
+
+      operation 307842 "cache_info"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "type" explicit_type "string"
+	    defaultvalue "NULL"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get cache driver info
+
+@param	${t0}	${p0}	Not supported in Redis.
+				Only included in order to offer a
+				consistent cache API.
+@return	${type}
+@see		Redis::info()"
+      end
+
+      operation 307970 "get_metadata"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "key" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get cache metadata
+
+@param	${t0}	${p0}	Cache key
+@return	${type}"
+      end
+
+      operation 308098 "is_supported"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Check if Redis driver is supported
+
+@return	${type}"
+      end
+
+      operation 308226 "__destruct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Class destructor
+
+Closes the connection to Redis if present.
+
+@return	${type}"
+      end
+    end
+
+    class 146434 "CI_Cache_wincache"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "CodeIgniter Wincache Caching Class
+
+Read more about Wincache functions here:
+http://www.php.net/manual/en/ref.wincache.php
+
+@package		CodeIgniter
+@subpackage	Libraries
+@category	Core
+@author		Mike Murkovic
+@link"
+      classrelation 140418 // <generalisation>
+	relation 140418 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 140418 // <generalisation>
+	  b parent class_ref 142466 // CI_Driver
+      end
+
+      operation 308354 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Class constructor
+
+Only present so that an error message is logged
+if APC is not available.
+
+@return	${type}"
+      end
+
+      operation 308482 "get"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get
+
+Look for a value in the cache. If it exists, return the data,
+if not, return FALSE
+
+@param	${t0}	${p0}	Cache Ide
+@return	${type}	Value that is stored/FALSE on failure"
+      end
+
+      operation 308610 "save"
+	public explicit_return_type "bool"
+	nparams 4
+	  param in name "id" explicit_type "string"
+	  param in name "data" explicit_type "mixed"
+	  param in name "ttl" explicit_type "int"
+	    defaultvalue "60"
+	  param in name "raw" explicit_type "bool"
+	    defaultvalue "FALSE"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Save
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Data to store
+@param	${t2}	${p2}	Time to live (in seconds)
+@param	${t3}	${p3}	Whether to store the raw value (unused)
+@return	${type}	true on success/false on failure"
+      end
+
+      operation 308738 "delete"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Delete from Cache
+
+@param	${t0}	unique identifier of the item in the cache
+@return	${type}	true on success/false on failure"
+      end
+
+      operation 308866 "increment"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Increment a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to add
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 308994 "decrement"
+	public explicit_return_type "mixed"
+	nparams 2
+	  param in name "id" explicit_type "string"
+	  param in name "offset" explicit_type "int"
+	    defaultvalue "1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Decrement a raw value
+
+@param	${t0}	${p0}	Cache ID
+@param	${t1}	${p1}	Step/value to reduce by
+@return	${type}	New value on success or FALSE on failure"
+      end
+
+      operation 309122 "clean"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Clean the cache
+
+@return	${type}	false on failure/true on success"
+      end
+
+      operation 309250 "cache_info"
+	public explicit_return_type "mixed"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Cache Info
+
+@return	${type}	array on success, false on failure"
+      end
+
+      operation 309378 "get_metadata"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "id" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+Get Cache Metadata
+
+@param	${t0}	key to get cache metadata on
+@return	${type}	array on success/false on failure"
+      end
+
+      operation 309506 "is_supported"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " ------------------------------------------------------------------------
+
+is_supported()
+
+Check to see if WinCache is available on this system, bail if it isn't.
+
+@return	${type}"
+      end
+    end
+  end
+end
